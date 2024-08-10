@@ -1,8 +1,15 @@
 'use server'
 
-export type SubscribeState =
-  | { email: string }
+type SubscribeState =
   | {
+      status: 'initial'
+    }
+  | {
+      status: 'success'
+      email: string
+    }
+  | {
+      status: 'error'
       error: string
     }
 
@@ -17,6 +24,7 @@ export async function subscribe(
 
   if (!emailRegex.test(email)) {
     return {
+      status: 'error',
       error: 'Wrong email format',
     }
   }
@@ -38,11 +46,13 @@ export async function subscribe(
 
     if (((await res.json()) as any)['subscription']?.['subscriber']?.['id']) {
       return {
+        status: 'success',
         email,
       }
     }
   } catch (error) {}
   return {
+    status: 'error',
     error: 'Something went wrong',
   }
 }

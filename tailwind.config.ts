@@ -15,6 +15,7 @@ const tailwindConfig = {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
+      inherit: 'inherit',
       gray: {
         '50': twGray['950'],
         '100': twGray['900'],
@@ -28,6 +29,7 @@ const tailwindConfig = {
         '900': twGray['100'],
         '950': twGray['50'],
       },
+      error: colors.red[500],
     },
     fontFamily: {
       sans: ['var(--font-switzer)', ...fontFamily.sans],
