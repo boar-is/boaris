@@ -1,7 +1,7 @@
-import { Toaster } from "sonner";
+import { Toaster } from 'sonner'
 
 export function ToastProvider() {
-	return <Toaster theme="dark" />;
+  return <Toaster theme="dark" />
 }
 
-export { LocalizedStringProvider } from "react-aria-components/i18n";
+export { LocalizedStringProvider } from 'react-aria-components/i18n'
