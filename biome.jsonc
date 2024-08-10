@@ -1,11 +1,42 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "formatter": { "indentStyle": "space" },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "asNeeded"
+    }
+  },
   "linter": {
     "rules": {
       "complexity": {
         // @see https://github.com/biomejs/biome/issues/2416
         "useLiteralKeys": "off"
-      }
+      },
+      "style": {
+        "noNegationElse": "error",
+        "noShoutyConstants": "error",
+        "useBlockStatements": "error",
+        "useCollapsedElseIf": "error",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": {
+            "syntax": "generic"
+          }
+        },
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            "filenameCases": ["kebab-case"]
+          }
+        },
+        "useForOf": "error",
+        "useFragmentSyntax": "error",
+        "noParameterAssign": "off",
+        "useShorthandAssign": "error",
+        "useSingleCaseStatement": "error"
+      },
+      "nursery": { "useSortedClasses": "error" }
     }
   }
 }
