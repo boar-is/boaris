@@ -13,7 +13,12 @@ import { cs } from '~/lib/cs'
 
 export function Navbar() {
   return (
-    <nav className={layerStyles}>
+    <nav
+      className={cs(
+        layerStyles,
+        'bg-gray-50/50 backdrop-blur-md backdrop-saturate-150',
+      )}
+    >
       <ul className="flex min-h-14 items-stretch justify-between gap-2 p-2.5 text-sm md:gap-4 md:text-md">
         <li>
           <Link
@@ -62,7 +67,7 @@ export function Navbar() {
                     >
                       Like the format?
                     </Heading>
-                    <CloseDialogButton className="rounded-sm text-gray-700">
+                    <CloseDialogButton className="rounded-sm text-gray-500">
                       <span className="sr-only">Close</span>
                       <CloseIcon className="size-6 md:size-8" />
                     </CloseDialogButton>
@@ -139,7 +144,7 @@ export function Navbar() {
               <Menu
                 className={cs(
                   layerStyles,
-                  'flex min-w-40 flex-col gap-1.5 p-2.5 font-semibold text-gray-950 text-lg',
+                  'flex min-w-40 flex-col gap-1.5 bg-gray-50 p-2.5 font-semibold text-gray-950 text-lg',
                 )}
               >
                 <MenuItem href="/blog" className={mobileMenuItemStyles}>
@@ -157,9 +162,7 @@ export function Navbar() {
   )
 }
 
-const layerStyles = cs(
-  'bg-gray-50/50 backdrop-blur-md backdrop-saturate-150  border border-gray-200 rounded-2xl',
-)
+const layerStyles = cs('border border-gray-200 rounded-2xl')
 
 const navItemBaseStyles = cs(
   'flex justify-center items-center rounded-lg h-full px-3 md:px-4',
