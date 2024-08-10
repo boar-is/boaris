@@ -2,9 +2,9 @@ import type { Config } from 'tailwindcss'
 import tailwindAnimate from 'tailwindcss-animate'
 import tailwindRac from 'tailwindcss-react-aria-components'
 import colors from 'tailwindcss/colors'
-import { fontFamily } from 'tailwindcss/defaultTheme'
+import { fontFamily, spacing } from 'tailwindcss/defaultTheme'
 
-const twGray = colors.gray
+const twGray = colors.zinc
 
 const tailwindConfig = {
   content: [
@@ -30,6 +30,13 @@ const tailwindConfig = {
         '950': twGray['50'],
       },
       error: colors.red[500],
+    },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: spacing['3'],
+        md: spacing['4'],
+      },
     },
     fontFamily: {
       sans: ['var(--font-switzer)', ...fontFamily.sans],

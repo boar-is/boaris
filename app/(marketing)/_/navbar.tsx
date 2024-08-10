@@ -21,11 +21,11 @@ export function Navbar() {
             prefetch={false}
             className={cs(
               navItemBaseStyles,
-              'flex select-none items-center gap-1 px-2 text-lg tracking-tighter md:gap-1.5 md:text-lg',
+              'flex select-none items-center gap-1 px-2 text-lg tracking-tight md:gap-1.5 md:text-lg',
             )}
           >
             <BrandIcon className="size-[1em]" />
-            boar.is
+            Boar.is
           </Link>
         </li>
         <li className="ml-auto hidden md:block">
@@ -44,17 +44,17 @@ export function Navbar() {
               type="button"
               className={cs(
                 navItemBaseStyles,
-                'bg-gray-950 font-semibold text-gray-50',
+                'bg-gray-950 font-semibold text-gray-50 md:ml-4',
               )}
             >
               Subscribe
             </Button>
             <ModalOverlay
               isDismissable
-              className="entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-gray-50/75 px-4 backdrop-blur-sm backdrop-saturate-150"
+              className="entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-gray-50/25 px-4 backdrop-blur-sm backdrop-saturate-150"
             >
               <Modal className="exiting:fade-out-0 entering:fade-in-0 exiting:zoom-out-95 entering:zoom-in-95 max-w-md entering:animate-in exiting:animate-out md:max-w-lg">
-                <Dialog className="flex flex-col items-stretch gap-5 rounded-xl border border-gray-400 bg-gray-100 p-4 leading-relaxed md:p-6 md:text-lg">
+                <Dialog className="flex flex-col items-stretch gap-5 rounded-xl border border-gray-300 bg-gray-100 p-4 leading-relaxed md:rounded-2xl md:p-6 md:text-lg">
                   <header className="flex justify-between">
                     <Heading
                       slot="title"
@@ -98,14 +98,14 @@ export function Navbar() {
                         </Label>
                         <Input
                           placeholder="person@cool-domain.com"
-                          className="rounded-lg border border-gray-500 bg-gray-50 px-3 py-1 text-gray-950 text-lg placeholder-gray-700 transition-colors focus:border-gray-800 md:text-xl"
+                          className="rounded-lg border border-gray-400 bg-gray-50 px-3 py-1 text-gray-950 text-lg placeholder-gray-300 transition-colors focus:border-gray-600 md:rounded-xl md:px-4 md:py-2 md:text-xl"
                         />
                         <FieldError className="text-error text-sm" />
                       </TextField>
                       <PendingFormDisabledButtonProvider>
                         <Button
                           type="submit"
-                          className="block rounded-lg bg-gray-950 p-2 font-semibold text-gray-50 transition-opacity disabled:opacity-80"
+                          className="block rounded-lg bg-gray-950 p-2 font-semibold text-gray-50 transition-opacity disabled:opacity-80 md:rounded-xl"
                         >
                           Subscribe
                         </Button>
@@ -123,23 +123,23 @@ export function Navbar() {
               type="button"
               className={cs(
                 navItemBaseStyles,
-                'group relative size-5 px-1.5 text-gray-950',
+                'group relative px-1.5 text-gray-950',
               )}
             >
               <span className="sr-only">Menu</span>
-              <MenuIcon className="rotate-0 scale-100 transition-transform group-aria-expanded:rotate-90 group-aria-expanded:scale-0" />
-              <CloseIcon className="absolute rotate-90 scale-0 transition-transform group-aria-expanded:rotate-0 group-aria-expanded:scale-100" />
+              <MenuIcon className="size-5 rotate-0 scale-100 transition-transform group-aria-expanded:rotate-90 group-aria-expanded:scale-0" />
+              <CloseIcon className="-rotate-90 absolute size-5 scale-0 transition-transform group-aria-expanded:rotate-0 group-aria-expanded:scale-100" />
             </Button>
             <Popover
               placement="bottom end"
-              offset={18}
-              crossOffset={12}
+              offset={20}
+              crossOffset={8}
               className="entering:fade-in exiting:fade-out entering:animate-in exiting:animate-out"
             >
               <Menu
                 className={cs(
                   layerStyles,
-                  'flex min-w-40 flex-col gap-1.5 p-2.5 font-semibold text-lg',
+                  'flex min-w-40 flex-col gap-1.5 p-2.5 font-semibold text-gray-950 text-lg',
                 )}
               >
                 <MenuItem href="/blog" className={mobileMenuItemStyles}>
@@ -158,7 +158,7 @@ export function Navbar() {
 }
 
 const layerStyles = cs(
-  'bg-gray-50/75 backdrop-blur-md backdrop-saturate-150 rounded-2xl border border-gray-400 text-gray-950',
+  'bg-gray-50/50 backdrop-blur-md backdrop-saturate-150  border border-gray-200 rounded-2xl',
 )
 
 const navItemBaseStyles = cs(

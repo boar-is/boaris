@@ -9,7 +9,7 @@
   }
 
   *, *::before, *::after {
-    @apply border-gray-400 outline-gray-700
+    @apply border-gray-300 outline-gray-300
   }
 
   :focus-visible {
@@ -17,6 +17,6 @@
   }
 
   .focus-visible :focus-visible {
-    @apply outline-2 outline-inherit outline-offset-4
+    @apply outline-2 outline-inherit outline-offset-2
   }
 }
