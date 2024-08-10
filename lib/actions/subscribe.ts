@@ -22,12 +22,21 @@ export async function subscribe(
   }
 
   try {
-    const res = await fetch('', {
-      method: 'POST',
-    })
-    const json: any = await res.json()
+    const res = await fetch(
+      `https://api.convertkit.com/v3/forms/${process.env['CONVERTKIT_API_FORM_ID']}/subscribe`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify({
+          api_key: process.env['CONVERTKIT_API_KEY'],
+          email,
+        }),
+      },
+    )
 
-    if (json['subscription']?.['subscriber']?.['id']) {
+    if (((await res.json()) as any)['subscription']?.['subscriber']?.['id']) {
       return {
         email,
       }
