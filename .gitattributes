@@ -1,0 +1,11 @@
+* text eol=lf
+
+# ===
+# Binary Files (don't diff, don't fix line endings)
+# ===
+
+# Images
+*.png binary
+
+# Fonts
+*.ttf binary
