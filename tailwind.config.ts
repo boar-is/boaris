@@ -1,10 +1,22 @@
 import type { Config } from 'tailwindcss'
 import tailwindAnimate from 'tailwindcss-animate'
 import tailwindRac from 'tailwindcss-react-aria-components'
-import colors from 'tailwindcss/colors'
 import { fontFamily, spacing } from 'tailwindcss/defaultTheme'
 
-const twGray = colors.zinc
+const radixGray = {
+  1: '#111111',
+  2: '#191919',
+  3: '#222222',
+  4: '#2A2A2A',
+  5: '#313131',
+  6: '#3A3A3A',
+  7: '#484848',
+  8: '#606060',
+  9: '#6E6E6E',
+  10: '#7B7B7B',
+  11: '#B4B4B4',
+  12: '#EEEEEE',
+} as const
 
 const tailwindConfig = {
   content: [
@@ -16,20 +28,8 @@ const tailwindConfig = {
       transparent: 'transparent',
       current: 'currentColor',
       inherit: 'inherit',
-      gray: {
-        '50': twGray['950'],
-        '100': twGray['900'],
-        '200': twGray['800'],
-        '300': twGray['700'],
-        '400': twGray['600'],
-        '500': twGray['500'],
-        '600': twGray['400'],
-        '700': twGray['300'],
-        '800': twGray['200'],
-        '900': twGray['100'],
-        '950': twGray['50'],
-      },
-      error: colors.red[500],
+      gray: radixGray,
+      error: '#E5484D',
     },
     container: {
       center: true,

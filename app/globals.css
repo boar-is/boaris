@@ -5,11 +5,11 @@
 @layer base {
   html {
     color-scheme: dark;
-    scrollbar-color: theme('colors.gray.600') theme('colors.transparent');
+    scrollbar-color: theme('colors.gray.8') theme('colors.transparent');
   }
 
   *, *::before, *::after {
-    @apply border-gray-300 outline-gray-300
+    @apply border-gray-4 outline-gray-8
   }
 
   :focus-visible {

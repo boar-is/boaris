@@ -16,17 +16,17 @@ export function Navbar() {
     <nav
       className={cs(
         layerStyles,
-        'bg-gray-50/50 backdrop-blur-md backdrop-saturate-150',
+        'bg-gray-1/75 backdrop-blur-md backdrop-saturate-150',
       )}
     >
-      <ul className="flex min-h-14 items-stretch justify-between gap-2 p-2.5 text-sm md:gap-4 md:text-md">
+      <ul className="flex min-h-14 items-stretch justify-between gap-2 p-2.5 text-sm md:gap-4 md:text-lg">
         <li>
           <Link
             href="/"
             prefetch={false}
             className={cs(
               navItemBaseStyles,
-              'flex select-none items-center gap-1 px-2 text-lg tracking-tight md:gap-1.5 md:text-lg',
+              'flex select-none items-center gap-1 px-2 text-gray-12 text-lg tracking-tight md:gap-1.5 md:text-2xl',
             )}
           >
             <BrandIcon className="size-[1em]" />
@@ -49,7 +49,7 @@ export function Navbar() {
               type="button"
               className={cs(
                 navItemBaseStyles,
-                'bg-gray-950 font-semibold text-gray-50 md:ml-4',
+                'bg-gray-12 font-semibold text-gray-1 transition-colors hover:bg-gray-11 md:ml-4',
               )}
             >
               Subscribe
@@ -59,15 +59,15 @@ export function Navbar() {
               className="entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-gray-50/25 px-4 backdrop-blur-sm backdrop-saturate-150"
             >
               <Modal className="exiting:fade-out-0 entering:fade-in-0 exiting:zoom-out-95 entering:zoom-in-95 max-w-md entering:animate-in exiting:animate-out md:max-w-lg">
-                <Dialog className="flex flex-col items-stretch gap-5 rounded-xl border border-gray-300 bg-gray-100 p-4 leading-relaxed md:rounded-2xl md:p-6 md:text-lg">
+                <Dialog className="flex flex-col items-stretch gap-5 rounded-xl border border-gray-4 bg-gray-2 p-4 leading-relaxed md:rounded-2xl md:p-6 md:text-lg">
                   <header className="flex justify-between">
                     <Heading
                       slot="title"
-                      className="font-semibold text-2xl text-gray-950 md:text-3xl"
+                      className="font-semibold text-2xl text-gray-12 md:text-3xl"
                     >
                       Like the format?
                     </Heading>
-                    <CloseDialogButton className="rounded-sm text-gray-500">
+                    <CloseDialogButton className="rounded-sm text-gray-7">
                       <span className="sr-only">Close</span>
                       <CloseIcon className="size-6 md:size-8" />
                     </CloseDialogButton>
@@ -98,19 +98,19 @@ export function Navbar() {
                         autoFocus
                         className="flex w-full flex-col gap-1"
                       >
-                        <Label className="text-gray-800 text-sm md:text-md">
+                        <Label className="text-gray-10 text-xs md:text-sm">
                           Email
                         </Label>
                         <Input
                           placeholder="person@cool-domain.com"
-                          className="rounded-lg border border-gray-400 bg-gray-50 px-3 py-1 text-gray-950 text-lg placeholder-gray-300 transition-colors focus:border-gray-600 md:rounded-xl md:px-4 md:py-2 md:text-xl"
+                          className="rounded-lg border border-gray-5 bg-gray-1 px-3 py-1 text-gray-12 text-lg placeholder-gray-8 transition-colors focus:border-gray-10 md:rounded-xl md:px-4 md:py-2 md:text-xl"
                         />
                         <FieldError className="text-error text-sm" />
                       </TextField>
                       <PendingFormDisabledButtonProvider>
                         <Button
                           type="submit"
-                          className="block rounded-lg bg-gray-950 p-2 font-semibold text-gray-50 transition-opacity disabled:opacity-80 md:rounded-xl"
+                          className="block rounded-lg bg-gray-12 p-2 font-semibold text-gray-1 transition-colors hover:bg-gray-11 disabled:bg-gray-11 md:rounded-xl"
                         >
                           Subscribe
                         </Button>
@@ -128,7 +128,7 @@ export function Navbar() {
               type="button"
               className={cs(
                 navItemBaseStyles,
-                'group relative px-1.5 text-gray-950',
+                'group relative px-1.5 text-gray-12',
               )}
             >
               <span className="sr-only">Menu</span>
@@ -144,7 +144,7 @@ export function Navbar() {
               <Menu
                 className={cs(
                   layerStyles,
-                  'flex min-w-40 flex-col gap-1.5 bg-gray-50 p-2.5 font-semibold text-gray-950 text-lg',
+                  'flex min-w-40 flex-col gap-1.5 bg-gray-1 p-2.5 font-semibold text-gray-12 text-lg',
                 )}
               >
                 <MenuItem href="/blog" className={mobileMenuItemStyles}>
@@ -162,7 +162,7 @@ export function Navbar() {
   )
 }
 
-const layerStyles = cs('border border-gray-200 rounded-2xl')
+const layerStyles = cs('border border-gray-4 rounded-2xl')
 
 const navItemBaseStyles = cs(
   'flex justify-center items-center rounded-lg h-full px-3 md:px-4',
@@ -170,7 +170,7 @@ const navItemBaseStyles = cs(
 
 const navItemStyles = cs(
   navItemBaseStyles,
-  'font-semibold transition-colors text-gray-900 hover:text-gray-950',
+  'font-semibold transition-colors text-gray-11 hover:text-gray-12',
 )
 
 const mobileMenuItemStyles = cs('block px-2 py-1 rounded-lg')
