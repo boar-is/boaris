@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scrollbar-color: theme('colors.gray.600') theme('colors.transparent');
+  }
+
+  *, *::before, *::after {
+    @apply border-gray-400 outline-gray-700
+  }
+
+  :focus-visible {
+    @apply outline-none
+  }
+
+  .focus-visible :focus-visible {
+    @apply outline-2 outline-inherit outline-offset-4
+  }
+}
