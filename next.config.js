@@ -2,10 +2,16 @@ import withBundleAnalyzer from '@next/bundle-analyzer'
 import optimizeLocales from '@react-aria/optimize-locales-plugin'
 
 /** @type {import('next').NextConfig} */
-const nextConfig = withBundleAnalyzer({
-  enabled: globalThis.process.env.ANALYZE === 'true',
-  openAnalyzer: true,
-})({
+const baseNextConfig = {
+  experimental: {
+    optimizePackageImports: [
+      'hugeicons-react',
+      'react-aria-components',
+      'usehooks-ts',
+    ],
+    ppr: true,
+    typedRoutes: true,
+  },
   webpack(config) {
     config.plugins.push(
       optimizeLocales.webpack({
@@ -14,6 +20,11 @@ const nextConfig = withBundleAnalyzer({
     )
     return config
   },
-})
+}
+
+const nextConfig = withBundleAnalyzer({
+  enabled: globalThis.process.env.ANALYZE === 'true',
+  openAnalyzer: true,
+})(baseNextConfig)
 
 export default nextConfig
