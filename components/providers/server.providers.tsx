@@ -1,5 +1,5 @@
 import { Toaster } from 'sonner'
-import { cs } from '~/lib/cs'
+import { cx } from '~/lib/cx'
 
 export function ToastProvider() {
   return (
@@ -7,8 +7,8 @@ export function ToastProvider() {
       theme="dark"
       toastOptions={{
         classNames: {
-          toast: cs('bg-gray-2 text-gray-11 border-gray-6 font-sans'),
-          title: cs('font-semibold'),
+          toast: cx('bg-gray-2 text-gray-11 border-gray-6 font-sans'),
+          title: cx('font-semibold'),
         },
       }}
     />

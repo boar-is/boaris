@@ -44,6 +44,7 @@ export async function subscribe(
       },
     )
 
+    // biome-ignore lint/suspicious/noExplicitAny: yolo
     if (((await res.json()) as any)['subscription']?.['subscriber']?.['id']) {
       return {
         status: 'success',

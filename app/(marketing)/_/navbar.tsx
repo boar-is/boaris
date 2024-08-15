@@ -9,12 +9,12 @@ import { Menu, MenuItem, MenuTrigger } from '~/components/menu'
 import { Modal, ModalOverlay } from '~/components/modal'
 import { Popover } from '~/components/popover'
 import { Input, Label, TextField } from '~/components/text-field'
-import { cs } from '~/lib/cs'
+import { cx } from '~/lib/cx'
 
 export function Navbar() {
   return (
     <nav
-      className={cs(
+      className={cx(
         layerStyles,
         'bg-gray-1/75 backdrop-blur-md backdrop-saturate-150',
       )}
@@ -24,7 +24,7 @@ export function Navbar() {
           <Link
             href="/"
             prefetch={false}
-            className={cs(
+            className={cx(
               navItemBaseStyles,
               'flex select-none items-center gap-1 px-2 text-gray-12 text-lg tracking-tight md:gap-1.5 md:text-2xl',
             )}
@@ -47,7 +47,7 @@ export function Navbar() {
           <DialogTrigger>
             <Button
               type="button"
-              className={cs(
+              className={cx(
                 navItemBaseStyles,
                 'bg-gray-12 font-semibold text-gray-1 transition-colors hover:bg-gray-11 md:ml-4',
               )}
@@ -126,7 +126,7 @@ export function Navbar() {
           <MenuTrigger>
             <Button
               type="button"
-              className={cs(
+              className={cx(
                 navItemBaseStyles,
                 'group relative px-1.5 text-gray-12',
               )}
@@ -142,7 +142,7 @@ export function Navbar() {
               className="entering:fade-in exiting:fade-out entering:animate-in exiting:animate-out"
             >
               <Menu
-                className={cs(
+                className={cx(
                   layerStyles,
                   'flex min-w-40 flex-col gap-1.5 bg-gray-1 p-2.5 font-semibold text-gray-12 text-lg',
                 )}
@@ -162,15 +162,15 @@ export function Navbar() {
   )
 }
 
-const layerStyles = cs('border border-gray-4 rounded-2xl')
+const layerStyles = cx('border border-gray-4 rounded-2xl')
 
-const navItemBaseStyles = cs(
+const navItemBaseStyles = cx(
   'flex justify-center items-center rounded-lg h-full px-3 md:px-4',
 )
 
-const navItemStyles = cs(
+const navItemStyles = cx(
   navItemBaseStyles,
   'font-semibold transition-colors text-gray-11 hover:text-gray-12',
 )
 
-const mobileMenuItemStyles = cs('block px-2 py-1 rounded-lg')
+const mobileMenuItemStyles = cx('block px-2 py-1 rounded-lg')
