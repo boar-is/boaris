@@ -4,7 +4,7 @@ import { socialUrls } from '~/lib/data'
 export function Footer() {
   return (
     <div className="container">
-      <ul className="flex justify-between py-3 font-medium text-gray-9 text-sm md:gap-4 md:text-base">
+      <ul className="flex justify-between py-4 font-medium text-gray-9 md:gap-4">
         <li>
           <Link href="/" prefetch={false} className="rounded-sm px-2">
             boar.is

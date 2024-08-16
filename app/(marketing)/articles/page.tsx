@@ -54,7 +54,7 @@ export default function BlogPage() {
   const { user, posts } = blogData
 
   return (
-    <div className="container space-y-16">
+    <div className="container space-y-14">
       <article className="grid [grid-template-areas:'aside'_'header'_'body'_'footer'] md:[grid-template-areas:'aside_header'_'aside_body'_'aside_footer'] justify-items-center gap-4 bg-gray-2 rounded-xl p-4 mt-20">
         <aside className="[grid-area:aside]">
           <div className="relative isolate -mt-20">
