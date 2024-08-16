@@ -54,31 +54,31 @@ export default function BlogPage() {
   const { user, posts } = blogData
 
   return (
-    <div className="container space-y-14">
-      <article className="grid [grid-template-areas:'aside'_'header'_'body'_'footer'] md:[grid-template-areas:'aside_header'_'aside_body'_'aside_footer'] justify-items-center gap-4 bg-gray-2 rounded-xl p-4 mt-20">
+    <div className="container flex flex-col gap-14 md:gap-20">
+      <article className="grid [grid-template-areas:'aside'_'header'_'body'_'footer'] justify-items-center gap-4 md:gap-6 bg-gray-2 rounded-xl p-4 md:p-6 mt-20 md:mt-24">
         <aside className="[grid-area:aside]">
-          <div className="relative isolate -mt-20">
+          <div className="relative isolate -mt-20 md:-mt-24">
             <img
               src={user.avatarSrc}
               alt={`${user.name}'s avatar`}
-              className="relative size-32 rounded-3xl border-8 border-gray-1"
+              className="relative size-32 md:size-40 rounded-3xl border-8 border-gray-1"
             />
           </div>
         </aside>
         <header className="[grid-area:header]">
           <hgroup className="text-center">
-            <h1 className="text-balance font-semibold text-2xl text-gray-12 tracking-tight">
+            <h1 className="text-balance font-semibold text-2xl md:text-4xl text-gray-12 tracking-tight">
               {user.name}
             </h1>
-            <small className="-mt-1 font-medium text-gray-9 text-lg tracking-tight">
+            <small className="-mt-1 font-medium text-gray-9 text-lg md:text-xl tracking-tight">
               boar.is
             </small>
           </hgroup>
         </header>
-        <section className="[grid-area:'body'] text-center text-pretty font-medium leading-snug max-w-prose text-gray-10">
+        <section className="[grid-area:'body'] text-center text-pretty font-medium leading-snug max-w-prose text-gray-10 md:text-lg">
           <p>{user.bio}</p>
         </section>
-        <footer className="[grid-area:'footer'] py-2">
+        <footer className="[grid-area:'footer'] py-2 md:py-4">
           <ul className="flex items-center gap-8">
             <li>
               <a
@@ -88,7 +88,7 @@ export default function BlogPage() {
                 rel="noreferrer"
               >
                 <span className="sr-only">GitHub Profile</span>
-                <GitHubIcon className="transition-colors text-gray-7 size-7 hover:text-gray-8" />
+                <GitHubIcon className="transition-colors text-gray-7 size-7 md:size-9 hover:text-gray-9" />
               </a>
             </li>
             <li>
@@ -99,7 +99,7 @@ export default function BlogPage() {
                 rel="noreferrer"
               >
                 <span className="sr-only">LinkedIn Profile</span>
-                <LinkedInIcon className="transition-colors text-gray-7 size-7 hover:text-gray-8" />
+                <LinkedInIcon className="transition-colors text-gray-7 size-7 md:size-9 hover:text-gray-9" />
               </a>
             </li>
             <li>
@@ -110,7 +110,7 @@ export default function BlogPage() {
                 rel="noreferrer"
               >
                 <span className="sr-only">Twitter Profile</span>
-                <XIcon className="transition-colors text-gray-7 size-7 hover:text-gray-8" />
+                <XIcon className="transition-colors text-gray-7 size-7 md:size-9 hover:text-gray-9" />
               </a>
             </li>
           </ul>
