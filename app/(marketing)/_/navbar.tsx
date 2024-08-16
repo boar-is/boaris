@@ -4,7 +4,7 @@ import { Button, PendingFormDisabledButtonProvider } from '~/components/button'
 import { CloseDialogButton, Dialog, DialogTrigger } from '~/components/dialog'
 import { FieldError, Form } from '~/components/form'
 import { Heading } from '~/components/heading'
-import { BrandIcon, CloseIcon, MenuIcon } from '~/components/icons'
+import { Brand2Icon, CloseIcon, MenuIcon } from '~/components/icons'
 import { Menu, MenuItem, MenuTrigger } from '~/components/menu'
 import { Modal, ModalOverlay } from '~/components/modal'
 import { Popover } from '~/components/popover'
@@ -23,13 +23,9 @@ export function Navbar() {
         <li>
           <Link
             href="/"
-            className={cx(
-              navItemBaseStyles,
-              'flex select-none items-center gap-1 px-2 text-gray-12 text-lg tracking-tight md:gap-1.5 md:text-2xl',
-            )}
+            className={cx(navItemBaseStyles, 'select-none px-2 text-gray-12')}
           >
-            <BrandIcon className="size-[1em]" />
-            Boar.is
+            <Brand2Icon className="h-6" />
           </Link>
         </li>
         <li className="ml-auto hidden md:block">
