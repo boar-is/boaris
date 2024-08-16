@@ -19,7 +19,7 @@ export function Navbar() {
         'bg-gray-1/75 backdrop-blur-md backdrop-saturate-150',
       )}
     >
-      <ul className="flex min-h-14 items-stretch justify-between gap-2 p-2.5 text-sm md:gap-4 md:text-lg">
+      <ul className="flex min-h-10 items-stretch justify-between gap-2 text-sm md:gap-4 md:text-lg">
         <li>
           <Link
             href="/"
@@ -144,7 +144,7 @@ export function Navbar() {
               <Menu
                 className={cx(
                   layerStyles,
-                  'flex min-w-40 flex-col gap-1.5 bg-gray-1 p-2.5 font-semibold text-gray-12 text-lg',
+                  'flex min-w-40 flex-col gap-1.5 bg-gray-1 font-semibold text-gray-12 text-lg',
                 )}
               >
                 <MenuItem href="/blog" className={mobileMenuItemStyles}>
@@ -162,10 +162,10 @@ export function Navbar() {
   )
 }
 
-const layerStyles = cx('border border-gray-4 rounded-2xl')
+const layerStyles = cx('border border-gray-4 rounded-xl p-2')
 
 const navItemBaseStyles = cx(
-  'flex justify-center items-center rounded-lg h-full px-3 md:px-4',
+  'flex justify-center items-center rounded-md h-full px-3 md:px-4',
 )
 
 const navItemStyles = cx(

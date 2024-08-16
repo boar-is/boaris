@@ -57,17 +57,17 @@ export default function BlogPage() {
     <div className="container">
       <article className="grid [grid-template-areas:'aside'_'header'_'body'_'footer'] md:[grid-template-areas:'aside_header'_'aside_body'_'aside_footer'] justify-items-center py-12 gap-2">
         <aside className="[grid-area:aside]">
-          <div className="relative">
+          <div className="relative isolate">
             <img
               src={user.avatarSrc}
               alt={`${user.name} avatar's blur`}
               aria-hidden="true"
-              className="absolute rounded-3xl blur-3xl scale-75 max-w-full max-h-full -z-1"
+              className="absolute rounded-3xl blur-3xl scale-90 max-w-full max-h-full pointer-events-none"
             />
             <img
               src={user.avatarSrc}
               alt={`${user.name}'s avatar`}
-              className="size-28 rounded-3xl"
+              className="relative size-28 rounded-3xl"
             />
           </div>
         </aside>
@@ -142,12 +142,12 @@ export default function BlogPage() {
                     <img
                       src={`https://picsum.photos/seed/${post.slug}/640/480`}
                       alt={`${post.name} thumbnail's blur`}
-                      className="absolute rounded-3xl blur-3xl scale-75 max-w-full max-h-full -z-1"
+                      className="absolute rounded-3xl blur-3xl scale-90 max-w-full max-h-full pointer-events-none"
                     />
                     <img
                       src={`https://picsum.photos/seed/${post.slug}/640/480`}
                       alt={`${post.name}'s thumbnail`}
-                      className="rounded-3xl"
+                      className="relative rounded-3xl"
                     />
                   </div>
                 </aside>
