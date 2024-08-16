@@ -55,7 +55,7 @@ export default function BlogPage() {
 
   return (
     <div className="container flex flex-col gap-14 md:gap-20">
-      <article className="flex flex-col items-center gap-4 md:gap-6 bg-gray-2 rounded-xl p-4 md:p-6 mt-20 md:mt-24">
+      <article className="flex flex-col items-center gap-4 md:gap-6 bg-gradient-to-t from-gray-1 to-gray-2 rounded-xl p-4 md:p-6 mt-20 md:mt-24">
         <aside>
           <div className="relative isolate -mt-20 md:-mt-24">
             <img
