@@ -23,7 +23,6 @@ export function Navbar() {
         <li>
           <Link
             href="/"
-            prefetch={false}
             className={cx(
               navItemBaseStyles,
               'flex select-none items-center gap-1 px-2 text-gray-12 text-lg tracking-tight md:gap-1.5 md:text-2xl',
@@ -34,12 +33,12 @@ export function Navbar() {
           </Link>
         </li>
         <li className="ml-auto hidden md:block">
-          <Link href="/articles" prefetch={false} className={navItemStyles}>
+          <Link href="/articles" className={navItemStyles}>
             Articles
           </Link>
         </li>
         <li className="hidden md:block">
-          <Link href="/about" prefetch={false} className={navItemStyles}>
+          <Link href="/about" className={navItemStyles}>
             About
           </Link>
         </li>

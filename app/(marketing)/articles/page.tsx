@@ -55,8 +55,8 @@ export default function BlogPage() {
 
   return (
     <div className="container flex flex-col gap-14 md:gap-20">
-      <article className="grid [grid-template-areas:'aside'_'header'_'body'_'footer'] justify-items-center gap-4 md:gap-6 bg-gray-2 rounded-xl p-4 md:p-6 mt-20 md:mt-24">
-        <aside className="[grid-area:aside]">
+      <article className="flex flex-col items-center gap-4 md:gap-6 bg-gray-2 rounded-xl p-4 md:p-6 mt-20 md:mt-24">
+        <aside>
           <div className="relative isolate -mt-20 md:-mt-24">
             <img
               src={user.avatarSrc}
@@ -65,7 +65,7 @@ export default function BlogPage() {
             />
           </div>
         </aside>
-        <header className="[grid-area:header]">
+        <header>
           <hgroup className="text-center">
             <h1 className="text-balance font-semibold text-2xl md:text-4xl text-gray-12 tracking-tight">
               {user.name}
@@ -75,10 +75,10 @@ export default function BlogPage() {
             </small>
           </hgroup>
         </header>
-        <section className="[grid-area:'body'] text-center text-pretty font-medium leading-snug max-w-prose text-gray-10 md:text-lg">
+        <section className="text-center text-pretty font-medium leading-snug max-w-prose text-gray-10 md:text-lg">
           <p>{user.bio}</p>
         </section>
-        <footer className="[grid-area:'footer'] py-2 md:py-4">
+        <footer className="py-2 md:py-4">
           <ul className="flex items-center gap-8">
             <li>
               <a
@@ -119,17 +119,12 @@ export default function BlogPage() {
       <article>
         <section className="flex flex-col gap-12">
           {posts.map((post) => (
-            <Link
-              key={post.slug}
-              href={`/${post.slug}`}
-              prefetch={false}
-              className="rounded-md"
-            >
-              <article className="grid relative [grid-template-areas:'header'_'footer'_'body'_'aside'] md:[grid-template-areas:'aside_header'_'aside_body'_'aside_footer'] p-2">
+            <Link key={post.slug} href={`/${post.slug}`} className="rounded-md">
+              <article className="grid relative [grid-template-areas:'header'_'footer'_'body'_'aside'] md:[grid-template-areas:'aside_header'_'aside_footer'_'aside_body'] p-2 gap-x-6">
                 <header className="[grid-area:header] text-gray-12 text-2xl tracking-tight font-semibold">
                   <h3 className="balance">{post.name}</h3>
                 </header>
-                <aside className="[grid-area:aside]">
+                <aside className="[grid-area:aside] md:max-w-sm">
                   <div className="relative">
                     <img
                       src={`https://picsum.photos/seed/${post.slug}/640/480`}
@@ -143,7 +138,7 @@ export default function BlogPage() {
                     />
                   </div>
                 </aside>
-                <section className="font-medium text-pretty max-w-prose text-gray-10 leading-snug my-4">
+                <section className="font-medium text-pretty max-w-prose text-gray-10 leading-snug md:leading-relaxed my-4">
                   <p>{post.lead}</p>
                 </section>
                 <footer className="[grid-area:footer] text-gray-9 text-sm font-bold">

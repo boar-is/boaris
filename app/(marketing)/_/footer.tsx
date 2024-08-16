@@ -6,7 +6,7 @@ export function Footer() {
     <div className="container">
       <ul className="flex justify-between py-4 font-medium text-gray-9 md:gap-4">
         <li>
-          <Link href="/" prefetch={false} className="rounded-sm px-2">
+          <Link href="/" className="rounded-sm px-2">
             boar.is
           </Link>
         </li>
