@@ -54,20 +54,14 @@ export default function BlogPage() {
   const { user, posts } = blogData
 
   return (
-    <div className="container">
-      <article className="grid [grid-template-areas:'aside'_'header'_'body'_'footer'] md:[grid-template-areas:'aside_header'_'aside_body'_'aside_footer'] justify-items-center py-12 gap-2">
+    <div className="container space-y-16">
+      <article className="grid [grid-template-areas:'aside'_'header'_'body'_'footer'] md:[grid-template-areas:'aside_header'_'aside_body'_'aside_footer'] justify-items-center gap-4 bg-gray-2 rounded-xl p-4 mt-20">
         <aside className="[grid-area:aside]">
-          <div className="relative isolate">
-            <img
-              src={user.avatarSrc}
-              alt={`${user.name} avatar's blur`}
-              aria-hidden="true"
-              className="absolute rounded-3xl blur-3xl scale-90 max-w-full max-h-full pointer-events-none"
-            />
+          <div className="relative isolate -mt-20">
             <img
               src={user.avatarSrc}
               alt={`${user.name}'s avatar`}
-              className="relative size-28 rounded-3xl"
+              className="relative size-32 rounded-3xl border-8 border-gray-1"
             />
           </div>
         </aside>
@@ -76,12 +70,12 @@ export default function BlogPage() {
             <h1 className="text-balance font-semibold text-2xl text-gray-12 tracking-tight">
               {user.name}
             </h1>
-            <small className="-mt-1 font-medium text-gray-10 text-lg tracking-tight">
+            <small className="-mt-1 font-medium text-gray-9 text-lg tracking-tight">
               boar.is
             </small>
           </hgroup>
         </header>
-        <section className="[grid-area:'body'] text-center text-pretty font-medium max-w-prose">
+        <section className="[grid-area:'body'] text-center text-pretty font-medium leading-snug max-w-prose text-gray-10">
           <p>{user.bio}</p>
         </section>
         <footer className="[grid-area:'footer'] py-2">
@@ -90,74 +84,69 @@ export default function BlogPage() {
               <a
                 href={user.githubUrl}
                 target="_blank"
+                className="rounded-sm"
                 rel="noreferrer"
-                className="size-7 rounded-sm"
               >
                 <span className="sr-only">GitHub Profile</span>
-                <GitHubIcon className="transition-colors text-gray-7 hover:text-gray-8" />
+                <GitHubIcon className="transition-colors text-gray-7 size-7 hover:text-gray-8" />
               </a>
             </li>
             <li>
               <a
                 href={user.linkedinUrl}
                 target="_blank"
+                className="rounded-sm"
                 rel="noreferrer"
-                className="size-7 rounded-sm"
               >
                 <span className="sr-only">LinkedIn Profile</span>
-                <LinkedInIcon className="transition-colors text-gray-7 hover:text-gray-8" />
+                <LinkedInIcon className="transition-colors text-gray-7 size-7 hover:text-gray-8" />
               </a>
             </li>
             <li>
               <a
                 href={user.xUrl}
                 target="_blank"
+                className="rounded-sm"
                 rel="noreferrer"
-                className="size-7 rounded-sm"
               >
                 <span className="sr-only">Twitter Profile</span>
-                <XIcon className="transition-colors text-gray-7 hover:text-gray-8" />
+                <XIcon className="transition-colors text-gray-7 size-7 hover:text-gray-8" />
               </a>
             </li>
           </ul>
         </footer>
       </article>
       <article>
-        <header>
-          <h2 className="capitalize text-xl text-gray-10 font-semibold tracking-tight">
-            Recently published
-          </h2>
-        </header>
-        <section className="flex flex-col gap-24 py-16">
+        <section className="flex flex-col gap-12">
           {posts.map((post) => (
             <Link
               key={post.slug}
               href={`/${post.slug}`}
               prefetch={false}
-              className="rounded-sm"
+              className="rounded-md"
             >
-              <article className="grid relative [grid-template-areas:'header'_'aside'_'body'_'footer'] md:[grid-template-areas:'aside_header'_'aside_body'_'aside_footer']">
+              <article className="grid relative [grid-template-areas:'header'_'footer'_'body'_'aside'] md:[grid-template-areas:'aside_header'_'aside_body'_'aside_footer'] p-2">
+                <header className="[grid-area:header] text-gray-12 text-2xl tracking-tight font-semibold">
+                  <h3 className="balance">{post.name}</h3>
+                </header>
                 <aside className="[grid-area:aside]">
                   <div className="relative">
                     <img
                       src={`https://picsum.photos/seed/${post.slug}/640/480`}
                       alt={`${post.name} thumbnail's blur`}
-                      className="absolute rounded-3xl blur-3xl scale-90 max-w-full max-h-full pointer-events-none"
+                      className="absolute rounded-xl blur-3xl scale-75 max-w-full max-h-full pointer-events-none"
                     />
                     <img
                       src={`https://picsum.photos/seed/${post.slug}/640/480`}
                       alt={`${post.name}'s thumbnail`}
-                      className="relative rounded-3xl"
+                      className="relative rounded-xl"
                     />
                   </div>
                 </aside>
-                <header className="[grid-area:header] text-gray-12 text-2xl tracking-tight font-semibold">
-                  <h3 className="balance">{post.name}</h3>
-                </header>
-                <section className="font-medium text-pretty max-w-prose">
+                <section className="font-medium text-pretty max-w-prose text-gray-10 leading-snug my-4">
                   <p>{post.lead}</p>
                 </section>
-                <footer className="[grid-area:footer] text-gray-8 text-sm font-bold">
+                <footer className="[grid-area:footer] text-gray-9 text-sm font-bold">
                   <small>{post.date}</small>
                 </footer>
               </article>

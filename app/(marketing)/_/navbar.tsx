@@ -147,8 +147,8 @@ export function Navbar() {
                   'flex min-w-40 flex-col gap-1.5 bg-gray-1 font-semibold text-gray-12 text-lg',
                 )}
               >
-                <MenuItem href="/blog" className={mobileMenuItemStyles}>
-                  Blog
+                <MenuItem href="/articles" className={mobileMenuItemStyles}>
+                  Articles
                 </MenuItem>
                 <MenuItem href="/about" className={mobileMenuItemStyles}>
                   About

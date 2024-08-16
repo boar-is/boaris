@@ -28,7 +28,7 @@ export function LinkedInIcon(props: SvgIconProps) {
 
 export function XIcon(props: SvgIconProps) {
   return (
-    <svg fill="none" viewBox="0 0 1200 1227" {...props}>
+    <svg fill="currentColor" viewBox="0 0 1200 1227" {...props}>
       <title>X</title>
       <path
         fill="currentColor"
