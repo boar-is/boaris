@@ -9,8 +9,6 @@ const baseNextConfig = {
       'react-aria-components',
       'usehooks-ts',
     ],
-    ppr: true,
-    typedRoutes: true,
   },
   webpack(config) {
     config.plugins.push(

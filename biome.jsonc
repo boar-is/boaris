@@ -1,5 +1,11 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "master"
+  },
   "formatter": { "indentStyle": "space" },
   "javascript": {
     "formatter": {
@@ -35,8 +41,7 @@
         "noParameterAssign": "off",
         "useShorthandAssign": "error",
         "useSingleCaseStatement": "error"
-      },
-      "nursery": { "useSortedClasses": "error" }
+      }
     }
   }
 }

@@ -22,7 +22,7 @@ export function SubscriptionFormProvider({ children }: PropsWithChildren) {
         duration: 10e3,
       })
     }
-  }, [state.status])
+  }, [state, close])
 
   return (
     <FormContext.Provider
