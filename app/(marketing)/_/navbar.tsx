@@ -173,4 +173,4 @@ const navItemStyles = cx(
   'font-semibold transition-colors text-gray-11 hover:text-gray-12',
 )
 
-const mobileMenuItemStyles = cx('block px-2 py-1 rounded-lg')
+const mobileMenuItemStyles = cx('block px-2 py-1 rounded-md')
