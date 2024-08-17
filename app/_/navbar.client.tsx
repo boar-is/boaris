@@ -1,53 +1,38 @@
 'use client'
 
-import type { PropsWithChildren } from 'react'
-import { type ToggleState, useToggleState } from 'react-stately'
-import { ToggleButtonContext } from '~/components/button'
-import { createContext } from '~/lib/context'
+import { type PropsWithChildren, useContext, useEffect } from 'react'
+import { useFormState } from 'react-dom'
+import { toast } from 'sonner'
+import { OverlayTriggerStateContext } from '~/components/dialog'
+import { FormContext } from '~/components/form'
+import { subscribe } from '~/lib/actions/subscribe'
 
-export type NavbarContextValue = {
-  menuToggleState: ToggleState
-}
+export function SubscriptionFormProvider({ children }: PropsWithChildren) {
+  const [state, action] = useFormState(subscribe, {
+    status: 'initial',
+  })
 
-export const [NavbarProvider, useNavbarContext] =
-  createContext<NavbarContextValue>()
+  const { close } = useContext(OverlayTriggerStateContext)
 
-export function Navbar({ children }: PropsWithChildren) {
-  const menuToggleState = useToggleState()
-
-  return (
-    <nav className="bg-gray-1/75 backdrop-blur-md backdrop-saturate-150">
-      <NavbarProvider
-        value={{
-          menuToggleState,
-        }}
-      >
-        {children}
-      </NavbarProvider>
-    </nav>
-  )
-}
-
-export function NavbarMenuButtonProvider({ children }: PropsWithChildren) {
-  const {
-    menuToggleState: { isSelected, setSelected: onChange },
-  } = useNavbarContext()
+  useEffect(() => {
+    if (state.status === 'success') {
+      close()
+      toast.success(`Confirmation email sent to ${state.email}`, {
+        description: 'Please, check your inbox and a spam folder',
+        duration: 10e3,
+      })
+    }
+  }, [state, close])
 
   return (
-    <ToggleButtonContext.Provider value={{ isSelected, onChange }}>
+    <FormContext.Provider
+      value={{
+        action,
+        validationErrors:
+          state.status === 'error' ? { email: state.error } : {},
+      }}
+    >
       {children}
-    </ToggleButtonContext.Provider>
+    </FormContext.Provider>
   )
-}
-
-export function NavbarMobileMenuRoot({ children }: PropsWithChildren) {
-  const {
-    menuToggleState: { isSelected },
-  } = useNavbarContext()
-
-  if (!isSelected) {
-    return null
-  }
-
-  return <div>{children}</div>
 }

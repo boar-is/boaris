@@ -12,8 +12,7 @@ import {
 } from '~/components/providers/server.providers'
 import { cx } from '~/lib/cx'
 import { JetBrainsMono, Switzer } from '~/lib/fonts'
-import { NavbarMenu, NavbarMobileMenu } from './_/navbar'
-import { Navbar } from './_/navbar.client'
+import { Navbar } from './_/navbar'
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
@@ -27,10 +26,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <FramerMotionProvider>
               <div className="flex h-full flex-col overflow-y-scroll">
                 <header className="sticky z-10 top-0 w-full">
-                  <Navbar>
-                    <NavbarMenu />
-                    <NavbarMobileMenu />
-                  </Navbar>
+                  <Navbar />
                 </header>
                 <main className="flex-1">{children}</main>
                 <footer className="container">footer</footer>
