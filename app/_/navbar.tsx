@@ -61,7 +61,7 @@ export function Navbar() {
             className={cx(itemCx, squareCx, mutedCx)}
           >
             <span className="sr-only">LinkedIn Profile</span>
-            <LinkedInIcon className="size-8" />
+            <LinkedInIcon className="size-5" />
           </Link>
         </li>
         <li className="hidden md:block">
@@ -72,7 +72,7 @@ export function Navbar() {
             className={cx(itemCx, squareCx, mutedCx)}
           >
             <span className="sr-only">X Profile</span>
-            <XIcon className="size-8" />
+            <XIcon className="size-5" />
           </Link>
         </li>
         <li className="hidden md:block">
@@ -83,7 +83,7 @@ export function Navbar() {
             className={cx(itemCx, squareCx, mutedCx)}
           >
             <span className="sr-only">GitHub Profile</span>
-            <GitHubIcon className="size-8" />
+            <GitHubIcon className="size-5" />
           </Link>
         </li>
         <li className="ml-auto md:ml-0">
@@ -237,7 +237,7 @@ export function Navbar() {
 const layerCx = cx('border border-gray-4 rounded-xl p-2')
 const mutedCx = cx('transition-colors text-gray-10 hover:text-gray-12')
 const itemCx = cx('flex justify-center items-center rounded-md h-full')
-const squareCx = cx('px-1 md:px-2')
+const squareCx = cx('px-1 md:px-3 md:-mx-2')
 const rectCx = cx('px-3 md:px-4')
 const sectionMobileCx = cx('flex flex-col *:px-2 *:py-1')
 const headerMobileCx = cx('text-xs uppercase text-gray-9 tracking-tight')
