@@ -18,6 +18,15 @@ const baseNextConfig = {
     )
     return config
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        port: '',
+      },
+    ],
+  },
 }
 
 const nextConfig = withBundleAnalyzer({

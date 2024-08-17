@@ -12,6 +12,8 @@ import {
 } from '~/components/providers/server.providers'
 import { cx } from '~/lib/cx'
 import { JetBrainsMono, Switzer } from '~/lib/fonts'
+import { NavbarMenu } from './_/navbar'
+import { Navbar } from './_/navbar.client'
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
@@ -22,7 +24,17 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <ToastProvider />
         <I18nProvider>
           <RouterProvider>
-            <FramerMotionProvider>{children}</FramerMotionProvider>
+            <FramerMotionProvider>
+              <div className="flex h-full flex-col overflow-y-scroll">
+                <header className="container sticky z-10 top-0 w-full">
+                  <Navbar>
+                    <NavbarMenu />
+                  </Navbar>
+                </header>
+                <main className="flex-1">{children}</main>
+                <footer className="container">footer</footer>
+              </div>
+            </FramerMotionProvider>
           </RouterProvider>
         </I18nProvider>
       </body>
