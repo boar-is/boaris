@@ -24,8 +24,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <I18nProvider>
           <RouterProvider>
             <FramerMotionProvider>
-              <div className="flex h-full flex-col overflow-y-scroll">
-                <header className="sticky z-10 top-0 w-full">
+              <div className="flex h-full flex-col items-stretch overflow-y-scroll">
+                <header className="container sticky z-10 top-0 py-3">
                   <Navbar />
                 </header>
                 <main className="flex-1">{children}</main>

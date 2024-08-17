@@ -21,21 +21,29 @@ import { SubscriptionFormProvider } from './navbar.client'
 
 export function Navbar() {
   return (
-    <nav className="border-b border-gray-4 p-2 bg-gray-1/75 backdrop-blur-md backdrop-saturate-150">
-      <ul className="container flex min-h-10 items-stretch justify-between gap-2 text-sm md:gap-4 md:text-base">
+    <nav
+      className={cx(
+        layerStyles,
+        'bg-gray-1/75 backdrop-blur-md backdrop-saturate-150',
+      )}
+    >
+      <ul className="flex min-h-10 items-stretch font-semibold justify-between gap-2 text-sm md:gap-4 md:text-base">
         <li>
           <Link
             href="/"
-            className={cx(navItemBaseStyles, 'select-none text-gray-12')}
+            className={cx(
+              navItemBaseStyles,
+              'gap-2 pl-0 select-none text-gray-12 text-lg leading-tight break-all',
+            )}
           >
             <Image
               src={workspace.logoSrc}
               alt={`${workspace.name}'s logo`}
               width={40}
               height={40}
-              className="rounded-md shadow-inner"
+              className="rounded-[inherit] shadow-inner"
             />
-            {workspace.name}
+            Boar.is
           </Link>
         </li>
         <li className="hidden md:block">
@@ -155,7 +163,7 @@ export function Navbar() {
             </ModalOverlay>
           </DialogTrigger>
         </li>
-        <li className="block md:hidden">
+        <li className="md:hidden">
           <MenuTrigger>
             <Button
               type="button"
@@ -174,7 +182,12 @@ export function Navbar() {
               crossOffset={8}
               className="entering:fade-in exiting:fade-out entering:animate-in exiting:animate-out"
             >
-              <Menu className="border border-gray-4 rounded-xl p-2 flex min-w-40 flex-col gap-1.5 bg-gray-1 font-semibold text-gray-12 text-lg">
+              <Menu
+                className={cx(
+                  layerStyles,
+                  'flex min-w-40 flex-col gap-1.5 bg-gray-1 font-semibold text-gray-12 text-lg',
+                )}
+              >
                 <MenuItem href="/blog" className={mobileMenuItemStyles}>
                   Articles
                 </MenuItem>
@@ -187,13 +200,15 @@ export function Navbar() {
   )
 }
 
+const layerStyles = cx('border border-gray-4 rounded-xl p-2')
+
 const navItemBaseStyles = cx(
   'flex justify-center items-center rounded-md h-full px-3 md:px-4',
 )
 
 const navItemStyles = cx(
   navItemBaseStyles,
-  'font-semibold transition-colors text-gray-11 hover:text-gray-12',
+  'transition-colors text-gray-11 hover:text-gray-12',
 )
 
-const mobileMenuItemStyles = cx('block px-2 py-1 rounded-md')
+const mobileMenuItemStyles = cx('px-2 py-1')
