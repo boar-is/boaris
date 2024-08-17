@@ -60,13 +60,13 @@ export default async function BlogPage() {
                 className="object-cover"
               />
             </aside>
-            <section className="flex-1 flex flex-col gap-3 md:gap-6 p-4 md:p-10">
+            <section className="flex-1 flex flex-col gap-3 md:gap-4 p-4 md:p-10">
               <header>
                 <hgroup>
-                  <small className="text-gray-8 font-bold tracking-wide uppercase md:text-base">
+                  <small className="text-gray-8 font-bold tracking-wide uppercase text-xs md:text-sm">
                     {post.date}
                   </small>
-                  <h3 className="text-2xl md:text-5xl font-semibold tracking-tight text-gray-12 text-balance">
+                  <h3 className="text-2xl md:text-4xl font-semibold tracking-tight text-gray-12 text-balance">
                     {post.name}
                   </h3>
                 </hgroup>
@@ -82,12 +82,12 @@ export default async function BlogPage() {
                 ))}
               </ul>
 
-              <p className="text-gray-10 font-medium leading-snug text-pretty md:text-lg">
+              <p className="text-gray-10 font-medium text-pretty text-sm md:text-base !leading-relaxed">
                 {post.lead}
               </p>
 
               <footer className="mt-auto">
-                <div className="block font-semibold md:text-lg py-2 md:py-3 text-center border border-gray-4 rounded-md md:rounded-2xl text-gray-10 bg-gray-2 group-hover:bg-gray-3 transition-colors">
+                <div className="block font-semibold text-sm md:text-base py-2 md:py-3 text-center border border-gray-4 rounded-md md:rounded-2xl text-gray-10 bg-gray-2 group-hover:bg-gray-3 transition-colors">
                   Read More
                 </div>
               </footer>
