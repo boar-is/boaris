@@ -39,3 +39,15 @@ export function NavbarMenuButtonProvider({ children }: PropsWithChildren) {
     </ToggleButtonContext.Provider>
   )
 }
+
+export function NavbarMobileMenuRoot({ children }: PropsWithChildren) {
+  const {
+    menuToggleState: { isSelected },
+  } = useNavbarContext()
+
+  if (!isSelected) {
+    return null
+  }
+
+  return <div>{children}</div>
+}

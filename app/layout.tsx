@@ -12,7 +12,7 @@ import {
 } from '~/components/providers/server.providers'
 import { cx } from '~/lib/cx'
 import { JetBrainsMono, Switzer } from '~/lib/fonts'
-import { NavbarMenu } from './_/navbar'
+import { NavbarMenu, NavbarMobileMenu } from './_/navbar'
 import { Navbar } from './_/navbar.client'
 
 export default function RootLayout({ children }: PropsWithChildren) {
@@ -29,6 +29,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
                 <header className="container sticky z-10 top-0 w-full">
                   <Navbar>
                     <NavbarMenu />
+                    <NavbarMobileMenu />
                   </Navbar>
                 </header>
                 <main className="flex-1">{children}</main>

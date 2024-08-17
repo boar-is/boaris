@@ -9,7 +9,7 @@ import {
   XIcon,
 } from '~/components/icons'
 import { workspace } from '~/lib/data'
-import { NavbarMenuButtonProvider } from './navbar.client'
+import { NavbarMenuButtonProvider, NavbarMobileMenuRoot } from './navbar.client'
 
 export function NavbarMenu() {
   return (
@@ -71,5 +71,49 @@ export function NavbarMenu() {
         </NavbarMenuButtonProvider>
       </li>
     </ul>
+  )
+}
+
+export function NavbarMobileMenu() {
+  return (
+    <NavbarMobileMenuRoot>
+      <ul>
+        <li>
+          <Link href="/blog">Blog</Link>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <Link
+            href={workspace.socialUrls.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="sr-only">LinkedIn Profile</span>
+            <LinkedInIcon className="size-8" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            href={workspace.socialUrls.x}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="sr-only">X Profile</span>
+            <XIcon className="size-8" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            href={workspace.socialUrls.github}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="sr-only">GitHub Profile</span>
+            <GitHubIcon className="size-8" />
+          </Link>
+        </li>
+      </ul>
+    </NavbarMobileMenuRoot>
   )
 }
