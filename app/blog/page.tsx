@@ -46,16 +46,16 @@ export default async function BlogPage() {
           <h2 className="sr-only">Latest Post</h2>
         </header>
         <Link href={`/blog/${latestPost.slug}`}>
-          <article className="flex flex-col border border-gray-4 rounded-xl md:rounded-3xl transition-colors hover:bg-gray-2 group">
-            <aside className="relative aspect-video md:aspect-[21/6]">
+          <article className="flex flex-col justify-between md:flex-row-reverse border border-gray-4 rounded-xl md:rounded-3xl transition-colors hover:bg-gray-2 group">
+            <aside className="relative basis-2/5 aspect-video md:aspect-[21/6] border-b border-gray-4 md:border-b-0 md:border-l">
               <Image
                 src={`https://picsum.photos/seed/${latestPost.slug}/1600/900`}
                 alt={`${latestPost.name}'s thumbnail`}
                 fill
-                className="rounded-t-xl md:rounded-t-3xl border-b border-gray-4 object-cover"
+                className="rounded-t-xl md:rounded-r-3xl md:rounded-l-none object-cover max-w-full max-h-full"
               />
             </aside>
-            <section className="flex flex-col gap-1 md:gap-8 p-3 md:p-8 max-w-prose mx-auto">
+            <section className="flex flex-col gap-3 md:gap-8 p-4 md:p-10 max-w-prose">
               <header>
                 <hgroup>
                   <small className="text-gray-8 font-bold tracking-wide uppercase md:text-base">
@@ -71,7 +71,7 @@ export default async function BlogPage() {
                 {latestPost.lead}
               </p>
 
-              <footer className="font-semibold text-lg py-4 text-center border border-gray-4 rounded-2xl text-gray-10 bg-gray-2 group-hover:bg-gray-3 transition-colors">
+              <footer className="font-semibold md:text-lg py-2 md:py-4 text-center border border-gray-4 rounded-md md:rounded-2xl text-gray-10 bg-gray-2 group-hover:bg-gray-3 transition-colors">
                 Read More
               </footer>
             </section>
