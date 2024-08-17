@@ -58,7 +58,11 @@ export default async function BlogPage() {
   const posts = await getPosts()
 
   if (!posts.length) {
-    return <div>No Posts</div>
+    return (
+      <div className="container text-center text-5xl font-semibold capitalize">
+        No posts yet
+      </div>
+    )
   }
 
   return (
@@ -81,7 +85,7 @@ export default async function BlogPage() {
                 className="object-cover"
               />
             </aside>
-            <section className="flex-1 flex flex-col gap-3 md:gap-4 p-4 md:p-10">
+            <section className="flex-1 flex flex-col gap-3 md:gap-6 p-4 md:p-10">
               <header>
                 <hgroup>
                   <small className="text-gray-8 font-bold tracking-wide uppercase text-xs md:text-sm">
