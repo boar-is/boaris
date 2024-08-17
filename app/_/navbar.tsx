@@ -29,7 +29,7 @@ export function Navbar() {
         'bg-gray-1/75 backdrop-blur-md backdrop-saturate-150',
       )}
     >
-      <ul className="flex min-h-10 items-stretch font-semibold justify-between gap-2 text-sm md:gap-4 md:text-base">
+      <ul className="flex min-h-10 items-stretch font-semibold justify-between gap-2 text-sm md:gap-6 md:text-base">
         <li>
           <Link
             href="/"
@@ -93,7 +93,7 @@ export function Navbar() {
               className={cx(
                 itemCx,
                 rectCx,
-                'bg-gray-12 font-semibold text-gray-1 transition-colors hover:bg-gray-11 hover:text-gray-1 md:ml-4',
+                'bg-gray-12 font-semibold text-gray-1 transition-colors hover:bg-gray-11 hover:text-gray-1',
               )}
             >
               Subscribe
@@ -237,7 +237,7 @@ export function Navbar() {
 const layerCx = cx('border border-gray-4 rounded-xl p-2')
 const mutedCx = cx('transition-colors text-gray-10 hover:text-gray-12')
 const itemCx = cx('flex justify-center items-center rounded-md h-full')
-const squareCx = cx('px-1 md:px-3 md:-mx-2')
+const squareCx = cx('px-1 md:px-2.5 md:-mx-2')
 const rectCx = cx('px-3 md:px-4')
 const sectionMobileCx = cx('flex flex-col *:px-2 *:py-1')
 const headerMobileCx = cx('text-xs uppercase text-gray-9 tracking-tight')

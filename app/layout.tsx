@@ -12,6 +12,7 @@ import {
 } from '~/components/providers/server.providers'
 import { cx } from '~/lib/cx'
 import { JetBrainsMono, Switzer } from '~/lib/fonts'
+import { Footer } from './_/footer'
 import { Navbar } from './_/navbar'
 
 export default function RootLayout({ children }: PropsWithChildren) {
@@ -29,7 +30,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
                   <Navbar />
                 </header>
                 <main className="flex-1">{children}</main>
-                <footer className="container">footer</footer>
+                <footer className="container">
+                  <Footer />
+                </footer>
               </div>
             </FramerMotionProvider>
           </RouterProvider>
