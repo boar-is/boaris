@@ -34,44 +34,44 @@ const getPosts = () =>
   }>)
 
 export default async function BlogPage() {
-  const [latestPost, ...posts] = await getPosts()
+  const posts = await getPosts()
 
-  if (!latestPost) {
+  if (!posts.length) {
     return <div>No Posts</div>
   }
 
   return (
-    <article className="container flex flex-col items-stretch">
-      <header>
-        <h1 className="sr-only">{workspace.name}'s Blog</h1>
+    <article className="container flex flex-col gap-6 md:gap-10 items-stretch">
+      <header className="sr-only">
+        <h1>{workspace.name}'s Blog</h1>
       </header>
-      <section>
-        <header>
-          <h2 className="sr-only">Latest Post</h2>
-        </header>
-        <article className="flex flex-col justify-between md:flex-row-reverse border border-gray-4 rounded-xl md:rounded-3xl transition-colors hover:bg-gray-2 group">
-          <aside className="relative basis-2/5 aspect-video md:aspect-[21/6] border-b border-gray-4 md:border-b-0 md:border-l">
+      {posts.map((post) => (
+        <article
+          key={post.slug}
+          className="group flex flex-col justify-between md:even:flex-row md:flex-row-reverse border border-gray-4 rounded-xl md:rounded-3xl overflow-hidden transition-colors hover:bg-gray-2"
+        >
+          <aside className="relative basis-1/2 aspect-video">
             <Image
-              src={`https://picsum.photos/seed/${latestPost.slug}/1600/900`}
-              alt={`${latestPost.name}'s thumbnail`}
+              src={`https://picsum.photos/seed/${post.slug}/1600/900`}
+              alt={`${post.name}'s thumbnail`}
               fill
-              className="rounded-t-xl md:rounded-r-3xl md:rounded-l-none object-cover max-w-full max-h-full"
+              className="object-cover"
             />
           </aside>
-          <section className="flex flex-col gap-3 md:gap-8 p-4 md:p-10 max-w-prose">
+          <section className="flex-1 flex flex-col gap-3 md:gap-8 p-4 md:p-10">
             <header>
               <hgroup>
                 <small className="text-gray-8 font-bold tracking-wide uppercase md:text-base">
-                  {latestPost.date}
+                  {post.date}
                 </small>
                 <h3 className="text-2xl md:text-5xl font-semibold tracking-tight text-gray-12 text-balance">
-                  {latestPost.name}
+                  {post.name}
                 </h3>
               </hgroup>
             </header>
 
             <ul className="flex flex-wrap gap-1.5 text-sm md:text-sm font-medium tracking-wide text-gray-8 *:my-0.5">
-              {latestPost.tags.map((tag) => (
+              {post.tags.map((tag) => (
                 <li key={tag}>
                   <span className="border border-gray-7 rounded-full px-3 py-0.5">
                     {tag}
@@ -81,20 +81,20 @@ export default async function BlogPage() {
             </ul>
 
             <p className="text-gray-10 font-medium leading-snug text-pretty md:text-lg">
-              {latestPost.lead}
+              {post.lead}
             </p>
 
             <footer>
               <Link
-                href={`/blog/${latestPost.slug}`}
-                className="block font-semibold md:text-lg py-2 md:py-4 text-center border border-gray-4 rounded-md md:rounded-2xl text-gray-10 bg-gray-2 group-hover:bg-gray-3 transition-colors"
+                href={`/blog/${post.slug}`}
+                className="block font-semibold md:text-lg py-2 md:py-3 text-center border border-gray-4 rounded-md md:rounded-2xl text-gray-10 bg-gray-2 group-hover:bg-gray-3 transition-colors"
               >
                 Read More
               </Link>
             </footer>
           </section>
         </article>
-      </section>
+      ))}
     </article>
   )
 }
