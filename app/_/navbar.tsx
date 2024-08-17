@@ -34,8 +34,8 @@ export function Navbar() {
           <Link
             href="/"
             className={cx(
-              navItemCx,
-              'gap-2 pl-0 select-none text-gray-12 text-lg leading-tight break-all',
+              itemCx,
+              'gap-2 select-none text-gray-12 text-lg leading-tight break-all',
             )}
           >
             <Image
@@ -49,7 +49,7 @@ export function Navbar() {
           </Link>
         </li>
         <li className="hidden md:block">
-          <Link href="/blog" className={navItemCx}>
+          <Link href="/blog" className={cx(itemCx, rectCx, mutedCx)}>
             Blog
           </Link>
         </li>
@@ -58,7 +58,7 @@ export function Navbar() {
             href={workspace.socialUrls.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className={navItemCx}
+            className={cx(itemCx, squareCx, mutedCx)}
           >
             <span className="sr-only">LinkedIn Profile</span>
             <LinkedInIcon className="size-8" />
@@ -69,7 +69,7 @@ export function Navbar() {
             href={workspace.socialUrls.x}
             target="_blank"
             rel="noopener noreferrer"
-            className={navItemCx}
+            className={cx(itemCx, squareCx, mutedCx)}
           >
             <span className="sr-only">X Profile</span>
             <XIcon className="size-8" />
@@ -80,7 +80,7 @@ export function Navbar() {
             href={workspace.socialUrls.github}
             target="_blank"
             rel="noopener noreferrer"
-            className={navItemCx}
+            className={cx(itemCx, squareCx, mutedCx)}
           >
             <span className="sr-only">GitHub Profile</span>
             <GitHubIcon className="size-8" />
@@ -91,7 +91,8 @@ export function Navbar() {
             <Button
               type="button"
               className={cx(
-                navItemCx,
+                itemCx,
+                rectCx,
                 'bg-gray-12 font-semibold text-gray-1 transition-colors hover:bg-gray-11 hover:text-gray-1 md:ml-4',
               )}
             >
@@ -99,7 +100,7 @@ export function Navbar() {
             </Button>
             <ModalOverlay
               isDismissable
-              className="entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-gray-50/25 px-4 backdrop-blur-sm backdrop-saturate-150"
+              className="z-20 entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-gray-1/25 px-4 backdrop-blur-sm backdrop-saturate-150"
             >
               <Modal className="exiting:fade-out-0 entering:fade-in-0 exiting:zoom-out-95 entering:zoom-in-95 max-w-md entering:animate-in exiting:animate-out md:max-w-lg">
                 <Dialog className="flex flex-col items-stretch gap-5 rounded-xl border border-gray-4 bg-gray-2 p-4 leading-relaxed md:rounded-2xl md:p-6 md:text-lg">
@@ -169,7 +170,11 @@ export function Navbar() {
           <MenuTrigger>
             <Button
               type="button"
-              className={cx(navItemCx, 'group relative px-1.5 text-gray-12')}
+              className={cx(
+                itemCx,
+                squareCx,
+                'group relative px-1.5 text-gray-12',
+              )}
             >
               <span className="sr-only">Toggle Menu</span>
               <MenuIcon className="size-5 rotate-0 scale-100 transition-transform group-aria-expanded:rotate-90 group-aria-expanded:scale-0" />
@@ -184,22 +189,22 @@ export function Navbar() {
               <Menu
                 className={cx(
                   layerCx,
-                  'flex min-w-40 flex-col gap-1.5 bg-gray-1 font-semibold text-gray-12 text-lg',
+                  'flex min-w-40 flex-col gap-2 bg-gray-1 font-semibold text-gray-12 text-lg',
                 )}
               >
-                <Section>
-                  <Header>Projects</Header>
-                  <MenuItem href="/blog" className={mobileNavItemCx}>
+                <Section className={sectionMobileCx}>
+                  <Header className={headerMobileCx}>Projects</Header>
+                  <MenuItem href="/blog" className={itemMobileCx}>
                     Articles
                   </MenuItem>
                 </Section>
-                <Section>
-                  <Header>Social</Header>
+                <Section className={sectionMobileCx}>
+                  <Header className={headerMobileCx}>Social</Header>
                   <MenuItem
                     href={workspace.socialUrls.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={mobileNavItemCx}
+                    className={itemMobileCx}
                   >
                     LinkedIn
                   </MenuItem>
@@ -207,7 +212,7 @@ export function Navbar() {
                     href={workspace.socialUrls.x}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={mobileNavItemCx}
+                    className={itemMobileCx}
                   >
                     X
                   </MenuItem>
@@ -215,7 +220,7 @@ export function Navbar() {
                     href={workspace.socialUrls.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={mobileNavItemCx}
+                    className={itemMobileCx}
                   >
                     GitHub
                   </MenuItem>
@@ -230,9 +235,10 @@ export function Navbar() {
 }
 
 const layerCx = cx('border border-gray-4 rounded-xl p-2')
-
-const navItemCx = cx(
-  'flex justify-center items-center rounded-md h-full px-3 md:px-4 transition-colors text-gray-10 hover:text-gray-12',
-)
-
-const mobileNavItemCx = cx('px-2 py-1')
+const mutedCx = cx('transition-colors text-gray-10 hover:text-gray-12')
+const itemCx = cx('flex justify-center items-center rounded-md h-full')
+const squareCx = cx('px-1 md:px-2')
+const rectCx = cx('px-3 md:px-4')
+const sectionMobileCx = cx('flex flex-col *:px-2 *:py-1')
+const headerMobileCx = cx('text-xs uppercase text-gray-9 tracking-tight')
+const itemMobileCx = cx('rounded-md')
