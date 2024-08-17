@@ -13,7 +13,7 @@ import { NavbarMenuButtonProvider, NavbarMobileMenuRoot } from './navbar.client'
 
 export function NavbarMenu() {
   return (
-    <ul>
+    <ul className="container flex items-center min-h-10 gap-2">
       <li>
         <Link href="/">
           <Image
@@ -25,10 +25,10 @@ export function NavbarMenu() {
           {workspace.name}
         </Link>
       </li>
-      <li>
+      <li className="hidden">
         <Link href="/blog">Blog</Link>
       </li>
-      <li>
+      <li className="hidden">
         <Link
           href={workspace.socialUrls.linkedin}
           target="_blank"
@@ -38,7 +38,7 @@ export function NavbarMenu() {
           <LinkedInIcon className="size-8" />
         </Link>
       </li>
-      <li>
+      <li className="hidden">
         <Link
           href={workspace.socialUrls.x}
           target="_blank"
@@ -48,7 +48,7 @@ export function NavbarMenu() {
           <XIcon className="size-8" />
         </Link>
       </li>
-      <li>
+      <li className="hidden">
         <Link
           href={workspace.socialUrls.github}
           target="_blank"

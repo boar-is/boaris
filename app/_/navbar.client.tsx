@@ -16,7 +16,7 @@ export function Navbar({ children }: PropsWithChildren) {
   const menuToggleState = useToggleState()
 
   return (
-    <nav>
+    <nav className="bg-gray-1/75 backdrop-blur-md backdrop-saturate-150">
       <NavbarProvider
         value={{
           menuToggleState,

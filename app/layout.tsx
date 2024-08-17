@@ -26,7 +26,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <RouterProvider>
             <FramerMotionProvider>
               <div className="flex h-full flex-col overflow-y-scroll">
-                <header className="container sticky z-10 top-0 w-full">
+                <header className="sticky z-10 top-0 w-full">
                   <Navbar>
                     <NavbarMenu />
                     <NavbarMobileMenu />
