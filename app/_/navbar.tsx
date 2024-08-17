@@ -1,5 +1,3 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import { Button, PendingFormDisabledButtonProvider } from '~/components/button'
 import { CloseDialogButton, Dialog, DialogTrigger } from '~/components/dialog'
 import { FieldError, Form } from '~/components/form'
@@ -12,6 +10,8 @@ import {
   MenuIcon,
   XIcon,
 } from '~/components/icons'
+import { Image } from '~/components/image'
+import { Link } from '~/components/link'
 import { Menu, MenuItem, MenuTrigger } from '~/components/menu'
 import { Modal, ModalOverlay } from '~/components/modal'
 import { Popover } from '~/components/popover'

@@ -1,10 +1,10 @@
-import Link from 'next/link'
+import { Link } from '~/components/link'
 import { workspace } from '~/lib/data'
 
 export function Footer() {
   return (
     <div className="container">
-      <ul className="flex justify-between py-4 font-medium text-gray-9 md:gap-4">
+      <ul className="flex justify-between py-4 font-semibold text-gray-9 md:gap-4">
         <li>
           <Link href="/" className="rounded-sm px-2">
             Boar.is
