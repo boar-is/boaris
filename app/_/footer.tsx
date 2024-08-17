@@ -7,7 +7,7 @@ export function Footer() {
       <ul className="flex justify-between py-4 font-semibold text-gray-9 md:gap-4">
         <li>
           <Link href="/" className="rounded-sm px-2">
-            Boar.is
+            {workspace.name}
           </Link>
         </li>
         <li className="ml-auto">

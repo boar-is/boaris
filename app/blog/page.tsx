@@ -3,11 +3,7 @@ import { Link } from '~/components/link'
 import { workspace } from '~/lib/data'
 
 const authors = [
-  {
-    _id: '1',
-    avatarSrc: workspace.logoSrc,
-    name: 'Boris Zubchenko',
-  },
+  workspace.owner,
   {
     _id: '2',
     avatarSrc: 'https://avatars.githubusercontent.com/u/119161453?v=4',
@@ -22,7 +18,7 @@ const getPosts = () =>
       name: 'Promises from the ground up',
       lead: 'The “Promises” API is a surprisingly tricky part of modern JavaScript. Without the right context, it doesn’t make much sense at all! In this tutorial, you’ll build an intuition for how Promises work by getting a deeper understanding of JavaScript and its limitations.',
       date: '15 Aug 2024',
-      tags: ['TypeScript', 'CSS', 'Next.js', 'Next.js', 'CSS', 'TypeScript'],
+      tags: ['TypeScript', 'CSS', 'Next.js'],
       authors,
     },
     {
