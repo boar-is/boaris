@@ -46,54 +46,54 @@ export default async function BlogPage() {
         <h1>{workspace.name}'s Blog</h1>
       </header>
       {posts.map((post) => (
-        <article
+        <Link
           key={post.slug}
-          className="group flex flex-col justify-between md:even:flex-row md:flex-row-reverse border border-gray-4 rounded-xl md:rounded-3xl overflow-hidden transition-colors bg-gradient-to-tr from-gray-1 to-gray-2"
+          href={`/blog/${post.slug}`}
+          className="group rounded-xl md:rounded-3xl"
         >
-          <aside className="relative basis-1/2 aspect-video">
-            <Image
-              src={`https://picsum.photos/seed/${post.slug}/1600/900`}
-              alt={`${post.name}'s thumbnail`}
-              fill
-              className="object-cover"
-            />
-          </aside>
-          <section className="flex-1 flex flex-col gap-3 md:gap-8 p-4 md:p-10">
-            <header>
-              <hgroup>
-                <small className="text-gray-8 font-bold tracking-wide uppercase md:text-base">
-                  {post.date}
-                </small>
-                <h3 className="text-2xl md:text-5xl font-semibold tracking-tight text-gray-12 text-balance">
-                  <Link href={`/blog/${post.slug}`}>{post.name}</Link>
-                </h3>
-              </hgroup>
-            </header>
+          <article className="flex flex-col justify-between md:group-even:flex-row md:flex-row-reverse border border-gray-4 rounded-[inherit] overflow-hidden transition-colors bg-gradient-to-tr from-gray-1 to-gray-2">
+            <aside className="relative basis-1/2 aspect-video">
+              <Image
+                src={`https://picsum.photos/seed/${post.slug}/1600/900`}
+                alt={`${post.name}'s thumbnail`}
+                fill
+                className="object-cover"
+              />
+            </aside>
+            <section className="flex-1 flex flex-col gap-3 md:gap-6 p-4 md:p-10">
+              <header>
+                <hgroup>
+                  <small className="text-gray-8 font-bold tracking-wide uppercase md:text-base">
+                    {post.date}
+                  </small>
+                  <h3 className="text-2xl md:text-5xl font-semibold tracking-tight text-gray-12 text-balance">
+                    {post.name}
+                  </h3>
+                </hgroup>
+              </header>
 
-            <ul className="flex flex-wrap gap-1.5 text-sm md:text-sm font-medium tracking-wide text-gray-8 *:my-0.5">
-              {post.tags.map((tag) => (
-                <li key={tag}>
-                  <span className="border border-gray-7 rounded-full px-3 py-0.5">
-                    {tag}
-                  </span>
-                </li>
-              ))}
-            </ul>
+              <ul className="flex flex-wrap gap-1 md:gap-1.5 text-xs md:text-sm font-medium tracking-wide text-gray-8 *:my-0.5">
+                {post.tags.map((tag) => (
+                  <li key={tag}>
+                    <span className="border border-gray-7 rounded-full px-3 py-0.5">
+                      {tag}
+                    </span>
+                  </li>
+                ))}
+              </ul>
 
-            <p className="text-gray-10 font-medium leading-snug text-pretty md:text-lg">
-              {post.lead}
-            </p>
+              <p className="text-gray-10 font-medium leading-snug text-pretty md:text-lg">
+                {post.lead}
+              </p>
 
-            <footer>
-              <Link
-                href={`/blog/${post.slug}`}
-                className="block font-semibold md:text-lg py-2 md:py-3 text-center border border-gray-4 rounded-md md:rounded-2xl text-gray-10 bg-gray-2 group-hover:bg-gray-3 transition-colors"
-              >
-                Read More
-              </Link>
-            </footer>
-          </section>
-        </article>
+              <footer className="mt-auto">
+                <div className="block font-semibold md:text-lg py-2 md:py-3 text-center border border-gray-4 rounded-md md:rounded-2xl text-gray-10 bg-gray-2 group-hover:bg-gray-3 transition-colors">
+                  Read More
+                </div>
+              </footer>
+            </section>
+          </article>
+        </Link>
       ))}
     </article>
   )
