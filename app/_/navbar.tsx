@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Button, PendingFormDisabledButtonProvider } from '~/components/button'
 import { CloseDialogButton, Dialog, DialogTrigger } from '~/components/dialog'
 import { FieldError, Form } from '~/components/form'
+import { Header } from '~/components/header'
 import { Heading } from '~/components/heading'
 import {
   CloseIcon,
@@ -14,6 +15,7 @@ import {
 import { Menu, MenuItem, MenuTrigger } from '~/components/menu'
 import { Modal, ModalOverlay } from '~/components/modal'
 import { Popover } from '~/components/popover'
+import { Section } from '~/components/section'
 import { Input, Label, TextField } from '~/components/text-field'
 import { cx } from '~/lib/cx'
 import { workspace } from '~/lib/data'
@@ -23,7 +25,7 @@ export function Navbar() {
   return (
     <nav
       className={cx(
-        layerStyles,
+        layerCx,
         'bg-gray-1/75 backdrop-blur-md backdrop-saturate-150',
       )}
     >
@@ -32,7 +34,7 @@ export function Navbar() {
           <Link
             href="/"
             className={cx(
-              navItemBaseStyles,
+              navItemCx,
               'gap-2 pl-0 select-none text-gray-12 text-lg leading-tight break-all',
             )}
           >
@@ -47,7 +49,7 @@ export function Navbar() {
           </Link>
         </li>
         <li className="hidden md:block">
-          <Link href="/blog" className={navItemStyles}>
+          <Link href="/blog" className={navItemCx}>
             Blog
           </Link>
         </li>
@@ -56,7 +58,7 @@ export function Navbar() {
             href={workspace.socialUrls.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className={navItemStyles}
+            className={navItemCx}
           >
             <span className="sr-only">LinkedIn Profile</span>
             <LinkedInIcon className="size-8" />
@@ -67,7 +69,7 @@ export function Navbar() {
             href={workspace.socialUrls.x}
             target="_blank"
             rel="noopener noreferrer"
-            className={navItemStyles}
+            className={navItemCx}
           >
             <span className="sr-only">X Profile</span>
             <XIcon className="size-8" />
@@ -78,7 +80,7 @@ export function Navbar() {
             href={workspace.socialUrls.github}
             target="_blank"
             rel="noopener noreferrer"
-            className={navItemStyles}
+            className={navItemCx}
           >
             <span className="sr-only">GitHub Profile</span>
             <GitHubIcon className="size-8" />
@@ -89,8 +91,8 @@ export function Navbar() {
             <Button
               type="button"
               className={cx(
-                navItemBaseStyles,
-                'bg-gray-12 font-semibold text-gray-1 transition-colors hover:bg-gray-11 md:ml-4',
+                navItemCx,
+                'bg-gray-12 font-semibold text-gray-1 transition-colors hover:bg-gray-11 hover:text-gray-1 md:ml-4',
               )}
             >
               Subscribe
@@ -167,10 +169,7 @@ export function Navbar() {
           <MenuTrigger>
             <Button
               type="button"
-              className={cx(
-                navItemBaseStyles,
-                'group relative px-1.5 text-gray-12',
-              )}
+              className={cx(navItemCx, 'group relative px-1.5 text-gray-12')}
             >
               <span className="sr-only">Toggle Menu</span>
               <MenuIcon className="size-5 rotate-0 scale-100 transition-transform group-aria-expanded:rotate-90 group-aria-expanded:scale-0" />
@@ -184,13 +183,43 @@ export function Navbar() {
             >
               <Menu
                 className={cx(
-                  layerStyles,
+                  layerCx,
                   'flex min-w-40 flex-col gap-1.5 bg-gray-1 font-semibold text-gray-12 text-lg',
                 )}
               >
-                <MenuItem href="/blog" className={mobileMenuItemStyles}>
-                  Articles
-                </MenuItem>
+                <Section>
+                  <Header>Projects</Header>
+                  <MenuItem href="/blog" className={mobileNavItemCx}>
+                    Articles
+                  </MenuItem>
+                </Section>
+                <Section>
+                  <Header>Social</Header>
+                  <MenuItem
+                    href={workspace.socialUrls.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={mobileNavItemCx}
+                  >
+                    LinkedIn
+                  </MenuItem>
+                  <MenuItem
+                    href={workspace.socialUrls.x}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={mobileNavItemCx}
+                  >
+                    X
+                  </MenuItem>
+                  <MenuItem
+                    href={workspace.socialUrls.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={mobileNavItemCx}
+                  >
+                    GitHub
+                  </MenuItem>
+                </Section>
               </Menu>
             </Popover>
           </MenuTrigger>
@@ -200,15 +229,10 @@ export function Navbar() {
   )
 }
 
-const layerStyles = cx('border border-gray-4 rounded-xl p-2')
+const layerCx = cx('border border-gray-4 rounded-xl p-2')
 
-const navItemBaseStyles = cx(
-  'flex justify-center items-center rounded-md h-full px-3 md:px-4',
+const navItemCx = cx(
+  'flex justify-center items-center rounded-md h-full px-3 md:px-4 transition-colors text-gray-10 hover:text-gray-12',
 )
 
-const navItemStyles = cx(
-  navItemBaseStyles,
-  'transition-colors text-gray-11 hover:text-gray-12',
-)
-
-const mobileMenuItemStyles = cx('px-2 py-1')
+const mobileNavItemCx = cx('px-2 py-1')
