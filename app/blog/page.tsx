@@ -48,7 +48,7 @@ export default async function BlogPage() {
       {posts.map((post) => (
         <article
           key={post.slug}
-          className="group flex flex-col justify-between md:even:flex-row md:flex-row-reverse border border-gray-4 rounded-xl md:rounded-3xl overflow-hidden transition-colors hover:bg-gray-2"
+          className="group flex flex-col justify-between md:even:flex-row md:flex-row-reverse border border-gray-4 rounded-xl md:rounded-3xl overflow-hidden transition-colors bg-gradient-to-tr from-gray-1 to-gray-2"
         >
           <aside className="relative basis-1/2 aspect-video">
             <Image
@@ -65,7 +65,7 @@ export default async function BlogPage() {
                   {post.date}
                 </small>
                 <h3 className="text-2xl md:text-5xl font-semibold tracking-tight text-gray-12 text-balance">
-                  {post.name}
+                  <Link href={`/blog/${post.slug}`}>{post.name}</Link>
                 </h3>
               </hgroup>
             </header>
