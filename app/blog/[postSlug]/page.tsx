@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation'
+import { getBlogPost } from '~/lib/api/get-blog-post'
 import { cx } from '~/lib/cx'
 import { postDocs } from '~/lib/db/posts'
 import { JetBrainsMono } from '~/lib/fonts'
-import { PostService } from '~/lib/services/post.service'
 import { BlogCaptions } from './_/blog-captions'
 
 export async function generateStaticParams() {
@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 export default async function BlogPostPage({
   params: { postSlug },
 }: { params: { postSlug: string } }) {
-  const post = PostService.getBlogPost(postSlug)
+  const post = await getBlogPost(postSlug)
 
   if (!post) {
     notFound()

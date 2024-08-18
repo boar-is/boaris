@@ -11,8 +11,8 @@ import { Modal, ModalOverlay } from '~/components/modal'
 import { Popover } from '~/components/popover'
 import { Section } from '~/components/section'
 import { Input, Label, TextField } from '~/components/text-field'
+import type { WorkspaceVm } from '~/lib/api/get-workspace'
 import { cx } from '~/lib/cx'
-import type { WorkspaceVm } from '~/lib/services/workspace.service'
 import { SubscriptionFormProvider } from './navbar.client'
 
 export function Navbar({ workspace }: { workspace: WorkspaceVm }) {

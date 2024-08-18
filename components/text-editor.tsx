@@ -16,11 +16,15 @@ export function TextEditor({ editor, content, extensions }: TextEditorProps) {
   return editor ? (
     <EditorContent editor={editor} />
   ) : (
-    <div
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: It's okay here
-      dangerouslySetInnerHTML={{
-        __html: generateHTML(content, extensions),
-      }}
-    />
+    // Simulating TipTap layout
+    <div>
+      <div
+        className="tiptap ProseMirror"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: It's okay here
+        dangerouslySetInnerHTML={{
+          __html: generateHTML(content, extensions),
+        }}
+      />
+    </div>
   )
 }

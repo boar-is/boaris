@@ -10,11 +10,6 @@ export function BlogCaptions({ content }: { content: JSONContent }) {
     content,
     immediatelyRender: false,
     shouldRerenderOnTransaction: false,
-    editorProps: {
-      attributes: {
-        'data-slot': 'typography-root',
-      },
-    },
   })
 
   return (

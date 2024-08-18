@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
 import { Image } from '~/components/image'
 import { Link } from '~/components/link'
-import { ProjectService } from '~/lib/services/project.service'
+import { getBlog } from '~/lib/api/get-blog'
 
 export default async function BlogPage() {
-  const blog = ProjectService.getBlog()
+  const blog = await getBlog()
 
   if (!blog) {
     notFound()

@@ -1,6 +1,6 @@
 import { Link } from '~/components/link'
+import type { WorkspaceVm } from '~/lib/api/get-workspace'
 import { cx } from '~/lib/cx'
-import type { WorkspaceVm } from '~/lib/services/workspace.service'
 
 export function Footer({ workspace }: { workspace: WorkspaceVm }) {
   return (

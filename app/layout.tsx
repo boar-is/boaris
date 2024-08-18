@@ -11,13 +11,13 @@ import {
   LocalizedStringProvider,
   ToastProvider,
 } from '~/components/providers/server.providers'
+import { getWorkspace } from '~/lib/api/get-workspace'
 import { Switzer } from '~/lib/fonts'
-import { WorkspaceService } from '~/lib/services/workspace.service'
 import { Footer } from './_/footer'
 import { Navbar } from './_/navbar'
 
-export default function RootLayout({ children }: PropsWithChildren) {
-  const workspace = WorkspaceService.getWorkspaceVm()
+export default async function RootLayout({ children }: PropsWithChildren) {
+  const workspace = await getWorkspace()
 
   if (!workspace) {
     notFound()

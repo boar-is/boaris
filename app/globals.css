@@ -34,11 +34,11 @@
     @apply max-w-prose text-pretty text-gray-11
   }
 
-  .typography [data-slot~="typography-root"] > *:first-child {
+  .typography .tiptap > *:first-child {
     margin-top: 0;
   }
 
-  .typography [data-slot~="typography-root"] > *:last-child {
+  .typography .tiptap > *:last-child {
     margin-bottom: 0;
   }
 
