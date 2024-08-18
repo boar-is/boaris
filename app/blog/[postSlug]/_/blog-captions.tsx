@@ -6,6 +6,7 @@ import { extensions } from '~/lib/tiptap/extensions'
 
 export function BlogCaptions({ content }: { content: JSONContent }) {
   const editor = useEditor({
+    editable: false,
     extensions,
     content,
     immediatelyRender: false,

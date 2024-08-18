@@ -44,10 +44,10 @@ export default async function BlogPostPage({
         )}
         <header className="mt-6 mb-12">
           <hgroup className="space-y-4">
-            <h1 className="text-4xl md:text-5xl text-balance font-semibold text-gray-12 tracking-tight">
+            <h1 className="text-4xl md:text-5xl text-balance font-semibold text-gray-12 tracking-tighter">
               {post.title}
             </h1>
-            <p className="text-gray-10 font-medium text-xl md:text-2xl">
+            <p className="text-gray-10 font-medium text-xl md:text-2xl tracking-tight text-pretty">
               {post.lead}
             </p>
           </hgroup>
