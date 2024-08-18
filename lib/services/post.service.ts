@@ -34,7 +34,7 @@ export class PostService {
     return {
       title: post.title,
       lead: post.lead ?? post.description,
-      captions: captions.doc,
+      captions: captions.content,
     } satisfies BlogPostVm
   }
 }
