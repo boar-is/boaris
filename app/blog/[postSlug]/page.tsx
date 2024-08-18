@@ -37,10 +37,10 @@ export default async function BlogPostPage({
 
   return (
     <article className={cx(JetBrainsMono.variable, 'flex flex-col gap-10')}>
-      <aside></aside>
+      <aside />
       <header className="container max-w-prose">
         <hgroup>
-          <h1>{post.name}</h1>
+          <h1>{post.title}</h1>
           <p>{post.lead ?? post.description}</p>
         </hgroup>
       </header>

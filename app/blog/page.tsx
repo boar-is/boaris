@@ -1,51 +1,16 @@
 import { notFound } from 'next/navigation'
 import { Image } from '~/components/image'
 import { Link } from '~/components/link'
-import { PostAuthorRepository } from '~/lib/db/post-authors'
-import { PostTagRepository } from '~/lib/db/post-tags'
-import { PostRepository } from '~/lib/db/posts'
-import { ProjectRepository } from '~/lib/db/projects'
-import { StorageRepository } from '~/lib/db/storages'
-import { TagRepository } from '~/lib/db/tags'
-import { UserRepository } from '~/lib/db/users'
+import { ProjectService } from '~/lib/services/project.service'
 
 export default async function BlogPage() {
-  const project = ProjectRepository.findOneBySlug('blog')
+  const blog = ProjectService.getBlog()
 
-  if (!project) {
+  if (!blog) {
     notFound()
   }
 
-  const posts = PostRepository.findPublishedByProjectId(project._id).map(
-    (post) => {
-      return {
-        _id: post._id,
-        name: post.name,
-        slug: post.slug,
-        lead: post.lead ?? post.description,
-        date: new Intl.DateTimeFormat('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-        }).format(new Date(post._creationTime)),
-        thumbnailSrc:
-          post.thumbnailId && StorageRepository.findOneSrc(post.thumbnailId),
-        tags: TagRepository.findMany(
-          PostTagRepository.findByPostId(post._id).map((it) => it._id),
-        ),
-        authors: UserRepository.findMany(
-          PostAuthorRepository.findByPostId(post._id).map((it) => it._id),
-        ).map((author) => ({
-          _id: author._id,
-          name: author.name,
-          avatarSrc:
-            author.avatarId && StorageRepository.findOneSrc(author.avatarId),
-        })),
-      }
-    },
-  )
-
-  if (!posts.length) {
+  if (!blog.posts.length) {
     return (
       <div className="container text-center text-2xl md:text-5xl text-gray-8 font-semibold capitalize">
         No posts yet
@@ -56,9 +21,9 @@ export default async function BlogPage() {
   return (
     <article className="container flex flex-col gap-6 md:gap-10 items-stretch">
       <header className="sr-only">
-        <h1>{project.name}</h1>
+        <h1>{blog.name}</h1>
       </header>
-      {posts.map((post) => (
+      {blog.posts.map((post) => (
         <Link
           key={post.slug}
           href={`/blog/${post.slug}`}
@@ -69,7 +34,7 @@ export default async function BlogPage() {
               <aside className="relative basis-1/2 aspect-video">
                 <Image
                   src={post.thumbnailSrc}
-                  alt={`${post.name}'s thumbnail`}
+                  alt={`${post.title}'s thumbnail`}
                   fill
                   className="object-cover"
                 />
@@ -82,7 +47,7 @@ export default async function BlogPage() {
                     {post.date}
                   </small>
                   <h3 className="text-2xl md:text-4xl font-semibold tracking-tight text-gray-12 text-balance">
-                    {post.name}
+                    {post.title}
                   </h3>
                 </hgroup>
               </header>
@@ -90,7 +55,7 @@ export default async function BlogPage() {
               {post.tags && (
                 <ul className="flex flex-wrap gap-1 md:gap-1.5 text-xs md:text-sm font-medium tracking-wide text-gray-8 *:my-0.5">
                   {post.tags.map((tag) => (
-                    <li key={tag._id}>
+                    <li key={tag.slug}>
                       <span className="border border-gray-7 rounded-full px-3 py-0.5">
                         {tag.name}
                       </span>
@@ -107,7 +72,7 @@ export default async function BlogPage() {
                 <ul className="space-y-1 md:space-y-2 text-gray-8 text-sm md:text-base font-semibold tracking-tight">
                   {post.authors.map((author) => (
                     <li
-                      key={author._id}
+                      key={author.slug}
                       className="flex items-center gap-1.5 md:gap-2"
                     >
                       {author.avatarSrc && (

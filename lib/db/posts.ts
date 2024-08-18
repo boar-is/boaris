@@ -4,10 +4,10 @@ import type { RevisionDoc } from './revisions'
 import type { StorageDoc } from './storages'
 
 export type PostDoc = Doc & {
-  name: string
-  slug: string
-  description: string
+  title: string
   lead?: string | undefined
+  description: string
+  slug: string
   thumbnailId?: StorageDoc['_id'] | undefined
   projectId: ProjectDoc['_id']
   draftRevisionId?: RevisionDoc['_id'] | undefined
@@ -18,7 +18,7 @@ export class PostRepository {
   static #data: ReadonlyArray<PostDoc> = [
     {
       _id: '1',
-      name: 'Promises From The Ground Up',
+      title: 'Promises From The Ground Up',
       slug: 'promises',
       description:
         'The “Promises” API is a surprisingly tricky part of modern JavaScript. Without the right context, it doesn’t make much sense at all! In this tutorial, you’ll build an intuition for how Promises work by getting a deeper understanding of JavaScript and its limitations.',

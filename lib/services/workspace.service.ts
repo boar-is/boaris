@@ -24,11 +24,11 @@ const matchSocialNameToIcon = (socialName: string) =>
   )
 
 export class WorkspaceService {
-  static #mvpWorkspace = 'boaris'
+  static mvpWorkspace = 'boaris'
 
   static getWorkspaceVm() {
     const workspace = WorkspaceRepository.findOneBySlug(
-      WorkspaceService.#mvpWorkspace,
+      WorkspaceService.mvpWorkspace,
     )
 
     if (!workspace) {

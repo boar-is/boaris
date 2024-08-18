@@ -3,29 +3,22 @@ import type { StorageDoc } from '~/lib/db/storages'
 
 export type TagDoc = Doc & {
   name: string
-} & (
-    | {
-        iconId?: StorageDoc['_id'] | undefined
-        iconName?: never
-      }
-    | {
-        iconName?: string | undefined
-        iconId?: never
-      }
-  )
+  slug: string
+  iconId?: StorageDoc['_id'] | undefined
+}
 
 export class TagRepository {
   static #data: ReadonlyArray<TagDoc> = [
     {
       _id: '1',
       name: 'TypeScript',
-      iconName: 'typescript',
+      slug: 'typescript',
       _creationTime: Date.now(),
     },
     {
       _id: '2',
       name: 'React',
-      iconName: 'react',
+      slug: 'react',
       _creationTime: Date.now(),
     },
   ]

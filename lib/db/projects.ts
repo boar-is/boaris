@@ -18,7 +18,12 @@ export class ProjectRepository {
     },
   ]
 
-  static findOneBySlug(slug: ProjectDoc['slug']) {
-    return ProjectRepository.#data.find((it) => it.slug === slug)
+  static findOneByWorkspaceAndSlug(
+    workspaceId: WorkspaceDoc['_id'],
+    slug: ProjectDoc['slug'],
+  ) {
+    return ProjectRepository.#data.find(
+      (it) => it.workspaceId === workspaceId && it.slug === slug,
+    )
   }
 }
