@@ -11,6 +11,7 @@ export default async function BlogPage() {
   }
 
   if (!blog.posts.length) {
+    // TODO h1
     return (
       <div className="container text-center text-2xl md:text-5xl text-gray-8 font-semibold capitalize">
         No posts yet

@@ -14,7 +14,7 @@ export class WorkspaceRepository {
       _id: '1',
       name: 'Boar.is',
       slug: 'boaris',
-      // logoId: '2',
+      logoId: '2',
       socials: {
         LinkedIn: 'https://linkedin.com/in/boris-zubchenko/',
         X: 'https://x.com/BorisZubchenk',

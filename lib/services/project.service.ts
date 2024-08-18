@@ -6,6 +6,7 @@ import { TagRepository } from '~/lib/db/tags'
 import { UserRepository } from '~/lib/db/users'
 import { WorkspaceService } from '~/lib/services/workspace.service'
 import { ProjectRepository } from '../db/projects'
+import { WorkspaceRepository } from '../db/workspaces'
 
 export type BlogVm = {
   name: string
@@ -28,12 +29,20 @@ export type BlogVm = {
 }
 
 export class ProjectService {
-  static mvpProject = 'blog'
+  static mvpProjectSlug = 'blog'
 
   static getBlog() {
+    const workspace = WorkspaceRepository.findOneBySlug(
+      WorkspaceService.mvpWorkspaceSlug,
+    )
+
+    if (!workspace) {
+      return null
+    }
+
     const project = ProjectRepository.findOneByWorkspaceAndSlug(
-      WorkspaceService.mvpWorkspace,
-      ProjectService.mvpProject,
+      workspace._id,
+      ProjectService.mvpProjectSlug,
     )
 
     if (!project) {

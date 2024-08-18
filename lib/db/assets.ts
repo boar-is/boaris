@@ -39,7 +39,7 @@ export type AssetDoc = Doc & {
       }
     | {
         type: 'Captions'
-        doc: JSONContent
+        content: JSONContent
       }
     | {
         type: 'Track'
@@ -92,7 +92,7 @@ export class AssetRepository {
     {
       _id: '1',
       type: 'Captions',
-      doc: {
+      content: {
         type: 'doc',
         content: [
           {

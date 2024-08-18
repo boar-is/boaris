@@ -1,38 +1,35 @@
 import { notFound } from 'next/navigation'
 import { cx } from '~/lib/cx'
-import { AssetRepository } from '~/lib/db/assets'
 import { PostRepository } from '~/lib/db/posts'
-import { RevisionAssetRepository } from '~/lib/db/revision-assets'
+import { ProjectRepository } from '~/lib/db/projects'
 import { JetBrainsMono } from '~/lib/fonts'
+import { PostService } from '~/lib/services/post.service'
+import { ProjectService } from '~/lib/services/project.service'
+import { WorkspaceService } from '~/lib/services/workspace.service'
 import { BlogCaptions } from './_/blog-captions'
 
 export async function generateStaticParams() {
-  return PostRepository.findPublishedByProjectId('boaris').map((it) => ({
+  const project = ProjectRepository.findOneByWorkspaceAndSlug(
+    WorkspaceService.mvpWorkspaceSlug,
+    ProjectService.mvpProjectSlug,
+  )
+
+  if (!project) {
+    return []
+  }
+
+  return PostRepository.findPublishedByProjectId(project._id).map((it) => ({
     postSlug: it.slug,
   }))
 }
 
 export default async function BlogPostPage({
-  params,
+  params: { postSlug },
 }: { params: { postSlug: string } }) {
-  const post = PostRepository.findOneBySlug(params.postSlug)
+  const post = PostService.getBlogPost(postSlug)
 
-  if (!post?.publishedRevisionId) {
+  if (!post) {
     notFound()
-  }
-
-  const assets = AssetRepository.findMany(
-    RevisionAssetRepository.findByRevisionId(post?.publishedRevisionId).map(
-      (it) => it.assetId,
-    ),
-  )
-
-  const captions = assets.find((it) => it.type === 'Captions')
-
-  if (!captions) {
-    throw new Error(
-      `Post ${post.slug} does not have captions asset for the scrolling mode.`,
-    )
   }
 
   return (
@@ -41,11 +38,11 @@ export default async function BlogPostPage({
       <header className="container max-w-prose">
         <hgroup>
           <h1>{post.title}</h1>
-          <p>{post.lead ?? post.description}</p>
+          <p>{post.lead}</p>
         </hgroup>
       </header>
       <section className="container typography">
-        <BlogCaptions content={captions.doc} />
+        <BlogCaptions content={post.captions} />
       </section>
     </article>
   )

@@ -174,7 +174,7 @@ export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
                 <Section className={sectionMobileCx}>
                   <Header className={headerMobileCx}>Projects</Header>
                   <MenuItem href="/blog" className={itemMobileCx}>
-                    Articles
+                    Blog
                   </MenuItem>
                 </Section>
                 <Section className={sectionMobileCx}>
