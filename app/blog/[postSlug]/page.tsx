@@ -30,6 +30,12 @@ export default async function BlogPostPage({
           <aside className="relative aspect-video">
             <Image
               src={post.thumbnailSrc}
+              alt={`${post.title} thumbnail's blur`}
+              fill
+              className="absolute object-cover rounded-2xl max-w-full max-h-full blur-3xl scale-90 pointer-events-none transform-gpu"
+            />
+            <Image
+              src={post.thumbnailSrc}
               alt={`${post.title}'s thumbnail`}
               fill
               className="object-cover rounded-2xl"
