@@ -1,9 +1,7 @@
 import { Image } from '~/components/image'
 import { Link } from '~/components/link'
-import { workspace } from '~/lib/data'
 
 const authors = [
-  workspace.owner,
   {
     _id: '2',
     avatarSrc: 'https://avatars.githubusercontent.com/u/119161453?v=4',
@@ -63,8 +61,8 @@ export default async function BlogPage() {
 
   return (
     <article className="container flex flex-col gap-6 md:gap-10 items-stretch">
-      <header className="sr-only">
-        <h1>{workspace.name}'s Blog</h1>
+      <header>
+        <h1>sef's Blog</h1>
       </header>
       {posts.map((post) => (
         <Link
