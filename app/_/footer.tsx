@@ -1,8 +1,8 @@
 import { Link } from '~/components/link'
 import { cx } from '~/lib/cx'
-import type { WorkspaceDoc } from '~/lib/db/workspaces'
+import type { WorkspaceVm } from '~/lib/services/workspace.service'
 
-export function Footer({ workspace }: { workspace: WorkspaceDoc }) {
+export function Footer({ workspace }: { workspace: WorkspaceVm }) {
   return (
     <div className="container">
       <ul className="flex justify-between py-4 font-semibold text-gray-9 md:gap-4">
@@ -11,21 +11,18 @@ export function Footer({ workspace }: { workspace: WorkspaceDoc }) {
             {workspace.name}
           </Link>
         </li>
-        {workspace.socials &&
-          Object.entries(workspace.socials).map(
-            ([socialName, socialSrc], index) => (
-              <li key={socialName} className={cx({ 'ml-auto': index === 0 })}>
-                <a
-                  href={socialSrc}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-sm px-2"
-                >
-                  {socialName}
-                </a>
-              </li>
-            ),
-          )}
+        {workspace.socials.map((social, index) => (
+          <li key={social.name} className={cx({ 'ml-auto': index === 0 })}>
+            <a
+              href={social.src}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-sm px-2"
+            >
+              {social.name}
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   )

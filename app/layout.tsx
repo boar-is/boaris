@@ -11,13 +11,13 @@ import {
   LocalizedStringProvider,
   ToastProvider,
 } from '~/components/providers/server.providers'
-import { WorkspaceRepository } from '~/lib/db/workspaces'
 import { Switzer } from '~/lib/fonts'
+import { WorkspaceService } from '~/lib/services/workspace.service'
 import { Footer } from './_/footer'
 import { Navbar } from './_/navbar'
 
 export default function RootLayout({ children }: PropsWithChildren) {
-  const workspace = WorkspaceRepository.findOneBySlug('boaris')
+  const workspace = WorkspaceService.getWorkspaceVm()
 
   if (!workspace) {
     notFound()

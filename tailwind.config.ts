@@ -42,6 +42,11 @@ const tailwindConfig = {
       sans: ['var(--font-switzer)', ...fontFamily.sans],
       mono: ['var(--font-jetbrains-mono)', ...fontFamily.mono],
     },
+    extend: {
+      maxWidth: {
+        prose: '75ch',
+      },
+    },
   },
   plugins: [tailwindAnimate, tailwindRac],
 } satisfies Config

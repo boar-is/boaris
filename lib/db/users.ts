@@ -18,6 +18,10 @@ export class UserRepository {
     },
   ]
 
+  static findOne(id: UserDoc['_id']) {
+    return UserRepository.#data.find((it) => it._id === id)
+  }
+
   static findMany(ids: ReadonlyArray<UserDoc['_id']>) {
     return UserRepository.#data.filter((it) => ids.includes(it._id))
   }

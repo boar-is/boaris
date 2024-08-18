@@ -5,7 +5,7 @@ export type WorkspaceDoc = Doc & {
   name: string
   slug: string
   logoId?: StorageDoc['_id'] | undefined
-  socials?: Record<'LinkedIn' | 'X' | 'GitHub', string> | undefined
+  socials?: Partial<Record<'LinkedIn' | 'X' | 'GitHub', string>> | undefined
 }
 
 export class WorkspaceRepository {
@@ -14,7 +14,7 @@ export class WorkspaceRepository {
       _id: '1',
       name: 'Boar.is',
       slug: 'boaris',
-      logoId: '2',
+      // logoId: '2',
       socials: {
         LinkedIn: 'https://linkedin.com/in/boris-zubchenko/',
         X: 'https://x.com/BorisZubchenk',

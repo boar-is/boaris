@@ -36,8 +36,7 @@ export class PostRepository {
 
   static findPublishedByProjectId(projectId: ProjectDoc['_id']) {
     return PostRepository.#data.filter(
-      (it) =>
-        it.projectId === projectId && it.publishedRevisionId !== undefined,
+      (it) => it.projectId === projectId && !it.publishedRevisionId,
     )
   }
 }

@@ -28,6 +28,8 @@ export default async function BlogPage() {
           month: 'short',
           day: 'numeric',
         }).format(new Date(post._creationTime)),
+        thumbnailSrc:
+          post.thumbnailId && StorageRepository.findOneSrc(post.thumbnailId),
         tags: TagRepository.findMany(
           PostTagRepository.findByPostId(post._id).map((it) => it._id),
         ),
@@ -45,7 +47,7 @@ export default async function BlogPage() {
 
   if (!posts.length) {
     return (
-      <div className="container text-center text-5xl font-semibold capitalize">
+      <div className="container text-center text-2xl md:text-5xl text-gray-8 font-semibold capitalize">
         No posts yet
       </div>
     )
@@ -63,14 +65,16 @@ export default async function BlogPage() {
           className="group rounded-xl md:rounded-3xl"
         >
           <article className="flex flex-col justify-between md:group-even:flex-row md:flex-row-reverse border border-gray-3 rounded-[inherit] overflow-hidden transition-colors bg-gradient-to-tr from-gray-1 to-gray-2">
-            <aside className="relative basis-1/2 aspect-video">
-              <Image
-                src={`https://picsum.photos/seed/${post.slug}/1600/900`}
-                alt={`${post.name}'s thumbnail`}
-                fill
-                className="object-cover"
-              />
-            </aside>
+            {post.thumbnailSrc && (
+              <aside className="relative basis-1/2 aspect-video">
+                <Image
+                  src={post.thumbnailSrc}
+                  alt={`${post.name}'s thumbnail`}
+                  fill
+                  className="object-cover"
+                />
+              </aside>
+            )}
             <section className="flex-1 flex flex-col gap-3 md:gap-6 p-4 md:p-10">
               <header>
                 <hgroup>

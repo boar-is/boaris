@@ -18,12 +18,12 @@ export class StorageRepository {
     },
     {
       _id: '3',
-      src: 'https://picsum.photos/seed/promises/1600/900',
+      src: 'https://picsum.photos/seed/promises/1024/768',
       _creationTime: Date.now(),
     },
   ]
 
-  static findOneSrc(_id: StorageDoc['_id']) {
-    return StorageRepository.#data.find((it) => it._id === _id)?.src
+  static findOneSrc(id: StorageDoc['_id']) {
+    return StorageRepository.#data.find((it) => it._id === id)?.src
   }
 }

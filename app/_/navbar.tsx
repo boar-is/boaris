@@ -1,16 +1,9 @@
-import { Match } from 'effect'
 import { Button, PendingFormDisabledButtonProvider } from '~/components/button'
 import { CloseDialogButton, Dialog, DialogTrigger } from '~/components/dialog'
 import { FieldError, Form } from '~/components/form'
 import { Header } from '~/components/header'
 import { Heading } from '~/components/heading'
-import {
-  CloseIcon,
-  GitHubIcon,
-  LinkedInIcon,
-  MenuIcon,
-  XIcon,
-} from '~/components/icons'
+import { CloseIcon, MenuIcon } from '~/components/icons'
 import { Image } from '~/components/image'
 import { Link } from '~/components/link'
 import { Menu, MenuItem, MenuTrigger } from '~/components/menu'
@@ -19,22 +12,10 @@ import { Popover } from '~/components/popover'
 import { Section } from '~/components/section'
 import { Input, Label, TextField } from '~/components/text-field'
 import { cx } from '~/lib/cx'
-import { StorageRepository } from '~/lib/db/storages'
-import type { WorkspaceDoc } from '~/lib/db/workspaces'
+import type { WorkspaceVm } from '~/lib/services/workspace.service'
 import { SubscriptionFormProvider } from './navbar.client'
 
-const matchSocialNameToIcon = (socialName: string) =>
-  Match.value(socialName).pipe(
-    Match.when('LinkedIn', () => LinkedInIcon),
-    Match.when('X', () => XIcon),
-    Match.when('GitHub', () => GitHubIcon),
-    Match.orElseAbsurd,
-  )
-
-export function Navbar({ workspace }: { workspace: WorkspaceDoc }) {
-  const logoSrc =
-    workspace.logoId && StorageRepository.findOneSrc(workspace.logoId)
-
+export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
   return (
     <nav
       className={cx(
@@ -51,9 +32,9 @@ export function Navbar({ workspace }: { workspace: WorkspaceDoc }) {
               'gap-2 select-none text-gray-12 text-lg leading-tight break-all',
             )}
           >
-            {logoSrc && (
+            {workspace.logoSrc && (
               <Image
-                src={logoSrc}
+                src={workspace.logoSrc}
                 alt={`${workspace.name}'s logo`}
                 width={40}
                 height={40}
@@ -63,33 +44,27 @@ export function Navbar({ workspace }: { workspace: WorkspaceDoc }) {
             Boar.is
           </Link>
         </li>
-        <li className="hidden md:block">
+        <li className="hidden md:block mr-auto">
           <Link href="/blog" className={cx(itemCx, rectCx, mutedCx)}>
             Blog
           </Link>
         </li>
-        {workspace.socials &&
-          Object.entries(workspace.socials).map(
-            ([socialName, socialSrc], index) => {
-              const SocialIcon = matchSocialNameToIcon(socialName)
-              return (
-                <li
-                  key={socialName}
-                  className={cx('hidden md:block', { 'ml-auto': index === 0 })}
-                >
-                  <Link
-                    href={socialSrc}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cx(itemCx, squareCx, mutedCx)}
-                  >
-                    <span className="sr-only">{socialName} Profile</span>
-                    <SocialIcon className="size-5" />
-                  </Link>
-                </li>
-              )
-            },
-          )}
+        {workspace.socials?.map((social, index) => (
+          <li
+            key={social.name}
+            className={cx('hidden md:block', { 'ml-auto': index === 0 })}
+          >
+            <Link
+              href={social.src}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cx(itemCx, squareCx, mutedCx)}
+            >
+              <span className="sr-only">{social.name} Profile</span>
+              <social.icon className="size-5" />
+            </Link>
+          </li>
+        ))}
         <li className="ml-auto md:ml-0">
           <DialogTrigger>
             <Button
@@ -204,20 +179,17 @@ export function Navbar({ workspace }: { workspace: WorkspaceDoc }) {
                 </Section>
                 <Section className={sectionMobileCx}>
                   <Header className={headerMobileCx}>Social</Header>
-                  {workspace.socials &&
-                    Object.entries(workspace.socials).map(
-                      ([socialName, socialSrc]) => (
-                        <MenuItem
-                          key={socialName}
-                          href={socialSrc}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={itemMobileCx}
-                        >
-                          {socialName}
-                        </MenuItem>
-                      ),
-                    )}
+                  {workspace.socials?.map((social) => (
+                    <MenuItem
+                      key={social.name}
+                      href={social.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={itemMobileCx}
+                    >
+                      {social.name}
+                    </MenuItem>
+                  ))}
                 </Section>
               </Menu>
             </Popover>

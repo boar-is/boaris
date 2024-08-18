@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { cx } from '~/lib/cx'
 import { AssetRepository } from '~/lib/db/assets'
 import { PostRepository } from '~/lib/db/posts'
 import { RevisionAssetRepository } from '~/lib/db/revision-assets'
@@ -28,11 +29,24 @@ export default async function BlogPostPage({
 
   const captions = assets.find((it) => it.type === 'Captions')
 
+  if (!captions) {
+    throw new Error(
+      `Post ${post.slug} does not have captions asset for the scrolling mode.`,
+    )
+  }
+
   return (
-    <div className={JetBrainsMono.variable}>
-      <div className="container typography">
-        {captions && <BlogCaptions content={captions.doc} />}
-      </div>
-    </div>
+    <article className={cx(JetBrainsMono.variable, 'flex flex-col gap-10')}>
+      <aside></aside>
+      <header className="container max-w-prose">
+        <hgroup>
+          <h1>{post.name}</h1>
+          <p>{post.lead ?? post.description}</p>
+        </hgroup>
+      </header>
+      <section className="container typography">
+        <BlogCaptions content={captions.doc} />
+      </section>
+    </article>
   )
 }

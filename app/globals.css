@@ -31,7 +31,7 @@
 
 @layer components {
   .typography {
-    @apply max-w-[75ch] text-pretty text-gray-11
+    @apply max-w-prose text-pretty text-gray-11
   }
 
   .typography [data-slot~="typography-root"] > *:first-child {
