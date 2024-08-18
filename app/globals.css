@@ -21,8 +21,12 @@
   }
 }
 
+.tiptap {
+  @apply rounded-md
+}
+
 .tiptap .is-editor-empty:first-child::before {
-  @apply text-gray-8 content-[attr(data-placeholder)] float-left h-0 pointer-events-none
+  @apply text-gray-7 content-[attr(data-placeholder)] float-left h-0 pointer-events-none
 }
 
 @layer components {
