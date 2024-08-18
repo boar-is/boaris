@@ -7,4 +7,12 @@ export type ProjectDoc = Doc & {
   slug: string
 }
 
-export const projectDocs = [] satisfies ReadonlyArray<ProjectDoc>
+export const projectDocs = [
+  {
+    _id: '1',
+    workspaceId: '1',
+    name: 'Blog',
+    slug: 'blog',
+    _creationTime: Date.now(),
+  },
+] satisfies ReadonlyArray<ProjectDoc>

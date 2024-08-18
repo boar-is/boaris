@@ -7,4 +7,11 @@ export type WorkspaceUserDoc = Doc & {
   userId: UserDoc['_id']
 }
 
-export const workspaceUserDocs = [] satisfies ReadonlyArray<WorkspaceUserDoc>
+export const workspaceUserDocs = [
+  {
+    _id: '1',
+    workspaceId: '1',
+    userId: '1',
+    _creationTime: Date.now(),
+  },
+] satisfies ReadonlyArray<WorkspaceUserDoc>
