@@ -13,4 +13,8 @@ export class RevisionRepository {
       _creationTime: Date.now(),
     },
   ]
+
+  static findOne(id: RevisionDoc['_id']) {
+    return RevisionRepository.#data.filter((it) => it._id === id)
+  }
 }

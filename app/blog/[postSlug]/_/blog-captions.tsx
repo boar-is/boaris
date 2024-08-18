@@ -1,13 +1,10 @@
 'use client'
 
-import { useEditor } from '@tiptap/react'
+import { type JSONContent, useEditor } from '@tiptap/react'
 import { TextEditor } from '~/components/text-editor'
-import { typography } from '~/lib/posts/typography'
 import { extensions } from '~/lib/tiptap/extensions'
 
-const content = typography.content
-
-export function BlogEditor() {
+export function BlogCaptions({ content }: { content: JSONContent }) {
   const editor = useEditor({
     extensions,
     content,

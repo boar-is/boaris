@@ -30,6 +30,10 @@ export class PostRepository {
     },
   ]
 
+  static findOneBySlug(slug: PostDoc['slug']) {
+    return PostRepository.#data.find((it) => it.slug === slug)
+  }
+
   static findPublishedByProjectId(projectId: ProjectDoc['_id']) {
     return PostRepository.#data.filter(
       (it) =>
