@@ -9,7 +9,7 @@ export type WorkspaceDoc = Doc & {
 }
 
 export class WorkspaceRepository {
-  static #data = [
+  static #data: ReadonlyArray<WorkspaceDoc> = [
     {
       _id: '1',
       name: 'Boar.is',
@@ -22,9 +22,7 @@ export class WorkspaceRepository {
       },
       _creationTime: Date.now(),
     },
-  ] satisfies ReadonlyArray<WorkspaceDoc>
-
-  static activeWorkspaceSlug = 'boaris'
+  ]
 
   static findOneBySlug(slug: WorkspaceDoc['slug']) {
     return WorkspaceRepository.#data.find((it) => it.slug === slug)

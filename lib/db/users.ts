@@ -8,7 +8,7 @@ export type UserDoc = Doc & {
 }
 
 export class UserRepository {
-  static #data = [
+  static #data: ReadonlyArray<UserDoc> = [
     {
       _id: '1',
       name: 'Boris Zubchenko',
@@ -16,5 +16,9 @@ export class UserRepository {
       avatarId: '1',
       _creationTime: Date.now(),
     },
-  ] satisfies ReadonlyArray<UserDoc>
+  ]
+
+  static findMany(ids: ReadonlyArray<UserDoc['_id']>) {
+    return UserRepository.#data.filter((it) => ids.includes(it._id))
+  }
 }

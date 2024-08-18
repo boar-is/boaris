@@ -15,7 +15,7 @@ export type TagDoc = Doc & {
   )
 
 export class TagRepository {
-  static #data = [
+  static #data: ReadonlyArray<TagDoc> = [
     {
       _id: '1',
       name: 'TypeScript',
@@ -28,5 +28,9 @@ export class TagRepository {
       iconName: 'react',
       _creationTime: Date.now(),
     },
-  ] satisfies ReadonlyArray<TagDoc>
+  ]
+
+  static findMany(ids: ReadonlyArray<TagDoc['_id']>) {
+    return TagRepository.#data.filter((it) => ids.includes(it._id))
+  }
 }

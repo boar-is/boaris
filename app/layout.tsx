@@ -17,9 +17,7 @@ import { Footer } from './_/footer'
 import { Navbar } from './_/navbar'
 
 export default function RootLayout({ children }: PropsWithChildren) {
-  const workspace = WorkspaceRepository.findOneBySlug(
-    WorkspaceRepository.activeWorkspaceSlug,
-  )
+  const workspace = WorkspaceRepository.findOneBySlug('boaris')
 
   if (!workspace) {
     notFound()

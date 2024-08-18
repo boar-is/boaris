@@ -8,7 +8,7 @@ export type ProjectDoc = Doc & {
 }
 
 export class ProjectRepository {
-  static #data = [
+  static #data: ReadonlyArray<ProjectDoc> = [
     {
       _id: '1',
       workspaceId: '1',
@@ -16,5 +16,9 @@ export class ProjectRepository {
       slug: 'blog',
       _creationTime: Date.now(),
     },
-  ] satisfies ReadonlyArray<ProjectDoc>
+  ]
+
+  static findOneBySlug(slug: ProjectDoc['slug']) {
+    return ProjectRepository.#data.find((it) => it.slug === slug)
+  }
 }

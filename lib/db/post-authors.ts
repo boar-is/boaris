@@ -8,5 +8,16 @@ export type PostAuthorDoc = Doc & {
 }
 
 export class PostAuthorRepository {
-  static #data = [] satisfies ReadonlyArray<PostAuthorDoc>
+  static #data: ReadonlyArray<PostAuthorDoc> = [
+    {
+      _id: '1',
+      postId: '1',
+      userId: '1',
+      _creationTime: Date.now(),
+    },
+  ]
+
+  static findByPostId(postId: PostDoc['_id']) {
+    return PostAuthorRepository.#data.filter((it) => it.postId === postId)
+  }
 }

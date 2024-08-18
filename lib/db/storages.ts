@@ -5,7 +5,7 @@ export type StorageDoc = Doc & {
 }
 
 export class StorageRepository {
-  static #data = [
+  static #data: ReadonlyArray<StorageDoc> = [
     {
       _id: '1',
       src: 'https://avatars.githubusercontent.com/u/31354262?v=4',
@@ -16,7 +16,12 @@ export class StorageRepository {
       src: '/logo.png',
       _creationTime: Date.now(),
     },
-  ] satisfies ReadonlyArray<StorageDoc>
+    {
+      _id: '3',
+      src: 'https://picsum.photos/seed/promises/1600/900',
+      _creationTime: Date.now(),
+    },
+  ]
 
   static findOneSrc(_id: StorageDoc['_id']) {
     return StorageRepository.#data.find((it) => it._id === _id)?.src

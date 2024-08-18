@@ -8,12 +8,12 @@ export type WorkspaceUserDoc = Doc & {
 }
 
 export class WorkspaceUserRepository {
-  static #data = [
+  static #data: ReadonlyArray<WorkspaceUserDoc> = [
     {
       _id: '1',
       workspaceId: '1',
       userId: '1',
       _creationTime: Date.now(),
     },
-  ] satisfies ReadonlyArray<WorkspaceUserDoc>
+  ]
 }

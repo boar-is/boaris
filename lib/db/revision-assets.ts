@@ -8,5 +8,5 @@ export type RevisionAssetDoc = Doc & {
 }
 
 export class RevisionAssetRepository {
-  static #data = [] satisfies ReadonlyArray<RevisionAssetDoc>
+  static #data: ReadonlyArray<RevisionAssetDoc> = []
 }

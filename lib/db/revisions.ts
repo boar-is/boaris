@@ -6,5 +6,11 @@ export type RevisionDoc = Doc & {
 }
 
 export class RevisionRepository {
-  static #data = [] satisfies ReadonlyArray<RevisionDoc>
+  static #data: ReadonlyArray<RevisionDoc> = [
+    {
+      _id: '1',
+      postId: '1',
+      _creationTime: Date.now(),
+    },
+  ]
 }
