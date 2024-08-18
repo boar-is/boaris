@@ -21,9 +21,21 @@
   }
 }
 
+.tiptap .is-editor-empty:first-child::before {
+  @apply text-gray-8 content-[attr(data-placeholder)] float-left h-0 pointer-events-none
+}
+
 @layer components {
   .typography {
     @apply max-w-[75ch] text-pretty text-gray-11
+  }
+
+  .typography [data-slot~="typography-root"] > *:first-child {
+    margin-top: 0;
+  }
+
+  .typography [data-slot~="typography-root"] > *:last-child {
+    margin-bottom: 0;
   }
 
   .typography :where([data-slot~="heading"]) {
@@ -35,7 +47,7 @@
   }
 
   .typography :where(p) {
-    @apply my-6 only:my-0 leading-relaxed text-lg first:mt-0
+    @apply my-6 leading-relaxed text-lg first:mt-0
   }
 
   .typography :where(code) {

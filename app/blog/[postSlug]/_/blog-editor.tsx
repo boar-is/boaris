@@ -13,6 +13,11 @@ export function BlogEditor() {
     content,
     immediatelyRender: false,
     shouldRerenderOnTransaction: false,
+    editorProps: {
+      attributes: {
+        'data-slot': 'typography-root',
+      },
+    },
   })
 
   return (
