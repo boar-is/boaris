@@ -2,10 +2,12 @@ import type { JSONContent } from '@tiptap/react'
 import { assetDocs } from '~/lib/db/assets'
 import { type PostDoc, postDocs } from '~/lib/db/posts'
 import { revisionAssetDocs } from '~/lib/db/revision-assets'
+import { storageDocs } from '../db/storages'
 
 export type BlogPostVm = {
   title: string
   lead: string
+  thumbnailSrc?: string | undefined
   captions: JSONContent
 }
 
@@ -33,6 +35,7 @@ export const getBlogPost = async (slug: PostDoc['slug']) => {
   return {
     title: post.title,
     lead: post.lead ?? post.description,
+    thumbnailSrc: storageDocs.find((it) => it._id === post.thumbnailId)?.src,
     captions: captions.content,
   } satisfies BlogPostVm
 }

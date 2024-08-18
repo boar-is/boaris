@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { Image } from '~/components/image'
 import { getBlogPost } from '~/lib/api/get-blog-post'
 import { cx } from '~/lib/cx'
 import { postDocs } from '~/lib/db/posts'
@@ -24,11 +25,22 @@ export default async function BlogPostPage({
 
   return (
     <article className={cx(JetBrainsMono.variable, 'flex flex-col gap-10')}>
-      <aside />
+      {post.thumbnailSrc && (
+        <aside className="container max-w-prose relative aspect-video">
+          <Image
+            src={post.thumbnailSrc}
+            alt={`${post.title}'s thumbnail`}
+            fill
+            className="object-cover rounded-2xl"
+          />
+        </aside>
+      )}
       <header className="container max-w-prose">
-        <hgroup>
-          <h1>{post.title}</h1>
-          <p>{post.lead}</p>
+        <hgroup className="space-y-4">
+          <h1 className="text-5xl text-balance font-semibold text-gray-12 tracking-tight">
+            {post.title}
+          </h1>
+          <p className="text-gray-10 font-medium text-xl">{post.lead}</p>
         </hgroup>
       </header>
       <section className="container typography">
