@@ -7,12 +7,14 @@ export type ProjectDoc = Doc & {
   slug: string
 }
 
-export const projectDocs = [
-  {
-    _id: '1',
-    workspaceId: '1',
-    name: 'Blog',
-    slug: 'blog',
-    _creationTime: Date.now(),
-  },
-] satisfies ReadonlyArray<ProjectDoc>
+export class ProjectRepository {
+  static #data = [
+    {
+      _id: '1',
+      workspaceId: '1',
+      name: 'Blog',
+      slug: 'blog',
+      _creationTime: Date.now(),
+    },
+  ] satisfies ReadonlyArray<ProjectDoc>
+}

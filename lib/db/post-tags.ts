@@ -7,4 +7,6 @@ export type PostTagDoc = Doc & {
   tagId: TagDoc['_id']
 }
 
-export const postTagDocs = [] satisfies ReadonlyArray<PostTagDoc>
+export class PostTagRepository {
+  static #data = [] satisfies ReadonlyArray<PostTagDoc>
+}

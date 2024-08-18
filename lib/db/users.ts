@@ -7,12 +7,14 @@ export type UserDoc = Doc & {
   avatarId?: StorageDoc['_id'] | undefined
 }
 
-export const userDocs = [
-  {
-    _id: '1',
-    name: 'Boris Zubchenko',
-    slug: 'boris',
-    avatarId: '1',
-    _creationTime: Date.now(),
-  },
-] satisfies ReadonlyArray<UserDoc>
+export class UserRepository {
+  static #data = [
+    {
+      _id: '1',
+      name: 'Boris Zubchenko',
+      slug: 'boris',
+      avatarId: '1',
+      _creationTime: Date.now(),
+    },
+  ] satisfies ReadonlyArray<UserDoc>
+}

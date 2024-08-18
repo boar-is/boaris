@@ -87,4 +87,6 @@ export type AssetDoc = Doc & {
       }
   )
 
-export const assetDocs = [] satisfies ReadonlyArray<AssetDoc>
+export class AssetRepository {
+  static #data = [] satisfies ReadonlyArray<AssetDoc>
+}

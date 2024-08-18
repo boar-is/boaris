@@ -5,4 +5,6 @@ export type RevisionDoc = Doc & {
   postId: PostDoc['_id']
 }
 
-export const revisionDocs = [] satisfies ReadonlyArray<RevisionDoc>
+export class RevisionRepository {
+  static #data = [] satisfies ReadonlyArray<RevisionDoc>
+}

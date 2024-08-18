@@ -7,4 +7,6 @@ export type RevisionAssetDoc = Doc & {
   assetId: AssetDoc['_id']
 }
 
-export const revisionAssetDocs = [] satisfies ReadonlyArray<RevisionAssetDoc>
+export class RevisionAssetRepository {
+  static #data = [] satisfies ReadonlyArray<RevisionAssetDoc>
+}

@@ -7,4 +7,6 @@ export type PostAuthorDoc = Doc & {
   userId: UserDoc['_id']
 }
 
-export const postAuthorDocs = [] satisfies ReadonlyArray<PostAuthorDoc>
+export class PostAuthorRepository {
+  static #data = [] satisfies ReadonlyArray<PostAuthorDoc>
+}
