@@ -20,3 +20,53 @@
     @apply outline-2 outline-inherit outline-offset-2
   }
 }
+
+@layer components {
+  .typography {
+    @apply max-w-[75ch] text-pretty text-gray-11
+  }
+
+  .typography :where([data-slot~="heading"]) {
+    @apply text-gray-12 mt-4 text-3xl font-semibold tracking-tight text-balance
+  }
+
+  .typography :where([data-slot~="subheading"]) {
+    @apply text-gray-12 mt-6 mb-1 text-2xl font-medium tracking-tighter text-balance
+  }
+
+  .typography :where(p) {
+    @apply my-6 only:my-0 leading-relaxed text-lg first:mt-0
+  }
+
+  .typography :where(code) {
+    @apply font-mono text-[80%] font-medium [font-variant-ligatures:normal] border border-gray-4 py-[0.25%] px-[1%] bg-gray-2 text-gray-11 rounded-md tracking-normal  
+  }
+
+  .typography :where(strong) {
+    @apply text-gray-12
+  }
+
+  .typography :where(a) {
+    @apply text-gray-12 cursor-pointer border-b border-transparent hover:border-current font-medium transition-colors
+  }
+
+  .typography :where(ol, ul) {
+    @apply my-5 pl-6
+  }
+
+  .typography :where(ol) {
+    @apply list-decimal
+  }
+
+  .typography :where(ul) {
+    @apply list-disc
+  }
+
+  .typography :where(ul ul) {
+    @apply list-[square]
+  }
+
+  .typography :where(li) {
+    @apply my-2 marker:text-gray-8
+  }
+}

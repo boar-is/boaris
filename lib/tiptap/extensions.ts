@@ -33,7 +33,7 @@ export const extensions = [
   Link.configure({
     defaultProtocol: 'https',
     HTMLAttributes: {
-      rel: 'noopener noreferrer',
+      rel: 'noopener noreferrer ugc',
     },
   }),
   ListItem,
