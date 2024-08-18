@@ -7,10 +7,6 @@ export const Switzer = localFont({
       path: './Switzer-Variable.ttf',
       style: 'normal',
     },
-    {
-      path: './Switzer-VariableItalic.ttf',
-      style: 'italic',
-    },
   ],
 })
 
@@ -20,10 +16,6 @@ export const JetBrainsMono = localFont({
     {
       path: './JetBrainsMono-Variable.ttf',
       style: 'normal',
-    },
-    {
-      path: './JetBrainsMono-VariableItalic.ttf',
-      style: 'italic',
     },
   ],
 })
