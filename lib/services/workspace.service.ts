@@ -1,8 +1,8 @@
 import { Match } from 'effect'
 import type { FC } from 'react'
 import { GitHubIcon, LinkedInIcon, XIcon } from '~/components/icons'
-import { StorageRepository } from '../db/storages'
-import { WorkspaceRepository } from '../db/workspaces'
+import { storageDocs } from '../db/storages'
+import { workspaceDocs } from '../db/workspaces'
 import { UserService } from './user.service'
 
 export type WorkspaceVm = {
@@ -27,8 +27,8 @@ export class WorkspaceService {
   static mvpWorkspaceSlug = 'boaris'
 
   static getWorkspaceVm() {
-    const workspace = WorkspaceRepository.findOneBySlug(
-      WorkspaceService.mvpWorkspaceSlug,
+    const workspace = workspaceDocs.find(
+      (it) => it.slug === WorkspaceService.mvpWorkspaceSlug,
     )
 
     if (!workspace) {
@@ -40,7 +40,7 @@ export class WorkspaceService {
 
     return {
       name: workspace.name,
-      logoSrc: logoId && StorageRepository.findOneSrc(logoId),
+      logoSrc: storageDocs.find((it) => it._id === logoId)?.src,
       socials: workspace.socials
         ? Object.entries(workspace.socials).map(([name, src]) => ({
             name,

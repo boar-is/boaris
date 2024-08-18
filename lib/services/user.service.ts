@@ -1,13 +1,13 @@
-import { UserRepository } from '../db/users'
-import { WorkspaceUserRepository } from '../db/workspace-users'
+import { userDocs } from '../db/users'
+import { workspaceUserDocs } from '../db/workspace-users'
 import type { WorkspaceDoc } from '../db/workspaces'
 
 export class UserService {
   static getWorkspaceOwner(workspaceId: WorkspaceDoc['_id']) {
-    const ownerId = WorkspaceUserRepository.findByWorkspaceId(workspaceId).find(
-      (it) => it.role === 'owner',
+    const ownerId = workspaceUserDocs.find(
+      (it) => it.workspaceId === workspaceId && it.role === 'owner',
     )?._id
 
-    return ownerId ? UserRepository.findOne(ownerId) : undefined
+    return userDocs.find((it) => it._id === ownerId)
   }
 }

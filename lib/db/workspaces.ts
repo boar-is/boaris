@@ -8,23 +8,17 @@ export type WorkspaceDoc = Doc & {
   socials?: Partial<Record<'LinkedIn' | 'X' | 'GitHub', string>> | undefined
 }
 
-export class WorkspaceRepository {
-  static #data: ReadonlyArray<WorkspaceDoc> = [
-    {
-      _id: '1',
-      name: 'Boar.is',
-      slug: 'boaris',
-      logoId: '2',
-      socials: {
-        LinkedIn: 'https://linkedin.com/in/boris-zubchenko/',
-        X: 'https://x.com/BorisZubchenk',
-        GitHub: 'https://github.com/BorisZubchenko',
-      },
-      _creationTime: Date.now(),
+export const workspaceDocs: ReadonlyArray<WorkspaceDoc> = [
+  {
+    _id: '1',
+    name: 'Boar.is',
+    slug: 'boaris',
+    logoId: '2',
+    socials: {
+      LinkedIn: 'https://linkedin.com/in/boris-zubchenko/',
+      X: 'https://x.com/BorisZubchenk',
+      GitHub: 'https://github.com/BorisZubchenko',
     },
-  ]
-
-  static findOneBySlug(slug: WorkspaceDoc['slug']) {
-    return WorkspaceRepository.#data.find((it) => it.slug === slug)
-  }
-}
+    _creationTime: Date.now(),
+  },
+]

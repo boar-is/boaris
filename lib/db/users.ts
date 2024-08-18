@@ -7,22 +7,12 @@ export type UserDoc = Doc & {
   avatarId?: StorageDoc['_id'] | undefined
 }
 
-export class UserRepository {
-  static #data: ReadonlyArray<UserDoc> = [
-    {
-      _id: '1',
-      name: 'Boris Zubchenko',
-      slug: 'boris',
-      avatarId: '1',
-      _creationTime: Date.now(),
-    },
-  ]
-
-  static findOne(id: UserDoc['_id']) {
-    return UserRepository.#data.find((it) => it._id === id)
-  }
-
-  static findMany(ids: ReadonlyArray<UserDoc['_id']>) {
-    return UserRepository.#data.filter((it) => ids.includes(it._id))
-  }
-}
+export const userDocs: ReadonlyArray<UserDoc> = [
+  {
+    _id: '1',
+    name: 'Boris Zubchenko',
+    slug: 'boris',
+    avatarId: '1',
+    _creationTime: Date.now(),
+  },
+]

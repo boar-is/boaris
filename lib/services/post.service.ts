@@ -1,7 +1,7 @@
 import type { JSONContent } from '@tiptap/react'
-import { RevisionAssetRepository } from '~/lib/db/revision-assets'
-import { AssetRepository } from '../db/assets'
-import { type PostDoc, PostRepository } from '../db/posts'
+import { revisionAssetDocs } from '~/lib/db/revision-assets'
+import { assetDocs } from '../db/assets'
+import { type PostDoc, postDocs } from '../db/posts'
 
 export type BlogPostVm = {
   title: string
@@ -11,17 +11,17 @@ export type BlogPostVm = {
 
 export class PostService {
   static getBlogPost(slug: PostDoc['slug']) {
-    const post = PostRepository.findOneBySlug(slug)
+    const post = postDocs.find((it) => it.slug === slug)
 
     if (!post?.publishedRevisionId) {
       return null
     }
 
-    const assets = AssetRepository.findMany(
-      RevisionAssetRepository.findByRevisionId(post?.publishedRevisionId).map(
-        (it) => it.assetId,
-      ),
-    )
+    const revisionAssetIds = revisionAssetDocs
+      .filter((it) => it.assetId === post.publishedRevisionId)
+      .map((it) => it.assetId)
+
+    const assets = assetDocs.filter((it) => revisionAssetIds.includes(it._id))
 
     const captions = assets.find((it) => it.type === 'Captions')
 

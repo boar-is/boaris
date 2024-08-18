@@ -8,20 +8,12 @@ export type WorkspaceUserDoc = Doc & {
   role: 'owner' | 'editor'
 }
 
-export class WorkspaceUserRepository {
-  static #data: ReadonlyArray<WorkspaceUserDoc> = [
-    {
-      _id: '1',
-      workspaceId: '1',
-      userId: '1',
-      role: 'owner',
-      _creationTime: Date.now(),
-    },
-  ]
-
-  static findByWorkspaceId(workspaceId: WorkspaceDoc['_id']) {
-    return WorkspaceUserRepository.#data.filter(
-      (it) => it.workspaceId === workspaceId,
-    )
-  }
-}
+export const workspaceUserDocs: ReadonlyArray<WorkspaceUserDoc> = [
+  {
+    _id: '1',
+    workspaceId: '1',
+    userId: '1',
+    role: 'owner',
+    _creationTime: Date.now(),
+  },
+]

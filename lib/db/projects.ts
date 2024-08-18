@@ -7,23 +7,12 @@ export type ProjectDoc = Doc & {
   slug: string
 }
 
-export class ProjectRepository {
-  static #data: ReadonlyArray<ProjectDoc> = [
-    {
-      _id: '1',
-      workspaceId: '1',
-      name: 'Blog',
-      slug: 'blog',
-      _creationTime: Date.now(),
-    },
-  ]
-
-  static findOneByWorkspaceAndSlug(
-    workspaceId: WorkspaceDoc['_id'],
-    slug: ProjectDoc['slug'],
-  ) {
-    return ProjectRepository.#data.find(
-      (it) => it.workspaceId === workspaceId && it.slug === slug,
-    )
-  }
-}
+export const projectDocs: ReadonlyArray<ProjectDoc> = [
+  {
+    _id: '1',
+    workspaceId: '1',
+    name: 'Blog',
+    slug: 'blog',
+    _creationTime: Date.now(),
+  },
+]

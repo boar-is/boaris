@@ -1,26 +1,16 @@
 import { notFound } from 'next/navigation'
 import { cx } from '~/lib/cx'
-import { PostRepository } from '~/lib/db/posts'
-import { ProjectRepository } from '~/lib/db/projects'
+import { postDocs } from '~/lib/db/posts'
 import { JetBrainsMono } from '~/lib/fonts'
 import { PostService } from '~/lib/services/post.service'
-import { ProjectService } from '~/lib/services/project.service'
-import { WorkspaceService } from '~/lib/services/workspace.service'
 import { BlogCaptions } from './_/blog-captions'
 
 export async function generateStaticParams() {
-  const project = ProjectRepository.findOneByWorkspaceAndSlug(
-    WorkspaceService.mvpWorkspaceSlug,
-    ProjectService.mvpProjectSlug,
-  )
-
-  if (!project) {
-    return []
-  }
-
-  return PostRepository.findPublishedByProjectId(project._id).map((it) => ({
-    postSlug: it.slug,
-  }))
+  return postDocs
+    .filter((it) => it.publishedRevisionId)
+    .map((it) => ({
+      postSlug: it.slug,
+    }))
 }
 
 export default async function BlogPostPage({

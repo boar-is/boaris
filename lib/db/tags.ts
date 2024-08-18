@@ -7,23 +7,17 @@ export type TagDoc = Doc & {
   iconId?: StorageDoc['_id'] | undefined
 }
 
-export class TagRepository {
-  static #data: ReadonlyArray<TagDoc> = [
-    {
-      _id: '1',
-      name: 'TypeScript',
-      slug: 'typescript',
-      _creationTime: Date.now(),
-    },
-    {
-      _id: '2',
-      name: 'React',
-      slug: 'react',
-      _creationTime: Date.now(),
-    },
-  ]
-
-  static findMany(ids: ReadonlyArray<TagDoc['_id']>) {
-    return TagRepository.#data.filter((it) => ids.includes(it._id))
-  }
-}
+export const tagDocs: ReadonlyArray<TagDoc> = [
+  {
+    _id: '1',
+    name: 'TypeScript',
+    slug: 'typescript',
+    _creationTime: Date.now(),
+  },
+  {
+    _id: '2',
+    name: 'React',
+    slug: 'react',
+    _creationTime: Date.now(),
+  },
+]
