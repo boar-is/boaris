@@ -2,16 +2,16 @@ import type { JSONContent } from '@tiptap/react'
 import type { Doc } from '~/lib/db/_shared'
 import type { StorageDoc } from './storages'
 
-export type Action = {
+export type ActionBase = {
   atMs: number
 }
 
-export type RenameAction = Action & {
+export type RenameAction = ActionBase & {
   type: 'Rename'
   newName: string
 }
 
-export type CodeFileChange = Action & {
+export type CodeFileChange = ActionBase & {
   type: 'CodeFileChange'
   from: number
   to?: number | undefined
