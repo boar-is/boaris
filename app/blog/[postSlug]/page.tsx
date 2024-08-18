@@ -24,28 +24,32 @@ export default async function BlogPostPage({
   }
 
   return (
-    <article className={cx(JetBrainsMono.variable, 'flex flex-col gap-10')}>
-      {post.thumbnailSrc && (
-        <aside className="container max-w-prose relative aspect-video">
-          <Image
-            src={post.thumbnailSrc}
-            alt={`${post.title}'s thumbnail`}
-            fill
-            className="object-cover rounded-2xl"
-          />
-        </aside>
-      )}
-      <header className="container max-w-prose">
-        <hgroup className="space-y-4">
-          <h1 className="text-5xl text-balance font-semibold text-gray-12 tracking-tight">
-            {post.title}
-          </h1>
-          <p className="text-gray-10 font-medium text-xl">{post.lead}</p>
-        </hgroup>
-      </header>
-      <section className="container typography">
-        <BlogCaptions content={post.captions} />
-      </section>
-    </article>
+    <div>
+      <article className={cx(JetBrainsMono.variable, 'container max-w-prose')}>
+        {post.thumbnailSrc && (
+          <aside className="relative aspect-video">
+            <Image
+              src={post.thumbnailSrc}
+              alt={`${post.title}'s thumbnail`}
+              fill
+              className="object-cover rounded-2xl"
+            />
+          </aside>
+        )}
+        <header className="mt-6 mb-12">
+          <hgroup className="space-y-4">
+            <h1 className="text-4xl md:text-5xl text-balance font-semibold text-gray-12 tracking-tight">
+              {post.title}
+            </h1>
+            <p className="text-gray-10 font-medium text-xl md:text-2xl">
+              {post.lead}
+            </p>
+          </hgroup>
+        </header>
+        <section className="typography">
+          <BlogCaptions content={post.captions} />
+        </section>
+      </article>
+    </div>
   )
 }
