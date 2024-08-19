@@ -22,7 +22,11 @@ export const extensions = [
   Bold,
   BulletList,
   CharacterCount,
-  Code,
+  Code.configure({
+    HTMLAttributes: {
+      spellCheck: false,
+    },
+  }),
   Document,
   HardBreak,
   Heading.configure({
