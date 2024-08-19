@@ -23,7 +23,7 @@ export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
         'bg-gray-1/75 backdrop-blur-sm backdrop-saturate-150',
       )}
     >
-      <ul className="flex min-h-10 items-stretch font-semibold justify-between gap-2 text-sm md:gap-6 md:text-base">
+      <ul className="flex items-stretch font-semibold justify-between gap-2 text-sm md:gap-6 md:text-base">
         <li>
           <Link
             href="/"
@@ -36,8 +36,8 @@ export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
               <Image
                 src={workspace.logoSrc}
                 alt={`${workspace.name}'s logo`}
-                width={40}
-                height={40}
+                width={36}
+                height={36}
                 className="rounded-[inherit] shadow-inner"
               />
             )}
@@ -200,7 +200,7 @@ export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
   )
 }
 
-const layerCx = cx('border border-gray-4 rounded-xl p-2')
+const layerCx = cx('border border-gray-4 rounded-xl p-4')
 const mutedCx = cx('transition-colors text-gray-10 hover:text-gray-12')
 const itemCx = cx('flex justify-center items-center rounded-md h-full')
 const squareCx = cx('px-1 md:px-2.5 md:-mx-2')
