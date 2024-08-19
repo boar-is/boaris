@@ -1,7 +1,24 @@
 import type { Doc } from './_shared'
 import type { PostDoc } from './posts'
+import type { RecordingDoc } from './recordings'
 
-type Interpolation<T = number> = Array<[input: number, output: T]>
+export type Interpolation<T = number> = Array<[input: number, output: T]>
+
+export type RevisionFile = {
+  _id: string
+  path: string
+  /**
+   * `null` means not created yet or deleted
+   */
+  initialValue: string
+  /**
+   * `null` output's for void, i.e., nothing happens
+   */
+  interpolation: Interpolation<{
+    recordingId: RecordingDoc['_id']
+    interpolation: Interpolation
+  } | null>
+}
 
 export type RevisionDoc = Doc & {
   postId: PostDoc['_id']
@@ -18,20 +35,7 @@ export type RevisionDoc = Doc & {
    * Breakpoints, like framer, a single unique track
    */
   layouts: unknown
-  files: Array<{
-    id: string
-    path: string
-    /**
-     * `null` means not created yet or deleted
-     */
-    initialValue: string
-    /**
-     * `null` output's for void, i.e., nothing happens
-     */
-    interpolation: Interpolation<{
-      interpolation: Interpolation
-    } | null>
-  }>
+  files: Array<RevisionFile>
 }
 
 export const revisionDocs: Array<RevisionDoc> = []
