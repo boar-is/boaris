@@ -24,8 +24,8 @@ export default async function BlogPostPage({
   }
 
   return (
-    <div>
-      <article className={cx(JetBrainsMono.variable, 'container max-w-prose')}>
+    <div className={cx(JetBrainsMono.variable)}>
+      <article className="container max-w-prose">
         {post.thumbnailSrc && (
           <aside className="relative aspect-video">
             <Image

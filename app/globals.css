@@ -29,6 +29,10 @@
   @apply text-gray-7 content-[attr(data-placeholder)] float-left h-0 pointer-events-none
 }
 
+.cm-scroller {
+  @apply bg-gray-2 font-mono text-sm z-10 !important
+}
+
 @layer components {
   .typography {
     @apply max-w-prose text-pretty text-gray-11
