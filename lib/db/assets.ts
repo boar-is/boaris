@@ -285,4 +285,37 @@ export const assetDocs: ReadonlyArray<AssetDoc> = [
       ],
     },
   },
+  {
+    _id: '2',
+    _creationTime: Date.now(),
+    type: 'Image/Dynamic',
+    name: 'shadow-palette-initial.mp4',
+    storageId: '4',
+  },
+  {
+    _id: '3',
+    _creationTime: Date.now(),
+    type: 'Image/Static',
+    name: 'css-snippet.webp',
+    storageId: '5',
+  },
+  {
+    _id: '4',
+    _creationTime: Date.now(),
+    type: 'Track',
+    name: 'Captions Track',
+  },
+  {
+    _id: '5',
+    _creationTime: Date.now(),
+    type: 'Clip',
+    trackId: '4',
+    assetId: '1',
+    offset: 0,
+    length: 1,
+    range: {
+      from: 0,
+      to: 1,
+    },
+  },
 ]
