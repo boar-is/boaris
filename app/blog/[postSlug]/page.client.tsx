@@ -43,7 +43,7 @@ export function BlogPostPageClient({ post }: { post: BlogPostVm }) {
   const contentRef = useRef<HTMLDivElement | null>(null)
 
   const contentY = useMotionValue<number | undefined>(undefined)
-  const containerHeight = useMotionValue<number | undefined>(undefined)
+  const scrollableHeight = useMotionValue<number | undefined>(undefined)
 
   const { scrollY } = useScroll()
   const scrollYProgress = useTransform(scrollY, (scrollYValue) => {
@@ -93,11 +93,11 @@ export function BlogPostPageClient({ post }: { post: BlogPostVm }) {
     ref: contentRef,
     onResize: () => {
       if (contentRef.current) {
-        containerHeight.set(contentRef.current.offsetHeight * (1 / speed))
+        scrollableHeight.set(contentRef.current.offsetHeight * (1 / speed))
       }
       position.set(position.get() + 0.00001)
       window.scrollTo({
-        top: containerHeight.getPrevious() ? scrollY.get() : 0,
+        top: scrollableHeight.getPrevious() ? scrollY.get() : 0,
         behavior: 'instant',
       })
     },
@@ -121,6 +121,9 @@ export function BlogPostPageClient({ post }: { post: BlogPostVm }) {
 
   return (
     <div className={cx(JetBrainsMono.variable)}>
+      <div className="fixed bottom-0 left-0">
+        <m.span>{scrollY}</m.span>
+      </div>
       <article className="container max-w-prose">
         {post.thumbnailSrc && (
           <aside className="relative aspect-video">
@@ -151,17 +154,15 @@ export function BlogPostPageClient({ post }: { post: BlogPostVm }) {
         <section className="typography">
           <m.div
             className="relative w-full"
-            style={{ height: containerHeight }}
+            style={{ height: scrollableHeight }}
             ref={scrollableRef}
           >
-            <div
-              className={editor ? 'sticky top-0 inset-x-0 h-0' : 'fixed top-0'}
-            >
+            <div className={editor ? 'sticky top-0 inset-x-0 h-0' : 'static'}>
               <m.div style={{ y: contentY }} ref={contentRef}>
                 <div
                   className={cx(
-                    'pointer-events-none *:block *:fixed *:bg-gray-5',
-                    editor ? 'fixed top-0' : 'hidden',
+                    'pointer-events-none fixed top-0 let-0 *:pointer-events-none *:fixed *:bg-gray-6',
+                    !editor && 'hidden',
                   )}
                 >
                   {emptyArrayOfLength.map((_, index) => (

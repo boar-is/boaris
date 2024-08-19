@@ -32,7 +32,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
         <I18nProvider>
           <RouterProvider>
             <FramerMotionProvider>
-              <div className="flex h-full flex-col gap-4 md:gap-10 items-stretch overflow-y-scroll">
+              <div className="flex h-full flex-col gap-4 md:gap-10 items-stretch">
                 <header className="container sticky z-10 top-0 py-3">
                   <Navbar workspace={workspace} />
                 </header>
