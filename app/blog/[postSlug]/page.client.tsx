@@ -84,7 +84,7 @@ export function BlogPostPageClient({ post }: { post: BlogPostVm }) {
       return
     }
 
-    animate(contentY, y * -1 + window.innerHeight * 0.1, {
+    animate(contentY, y * -1 + 144, {
       duration: 0.8,
     })
   })
@@ -121,9 +121,6 @@ export function BlogPostPageClient({ post }: { post: BlogPostVm }) {
 
   return (
     <div className={cx(JetBrainsMono.variable)}>
-      <div className="fixed bottom-0 left-0">
-        <m.span>{scrollY}</m.span>
-      </div>
       <article className="container max-w-prose">
         {post.thumbnailSrc && (
           <aside className="relative aspect-video">
@@ -161,7 +158,7 @@ export function BlogPostPageClient({ post }: { post: BlogPostVm }) {
               <m.div style={{ y: contentY }} ref={contentRef}>
                 <div
                   className={cx(
-                    'pointer-events-none fixed top-0 let-0 *:pointer-events-none *:fixed *:bg-gray-6',
+                    'pointer-events-none fixed top-0 left-0 *:pointer-events-none *:fixed *:bg-gray-6',
                     !editor && 'hidden',
                   )}
                 >
