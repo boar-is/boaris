@@ -10,8 +10,8 @@ export type PostAuthorDoc = Doc & {
 export const postAuthorDocs: ReadonlyArray<PostAuthorDoc> = [
   {
     _id: '1',
+    _creationTime: Date.now(),
     postId: '1',
     userId: '1',
-    _creationTime: Date.now(),
   },
 ]

@@ -10,14 +10,14 @@ export type TagDoc = Doc & {
 export const tagDocs: ReadonlyArray<TagDoc> = [
   {
     _id: '1',
+    _creationTime: Date.now(),
     name: 'TypeScript',
     slug: 'typescript',
-    _creationTime: Date.now(),
   },
   {
     _id: '2',
+    _creationTime: Date.now(),
     name: 'React',
     slug: 'react',
-    _creationTime: Date.now(),
   },
 ]

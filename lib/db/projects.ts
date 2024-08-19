@@ -10,9 +10,9 @@ export type ProjectDoc = Doc & {
 export const projectDocs: ReadonlyArray<ProjectDoc> = [
   {
     _id: '1',
+    _creationTime: Date.now(),
     workspaceId: '1',
     name: 'Blog',
     slug: 'blog',
-    _creationTime: Date.now(),
   },
 ]

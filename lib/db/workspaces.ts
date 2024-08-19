@@ -11,6 +11,7 @@ export type WorkspaceDoc = Doc & {
 export const workspaceDocs: ReadonlyArray<WorkspaceDoc> = [
   {
     _id: '1',
+    _creationTime: Date.now(),
     name: 'Boar.is',
     slug: 'boaris',
     logoId: '2',
@@ -19,6 +20,5 @@ export const workspaceDocs: ReadonlyArray<WorkspaceDoc> = [
       X: 'https://x.com/BorisZubchenk',
       GitHub: 'https://github.com/BorisZubchenko',
     },
-    _creationTime: Date.now(),
   },
 ]

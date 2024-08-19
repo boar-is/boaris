@@ -33,6 +33,7 @@ export default async function BlogPage() {
           <article className="flex flex-col justify-between md:group-even:flex-row md:flex-row-reverse border border-gray-3 rounded-[inherit] overflow-hidden transition-colors bg-gradient-to-tr from-gray-1 to-gray-2">
             {post.thumbnailSrc && (
               <aside className="relative basis-1/2 aspect-video">
+                {/* TODO there were some warnings in the console */}
                 <Image
                   src={post.thumbnailSrc}
                   alt={`${post.title}'s thumbnail`}

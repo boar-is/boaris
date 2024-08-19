@@ -10,14 +10,14 @@ export type PostTagDoc = Doc & {
 export const postTagDocs: ReadonlyArray<PostTagDoc> = [
   {
     _id: '1',
+    _creationTime: Date.now(),
     postId: '1',
     tagId: '1',
-    _creationTime: Date.now(),
   },
   {
     _id: '2',
+    _creationTime: Date.now(),
     postId: '1',
     tagId: '2',
-    _creationTime: Date.now(),
   },
 ]

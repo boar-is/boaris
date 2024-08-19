@@ -8,7 +8,7 @@ export type RevisionDoc = Doc & {
 export const revisionDocs: ReadonlyArray<RevisionDoc> = [
   {
     _id: '1',
-    postId: '1',
     _creationTime: Date.now(),
+    postId: '1',
   },
 ]

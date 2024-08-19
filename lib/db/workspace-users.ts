@@ -11,9 +11,9 @@ export type WorkspaceUserDoc = Doc & {
 export const workspaceUserDocs: ReadonlyArray<WorkspaceUserDoc> = [
   {
     _id: '1',
+    _creationTime: Date.now(),
     workspaceId: '1',
     userId: '1',
     role: 'owner',
-    _creationTime: Date.now(),
   },
 ]

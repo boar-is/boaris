@@ -10,9 +10,9 @@ export type UserDoc = Doc & {
 export const userDocs: ReadonlyArray<UserDoc> = [
   {
     _id: '1',
+    _creationTime: Date.now(),
     name: 'Boris Zubchenko',
     slug: 'boris',
     avatarId: '1',
-    _creationTime: Date.now(),
   },
 ]

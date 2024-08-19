@@ -10,8 +10,8 @@ export type RevisionAssetDoc = Doc & {
 export const revisionAssetDocs: ReadonlyArray<RevisionAssetDoc> = [
   {
     _id: '1',
+    _creationTime: Date.now(),
     revisionId: '1',
     assetId: '1',
-    _creationTime: Date.now(),
   },
 ]

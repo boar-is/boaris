@@ -17,14 +17,14 @@ export type PostDoc = Doc & {
 export const postDocs: ReadonlyArray<PostDoc> = [
   {
     _id: '1',
-    title: 'Promises From The Ground Up',
-    slug: 'promises',
+    _creationTime: Date.now(),
+    title: 'Snappy UI Optimization with useDeferredValue\n',
+    slug: 'use-deferred-value',
     description:
-      'The “Promises” API is a surprisingly tricky part of modern JavaScript. Without the right context, it doesn’t make much sense at all! In this tutorial, you’ll build an intuition for how Promises work by getting a deeper understanding of JavaScript and its limitations.',
+      'useDeferredValue is one of the most underrated React hooks. It allows us to dramatically improve the performance of our applications in certain contexts. I recently used it to solve a gnarly performance problem on this blog, and in this tutorial, I’ll show you how! ⚡',
     thumbnailId: '3',
     projectId: '1',
     draftRevisionId: '1',
     publishedRevisionId: '1',
-    _creationTime: Date.now(),
   },
 ]
