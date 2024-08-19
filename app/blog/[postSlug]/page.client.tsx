@@ -184,6 +184,7 @@ export function BlogPostPageClient({ post }: { post: BlogPostVm }) {
           </m.div>
         </section>
       </article>
+      <div style={{ height: '150dvh' }} />
     </div>
   )
 }
