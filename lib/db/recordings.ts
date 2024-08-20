@@ -1,10 +1,9 @@
-import type { Doc } from './_shared'
-import type { RevisionFile } from './revisions'
-
-type Action = unknown
-
-export type RecordingDoc = Doc & {
-  files: Record<RevisionFile['_id'], Array<Action>>
+export type Recording<T extends { type: string }> = {
+  _id: string
+  _creationTime: number
+  durationMs: number
+  /**
+   * Percent-based progress to action
+   */
+  actions: Array<[at: number, action: T]>
 }
-
-export const recordingDocs: Array<RecordingDoc> = []
