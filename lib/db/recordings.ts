@@ -3,7 +3,7 @@ export type Recording<T extends { type: string }> = {
   _creationTime: number
   durationMs: number
   /**
-   * Percent-based progress to action
+   * Percent-based progress to event
    */
-  actions: Array<[at: number, action: T]>
+  events: Array<[at: number, event: T]>
 }
