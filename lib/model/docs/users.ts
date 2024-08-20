@@ -1,4 +1,4 @@
-import type { Doc } from '~/lib/db/_shared'
+import type { Doc } from '~/lib/model/docs/_shared'
 import type { StorageDoc } from './storages'
 
 export type UserDoc = Doc & {

@@ -1,5 +1,5 @@
-import type { Doc } from '~/lib/db/_shared'
-import type { WorkspaceDoc } from '~/lib/db/workspaces'
+import type { Doc } from '~/lib/model/docs/_shared'
+import type { WorkspaceDoc } from '~/lib/model/docs/workspaces'
 
 export type ProjectDoc = Doc & {
   workspaceId: WorkspaceDoc['_id']

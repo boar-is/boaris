@@ -1,4 +1,4 @@
-import type { Interpolation } from '~/lib/db/_shared'
+import type { Interpolation } from '~/lib/model/tracks/_shared'
 
 export type CaptionsTrack = {
   path: '.meta/captions'
@@ -6,5 +6,5 @@ export type CaptionsTrack = {
    * JSON.stringified JSONContent
    */
   content: string
-  progressInterpolation: Interpolation
+  progressInterpolation?: Interpolation | undefined
 }

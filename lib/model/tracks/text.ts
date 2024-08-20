@@ -1,5 +1,4 @@
-import type { Interpolation } from '../_shared'
-import type { Recording } from '../recordings'
+import type { Interpolation, Recording } from './_shared'
 
 /**
  * @example coding files like .ts, .tsx, .md, .etc.
@@ -9,11 +8,13 @@ import type { Recording } from '../recordings'
 export type TextTrack = {
   path: string
   value: string
-  interpolation: Interpolation<{
-    recordingId: TextTrackRecording['_id']
-    progress: number
-  }>
-  recordings: Array<TextTrackRecording>
+  interpolation?:
+    | Interpolation<{
+        recordingId: TextTrackRecording['_id']
+        progress: number
+      }>
+    | undefined
+  recordings?: Array<TextTrackRecording> | undefined
 }
 
 export type TextTrackRecording = Recording<

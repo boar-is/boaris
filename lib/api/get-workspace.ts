@@ -1,10 +1,10 @@
 import { Match } from 'effect'
 import type { FC } from 'react'
 import { GitHubIcon, LinkedInIcon, XIcon } from '~/components/icons'
-import { storageDocs } from '~/lib/db/storages'
-import { userDocs } from '~/lib/db/users'
-import { workspaceUserDocs } from '~/lib/db/workspace-users'
-import { type WorkspaceDoc, workspaceDocs } from '~/lib/db/workspaces'
+import { storageDocs } from '~/lib/model/docs/storages'
+import { userDocs } from '~/lib/model/docs/users'
+import { workspaceUserDocs } from '~/lib/model/docs/workspace-users'
+import { type WorkspaceDoc, workspaceDocs } from '~/lib/model/docs/workspaces'
 
 export type WorkspaceVm = {
   name: string

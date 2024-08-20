@@ -1,4 +1,4 @@
-import type { Doc } from '~/lib/db/_shared'
+import type { Doc } from '~/lib/model/docs/_shared'
 
 export type StorageDoc = Doc & {
   src: string

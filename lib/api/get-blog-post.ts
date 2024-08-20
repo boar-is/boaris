@@ -1,8 +1,8 @@
 import type { JSONContent } from '@tiptap/react'
 import { assetDocs } from '~/lib/db/assets'
-import { type PostDoc, postDocs } from '~/lib/db/posts'
 import { revisionAssetDocs } from '~/lib/db/revision-assets'
-import { storageDocs } from '../db/storages'
+import { type PostDoc, postDocs } from '~/lib/model/docs/posts'
+import { storageDocs } from '../model/docs/storages'
 
 export type BlogPostVm = {
   title: string

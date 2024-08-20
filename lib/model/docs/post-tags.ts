@@ -1,5 +1,5 @@
-import type { Doc } from '~/lib/db/_shared'
-import type { PostDoc } from '~/lib/db/posts'
+import type { Doc } from '~/lib/model/docs/_shared'
+import type { PostDoc } from '~/lib/model/docs/posts'
 import type { TagDoc } from './tags'
 
 export type PostTagDoc = Doc & {

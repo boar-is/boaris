@@ -1,5 +1,5 @@
-import type { Doc } from '~/lib/db/_shared'
-import type { StorageDoc } from '~/lib/db/storages'
+import type { Doc } from '~/lib/model/docs/_shared'
+import type { StorageDoc } from '~/lib/model/docs/storages'
 
 export type WorkspaceDoc = Doc & {
   name: string

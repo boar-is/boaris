@@ -1,11 +1,11 @@
-import { postAuthorDocs } from '~/lib/db/post-authors'
-import { postTagDocs } from '~/lib/db/post-tags'
-import { postDocs } from '~/lib/db/posts'
-import { projectDocs } from '~/lib/db/projects'
-import { storageDocs } from '~/lib/db/storages'
-import { tagDocs } from '~/lib/db/tags'
-import { userDocs } from '~/lib/db/users'
-import { workspaceDocs } from '~/lib/db/workspaces'
+import { postAuthorDocs } from '~/lib/model/docs/post-authors'
+import { postTagDocs } from '~/lib/model/docs/post-tags'
+import { postDocs } from '~/lib/model/docs/posts'
+import { projectDocs } from '~/lib/model/docs/projects'
+import { storageDocs } from '~/lib/model/docs/storages'
+import { tagDocs } from '~/lib/model/docs/tags'
+import { userDocs } from '~/lib/model/docs/users'
+import { workspaceDocs } from '~/lib/model/docs/workspaces'
 
 export type BlogVm = {
   name: string

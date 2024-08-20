@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { getBlogPost } from '~/lib/api/get-blog-post'
-import { postDocs } from '~/lib/db/posts'
+import { postDocs } from '~/lib/model/docs/posts'
 import { BlogPostPageClient } from './page.client'
 
 export async function generateStaticParams() {

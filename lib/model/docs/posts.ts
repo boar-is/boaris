@@ -1,4 +1,4 @@
-import type { Doc } from '~/lib/db/_shared'
+import type { Doc } from '~/lib/model/docs/_shared'
 import type { ProjectDoc } from './projects'
 import type { RevisionDoc } from './revisions'
 import type { StorageDoc } from './storages'
