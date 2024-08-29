@@ -1,16 +1,16 @@
 import type { JSONContent } from '@tiptap/react'
 import type { Doc } from '~/lib/model/docs/_shared'
 import type { CaptionsTrack } from '../tracks/captions'
+import type { CodeTrack } from '../tracks/code'
 import type { FileTreeTrack } from '../tracks/file-tree'
 import type { ImageTrack } from '../tracks/image'
-import type { TextTrack } from '../tracks/text'
 import type { VideoTrack } from '../tracks/video'
 import type { PostDoc } from './posts'
 
 export type RevisionDoc = Doc & {
   postId: PostDoc['_id']
   tracks: Array<
-    CaptionsTrack | FileTreeTrack | ImageTrack | TextTrack | VideoTrack
+    CaptionsTrack | FileTreeTrack | ImageTrack | CodeTrack | VideoTrack
   >
 }
 
