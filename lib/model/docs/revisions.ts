@@ -9,7 +9,7 @@ import type { PostDoc } from './posts'
 
 export type RevisionDoc = Doc & {
   postId: PostDoc['_id']
-  files: Array<
+  tracks: Array<
     CaptionsTrack | FileTreeTrack | ImageTrack | TextTrack | VideoTrack
   >
 }
@@ -19,7 +19,7 @@ export const revisionDocs: Array<RevisionDoc> = [
     _id: '1',
     _creationTime: Date.now(),
     postId: '1',
-    files: [
+    tracks: [
       {
         path: '.meta/captions',
         content: JSON.stringify(<JSONContent>{
