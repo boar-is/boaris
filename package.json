@@ -52,6 +52,7 @@
     "effect": "3.7.0",
     "framer-motion": "11.3.31",
     "hugeicons-react": "0.3.0",
+    "jsondiffpatch": "0.6.0",
     "next": "14.2.7",
     "postcss": "8.4.44",
     "react": "18.3.1",
