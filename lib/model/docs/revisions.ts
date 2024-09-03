@@ -1,5 +1,4 @@
-import type { Delta } from 'jsondiffpatch'
-import { diff } from 'jsondiffpatch'
+import { type Delta, diffpatcher } from '~/lib/diffpatcher'
 import type { Doc } from '~/lib/model/docs/_shared'
 import type { CaptionsTrack } from '../tracks/captions'
 import type { CodeTrack } from '../tracks/code'
@@ -23,7 +22,7 @@ export const revisionDocs: Array<RevisionDoc> = [
     _id: '1',
     _creationTime: Date.now(),
     parentId: null,
-    delta: diff({}, <RevisionData>{
+    delta: diffpatcher.diff({}, <RevisionData>{
       tracks: [
         {
           path: '.meta/captions',
