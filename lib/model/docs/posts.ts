@@ -12,6 +12,7 @@ export type PostDoc = Doc & {
   projectId: ProjectDoc['_id']
   draftRevisionId?: RevisionDoc['_id'] | undefined
   publishedRevisionId?: RevisionDoc['_id'] | undefined
+  revisionsStorageIds: Array<StorageDoc['_id']>
 }
 
 export const postDocs: ReadonlyArray<PostDoc> = [
@@ -26,5 +27,6 @@ export const postDocs: ReadonlyArray<PostDoc> = [
     projectId: '1',
     draftRevisionId: '1',
     publishedRevisionId: '1',
+    revisionsStorageIds: ['3', '4', '5'],
   },
 ]
