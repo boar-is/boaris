@@ -1,7 +1,11 @@
-import type { Interpolation, Recording } from '~/lib/model/tracks/_shared'
+import type {
+  Interpolation,
+  Recording,
+  TrackBase,
+} from '~/lib/model/tracks/_shared'
 import type { CodeTrackRecording } from '~/lib/model/tracks/code'
 
-export type FileTreeTrack = {
+export type FileTreeTrack = TrackBase & {
   path: '.meta/file-tree'
   interpolation?:
     | Interpolation<{

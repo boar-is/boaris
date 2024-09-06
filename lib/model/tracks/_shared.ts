@@ -15,3 +15,8 @@ export type Recording<T extends { type: string }> = {
    */
   events: Array<[at: number, event: T]>
 }
+
+export type TrackBase = {
+  _id: string
+  path: string
+}

@@ -1,11 +1,11 @@
-import type { Interpolation, Recording } from './_shared'
+import type { Interpolation, Recording, TrackBase } from './_shared'
 
 /**
  * @example coding files like .ts, .tsx, .md, .etc.
  * @example plain text files
  * @example unknown file formats that would open with CodeMirror
  */
-export type CodeTrack = {
+export type CodeTrack = TrackBase & {
   path: string
   value: string
   interpolation?:
