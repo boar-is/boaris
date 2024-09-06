@@ -6,7 +6,6 @@ import type { Interpolation, Recording, TrackBase } from './_shared'
  * @example unknown file formats that would open with CodeMirror
  */
 export type CodeTrack = TrackBase & {
-  path: string
   value: string
   interpolation?:
     | Interpolation<{
