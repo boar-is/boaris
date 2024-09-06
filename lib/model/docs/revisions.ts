@@ -25,6 +25,7 @@ export const revisionDocs: Array<RevisionDoc> = [
     delta: diffpatcher.diff({}, <RevisionData>{
       tracks: [
         {
+          _id: '1',
           path: '.meta/captions',
           content: {
             type: 'doc',
@@ -220,10 +221,12 @@ export const revisionDocs: Array<RevisionDoc> = [
           },
         },
         {
+          _id: '2',
           path: '.meta/shadow-palette-initial.mp4',
           storageId: '4',
         },
         {
+          _id: '3',
           path: '.meta/css-snippet.webp',
           storageId: '5',
         },
