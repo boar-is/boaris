@@ -1,5 +1,6 @@
 import { it } from 'vitest'
+import { diff } from '~/lib/diffpatcher'
 
-type PostState = {}
-
-it('should test', () => {})
+it('should test', () => {
+  diff({}, { a: 2 })
+})

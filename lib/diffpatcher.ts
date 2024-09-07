@@ -1,4 +1,4 @@
-import jsondiffpatch from 'jsondiffpatch'
+import * as jsondiffpatch from 'jsondiffpatch'
 
 export type { Delta } from 'jsondiffpatch'
 
