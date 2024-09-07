@@ -2,10 +2,6 @@ import type { StorageDoc } from '~/lib/model/docs/storages'
 
 export const imageExtensions = ['webp'] as const
 
-export type ImageTrackValue = {
-  storageId: StorageDoc['_id']
-}
-
 export type ImageTrack = {
   _id: string
   _tag: 'ImageTrack'
@@ -18,4 +14,8 @@ export type ImageTrack = {
         value: ImageTrackValue
       }>
     | undefined
+}
+
+export type ImageTrackValue = {
+  storageId: StorageDoc['_id']
 }

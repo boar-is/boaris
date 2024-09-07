@@ -1,18 +1,6 @@
 import type { JSONContent } from '@tiptap/react'
 import type { Delta } from '~/lib/diffpatcher'
 
-export type CaptionsTrackValue = {
-  content: JSONContent
-  mapping?:
-    | {
-        input: Array<number>
-        output: Array<number>
-      }
-    | undefined
-}
-
-export type CaptionsTrackDelta = Delta
-
 export type CaptionsTrack = {
   _id: string
   _tag: 'CaptionsTrack'
@@ -23,5 +11,15 @@ export type CaptionsTrack = {
         locale: string
         delta: Delta
       }>
+    | undefined
+}
+
+export type CaptionsTrackValue = {
+  content: JSONContent
+  mapping?:
+    | {
+        input: Array<number>
+        output: Array<number>
+      }
     | undefined
 }

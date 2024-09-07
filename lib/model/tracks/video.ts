@@ -3,16 +3,6 @@ import type { StorageDoc } from '~/lib/model/docs/storages'
 
 export const videoExtensions = ['mp4'] as const
 
-export type VideoTrackValue = {
-  storageId: StorageDoc['_id']
-  mapping?:
-    | {
-        input: Array<number>
-        output: Array<number>
-      }
-    | undefined
-}
-
 export type VideoTrack = {
   _id: string
   _tag: 'VideoTrack'
@@ -24,5 +14,15 @@ export type VideoTrack = {
         locale: string
         delta: Delta
       }>
+    | undefined
+}
+
+export type VideoTrackValue = {
+  storageId: StorageDoc['_id']
+  mapping?:
+    | {
+        input: Array<number>
+        output: Array<number>
+      }
     | undefined
 }
