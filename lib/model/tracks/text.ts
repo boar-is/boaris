@@ -5,18 +5,18 @@ import type { Interpolation, Recording, TrackBase } from './_shared'
  * @example plain text files
  * @example unknown file formats that would open with CodeMirror
  */
-export type CodeTrack = TrackBase & {
+export type TextTrack = TrackBase & {
   initialValue: string
   interpolation?:
     | Interpolation<{
-        recordingId: CodeTrackRecording['_id']
+        recordingId: TextTrackRecording['_id']
         progress: number
       }>
     | undefined
-  recordings?: Array<CodeTrackRecording> | undefined
+  recordings?: Array<TextTrackRecording> | undefined
 }
 
-export type CodeTrackRecording = Recording<
+export type TextTrackRecording = Recording<
   | {
       type: 'Insert'
       from: number

@@ -3,13 +3,13 @@ import type {
   Recording,
   TrackBase,
 } from '~/lib/model/tracks/_shared'
-import type { CodeTrackRecording } from '~/lib/model/tracks/code'
+import type { TextTrackRecording } from '~/lib/model/tracks/text'
 
 export type FileTreeTrack = TrackBase & {
   path: '.meta/file-tree'
   interpolation?:
     | Interpolation<{
-        recordingId: CodeTrackRecording['_id']
+        recordingId: TextTrackRecording['_id']
         progress: number
       }>
     | undefined

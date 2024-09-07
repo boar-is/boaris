@@ -1,8 +1,13 @@
 import type { JSONContent } from '@tiptap/react'
-import type { Interpolation, TrackBase } from '~/lib/model/tracks/_shared'
 
-export type CaptionsTrack = TrackBase & {
-  path: `.meta/${string}.captions`
-  initialContent: JSONContent
-  progressInterpolation?: Interpolation | undefined
+export type CaptionsTrack = {
+  _id: string
+  _tag: 'CaptionsTrack'
+  path: string
+  content: JSONContent
+  locale?: string | undefined
+  mapping: {
+    input: Array<number>
+    output: Array<number>
+  }
 }

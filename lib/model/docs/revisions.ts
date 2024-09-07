@@ -1,32 +1,39 @@
-import { type Delta, diffpatcher } from '~/lib/diffpatcher'
+import type { Delta } from '~/lib/diffpatcher'
 import type { Doc } from '~/lib/model/docs/_shared'
 import type { CaptionsTrack } from '../tracks/captions'
-import type { CodeTrack } from '../tracks/code'
 import type { FileTreeTrack } from '../tracks/file-tree'
 import type { ImageTrack } from '../tracks/image'
+import type { TextTrack } from '../tracks/text'
 import type { VideoTrack } from '../tracks/video'
 
 export type RevisionValue = {
   tracks: Array<
-    CaptionsTrack | FileTreeTrack | ImageTrack | CodeTrack | VideoTrack
+    CaptionsTrack | FileTreeTrack | ImageTrack | TextTrack | VideoTrack
   >
 }
 
-export type RevisionDoc = Doc & {
-  parentId: RevisionDoc['_id'] | null
-  valueDelta: Delta
-}
+export type RevisionDoc = Doc &
+  (
+    | {
+        parentId: null
+        value: RevisionValue
+      }
+    | {
+        parentId: RevisionDoc['_id']
+        delta: Delta
+      }
+  )
 
 export const revisionDocs: Array<RevisionDoc> = [
   {
     _id: '1',
     _creationTime: Date.now(),
     parentId: null,
-    valueDelta: diffpatcher.diff({}, <RevisionValue>{
+    value: {
       tracks: [
         {
           _id: '1',
-          path: '.meta/captions',
+          path: '.meta/.captions',
           content: {
             type: 'doc',
             content: [
@@ -231,6 +238,6 @@ export const revisionDocs: Array<RevisionDoc> = [
           storageId: '5',
         },
       ],
-    }),
+    },
   },
 ]
