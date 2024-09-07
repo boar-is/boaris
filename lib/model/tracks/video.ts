@@ -20,6 +20,7 @@ export type VideoTrack = {
   value: VideoTrackValue
   overrides?:
     | Array<{
+        _id: string
         locale: string
         delta: Delta
       }>

@@ -19,6 +19,7 @@ export type CaptionsTrack = {
   value: CaptionsTrackValue
   overrides?:
     | Array<{
+        _id: string
         locale: string
         delta: Delta
       }>

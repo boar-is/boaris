@@ -13,6 +13,7 @@ export type ImageTrack = {
   value: ImageTrackValue
   overrides?:
     | Array<{
+        _id: string
         locale: string
         value: ImageTrackValue
       }>

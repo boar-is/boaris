@@ -1,24 +1,8 @@
-import type { Interpolation, Recording, TrackBase } from './_shared'
+import type { Delta } from '~/lib/diffpatcher'
 
-/**
- * @example coding files like .ts, .tsx, .md, .etc.
- * @example plain text files
- * @example unknown file formats that would open with CodeMirror
- */
-export type TextTrack = TrackBase & {
-  initialValue: string
-  interpolation?:
-    | Interpolation<{
-        recordingId: TextTrackRecording['_id']
-        progress: number
-      }>
-    | undefined
-  recordings?: Array<TextTrackRecording> | undefined
-}
-
-export type TextTrackRecording = Recording<
+export type TextTrackActionValue =
   | {
-      type: 'Insert'
+      _tag: 'Insert'
       from: number
       to?: number | undefined
       insert: string
@@ -26,6 +10,34 @@ export type TextTrackRecording = Recording<
   | {
       type: 'Select'
       ranges: Array<{ anchor: number; head?: number }>
-    },
-  string
->
+    }
+
+export type TextTrackValue = {
+  content: string
+  actions?:
+    | Array<{
+        _id: string
+        atMs: number
+        value: TextTrackActionValue
+      }>
+    | undefined
+}
+
+/**
+ * @example coding files like .ts, .tsx, .md, .etc.
+ * @example plain text files
+ * @example unknown file formats that would open with CodeMirror
+ */
+export type TextTrack = {
+  _id: string
+  _tag: 'TextTrack'
+  name: string
+  value: TextTrackValue
+  overrides?:
+    | Array<{
+        _id: string
+        locale: string
+        delta: Delta
+      }>
+    | undefined
+}
