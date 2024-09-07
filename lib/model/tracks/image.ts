@@ -10,23 +10,11 @@ export type ImageTrack = {
   _id: string
   _tag: 'ImageTrack'
   name: string
-  items: Array<{
-    locale?: string | undefined
-    value: ImageTrackValue
-  }>
+  value: ImageTrackValue
+  overrides?:
+    | Array<{
+        locale: string
+        value: ImageTrackValue
+      }>
+    | undefined
 }
-
-export const imageTracks: Array<ImageTrack> = [
-  {
-    _id: 'image1',
-    _tag: 'ImageTrack',
-    name: '.meta/css-snippet.webp',
-    items: [
-      {
-        value: {
-          storageId: '5',
-        },
-      },
-    ],
-  },
-]
