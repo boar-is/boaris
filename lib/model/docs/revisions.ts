@@ -6,7 +6,7 @@ import type { FileTreeTrack } from '../tracks/file-tree'
 import type { ImageTrack } from '../tracks/image'
 import type { VideoTrack } from '../tracks/video'
 
-export type RevisionData = {
+export type RevisionValue = {
   tracks: Array<
     CaptionsTrack | FileTreeTrack | ImageTrack | CodeTrack | VideoTrack
   >
@@ -14,7 +14,7 @@ export type RevisionData = {
 
 export type RevisionDoc = Doc & {
   parentId: RevisionDoc['_id'] | null
-  delta: Delta
+  valueDelta: Delta
 }
 
 export const revisionDocs: Array<RevisionDoc> = [
@@ -22,7 +22,7 @@ export const revisionDocs: Array<RevisionDoc> = [
     _id: '1',
     _creationTime: Date.now(),
     parentId: null,
-    delta: diffpatcher.diff({}, <RevisionData>{
+    valueDelta: diffpatcher.diff({}, <RevisionValue>{
       tracks: [
         {
           _id: '1',

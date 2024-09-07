@@ -6,7 +6,7 @@ import type { Interpolation, Recording, TrackBase } from './_shared'
  * @example unknown file formats that would open with CodeMirror
  */
 export type CodeTrack = TrackBase & {
-  value: string
+  initialValue: string
   interpolation?:
     | Interpolation<{
         recordingId: CodeTrackRecording['_id']
@@ -26,7 +26,6 @@ export type CodeTrackRecording = Recording<
   | {
       type: 'Select'
       ranges: Array<{ anchor: number; head?: number }>
-    }
-> & {
-  initialValue: string
-}
+    },
+  string
+>

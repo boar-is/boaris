@@ -16,6 +16,7 @@ export type FileTreeTrack = TrackBase & {
   recordings?: Array<FileTreeTrackRecording> | undefined
 }
 
+// TODO to deltas
 export type FileTreeTrackRecording = Recording<
   | {
       type: 'Create'
@@ -24,5 +25,9 @@ export type FileTreeTrackRecording = Recording<
   | {
       type: 'Delete'
       paths: Array<string>
+    }
+  | {
+      type: 'Rename'
+      pairs: Array<[oldPath: string, newPath: string]>
     }
 >
