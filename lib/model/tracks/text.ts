@@ -32,7 +32,7 @@ export type TextTrackValue = {
 
 export type TextTrackActionValue =
   | {
-      _tag: 'Insert'
+      type: 'Insert'
       from: number
       to?: number | undefined
       insert: string

@@ -1,42 +1,53 @@
-import type { Delta } from 'jsondiffpatch'
-import type { Recording, TrackBase } from '~/lib/model/tracks/_shared'
+import type { Delta } from '~/lib/diffpatcher'
+
+export type LayoutTrack = {
+  _id: string
+  _tag: 'LayoutTrack'
+  value: LayoutTrackValue
+  overrides?:
+    | Array<{
+        _id: string
+        modes: Array<'static' | 'scrolling' | 'watching' | 'sliding'>
+        minWidthPx?: number | undefined
+        exportOnly?: boolean | undefined
+        delta: Delta
+      }>
+    | undefined
+}
+
+export type LayoutTrackValue = {
+  content: {
+    main: LayoutGroup
+    floating: Record<`${'top | bottom'}-${'left' | 'right'}`, LayoutGroupItem>
+  } | null
+  actions?:
+    | Array<{
+        _id: string
+        atMs: number
+        value: LayoutTrackActionValue
+      }>
+    | undefined
+}
+
+export type LayoutTrackActionValue = {
+  type: 'delta'
+  delta: Delta
+}
 
 export type LayoutGroup = {
   _id: string
+  _tag: 'LayoutGroup'
   direction: 'horizontal' | 'vertical'
   content: Array<LayoutGroupItem>
 }
+
 export type LayoutGroupItem = {
   _id: string
+  _tag: 'LayoutGroupItem'
   content:
     | LayoutGroup
     | {
-        trackId: TrackBase['_id']
+        trackId: string
         defaultSize: number
       }
 }
-
-export type LayoutValue = {}
-export type LayoutValueDelta = Delta
-
-export type LayoutRecording = Recording<
-  {
-    type: 'delta'
-    delta: LayoutValueDelta
-  },
-  LayoutValue
->
-
-export type LayoutTrack = TrackBase &
-  (
-    | {
-        path: `.meta/primary.layout`
-        initialValueDelta: LayoutValue
-        recordings: Array<LayoutRecording>
-      }
-    | {
-        path: `.meta/${string}.layout`
-        primaryLayoutTrackId: LayoutTrack['_id']
-        overridesDelta: LayoutValueDelta
-      }
-  )
