@@ -1,12 +1,15 @@
-import type { Delta } from '~/lib/diffpatcher'
+import { type Delta, diffpatcher } from '~/lib/diffpatcher'
 import type { Doc } from '~/lib/model/docs/_shared'
 import type { CaptionsTrack } from '../tracks/captions'
 import type { ImageTrack } from '../tracks/image'
+import type { LayoutTrack, LayoutTrackContent } from '../tracks/layout'
 import type { TextTrack } from '../tracks/text'
 import type { VideoTrack } from '../tracks/video'
 
 export type RevisionValue = {
-  tracks: Array<CaptionsTrack | ImageTrack | TextTrack | VideoTrack>
+  tracks: Array<
+    CaptionsTrack | ImageTrack | LayoutTrack | TextTrack | VideoTrack
+  >
 }
 
 export type RevisionDoc = Doc &
@@ -23,13 +26,44 @@ export type RevisionDoc = Doc &
 
 export const revisionDocs: Array<RevisionDoc> = [
   {
-    _id: '1',
+    _id: 'CazXWqJz7tmF',
     _creationTime: Date.now(),
     parentId: null,
     value: {
       tracks: [
         {
-          _id: 'captions1',
+          _id: 'hMEjYW8v3Syq',
+          _tag: 'LayoutTrack',
+          primary: {
+            modes: ['scrolling'],
+            value: {
+              changes: [
+                {
+                  _id: 'JvbFc0asCVQN',
+                  atMs: 0,
+                  delta: diffpatcher.diff({}, <LayoutTrackContent>{
+                    main: {
+                      _id: 'XHdqcRDmgbn2',
+                      _tag: 'LayoutGroup',
+                      direction: 'v',
+                      content: [
+                        {
+                          _id: '0T14UvWe58jR',
+                          _tag: 'LayoutItem',
+                          content: {
+                            trackId: 'XzuFxjGW7KwJ',
+                          },
+                        },
+                      ],
+                    },
+                  }),
+                },
+              ],
+            },
+          },
+        },
+        {
+          _id: 'XQS0NNzaNlnh',
           _tag: 'CaptionsTrack',
           value: {
             content: {
@@ -227,7 +261,7 @@ export const revisionDocs: Array<RevisionDoc> = [
           },
         },
         {
-          _id: 'image1',
+          _id: 'EXS2EWkhvxRp',
           _tag: 'ImageTrack',
           name: '.meta/css-snippet.webp',
           value: {
@@ -235,7 +269,7 @@ export const revisionDocs: Array<RevisionDoc> = [
           },
         },
         {
-          _id: 'video1',
+          _id: 'XzuFxjGW7KwJ',
           _tag: 'VideoTrack',
           name: '.meta/shadow-palette-initial.mp4',
           value: {

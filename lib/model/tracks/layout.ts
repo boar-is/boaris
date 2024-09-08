@@ -3,7 +3,10 @@ import type { Delta } from '~/lib/diffpatcher'
 export type LayoutTrack = {
   _id: string
   _tag: 'LayoutTrack'
-  value: LayoutTrackValue
+  primary: {
+    modes: Array<'static' | 'scrolling' | 'watching' | 'sliding'>
+    value: LayoutTrackValue
+  }
   overrides?:
     | Array<{
         _id: string
@@ -23,21 +26,16 @@ export type LayoutTrackContent = {
 }
 
 export type LayoutTrackValue = {
-  actions?:
+  changes?:
     | Array<{
         _id: string
         atMs: number
         /**
          * `null` to skip that part
          */
-        value: LayoutTrackActionValue | null
+        delta: Delta | null
       }>
     | undefined
-}
-
-export type LayoutTrackActionValue = {
-  type: 'Delta'
-  delta: Delta
 }
 
 export type LayoutGroup = {
@@ -54,6 +52,6 @@ export type LayoutItem = {
     | LayoutGroup
     | {
         trackId: string
-        sizeProportion: number
+        basis?: number | undefined
       }
 }
