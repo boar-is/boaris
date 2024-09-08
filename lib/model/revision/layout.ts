@@ -34,7 +34,10 @@ export type LayoutValue = {
   changes?:
     | Array<{
         _id: string
-        atMs: number
+        /**
+         * a number from 0 to 1
+         */
+        at: number
         /**
          * `null` to skip that part
          */

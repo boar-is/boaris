@@ -7,6 +7,7 @@ import type { VideoTrack } from '~/lib/model/revision/video.track'
 import type { Captions } from '../revision/captions'
 
 export type RevisionValue = {
+  durationMs: number
   captions?: Captions | undefined
   layout?: Layout | undefined
   tracks: Array<ImageTrack | TextTrack | VideoTrack>
@@ -90,6 +91,7 @@ export const revisionDocs: Array<RevisionDoc> = [
     _creationTime: Date.now(),
     parentId: null,
     value: {
+      durationMs: 10000,
       captions: {
         value: {
           content: {
@@ -293,22 +295,22 @@ export const revisionDocs: Array<RevisionDoc> = [
             changes: [
               {
                 _id: 'JvbFc0asCVQN',
-                atMs: 0,
+                at: 0,
                 delta: diffpatcher.diff(layout0Content0, layout0Content0),
               },
               {
                 _id: '6ENuZgnOYzeq',
-                atMs: 10000,
+                at: 10000,
                 delta: diffpatcher.diff(layout0Content0, layout0Content1),
               },
               {
                 _id: '9GDreK6QnptH',
-                atMs: 15000,
+                at: 15000,
                 delta: diffpatcher.diff(layout0Content1, layout0Content2),
               },
               {
                 _id: 'lmVXXyKon3lh',
-                atMs: 20000,
+                at: 20000,
                 delta: diffpatcher.diff(layout0Content2, layout0Content3),
               },
             ],
