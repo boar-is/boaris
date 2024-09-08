@@ -15,35 +15,35 @@ export type LayoutTrack = {
     | undefined
 }
 
+export type LayoutTrackContent = {
+  main: LayoutGroup
+  floating?:
+    | Record<`${'top' | 'bottom'}-${'left' | 'right'}`, LayoutItem>
+    | undefined
+}
+
 export type LayoutTrackValue = {
-  content: {
-    main: LayoutGroup
-    floating?:
-      | Record<`${'top' | 'bottom'}-${'left' | 'right'}`, LayoutItem>
-      | undefined
-  } | null
   actions?:
     | Array<{
         _id: string
         atMs: number
-        value: LayoutTrackActionValue
+        /**
+         * `null` to skip that part
+         */
+        value: LayoutTrackActionValue | null
       }>
     | undefined
 }
 
-export type LayoutTrackActionValue =
-  | {
-      type: 'Delta'
-      delta: Delta
-    }
-  | {
-      type: 'Skip'
-    }
+export type LayoutTrackActionValue = {
+  type: 'Delta'
+  delta: Delta
+}
 
 export type LayoutGroup = {
   _id: string
   _tag: 'LayoutGroup'
-  direction: 'horizontal' | 'vertical'
+  direction: 'h' | 'v'
   content: Array<LayoutItem>
 }
 

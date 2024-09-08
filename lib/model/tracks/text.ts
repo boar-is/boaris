@@ -20,7 +20,7 @@ export type TextTrack = {
 }
 
 export type TextTrackValue = {
-  content: string
+  content: Array<string>
   actions?:
     | Array<{
         _id: string
