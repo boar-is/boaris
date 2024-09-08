@@ -1,6 +1,6 @@
 import { it } from 'vitest'
-import { diffpatcher } from '../diffpatcher'
+import { getBlogPost } from '~/lib/api/get-blog-post'
 
-it('should test', () => {
-  console.log(diffpatcher.diff(null, {}))
+it('should test', async () => {
+  console.log(await getBlogPost('use-deferred-value'))
 })

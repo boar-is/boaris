@@ -11,6 +11,7 @@ export type BlogPostVm = {
   title: string
   lead: string
   thumbnailSrc?: string | undefined
+  revisionValue: RevisionValue
 }
 
 export const getBlogPost = async (slug: PostDoc['slug']) => {
@@ -30,6 +31,7 @@ export const getBlogPost = async (slug: PostDoc['slug']) => {
     title: post.title,
     lead: post.lead ?? post.description,
     thumbnailSrc: storageDocs.find((it) => it._id === post.thumbnailId)?.src,
+    revisionValue,
   } satisfies BlogPostVm
 }
 
