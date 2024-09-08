@@ -1,7 +1,5 @@
 import { diffpatcher } from '~/lib/diffpatcher'
 import { type PostDoc, postDocs } from '~/lib/model/docs/posts'
-import type { CaptionsValue } from '~/lib/model/revision/captions'
-import type { Layout } from '~/lib/model/revision/layout'
 import {
   type RevisionDoc,
   type RevisionValue,
@@ -14,8 +12,6 @@ export type BlogPostVm = {
   lead: string
   thumbnailSrc?: string | undefined
   date: string
-  captions: CaptionsValue
-  layout: Pick<Layout, 'primary'> & {}
 }
 
 export const getBlogPost = async (slug: PostDoc['slug'], locale?: string) => {
@@ -40,7 +36,6 @@ export const getBlogPost = async (slug: PostDoc['slug'], locale?: string) => {
       month: 'short',
       day: 'numeric',
     }).format(new Date(post._creationTime)),
-    captions: {},
   } satisfies BlogPostVm
 }
 

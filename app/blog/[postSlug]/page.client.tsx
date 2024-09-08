@@ -1,7 +1,7 @@
 'use client'
 
 import { useResizeObserver } from '@react-aria/utils'
-import { type Editor, useEditor } from '@tiptap/react'
+import { type Editor, type JSONContent, useEditor } from '@tiptap/react'
 import {
   type MotionStyle,
   type MotionValue,
@@ -26,7 +26,7 @@ export function BlogPostPageClient({ post }: { post: BlogPostVm }) {
   const speed = 1 / 15
   const cursorLength = 25
 
-  const content = post.captions
+  const content = post as JSONContent // TODO WIP, silence the error
 
   const editor = useEditor(
     {
