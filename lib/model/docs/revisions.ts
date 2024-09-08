@@ -300,17 +300,17 @@ export const revisionDocs: Array<RevisionDoc> = [
               },
               {
                 _id: '6ENuZgnOYzeq',
-                at: 10000,
+                at: 0.2,
                 delta: diffpatcher.diff(layout0Content0, layout0Content1),
               },
               {
                 _id: '9GDreK6QnptH',
-                at: 15000,
+                at: 0.5,
                 delta: diffpatcher.diff(layout0Content1, layout0Content2),
               },
               {
                 _id: 'lmVXXyKon3lh',
-                at: 20000,
+                at: 0.7,
                 delta: diffpatcher.diff(layout0Content2, layout0Content3),
               },
             ],
