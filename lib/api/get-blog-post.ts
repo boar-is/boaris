@@ -1,14 +1,16 @@
-import type { JSONContent } from '@tiptap/react'
-import { assetDocs } from '~/lib/db/assets'
-import { revisionAssetDocs } from '~/lib/db/revision-assets'
+import { diffpatcher } from '~/lib/diffpatcher'
 import { type PostDoc, postDocs } from '~/lib/model/docs/posts'
+import {
+  type RevisionDoc,
+  type RevisionValue,
+  revisionDocs,
+} from '../model/docs/revisions'
 import { storageDocs } from '../model/docs/storages'
 
 export type BlogPostVm = {
   title: string
   lead: string
   thumbnailSrc?: string | undefined
-  captions: JSONContent
 }
 
 export const getBlogPost = async (slug: PostDoc['slug']) => {
@@ -18,24 +20,54 @@ export const getBlogPost = async (slug: PostDoc['slug']) => {
     return null
   }
 
-  const revisionAssetIds = revisionAssetDocs
-    .filter((it) => it.assetId === post.publishedRevisionId)
-    .map((it) => it.assetId)
+  const revisionValue = await getRevisionValue(post.publishedRevisionId)
 
-  const assets = assetDocs.filter((it) => revisionAssetIds.includes(it._id))
-
-  const captions = assets.find((it) => it.type === 'Captions')
-
-  if (!captions) {
-    throw new Error(
-      `Post ${post.slug} does not have captions asset for the scrolling mode.`,
-    )
+  if (!revisionValue) {
+    return null
   }
 
   return {
     title: post.title,
     lead: post.lead ?? post.description,
     thumbnailSrc: storageDocs.find((it) => it._id === post.thumbnailId)?.src,
-    captions: captions.content,
   } satisfies BlogPostVm
+}
+
+const getRevisionValue = async (revisionId: RevisionDoc['_id']) => {
+  const revision = revisionDocs.find((it) => it._id === revisionId)
+
+  if (!revision) {
+    return null
+  }
+
+  if (revision.parentId === null) {
+    return revision.value
+  }
+
+  const deltaRevisions: Array<
+    Extract<RevisionDoc, { parentId: RevisionDoc['_id'] }>
+  > = [revision]
+  let parentId: RevisionDoc['parentId'] = revision.parentId
+  while (parentId !== null) {
+    const parentRevision = revisionDocs.find((it) => it._id === parentId)
+
+    if (!parentRevision) {
+      throw new Error(
+        `Could not find a parent revision with the provided id: ${parentId}`,
+      )
+    }
+
+    if (parentRevision.parentId === null) {
+      return deltaRevisions.reduceRight(
+        (value, deltaRevision) =>
+          diffpatcher.patch(value, deltaRevision.delta) as RevisionValue,
+        parentRevision.value,
+      )
+    }
+
+    deltaRevisions.push(parentRevision)
+    parentId = parentRevision.parentId
+  }
+
+  throw new Error('Unreachable statement')
 }
