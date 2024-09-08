@@ -24,6 +24,66 @@ export type RevisionDoc = Doc &
       }
   )
 
+const layout0Content0: LayoutContent = {}
+
+const layout0Content1: LayoutContent = {
+  main: {
+    _id: 'XHdqcRDmgbn2',
+    _tag: 'LayoutGroup',
+    direction: 'v',
+    content: [
+      {
+        _id: '0T14UvWe58jR',
+        _tag: 'LayoutItem',
+        content: {
+          trackId: 'XzuFxjGW7KwJ',
+        },
+      },
+    ],
+  },
+}
+
+const layout0Content2: LayoutContent = {
+  main: {
+    _id: 'Z_080stKzpTm',
+    _tag: 'LayoutGroup',
+    direction: 'v',
+    content: [
+      {
+        _id: 'v7aAgNlWO5Ui',
+        _tag: 'LayoutItem',
+        content: {
+          trackId: 'EXS2EWkhvxRp',
+        },
+      },
+    ],
+  },
+}
+
+const layout0Content3: LayoutContent = {
+  main: {
+    _id: 'Z_080stKzpTm',
+    _tag: 'LayoutGroup',
+    direction: 'v',
+    content: [
+      {
+        _id: 'v7aAgNlWO5Ui',
+        _tag: 'LayoutItem',
+        content: {
+          trackId: 'EXS2EWkhvxRp',
+        },
+      },
+      {
+        _id: 'f9aBVeQftslQ',
+        _tag: 'LayoutItem',
+        content: {
+          trackId: 'yEFL4yBqYkIu',
+        },
+      },
+    ],
+  },
+}
+
 export const revisionDocs: Array<RevisionDoc> = [
   {
     _id: 'CazXWqJz7tmF',
@@ -234,22 +294,22 @@ export const revisionDocs: Array<RevisionDoc> = [
               {
                 _id: 'JvbFc0asCVQN',
                 atMs: 0,
-                delta: diffpatcher.diff({}, <LayoutContent>{
-                  main: {
-                    _id: 'XHdqcRDmgbn2',
-                    _tag: 'LayoutGroup',
-                    direction: 'v',
-                    content: [
-                      {
-                        _id: '0T14UvWe58jR',
-                        _tag: 'LayoutItem',
-                        content: {
-                          trackId: 'XzuFxjGW7KwJ',
-                        },
-                      },
-                    ],
-                  },
-                }),
+                delta: diffpatcher.diff(layout0Content0, layout0Content0),
+              },
+              {
+                _id: '6ENuZgnOYzeq',
+                atMs: 10000,
+                delta: diffpatcher.diff(layout0Content0, layout0Content1),
+              },
+              {
+                _id: '9GDreK6QnptH',
+                atMs: 15000,
+                delta: diffpatcher.diff(layout0Content1, layout0Content2),
+              },
+              {
+                _id: 'lmVXXyKon3lh',
+                atMs: 20000,
+                delta: diffpatcher.diff(layout0Content2, layout0Content3),
               },
             ],
           },
@@ -270,6 +330,27 @@ export const revisionDocs: Array<RevisionDoc> = [
           name: '.meta/shadow-palette-initial.mp4',
           value: {
             storageId: '4',
+          },
+        },
+        {
+          _id: 'yEFL4yBqYkIu',
+          _tag: 'TextTrack',
+          name: 'app.jsx',
+          value: {
+            content: [
+              'function App() {',
+              '  const [count, setCount] = React.useState(0);',
+              '',
+              '  return (',
+              '    <>',
+              '      <ImportantStuff count={count} />',
+              '      <SlowStuff count={count} />',
+              '',
+              '      <button onClick={() => setCount(count + 1)}>',
+              '        Increment',
+              '      </button>',
+              '    </>',
+            ],
           },
         },
       ],

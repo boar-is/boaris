@@ -24,7 +24,7 @@ export type Layout = {
 }
 
 export type LayoutContent = {
-  main: LayoutGroup
+  main?: LayoutGroup | undefined
   floating?:
     | Record<`${'top' | 'bottom'}-${'left' | 'right'}`, LayoutItem>
     | undefined
