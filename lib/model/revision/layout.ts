@@ -1,16 +1,21 @@
 import type { Delta } from '~/lib/diffpatcher'
 
-export type LayoutTrack = {
-  _id: string
-  _tag: 'LayoutTrack'
+export const layoutModes = [
+  'static',
+  'scrolling',
+  'watching',
+  'sliding',
+] as const
+
+export type Layout = {
   primary: {
-    modes: Array<'static' | 'scrolling' | 'watching' | 'sliding'>
-    value: LayoutTrackValue
+    modes: Array<(typeof layoutModes)[number]>
+    value: LayoutValue
   }
   overrides?:
     | Array<{
         _id: string
-        modes: Array<'static' | 'scrolling' | 'watching' | 'sliding'>
+        modes: Array<(typeof layoutModes)[number]>
         minWidthPx?: number | undefined
         disabled?: boolean | undefined
         delta: Delta
@@ -18,14 +23,14 @@ export type LayoutTrack = {
     | undefined
 }
 
-export type LayoutTrackContent = {
+export type LayoutContent = {
   main: LayoutGroup
   floating?:
     | Record<`${'top' | 'bottom'}-${'left' | 'right'}`, LayoutItem>
     | undefined
 }
 
-export type LayoutTrackValue = {
+export type LayoutValue = {
   changes?:
     | Array<{
         _id: string

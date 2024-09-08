@@ -1,10 +1,8 @@
 import type { JSONContent } from '@tiptap/react'
 import type { Delta } from '~/lib/diffpatcher'
 
-export type CaptionsTrack = {
-  _id: string
-  _tag: 'CaptionsTrack'
-  value: CaptionsTrackValue
+export type Captions = {
+  value: CaptionsValue
   overrides?:
     | Array<{
         _id: string
@@ -14,7 +12,7 @@ export type CaptionsTrack = {
     | undefined
 }
 
-export type CaptionsTrackValue = {
+export type CaptionsValue = {
   content: JSONContent
   mapping?:
     | {
