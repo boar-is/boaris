@@ -33,19 +33,17 @@ export type LayoutContent = {
 }
 
 export type LayoutValue = {
-  changes?:
-    | Array<{
-        _id: string
-        /**
-         * a number from 0 to 1
-         */
-        at: number
-        /**
-         * `null` to skip that part
-         */
-        delta: Delta | null
-      }>
-    | undefined
+  changes: Array<{
+    _id: string
+    /**
+     * a number from 0 to 1
+     */
+    at: number
+    /**
+     * `null` to skip that part
+     */
+    delta: Delta | null
+  }>
 }
 
 export type LayoutGroup = {

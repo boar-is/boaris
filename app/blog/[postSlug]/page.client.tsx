@@ -15,7 +15,9 @@ export function LayoutPlayer({ layout }: { layout: Layout | undefined }) {
 
   const currentMode: LayoutMode = 'scrolling'
 
-  const { width = undefined } = useWindowSize()
+  const { width = undefined } = useWindowSize({
+    debounceDelay: 250,
+  })
 
   if (!width) {
     return null
@@ -36,7 +38,10 @@ export function LayoutPlayer({ layout }: { layout: Layout | undefined }) {
     ? (diffpatcher.patch(layout.primary, override.delta) as LayoutValue)
     : layout.primary.value
 
-  value.changes
+  const progress = 0.66
+
+  const previousChangeIndex = 0
+  const currentChangeIndex = value.changes.findIndex((it) => it.at <= progress)
 
   return <div>Layout</div>
 }
