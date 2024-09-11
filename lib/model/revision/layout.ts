@@ -1,5 +1,7 @@
 import type { Delta } from '~/lib/diffpatcher'
 
+export type LayoutMode = (typeof layoutModes)[number]
+
 export const layoutModes = [
   'static',
   'scrolling',
@@ -9,13 +11,13 @@ export const layoutModes = [
 
 export type Layout = {
   primary: {
-    modes: Array<(typeof layoutModes)[number]>
+    modes: Array<LayoutMode>
     value: LayoutValue
   }
   overrides?:
     | Array<{
         _id: string
-        modes: Array<(typeof layoutModes)[number]>
+        modes: Array<LayoutMode>
         minWidthPx?: number | undefined
         disabled?: boolean | undefined
         delta: Delta
