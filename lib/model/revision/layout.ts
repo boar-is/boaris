@@ -32,6 +32,15 @@ export type LayoutContent = {
     | undefined
 }
 
+export type LayoutChangeValue =
+  | {
+      type: 'delta'
+      delta: Delta
+    }
+  | {
+      type: 'skip'
+    }
+
 export type LayoutValue = {
   changes: Array<{
     _id: string
@@ -39,10 +48,7 @@ export type LayoutValue = {
      * a number from 0 to 1
      */
     at: number
-    /**
-     * `null` to skip that part
-     */
-    delta: Delta | null
+    value: LayoutChangeValue
   }>
 }
 

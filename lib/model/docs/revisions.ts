@@ -294,22 +294,41 @@ export const revisionDocs: Array<RevisionDoc> = [
               {
                 _id: 'JvbFc0asCVQN',
                 at: 0,
-                delta: diffpatcher.diff(layout0Content0, layout0Content0),
+                value: {
+                  type: 'delta',
+                  delta: diffpatcher.diff(layout0Content0, layout0Content0),
+                },
               },
               {
                 _id: '6ENuZgnOYzeq',
                 at: 0.2,
-                delta: diffpatcher.diff(layout0Content0, layout0Content1),
+                value: {
+                  type: 'delta',
+                  delta: diffpatcher.diff(layout0Content0, layout0Content1),
+                },
+              },
+              {
+                _id: '62hdHDSOYyax',
+                at: 0.35,
+                value: {
+                  type: 'skip',
+                },
               },
               {
                 _id: '9GDreK6QnptH',
                 at: 0.5,
-                delta: diffpatcher.diff(layout0Content1, layout0Content2),
+                value: {
+                  type: 'delta',
+                  delta: diffpatcher.diff(layout0Content1, layout0Content2),
+                },
               },
               {
                 _id: 'lmVXXyKon3lh',
                 at: 0.7,
-                delta: diffpatcher.diff(layout0Content2, layout0Content3),
+                value: {
+                  type: 'delta',
+                  delta: diffpatcher.diff(layout0Content2, layout0Content3),
+                },
               },
             ],
           },
