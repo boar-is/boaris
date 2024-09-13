@@ -293,7 +293,7 @@ export const revisionDocs: Array<RevisionDoc> = [
             changes: [
               {
                 _id: 'JvbFc0asCVQN',
-                at: 0,
+                at: 0.15,
                 value: {
                   type: 'delta',
                   delta: diffpatcher.diff(layout0Content0, layout0Content0),
@@ -301,7 +301,7 @@ export const revisionDocs: Array<RevisionDoc> = [
               },
               {
                 _id: '6ENuZgnOYzeq',
-                at: 0.2,
+                at: 0.25,
                 value: {
                   type: 'delta',
                   delta: diffpatcher.diff(layout0Content0, layout0Content1),
@@ -328,6 +328,13 @@ export const revisionDocs: Array<RevisionDoc> = [
                 value: {
                   type: 'delta',
                   delta: diffpatcher.diff(layout0Content2, layout0Content3),
+                },
+              },
+              {
+                _id: 'l7Ga9h5Kir4k',
+                at: 0.9,
+                value: {
+                  type: 'skip',
                 },
               },
             ],
