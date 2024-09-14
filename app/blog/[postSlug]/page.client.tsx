@@ -65,10 +65,17 @@ export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
     setPreviousContentIndex(contentIndex)
   }
 
-  const previousContent = useRef<LayoutContent | null>()
+  const previousContent = useRef<LayoutContent | null>(null)
   const content = useMemo<LayoutContent>(() => {
-    previousContent.current = layoutValue
+    const value: LayoutContent = {}
+
+    if (contentIndex === null) {
+      return value
+    }
+
+    return value
   }, [contentIndex])
+  previousContent.current = content
 
   return <div>Layout</div>
 }
