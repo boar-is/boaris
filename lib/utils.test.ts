@@ -74,7 +74,7 @@ describe('findClosestIndex', () => {
   })
 
   it('should return null for target 5', () => {
-    expect(findClosestIndex([10, 20, 30, 40, 50], 5, identity)).toBeNull() // null because target is smaller than all
+    expect(findClosestIndex([10, 20, 30, 40, 50], 5, identity)).toBeNull() // null because the target is smaller than all
   })
 
   it('should return 0 for target equal to the first element', () => {
@@ -82,6 +82,6 @@ describe('findClosestIndex', () => {
   })
 
   it('should handle empty arrays', () => {
-    expect(findClosestIndex([], 33, identity)).toBeNull() // null because array is empty
+    expect(findClosestIndex([], 33, identity)).toBeNull() // null because the array is empty
   })
 })

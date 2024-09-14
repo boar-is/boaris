@@ -1,14 +1,18 @@
 'use client'
 
+import { transform } from 'framer-motion'
+import { useMemo, useRef, useState } from 'react'
 import { useWindowSize } from 'usehooks-ts'
 import { diffpatcher } from '~/lib/diffpatcher'
 import type {
   Layout,
+  LayoutContent,
   LayoutMode,
   LayoutValue,
 } from '~/lib/model/revision/layout'
+import { findClosestIndex, mapSkippedPair } from '~/lib/utils'
 
-export function LayoutPlayer({ layout }: { layout: Layout | undefined }) {
+export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
   if (!layout) {
     return null
   }
@@ -34,14 +38,37 @@ export function LayoutPlayer({ layout }: { layout: Layout | undefined }) {
     return null
   }
 
-  const value = override
+  const layoutValue = override
     ? (diffpatcher.patch(layout.primary, override.delta) as LayoutValue)
     : layout.primary.value
 
-  const progress = 0.66
+  const transformProgress = useMemo(() => {
+    const inputs: Array<number> = []
+    const outputs: Array<boolean> = []
+    for (const change of layoutValue.changes) {
+      inputs.push(change.at)
+      outputs.push(change.value.type !== 'skip')
+    }
+    return transform(...mapSkippedPair(inputs, outputs))
+  }, [layoutValue.changes])
 
-  const previousChangeIndex = 0
-  const currentChangeIndex = value.changes.findIndex((it) => it.at <= progress)
+  const [currentProgress, setCurrentProgress] = useState(0)
+
+  const getContentIndex = (at: number) =>
+    findClosestIndex(layoutValue.changes, at, (it) => it.at)
+
+  const mappedProgress = transformProgress(currentProgress)
+
+  const contentIndex = getContentIndex(mappedProgress)
+  const [previousContentIndex, setPreviousContentIndex] = useState(contentIndex)
+  if (currentProgress !== previousContentIndex) {
+    setPreviousContentIndex(contentIndex)
+  }
+
+  const previousContent = useRef<LayoutContent | null>()
+  const content = useMemo<LayoutContent>(() => {
+    previousContent.current = layoutValue
+  }, [contentIndex])
 
   return <div>Layout</div>
 }

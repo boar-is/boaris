@@ -15,11 +15,8 @@ export const mapSkippedPair = (
       continue
     }
 
-    const start = inputs[i]
+    const start = ensureDefined(inputs[i])
     const end = inputs[i + 1]
-    if (start === undefined) {
-      throw new Error('Out of bounds')
-    }
 
     trueRatio += (end ?? 1) - start
   }
@@ -37,11 +34,8 @@ export const mapSkippedPair = (
       continue
     }
 
-    const start = inputs[i]
+    const start = ensureDefined(inputs[i])
     const end = inputs[i + 1] ?? 1
-    if (start === undefined) {
-      throw new Error('Out of bounds')
-    }
 
     const mappedInputEnd = startingRatio + (end - start) * multiplier
 
@@ -55,22 +49,18 @@ export const mapSkippedPair = (
 }
 
 export const findClosestIndex = <T>(
-  arr: Array<T>,
+  sortedArr: Array<T>,
   target: number,
   propFn: (t: T) => number,
 ) => {
-  if (!arr.length) {
+  if (!sortedArr.length) {
     return null
   }
 
   let lowIndex = 0
-  let highIndex = arr.length - 1
+  let highIndex = sortedArr.length - 1
 
-  const low = arr[lowIndex]
-
-  if (low === undefined) {
-    throw new Error('Out of bounds')
-  }
+  const low = ensureDefined(sortedArr[lowIndex])
 
   if (target < propFn(low)) {
     return null
@@ -79,15 +69,12 @@ export const findClosestIndex = <T>(
   while (lowIndex <= highIndex) {
     const midIndex = Math.floor((lowIndex + highIndex) / 2)
 
-    const mid = arr[midIndex]
-
-    if (mid === undefined) {
-      throw new Error('Out of bounds')
-    }
+    const mid = ensureDefined(sortedArr[midIndex])
 
     if (mid === target) {
       return midIndex
     }
+
     if (propFn(mid) < target) {
       lowIndex = midIndex + 1
     } else {
@@ -96,4 +83,14 @@ export const findClosestIndex = <T>(
   }
 
   return highIndex
+}
+
+export const ensureDefined = <T>(
+  value: T | undefined,
+  message = 'value is undefined',
+): T => {
+  if (value === undefined) {
+    throw new Error(message)
+  }
+  return value
 }

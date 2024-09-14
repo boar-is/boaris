@@ -6,7 +6,7 @@ import {
   type RevisionValue,
   revisionDocs,
 } from '~/lib/model/docs/revisions'
-import { LayoutPlayer } from './page.client'
+import { BlogPostPlayer } from './page.client'
 
 export async function generateStaticParams() {
   return postDocs
@@ -33,7 +33,7 @@ export default async function BlogPostPage({
 
   return (
     <main>
-      <LayoutPlayer layout={revisionValue.layout} />
+      <BlogPostPlayer layout={revisionValue.layout} />
     </main>
   )
 }
