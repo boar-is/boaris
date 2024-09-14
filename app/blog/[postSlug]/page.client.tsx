@@ -17,8 +17,6 @@ export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
     return null
   }
 
-  const currentMode: LayoutMode = 'scrolling'
-
   const { width = undefined } = useWindowSize({
     debounceDelay: 250,
   })
@@ -26,6 +24,8 @@ export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
   if (!width) {
     return null
   }
+
+  const [currentMode, setCurrentMode] = useState<LayoutMode>('scrolling')
 
   const override = layout.overrides?.find(
     (it) =>

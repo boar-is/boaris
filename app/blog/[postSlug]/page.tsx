@@ -6,6 +6,7 @@ import {
   type RevisionValue,
   revisionDocs,
 } from '~/lib/model/docs/revisions'
+import { ensureNonNull } from '~/lib/utils'
 import { BlogPostPlayer } from './page.client'
 
 export async function generateStaticParams() {
@@ -25,11 +26,10 @@ export default async function BlogPostPage({
     notFound()
   }
 
-  const revisionValue = await getRevisionValue(post.publishedRevisionId)
-
-  if (!revisionValue) {
-    throw new Error(`Could not retrieve revision value for post "${postSlug}"`)
-  }
+  const revisionValue = ensureNonNull(
+    await getRevisionValue(post.publishedRevisionId),
+    `Could not retrieve revision value for post "${postSlug}"`,
+  )
 
   return (
     <main>
