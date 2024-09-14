@@ -24,6 +24,7 @@
     "@react-aria/utils": "3.25.2",
     "@testing-library/dom": "10.4.0",
     "@testing-library/react": "16.0.1",
+    "@testing-library/user-event": "14.5.2",
     "@tiptap/extension-bold": "2.6.6",
     "@tiptap/extension-bullet-list": "2.6.6",
     "@tiptap/extension-character-count": "2.6.6",
