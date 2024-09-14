@@ -51,5 +51,49 @@ export const mapSkippedPair = (
     startingRatio = mappedInputEnd
   }
 
-  return [mappedInputs, mappedOutputs]
+  return [mappedInputs, mappedOutputs] as const
+}
+
+export const findClosestIndex = <T>(
+  arr: Array<T>,
+  target: number,
+  propFn: (t: T) => number,
+) => {
+  if (!arr.length) {
+    return null
+  }
+
+  let lowIndex = 0
+  let highIndex = arr.length - 1
+
+  const low = arr[lowIndex]
+
+  if (low === undefined) {
+    throw new Error('Out of bounds')
+  }
+
+  if (target < propFn(low)) {
+    return null
+  }
+
+  while (lowIndex <= highIndex) {
+    const midIndex = Math.floor((lowIndex + highIndex) / 2)
+
+    const mid = arr[midIndex]
+
+    if (mid === undefined) {
+      throw new Error('Out of bounds')
+    }
+
+    if (mid === target) {
+      return midIndex
+    }
+    if (propFn(mid) < target) {
+      lowIndex = midIndex + 1
+    } else {
+      highIndex = midIndex - 1
+    }
+  }
+
+  return highIndex
 }
