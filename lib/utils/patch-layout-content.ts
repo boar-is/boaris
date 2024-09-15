@@ -5,7 +5,7 @@ import { ensureDefined } from './ensure'
 export const patchLayoutContent = (
   content: LayoutContent,
   value: LayoutValue,
-  anchorIndex: number,
+  anchorIndex: number | undefined,
   headIndex: number,
 ) => {
   let contentCopy = diffpatcher.clone(content) as LayoutContent
@@ -24,7 +24,12 @@ export const patchLayoutContent = (
     ) as LayoutContent
   }
 
-  if (anchorIndex < headIndex) {
+  if (!anchorIndex) {
+    const fn = (left: unknown, delta: Delta) => diffpatcher.patch(left, delta)
+    for (let i = 0; i <= headIndex; i++) {
+      contentCopy = patch(i, fn)
+    }
+  } else if (anchorIndex < headIndex) {
     const fn = (left: unknown, delta: Delta) => diffpatcher.patch(left, delta)
     for (let i = anchorIndex + 1; i <= headIndex; i++) {
       contentCopy = patch(i, fn)

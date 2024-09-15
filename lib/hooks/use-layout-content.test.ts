@@ -17,7 +17,7 @@ const useLayoutContent = (value: LayoutValue, headIndex: number) => {
       patchLayoutContent(
         diffpatcher.clone(previousContentRef.current ?? {}) as LayoutContent,
         value,
-        anchorIndexRef.current ?? 0,
+        anchorIndexRef.current ?? -1,
         headIndex,
       ),
     [value, headIndex],
@@ -29,7 +29,7 @@ const useLayoutContent = (value: LayoutValue, headIndex: number) => {
 }
 
 describe('useLayoutContent', () => {
-  describe('4 changes (delta, skip, delta, skip)', () => {
+  it('4 changes (delta, skip, delta, skip)', () => {
     const contents: ReadonlyArray<LayoutContent> = [
       {},
       {
@@ -103,19 +103,21 @@ describe('useLayoutContent', () => {
       ],
     }
 
-    it('example 1', () => {
-      const { result, rerender } = renderHook(
-        ({ headIndex }) => useLayoutContent(value, headIndex),
-        {
-          initialProps: {
-            headIndex: 0,
-          },
+    const { result, rerender } = renderHook(
+      ({ headIndex }) => useLayoutContent(value, headIndex),
+      {
+        initialProps: {
+          headIndex: 0,
         },
-      )
+      },
+    )
 
-      expect(result.current).toEqual({})
-      rerender({ headIndex: 2 })
-      console.log(JSON.stringify(result.current))
-    })
+    expect(result.current).toEqual(contents[1])
+    rerender({ headIndex: 1 })
+    expect(result.current).toEqual(contents[1])
+    rerender({ headIndex: 2 })
+    expect(result.current).toEqual(contents[2])
+    rerender({ headIndex: 3 })
+    expect(result.current).toEqual(contents[2])
   })
 })
