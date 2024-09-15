@@ -8,7 +8,7 @@ export const patchLayoutContent = (
   anchorIndex: number,
   headIndex: number,
 ) => {
-  let contentCopy = diffpatcher.clone(content) as LayoutValue
+  let contentCopy = diffpatcher.clone(content) as LayoutContent
 
   if (anchorIndex === headIndex) {
     return contentCopy
@@ -25,7 +25,7 @@ export const patchLayoutContent = (
     return fn(
       contentCopy,
       diffpatcher.clone(change.value.delta) as Delta,
-    ) as LayoutValue
+    ) as LayoutContent
   }
 
   if (anchorIndex < headIndex) {

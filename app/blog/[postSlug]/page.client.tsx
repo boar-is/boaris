@@ -1,16 +1,15 @@
 'use client'
 
 import { transform } from 'framer-motion'
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useWindowSize } from 'usehooks-ts'
 import { diffpatcher } from '~/lib/diffpatcher'
-import { usePreviousRef } from '~/lib/hooks/use-previous-ref'
 import type {
   Layout,
-  LayoutContent,
   LayoutMode,
   LayoutValue,
 } from '~/lib/model/revision/layout'
+import { ensureNonNull } from '~/lib/utils/ensure'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 import { mapSkippedPair } from '~/lib/utils/map-skipped-pair'
 
@@ -56,25 +55,11 @@ export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
 
   const [currentProgress, setCurrentProgress] = useState(0)
 
-  const getContentIndex = (at: number) =>
-    findClosestIndex(layoutValue.changes, at, (it) => it.at)
-
   const mappedProgress = transformProgress(currentProgress)
 
-  const contentIndex = getContentIndex(mappedProgress)
-  const previousContentIndex = usePreviousRef(contentIndex)
-
-  const previousContent = useRef<LayoutContent | null>(null)
-  const content = useMemo<LayoutContent>(() => {
-    const value: LayoutContent = {}
-
-    if (contentIndex === null) {
-      return value
-    }
-
-    return value
-  }, [contentIndex])
-  previousContent.current = content
+  const contentIndex = ensureNonNull(
+    findClosestIndex(layoutValue.changes, mappedProgress, (it) => it.at),
+  )
 
   return <div>Layout</div>
 }

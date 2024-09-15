@@ -10,9 +10,34 @@ describe('patchLayoutContent', () => {
       {},
       {
         main: {
-          _id: '1',
+          _id: '0',
           direction: 'h',
           content: [
+            {
+              _id: '0',
+              content: {
+                trackId: '0',
+                basis: 1,
+              },
+              _tag: 'LayoutItem',
+            },
+          ],
+          _tag: 'LayoutGroup',
+        },
+      },
+      {
+        main: {
+          _id: '0',
+          direction: 'h',
+          content: [
+            {
+              _id: '0',
+              content: {
+                trackId: '0',
+                basis: 1,
+              },
+              _tag: 'LayoutItem',
+            },
             {
               _id: '1',
               content: {
@@ -27,9 +52,17 @@ describe('patchLayoutContent', () => {
       },
       {
         main: {
-          _id: '1',
+          _id: '0',
           direction: 'h',
           content: [
+            {
+              _id: '0',
+              content: {
+                trackId: '0',
+                basis: 1,
+              },
+              _tag: 'LayoutItem',
+            },
             {
               _id: '1',
               content: {
@@ -42,39 +75,6 @@ describe('patchLayoutContent', () => {
               _id: '2',
               content: {
                 trackId: '2',
-                basis: 1,
-              },
-              _tag: 'LayoutItem',
-            },
-          ],
-          _tag: 'LayoutGroup',
-        },
-      },
-      {
-        main: {
-          _id: '1',
-          direction: 'h',
-          content: [
-            {
-              _id: '1',
-              content: {
-                trackId: '1',
-                basis: 1,
-              },
-              _tag: 'LayoutItem',
-            },
-            {
-              _id: '2',
-              content: {
-                trackId: '2',
-                basis: 1,
-              },
-              _tag: 'LayoutItem',
-            },
-            {
-              _id: '3',
-              content: {
-                trackId: '3',
                 basis: 1,
               },
               _tag: 'LayoutItem',
@@ -84,6 +84,7 @@ describe('patchLayoutContent', () => {
         },
       },
     ] as const
+
     const value: LayoutValue = {
       changes: [
         {
