@@ -15,7 +15,7 @@ const useLayoutContent = (value: LayoutValue, headIndex: number) => {
   const content = useMemo<LayoutContent | undefined>(
     () =>
       patchLayoutContent(
-        diffpatcher.clone(previousContentRef.current) as LayoutContent,
+        diffpatcher.clone(previousContentRef.current ?? {}) as LayoutContent,
         value,
         anchorIndexRef.current ?? 0,
         headIndex,
@@ -113,8 +113,8 @@ describe('useLayoutContent', () => {
         },
       )
 
-      expect(result.current).toBeUndefined()
-      rerender({ headIndex: 1 })
+      expect(result.current).toEqual({})
+      rerender({ headIndex: 2 })
       console.log(JSON.stringify(result.current))
     })
   })

@@ -10,10 +10,6 @@ export const patchLayoutContent = (
 ) => {
   let contentCopy = diffpatcher.clone(content) as LayoutContent
 
-  if (anchorIndex === headIndex) {
-    return contentCopy
-  }
-
   const patch = (
     index: number,
     fn: (left: unknown, delta: Delta) => unknown,
