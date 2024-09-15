@@ -1,5 +1,5 @@
 import { toFixedNumber } from '~/lib/number'
-import { ensureDefined } from '~/lib/utils'
+import { ensureDefined } from './ensure'
 
 export const mapSkippedPair = (
   inputs: Array<number>,

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { diffpatcher } from '~/lib/diffpatcher'
 import type { LayoutContent, LayoutValue } from '~/lib/model/revision/layout'
-import { ensureDefined } from '~/lib/utils'
+import { ensureDefined } from './ensure'
 import { patchLayoutContent } from './patch-layout-content'
 
 describe('patchLayoutContent', () => {

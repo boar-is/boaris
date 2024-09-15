@@ -10,7 +10,8 @@ import type {
   LayoutMode,
   LayoutValue,
 } from '~/lib/model/revision/layout'
-import { findClosestIndex, mapSkippedPair } from '~/lib/utils'
+import { findClosestIndex } from '~/lib/utils/find-closest-index'
+import { mapSkippedPair } from '~/lib/utils/map-skipped-pair'
 
 export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
   if (!layout) {
@@ -60,9 +61,9 @@ export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
   const mappedProgress = transformProgress(currentProgress)
 
   const contentIndex = getContentIndex(mappedProgress)
-  const [previousContentIndex, setPreviousContentIndex] = useState(contentIndex)
-  if (currentProgress !== previousContentIndex) {
-    setPreviousContentIndex(contentIndex)
+  const previousContentIndex = useRef(contentIndex)
+  if (currentProgress !== previousContentIndex.current) {
+    previousContentIndex.current = contentIndex
   }
 
   const previousContent = useRef<LayoutContent | null>(null)

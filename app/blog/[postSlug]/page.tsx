@@ -6,7 +6,7 @@ import {
   type RevisionValue,
   revisionDocs,
 } from '~/lib/model/docs/revisions'
-import { ensureNonNull } from '~/lib/utils'
+import { ensureNonNull } from '~/lib/utils/ensure'
 import { BlogPostPlayer } from './page.client'
 
 export async function generateStaticParams() {
