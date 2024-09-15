@@ -1,35 +1,12 @@
 import { renderHook } from '@testing-library/react'
-import { useEffect, useMemo, useRef } from 'react'
 import { describe, expect, it } from 'vitest'
 import type { LayoutContent, LayoutValue } from '~/lib/model/revision/layout'
-import { patchLayoutContent } from '~/lib/utils/patch-layout-content'
+import { ensureDefined } from '~/lib/utils/ensure'
 import { diffpatcher } from '../diffpatcher'
-
-const useLayoutContent = (value: LayoutValue, headIndex: number) => {
-  const anchorIndexRef = useRef(headIndex)
-  useEffect(() => {
-    anchorIndexRef.current = headIndex
-  }, [headIndex])
-
-  const previousContentRef = useRef<LayoutContent>()
-  const content = useMemo<LayoutContent | undefined>(
-    () =>
-      patchLayoutContent(
-        diffpatcher.clone(previousContentRef.current ?? {}) as LayoutContent,
-        value,
-        anchorIndexRef.current ?? -1,
-        headIndex,
-      ),
-    [value, headIndex],
-  )
-  useEffect(() => {
-    previousContentRef.current = content
-  }, [content])
-  return content
-}
+import { useLayoutContent } from './use-layout-content'
 
 describe('useLayoutContent', () => {
-  it('4 changes (delta, skip, delta, skip)', () => {
+  describe('4 changes (delta, skip, delta, skip)', () => {
     const contents: ReadonlyArray<LayoutContent> = [
       {},
       {
@@ -103,21 +80,54 @@ describe('useLayoutContent', () => {
       ],
     }
 
-    const { result, rerender } = renderHook(
-      ({ headIndex }) => useLayoutContent(value, headIndex),
-      {
-        initialProps: {
-          headIndex: 0,
-        },
+    it.concurrent.each([
+      [
+        [0, 1, 2, 3],
+        [1, 1, 2, 2],
+      ],
+      [
+        [1, 3, 0, 1],
+        [1, 2, 1, 1],
+      ],
+      [
+        [3, 3, 3, 3],
+        [2, 2, 2, 2],
+      ],
+      [
+        [3, 0, 3, 0],
+        [2, 1, 2, 1],
+      ],
+    ])(
+      '%o -> %o',
+      (headIndexes: Array<number>, contentIndexes: Array<number>) => {
+        if (
+          headIndexes.length > 0 &&
+          headIndexes.length !== contentIndexes.length
+        ) {
+          throw new Error(
+            'Head and content index arrays must be of the same length',
+          )
+        }
+
+        const { result, rerender } = renderHook(
+          ({ headIndex }) => useLayoutContent(value, headIndex),
+          {
+            initialProps: {
+              headIndex: ensureDefined(headIndexes[0]),
+            },
+          },
+        )
+        expect(result.current).toEqual(
+          contents[ensureDefined(contentIndexes[0])],
+        )
+
+        for (let i = 1; i < headIndexes.length; i++) {
+          rerender({ headIndex: ensureDefined(headIndexes[i]) })
+          expect(result.current).toEqual(
+            contents[ensureDefined(contentIndexes[i])],
+          )
+        }
       },
     )
-
-    expect(result.current).toEqual(contents[1])
-    rerender({ headIndex: 1 })
-    expect(result.current).toEqual(contents[1])
-    rerender({ headIndex: 2 })
-    expect(result.current).toEqual(contents[2])
-    rerender({ headIndex: 3 })
-    expect(result.current).toEqual(contents[2])
   })
 })
