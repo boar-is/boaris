@@ -308,6 +308,13 @@ export const revisionDocs: Array<RevisionDoc> = [
           value: {
             changes: [
               {
+                _id: 'GvsdhtasCVQN',
+                at: 0,
+                value: {
+                  type: 'skip',
+                },
+              },
+              {
                 _id: 'JvbFc0asCVQN',
                 at: 0.15,
                 value: {
