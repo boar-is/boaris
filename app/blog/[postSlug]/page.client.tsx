@@ -78,7 +78,11 @@ export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
         value={currentProgress}
         onChange={(e) => setCurrentProgress(+e.target.value)}
       />
-      {layoutContent.main && <LayoutGroupPanel group={layoutContent.main} />}
+      {layoutContent.main && (
+        <div className="border border-gray-5 rounded-2xl h-full">
+          <LayoutGroupPanel group={layoutContent.main} />
+        </div>
+      )}
     </>
   )
 }
@@ -93,10 +97,7 @@ function LayoutGroupPanel({
   group: { direction, content },
 }: { group: LayoutGroup }) {
   return (
-    <PanelGroup
-      direction={directionMap[direction]}
-      className="border border-gray-5 rounded-2xl"
-    >
+    <PanelGroup direction={directionMap[direction]}>
       {content.map((item, index) => (
         <Fragment key={item._id}>
           <Panel id={item._id} order={index}>

@@ -30,7 +30,7 @@ const layout0Content1: LayoutContent = {
   main: {
     _id: 'XHdqcRDmgbn2',
     _tag: 'LayoutGroup',
-    direction: 'v',
+    direction: 'h',
     content: [
       {
         _id: '0T14UvWe58jR',
@@ -43,14 +43,26 @@ const layout0Content1: LayoutContent = {
 
 const layout0Content2: LayoutContent = {
   main: {
-    _id: 'Z_080stKzpTm',
+    _id: 'XHdqcRDmgbn2',
     _tag: 'LayoutGroup',
-    direction: 'v',
+    direction: 'h',
     content: [
       {
-        _id: 'v7aAgNlWO5Ui',
+        _id: '0T14UvWe58jR',
         _tag: 'LayoutItem',
-        trackId: 'EXS2EWkhvxRp',
+        trackId: 'XzuFxjGW7KwJ',
+      },
+      {
+        _id: 'vPNlVZ2n4mNt',
+        _tag: 'LayoutGroup',
+        direction: 'v',
+        content: [
+          {
+            _id: 'ipALsFmBuB3M',
+            _tag: 'LayoutItem',
+            trackId: 'ioXvYvdxJTtC',
+          },
+        ],
       },
     ],
   },
@@ -58,19 +70,31 @@ const layout0Content2: LayoutContent = {
 
 const layout0Content3: LayoutContent = {
   main: {
-    _id: 'Z_080stKzpTm',
+    _id: 'XHdqcRDmgbn2',
     _tag: 'LayoutGroup',
-    direction: 'v',
+    direction: 'h',
     content: [
       {
-        _id: 'v7aAgNlWO5Ui',
+        _id: '0T14UvWe58jR',
         _tag: 'LayoutItem',
-        trackId: 'EXS2EWkhvxRp',
+        trackId: 'XzuFxjGW7KwJ',
       },
       {
-        _id: 'f9aBVeQftslQ',
-        _tag: 'LayoutItem',
-        trackId: 'yEFL4yBqYkIu',
+        _id: 'vPNlVZ2n4mNt',
+        _tag: 'LayoutGroup',
+        direction: 'v',
+        content: [
+          {
+            _id: 'ipALsFmBuB3M',
+            _tag: 'LayoutItem',
+            trackId: 'ioXvYvdxJTtC',
+          },
+          {
+            _id: 'ZV3OnZdH83kF',
+            _tag: 'LayoutItem',
+            trackId: 'yxbs4110BEDk',
+          },
+        ],
       },
     ],
   },
