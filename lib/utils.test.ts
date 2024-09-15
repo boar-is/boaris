@@ -82,7 +82,7 @@ describe.concurrent('findClosestIndex', () => {
       4, // index of 50
     ],
   ])(
-    '%o -> %d',
+    '%o + %d -> %d',
     (
       sortedArr: Array<number>,
       targetValue: number,
