@@ -31,12 +31,12 @@ const patchLayoutContent = (
 
   if (anchorIndex < headIndex) {
     const fn = (left: unknown, delta: Delta) => diffpatcher.patch(left, delta)
-    for (let i = anchorIndex; i <= headIndex; i++) {
+    for (let i = anchorIndex + 1; i <= headIndex; i++) {
       contentCopy = patch(i, fn)
     }
   } else {
     const fn = (left: unknown, delta: Delta) => diffpatcher.unpatch(left, delta)
-    for (let i = headIndex; i >= anchorIndex; i--) {
+    for (let i = anchorIndex; i > headIndex; i--) {
       contentCopy = patch(i, fn)
     }
   }
@@ -127,14 +127,14 @@ describe('patchLayoutContent', () => {
     const value: LayoutValue = {
       changes: [
         {
-          _id: '1',
+          _id: '0',
           at: 0 / 6,
           value: {
             type: 'skip',
           },
         },
         {
-          _id: '2',
+          _id: '1',
           at: 1 / 6,
           value: {
             type: 'delta',
@@ -142,14 +142,14 @@ describe('patchLayoutContent', () => {
           },
         },
         {
-          _id: '3',
+          _id: '2',
           at: 2 / 6,
           value: {
             type: 'skip',
           },
         },
         {
-          _id: '4',
+          _id: '3',
           at: 3 / 6,
           value: {
             type: 'delta',
@@ -157,14 +157,14 @@ describe('patchLayoutContent', () => {
           },
         },
         {
-          _id: '5',
+          _id: '4',
           at: 4 / 6,
           value: {
             type: 'skip',
           },
         },
         {
-          _id: '6',
+          _id: '5',
           at: 5 / 6,
           value: {
             type: 'delta',
@@ -175,12 +175,27 @@ describe('patchLayoutContent', () => {
     }
 
     it.concurrent.each([
+      // Forward
       [0, 0, 0, 0],
       [0, 1, 0, 1],
       [0, 2, 0, 1],
       [0, 3, 0, 2],
       [0, 4, 0, 2],
       [0, 5, 0, 3],
+      // Reverse
+      [5, 5, 3, 3],
+      [5, 4, 3, 2],
+      [5, 3, 3, 2],
+      [5, 2, 3, 1],
+      [5, 1, 3, 1],
+      [5, 0, 3, 0],
+      // Middle
+      [3, 0, 2, 0],
+      [3, 1, 2, 1],
+      [3, 2, 2, 1],
+      [3, 3, 2, 2],
+      [3, 4, 2, 2],
+      [3, 5, 2, 3],
     ])(
       'should use patches from %i to %i to change content from %i to %i',
       (
