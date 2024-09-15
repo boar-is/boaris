@@ -1,12 +1,13 @@
 import { renderHook } from '@testing-library/react'
-import { useRef } from 'react'
+import { useMemo } from 'react'
 import { expect, it } from 'vitest'
+import { usePreviousRef } from '~/lib/hooks/use-previous-ref'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 
 it('q', () => {
   const arr: Array<{ at: number; value: string }> = [
     {
-      at: 0,
+      at: 0.1,
       value: 'h',
     },
     {
@@ -29,21 +30,23 @@ it('q', () => {
   const { result, rerender } = renderHook(
     (progress: number) => {
       const currentIndex = findClosestIndex(arr, progress, (it) => it.at)
-      const previousIndex = useRef(currentIndex)
-      if (currentIndex !== previousIndex.current) {
-        previousIndex.current = currentIndex
-      }
+      const previousIndex = usePreviousRef(currentIndex)
 
-      return [previousIndex.current, currentIndex]
+      return useMemo(
+        () => [previousIndex.current, currentIndex] as const,
+        [previousIndex, currentIndex],
+      )
     },
     {
       initialProps: 0,
     },
   )
 
-  expect(result.current).toBe(null)
+  expect(result.current).toEqual([undefined, null])
   rerender(0.1)
-  expect(result.current).toBe(null)
+  expect(result.current).toEqual([null, 0])
+  rerender(0.15)
+  expect(result.current).toEqual([null, 0])
   rerender(0.2)
-  expect(result.current).toEqual([null, 1])
+  expect(result.current).toEqual([0, 1])
 })

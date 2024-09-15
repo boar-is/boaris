@@ -4,6 +4,7 @@ import { transform } from 'framer-motion'
 import { useMemo, useRef, useState } from 'react'
 import { useWindowSize } from 'usehooks-ts'
 import { diffpatcher } from '~/lib/diffpatcher'
+import { usePreviousRef } from '~/lib/hooks/use-previous-ref'
 import type {
   Layout,
   LayoutContent,
@@ -61,10 +62,7 @@ export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
   const mappedProgress = transformProgress(currentProgress)
 
   const contentIndex = getContentIndex(mappedProgress)
-  const previousContentIndex = useRef(contentIndex)
-  if (currentProgress !== previousContentIndex.current) {
-    previousContentIndex.current = contentIndex
-  }
+  const previousContentIndex = usePreviousRef(contentIndex)
 
   const previousContent = useRef<LayoutContent | null>(null)
   const content = useMemo<LayoutContent>(() => {
