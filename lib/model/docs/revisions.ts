@@ -35,9 +35,7 @@ const layout0Content1: LayoutContent = {
       {
         _id: '0T14UvWe58jR',
         _tag: 'LayoutItem',
-        content: {
-          trackId: 'XzuFxjGW7KwJ',
-        },
+        trackId: 'XzuFxjGW7KwJ',
       },
     ],
   },
@@ -52,9 +50,7 @@ const layout0Content2: LayoutContent = {
       {
         _id: 'v7aAgNlWO5Ui',
         _tag: 'LayoutItem',
-        content: {
-          trackId: 'EXS2EWkhvxRp',
-        },
+        trackId: 'EXS2EWkhvxRp',
       },
     ],
   },
@@ -69,16 +65,12 @@ const layout0Content3: LayoutContent = {
       {
         _id: 'v7aAgNlWO5Ui',
         _tag: 'LayoutItem',
-        content: {
-          trackId: 'EXS2EWkhvxRp',
-        },
+        trackId: 'EXS2EWkhvxRp',
       },
       {
         _id: 'f9aBVeQftslQ',
         _tag: 'LayoutItem',
-        content: {
-          trackId: 'yEFL4yBqYkIu',
-        },
+        trackId: 'yEFL4yBqYkIu',
       },
     ],
   },

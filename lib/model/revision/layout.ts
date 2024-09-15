@@ -56,16 +56,12 @@ export type LayoutGroup = {
   _id: string
   _tag: 'LayoutGroup'
   direction: 'h' | 'v'
-  content: Array<LayoutItem>
+  content: Array<LayoutGroup | LayoutItem>
 }
 
 export type LayoutItem = {
   _id: string
   _tag: 'LayoutItem'
-  content:
-    | LayoutGroup
-    | {
-        trackId: string
-        basis?: number | undefined
-      }
+  trackId: string
+  basis?: number | undefined
 }
