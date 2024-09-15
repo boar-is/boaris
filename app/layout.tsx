@@ -25,22 +25,20 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang="en" className={Switzer.variable}>
-      <body className="dark h-0 min-h-dvh bg-gray-1 font-sans text-gray-11 antialiased">
+      <body className="dark flex flex-col gap-4 md:gap-10 items-stretch h-0 min-h-dvh bg-gray-1 font-sans text-gray-11 antialiased">
         <FocusVisibleProvider />
         <LocalizedStringProvider locale="en-US" />
         <ToastProvider />
         <I18nProvider>
           <RouterProvider>
             <FramerMotionProvider>
-              <div className="flex min-h-full flex-col gap-4 md:gap-10 items-stretch">
-                <header className="container sticky z-10 top-0 py-3">
-                  <Navbar workspace={workspace} />
-                </header>
-                <main className="flex-1">{children}</main>
-                <footer className="container">
-                  <Footer workspace={workspace} />
-                </footer>
-              </div>
+              <header className="container sticky z-10 top-0 py-3">
+                <Navbar workspace={workspace} />
+              </header>
+              <main className="flex-1">{children}</main>
+              <footer className="container">
+                <Footer workspace={workspace} />
+              </footer>
             </FramerMotionProvider>
           </RouterProvider>
         </I18nProvider>

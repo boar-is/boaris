@@ -32,9 +32,9 @@ export default async function BlogPostPage({
   )
 
   return (
-    <main>
+    <div className="flex flex-col container h-0 min-h-full">
       <BlogPostPlayer layout={revisionValue.layout} />
-    </main>
+    </div>
   )
 }
 

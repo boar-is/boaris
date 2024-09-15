@@ -27,13 +27,9 @@ export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
     return null
   }
 
-  const { width = undefined } = useWindowSize({
+  const { width } = useWindowSize({
     debounceDelay: 250,
   })
-
-  if (!width) {
-    return null
-  }
 
   const [currentMode, setCurrentMode] = useState<LayoutMode>('scrolling')
 
@@ -44,7 +40,7 @@ export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
       (!it?.minWidthPx || width >= it.minWidthPx),
   )
 
-  if (!(layout.primary.modes.includes(currentMode) && override)) {
+  if (!layout.primary.modes.includes(currentMode)) {
     return null
   }
 
@@ -73,7 +69,7 @@ export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
   const layoutContent = useLayoutContent(layoutValue, contentIndex)
 
   return (
-    <div>
+    <>
       <input
         type="range"
         min="0"
@@ -82,22 +78,14 @@ export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
         value={currentProgress}
         onChange={(e) => setCurrentProgress(+e.target.value)}
       />
-      {layoutContent.main && (
-        <PanelGroup direction={directionMap[layoutContent.main.direction]}>
-          {layoutContent.main.content.map((item, index) => (
-            <Fragment key={item._id}>
-              <Panel>1</Panel>
-            </Fragment>
-          ))}
-        </PanelGroup>
-      )}
-    </div>
+      {layoutContent.main && <LayoutGroupPanel group={layoutContent.main} />}
+    </>
   )
 }
 
 const matchLayoutItem = Match.type<LayoutGroup['content'][number]>().pipe(
   Match.tag('LayoutGroup', (it) => <LayoutGroupPanel group={it} />),
-  Match.tag('LayoutItem', (it) => <span>{it.trackId}</span>),
+  Match.tag('LayoutItem', (it) => <div className="p-4">{it.trackId}</div>),
   Match.exhaustive,
 )
 
@@ -105,11 +93,18 @@ function LayoutGroupPanel({
   group: { direction, content },
 }: { group: LayoutGroup }) {
   return (
-    <PanelGroup direction={directionMap[direction]}>
+    <PanelGroup
+      direction={directionMap[direction]}
+      className="border border-gray-5 rounded-2xl"
+    >
       {content.map((item, index) => (
         <Fragment key={item._id}>
-          <Panel>{matchLayoutItem(item)}</Panel>
-          {content.length < index - 1 && <PanelResizeHandle />}
+          <Panel id={item._id} order={index}>
+            {matchLayoutItem(item)}
+          </Panel>
+          {index < content.length - 1 && (
+            <PanelResizeHandle className="self-stretch bg-gray-5 data-[panel-group-direction=horizontal]:w-px data-[panel-group-direction=vertical]:h-px" />
+          )}
         </Fragment>
       ))}
     </PanelGroup>
