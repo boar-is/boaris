@@ -34,7 +34,7 @@ it('q', () => {
         previousIndex.current = currentIndex
       }
 
-      return [previousIndex, currentIndex]
+      return [previousIndex.current, currentIndex]
     },
     {
       initialProps: 0,
@@ -44,4 +44,6 @@ it('q', () => {
   expect(result.current).toBe(null)
   rerender(0.1)
   expect(result.current).toBe(null)
+  rerender(0.2)
+  expect(result.current).toEqual([null, 1])
 })

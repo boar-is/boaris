@@ -42,4 +42,30 @@ describe.concurrent('findClosestIndex', () => {
       )
     },
   )
+
+  it('propFn', () => {
+    const arr: Array<{ at: number; value: string }> = [
+      {
+        at: 0,
+        value: 'h',
+      },
+      {
+        at: 0.2,
+        value: 'he',
+      },
+      {
+        at: 0.4,
+        value: 'hel',
+      },
+      {
+        at: 0.6,
+        value: 'hell',
+      },
+      {
+        at: 0.8,
+        value: 'hello',
+      },
+    ]
+    expect(findClosestIndex(arr, 0.3, (it) => it.at)).toBe(1)
+  })
 })

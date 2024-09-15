@@ -12,22 +12,22 @@ export const findClosestIndex = <T>(
   let lowIndex = 0
   let highIndex = sortedArr.length - 1
 
-  const low = ensureDefined(sortedArr[lowIndex])
+  const low = propFn(ensureDefined(sortedArr[lowIndex]))
 
-  if (target < propFn(low)) {
+  if (target < low) {
     return null
   }
 
   while (lowIndex <= highIndex) {
     const midIndex = Math.floor((lowIndex + highIndex) / 2)
 
-    const mid = ensureDefined(sortedArr[midIndex])
+    const mid = propFn(ensureDefined(sortedArr[midIndex]))
 
     if (mid === target) {
       return midIndex
     }
 
-    if (propFn(mid) < target) {
+    if (mid < target) {
       lowIndex = midIndex + 1
     } else {
       highIndex = midIndex - 1
