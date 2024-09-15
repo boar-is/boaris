@@ -7,4 +7,5 @@ export const diffpatcher = jsondiffpatch.create({
   objectHash: (obj: any) => {
     return obj._id ?? obj.id ?? obj.attrs?.id
   },
+  cloneDiffValues: true,
 })

@@ -23,7 +23,10 @@ const patchLayoutContent = (
     if (change.value.type !== 'delta') {
       return contentCopy
     }
-    return fn(contentCopy, change.value.delta) as LayoutValue
+    return fn(
+      contentCopy,
+      diffpatcher.clone(change.value.delta) as Delta,
+    ) as LayoutValue
   }
 
   if (anchorIndex < headIndex) {
@@ -42,134 +45,142 @@ const patchLayoutContent = (
 }
 
 describe('patchLayoutContent', () => {
-  const contents: ReadonlyArray<LayoutContent> = [
-    {},
-    {
-      main: {
-        _id: '1',
-        direction: 'h',
-        content: [
-          {
-            _id: '1',
-            content: {
-              trackId: '1',
-              basis: 1,
+  describe('6 changes (skip, delta, skip, delta, skip, delta)', () => {
+    const contents: ReadonlyArray<LayoutContent> = [
+      {},
+      {
+        main: {
+          _id: '1',
+          direction: 'h',
+          content: [
+            {
+              _id: '1',
+              content: {
+                trackId: '1',
+                basis: 1,
+              },
+              _tag: 'LayoutItem',
             },
-            _tag: 'LayoutItem',
-          },
-        ],
-        _tag: 'LayoutGroup',
+          ],
+          _tag: 'LayoutGroup',
+        },
       },
-    },
-    {
-      main: {
-        _id: '1',
-        direction: 'h',
-        content: [
-          {
-            _id: '1',
-            content: {
-              trackId: '1',
-              basis: 1,
+      {
+        main: {
+          _id: '1',
+          direction: 'h',
+          content: [
+            {
+              _id: '1',
+              content: {
+                trackId: '1',
+                basis: 1,
+              },
+              _tag: 'LayoutItem',
             },
-            _tag: 'LayoutItem',
-          },
-          {
-            _id: '2',
-            content: {
-              trackId: '2',
-              basis: 1,
+            {
+              _id: '2',
+              content: {
+                trackId: '2',
+                basis: 1,
+              },
+              _tag: 'LayoutItem',
             },
-            _tag: 'LayoutItem',
-          },
-        ],
-        _tag: 'LayoutGroup',
+          ],
+          _tag: 'LayoutGroup',
+        },
       },
-    },
-    {
-      main: {
-        _id: '1',
-        direction: 'h',
-        content: [
-          {
-            _id: '1',
-            content: {
-              trackId: '1',
-              basis: 1,
+      {
+        main: {
+          _id: '1',
+          direction: 'h',
+          content: [
+            {
+              _id: '1',
+              content: {
+                trackId: '1',
+                basis: 1,
+              },
+              _tag: 'LayoutItem',
             },
-            _tag: 'LayoutItem',
-          },
-          {
-            _id: '2',
-            content: {
-              trackId: '2',
-              basis: 1,
+            {
+              _id: '2',
+              content: {
+                trackId: '2',
+                basis: 1,
+              },
+              _tag: 'LayoutItem',
             },
-            _tag: 'LayoutItem',
-          },
-          {
-            _id: '3',
-            content: {
-              trackId: '3',
-              basis: 1,
+            {
+              _id: '3',
+              content: {
+                trackId: '3',
+                basis: 1,
+              },
+              _tag: 'LayoutItem',
             },
-            _tag: 'LayoutItem',
-          },
-        ],
-        _tag: 'LayoutGroup',
+          ],
+          _tag: 'LayoutGroup',
+        },
       },
-    },
-  ] as const
+    ] as const
+    const value: LayoutValue = {
+      changes: [
+        {
+          _id: '1',
+          at: 0 / 6,
+          value: {
+            type: 'skip',
+          },
+        },
+        {
+          _id: '2',
+          at: 1 / 6,
+          value: {
+            type: 'delta',
+            delta: diffpatcher.diff(contents[0], contents[1]),
+          },
+        },
+        {
+          _id: '3',
+          at: 2 / 6,
+          value: {
+            type: 'skip',
+          },
+        },
+        {
+          _id: '4',
+          at: 3 / 6,
+          value: {
+            type: 'delta',
+            delta: diffpatcher.diff(contents[1], contents[2]),
+          },
+        },
+        {
+          _id: '5',
+          at: 4 / 6,
+          value: {
+            type: 'skip',
+          },
+        },
+        {
+          _id: '6',
+          at: 5 / 6,
+          value: {
+            type: 'delta',
+            delta: diffpatcher.diff(contents[2], contents[3]),
+          },
+        },
+      ],
+    }
 
-  const value: LayoutValue = {
-    changes: [
-      {
-        _id: '1',
-        at: 0,
-        value: {
-          type: 'skip',
-        },
-      },
-      {
-        _id: '2',
-        at: 0.2,
-        value: {
-          type: 'delta',
-          delta: diffpatcher.diff(contents[0], contents[1]),
-        },
-      },
-      {
-        _id: '3',
-        at: 0.4,
-        value: {
-          type: 'skip',
-        },
-      },
-      {
-        _id: '4',
-        at: 0.6,
-        value: {
-          type: 'delta',
-          delta: diffpatcher.diff(contents[1], contents[2]),
-        },
-      },
-      {
-        _id: '4',
-        at: 0.8,
-        value: {
-          type: 'skip',
-        },
-      },
-    ],
-  }
-
-  describe('5 changes (skip, delta, skip, delta, skip)', () => {
-    it.each([
+    it.concurrent.each([
       [0, 0, 0, 0],
       [0, 1, 0, 1],
       [0, 2, 0, 1],
       [0, 3, 0, 2],
       [0, 4, 0, 2],
+      [0, 5, 0, 3],
     ])(
       'should use patches from %i to %i to change content from %i to %i',
       (
