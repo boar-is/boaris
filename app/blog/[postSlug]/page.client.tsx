@@ -1,6 +1,6 @@
 'use client'
 
-import { transform } from 'framer-motion'
+import { AnimatePresence, m, transform } from 'framer-motion'
 import { Fragment, useMemo, useState } from 'react'
 import { useWindowSize } from 'usehooks-ts'
 import { diffpatcher } from '~/lib/diffpatcher'
@@ -76,9 +76,7 @@ export function BlogPostPlayer({
         onChange={(e) => setCurrentProgress(+e.target.value)}
       />
       {layoutContent.main && (
-        <div className="h-full">
-          <LayoutMainGrid tracks={tracks} grid={layoutContent.main} />
-        </div>
+        <LayoutMainGrid tracks={tracks} grid={layoutContent.main} />
       )}
     </>
   )
@@ -99,15 +97,20 @@ function LayoutMainGrid({
         gridTemplateAreas: areasVar,
       }}
     >
-      {filteredTracks.map((it) => (
-        <div
-          className="bg-gray-2 rounded-lg"
-          key={it._id}
-          style={{ gridArea: it._id }}
-        >
-          {it._id}
-        </div>
-      ))}
+      <AnimatePresence mode="popLayout">
+        {filteredTracks.map((it) => (
+          <m.div
+            key={it._id}
+            className="bg-gray-2 rounded-lg"
+            style={{ gridArea: it._id }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {it._id}
+          </m.div>
+        ))}
+      </AnimatePresence>
     </div>
   )
 }
