@@ -18,4 +18,6 @@ export type ImageTrack = {
 
 export type ImageTrackValue = {
   storageId: StorageDoc['_id']
+  alt?: string | undefined
+  caption?: string | undefined
 }

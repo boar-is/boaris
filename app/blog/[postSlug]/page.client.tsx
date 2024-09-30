@@ -20,6 +20,7 @@ import {
   VideoFileTypeIcon,
   YamlFileTypeIcon,
 } from '~/components/icons'
+import { Image } from '~/components/image'
 import { diffpatcher } from '~/lib/diffpatcher'
 import { useLayoutContent } from '~/lib/hooks/use-layout-content'
 import type { Track } from '~/lib/model/docs/revisions'
@@ -30,7 +31,7 @@ import type {
   LayoutMode,
   LayoutValue,
 } from '~/lib/model/revision/layout'
-import { ensureNonNull } from '~/lib/utils/ensure'
+import { ensureDefined, ensureNonNull } from '~/lib/utils/ensure'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 import { mapSkippedPair } from '~/lib/utils/map-skipped-pair'
 
@@ -100,7 +101,11 @@ export function BlogPostPlayer({
         className="mb-16"
       />
       {layoutContent.main && (
-        <LayoutMainGrid tracks={tracks} grid={layoutContent.main} />
+        <LayoutMainGrid
+          tracks={tracks}
+          grid={layoutContent.main}
+          storageMap={storageMap}
+        />
       )}
     </>
   )
@@ -109,7 +114,12 @@ export function BlogPostPlayer({
 function LayoutMainGrid({
   tracks,
   grid: { areas },
-}: { tracks: Array<Track>; grid: LayoutGrid }) {
+  storageMap,
+}: {
+  tracks: Array<Track>
+  grid: LayoutGrid
+  storageMap: Record<StorageDoc['_id'], StorageDoc['src']>
+}) {
   const areasSet = new Set(areas.flat())
   const filteredTracks = tracks.filter((it) => areasSet.has(it._id))
   const areasVar = areas.map((row) => `'${row.join(' ')}'`).join(' ')
@@ -133,9 +143,37 @@ function LayoutMainGrid({
           >
             <LayoutMainGridPanel name={it.name}>
               {Match.type<Track>().pipe(
-                Match.tag('ImageTrack', (track) => (
-                  <div>image: {track._id}</div>
-                )),
+                Match.tag('ImageTrack', (track) => {
+                  const src = ensureDefined(storageMap[track.value.storageId])
+
+                  return (
+                    <>
+                      <section className="overflow-hidden flex-1 relative size-full">
+                        <Image
+                          src={src}
+                          className="object-cover blur-sm saturate-150"
+                          alt="Image's backdrop"
+                          fill
+                        />
+                        <Image
+                          src={src}
+                          className="object-contain"
+                          alt={
+                            track.value.alt ??
+                            track.value.caption ??
+                            'The author did not provide any alt to this image'
+                          }
+                          fill
+                        />
+                      </section>
+                      {track.value.caption && (
+                        <footer className="bg-gray-1 rounded-b-xl py-2 px-3.5 text-sm text-gray-10 text-center text-pretty">
+                          {track.value.caption}
+                        </footer>
+                      )}
+                    </>
+                  )
+                }),
                 Match.tag('VideoTrack', (track) => (
                   <div>video: {track._id}</div>
                 )),
@@ -215,8 +253,8 @@ function LayoutMainGridPanel({
   const FileTypeIcon = matchFileTypeIcon(name)
 
   return (
-    <article className="bg-gray-2/75 backdrop-blur-sm backdrop-saturate-150 border border-gray-4 rounded-xl">
-      <header className="bg-gray-1 rounded-t-xl py-1.5 px-3 text-sm text-gray-11 flex items-center gap-1">
+    <article className="bg-gray-2/75 backdrop-blur-sm backdrop-saturate-150 border border-gray-4 rounded-xl flex flex-col">
+      <header className="bg-gray-1 rounded-t-xl py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1">
         <FileTypeIcon className="size-4 text-gray-9" />
         {name.split('/').pop()}
       </header>

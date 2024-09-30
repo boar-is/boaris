@@ -36,15 +36,15 @@ const layout0Content1: LayoutContent = {
 
 const layout0Content2: LayoutContent = {
   main: {
-    areas: [['XzuFxjGW7KwJ', 'EXS2EWkhvxRp']],
+    areas: [['XzuFxjGW7KwJ'], ['EXS2EWkhvxRp']],
   },
 }
 
 const layout0Content3: LayoutContent = {
   main: {
     areas: [
-      ['XzuFxjGW7KwJ', 'EXS2EWkhvxRp'],
-      ['XzuFxjGW7KwJ', 'yEFL4yBqYkIu'],
+      ['XzuFxjGW7KwJ', 'XzuFxjGW7KwJ'],
+      ['EXS2EWkhvxRp', 'yEFL4yBqYkIu'],
     ],
   },
 }
@@ -320,6 +320,7 @@ export const revisionDocs: Array<RevisionDoc> = [
           name: '.meta/css-snippet.webp',
           value: {
             storageId: '5',
+            caption: 'Syntax-highlighted code snippet',
           },
         },
         {
