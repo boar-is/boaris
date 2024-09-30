@@ -329,6 +329,7 @@ export const revisionDocs: Array<RevisionDoc> = [
           name: '.meta/shadow-palette-initial.mp4',
           value: {
             storageId: '4',
+            caption: 'Example of the generator',
           },
         },
         {

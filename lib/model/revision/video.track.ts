@@ -19,6 +19,7 @@ export type VideoTrack = {
 
 export type VideoTrackValue = {
   storageId: StorageDoc['_id']
+  caption?: string | undefined
   mapping?:
     | {
         input: Array<number>
