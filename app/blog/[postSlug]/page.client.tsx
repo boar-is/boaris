@@ -127,9 +127,9 @@ function LayoutMainGrid({
             key={it._id}
             className="*:h-full"
             style={{ gridArea: it._id }}
-            initial={{ opacity: 0, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, filter: 'blur(0)' }}
-            exit={{ opacity: 0, filter: 'blur(10px)' }}
+            initial={{ opacity: 0, filter: 'blur(15px)' }}
+            animate={{ opacity: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, filter: 'blur(15px)' }}
           >
             <LayoutMainGridPanel name={it.name}>
               {Match.type<Track>().pipe(
