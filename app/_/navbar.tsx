@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { Button, PendingFormDisabledButtonProvider } from '~/components/button'
 import { CloseDialogButton, Dialog, DialogTrigger } from '~/components/dialog'
 import { FieldError, Form } from '~/components/form'
@@ -23,7 +24,7 @@ export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
         'bg-gray-1/75 backdrop-blur-sm backdrop-saturate-150',
       )}
     >
-      <ul className="flex items-stretch font-semibold justify-between gap-2 text-sm md:gap-6 md:text-base">
+      <ul className="flex items-stretch font-medium justify-between gap-2 text-sm md:gap-6 md:text-base">
         <li>
           <Link
             href="/"
@@ -72,8 +73,20 @@ export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
               className={cx(
                 itemCx,
                 rectCx,
-                'bg-gray-12 font-semibold text-gray-1 transition-colors hover:bg-gray-11 hover:text-gray-1',
+                'relative bg-gray-12 font-medium text-gray-1 transition-colors hover:bg-gray-11 hover:text-gray-1',
+                'animate-rainbow bg-[length:200%] [background-clip:padding-box,border-box,border-box] [background-origin:border-box] [border:calc(0.08*1rem)_solid_transparent]',
+                'before:absolute before:bottom-[-20%] before:left-1/2 before:z-0 before:h-1/5 before:w-3/5 before:-translate-x-1/2 before:animate-rainbow before:bg-[linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))] before:bg-[length:200%] before:[filter:blur(calc(0.8*1rem))]',
+                'bg-[linear-gradient(#fff,#fff),linear-gradient(#fff_50%,rgba(255,255,255,0.6)_80%,rgba(0,0,0,0)),linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))]',
               )}
+              style={
+                {
+                  '--color-1': '0 100% 63%',
+                  '--color-2': '270 100% 63%',
+                  '--color-3': '210 100% 63%',
+                  '--color-4': '195 100% 63%',
+                  '--color-5': '90 100% 63%',
+                } as CSSProperties
+              }
             >
               Subscribe
             </Button>
@@ -133,7 +146,7 @@ export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
                       <PendingFormDisabledButtonProvider>
                         <Button
                           type="submit"
-                          className="block rounded-lg bg-gray-12 p-2 font-semibold text-gray-1 transition-colors hover:bg-gray-11 disabled:bg-gray-11 md:rounded-xl"
+                          className="block rounded-lg bg-gray-12 p-2 font-medium text-gray-1 transition-colors hover:bg-gray-11 disabled:bg-gray-11 md:rounded-xl"
                         >
                           Subscribe
                         </Button>
@@ -161,8 +174,8 @@ export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
             </Button>
             <Popover
               placement="bottom end"
-              offset={20}
-              crossOffset={8}
+              offset={28}
+              crossOffset={16}
               className="entering:fade-in exiting:fade-out entering:animate-in exiting:animate-out"
             >
               <Menu
@@ -200,9 +213,9 @@ export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
   )
 }
 
-const layerCx = cx('border border-gray-4 rounded-xl p-4')
+const layerCx = cx('border border-gray-4 rounded-2xl p-4')
 const mutedCx = cx('transition-colors text-gray-10 hover:text-gray-12')
-const itemCx = cx('flex justify-center items-center rounded-md h-full')
+const itemCx = cx('flex justify-center items-center rounded-lg h-full')
 const squareCx = cx('px-1 md:px-2.5 md:-mx-2')
 const rectCx = cx('px-3 md:px-4')
 const sectionMobileCx = cx('flex flex-col *:px-2 *:py-1')

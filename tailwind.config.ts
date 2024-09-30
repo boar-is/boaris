@@ -47,6 +47,15 @@ const tailwindConfig = {
         prose: '75ch',
       },
     },
+    animation: {
+      rainbow: 'rainbow var(--speed, 2s) infinite linear',
+    },
+    keyframes: {
+      rainbow: {
+        '0%': { 'background-position': '0%' },
+        '100%': { 'background-position': '200%' },
+      },
+    },
   },
   plugins: [tailwindAnimate, tailwindRac],
 } satisfies Config
