@@ -39,7 +39,7 @@ export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
                 alt={`${workspace.name}'s logo`}
                 width={36}
                 height={36}
-                className="rounded-[inherit] shadow-inner"
+                className="rounded-[inherit] shadow-inner size-9"
               />
             )}
             Boar.is

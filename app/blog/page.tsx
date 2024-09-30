@@ -11,10 +11,9 @@ export default async function BlogPage() {
   }
 
   if (!blog.posts.length) {
-    // TODO h1
     return (
       <div className="container text-center text-2xl md:text-5xl text-gray-8 font-semibold capitalize">
-        No posts yet
+        <h1>No posts yet</h1>
       </div>
     )
   }
@@ -32,13 +31,13 @@ export default async function BlogPage() {
         >
           <article className="flex flex-col justify-between md:group-even:flex-row md:flex-row-reverse border border-gray-3 rounded-[inherit] overflow-hidden transition-colors bg-gradient-to-tr from-gray-1 to-gray-2">
             {post.thumbnailSrc && (
-              <aside className="relative basis-1/2 aspect-video">
-                {/* TODO there were some warnings in the console */}
+              <aside className="relative basis-2/5 aspect-video">
                 <Image
                   src={post.thumbnailSrc}
                   alt={`${post.title}'s thumbnail`}
-                  fill
-                  className="object-cover"
+                  width={1024}
+                  height={768}
+                  className="object-cover size-full"
                 />
               </aside>
             )}
@@ -82,7 +81,9 @@ export default async function BlogPage() {
                           <Image
                             src={author.avatarSrc}
                             alt={`${author.name}'s avatar`}
-                            fill
+                            width={32}
+                            height={32}
+                            className="size-full object-cover shadow-inner"
                           />
                         </aside>
                       )}
