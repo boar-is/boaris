@@ -76,7 +76,7 @@ export function BlogPostPlayer({
         onChange={(e) => setCurrentProgress(+e.target.value)}
       />
       {layoutContent.main && (
-        <div className="border border-gray-5 rounded-2xl h-full">
+        <div className="h-full">
           <LayoutMainGrid tracks={tracks} grid={layoutContent.main} />
         </div>
       )}
@@ -94,13 +94,17 @@ function LayoutMainGrid({
 
   return (
     <div
-      className="grid"
+      className="grid h-full gap-2"
       style={{
         gridTemplateAreas: areasVar,
       }}
     >
       {filteredTracks.map((it) => (
-        <div key={it._id} style={{ gridArea: it._id }}>
+        <div
+          className="bg-gray-2 rounded-lg"
+          key={it._id}
+          style={{ gridArea: it._id }}
+        >
           {it._id}
         </div>
       ))}
