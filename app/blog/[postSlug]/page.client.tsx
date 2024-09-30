@@ -2,9 +2,24 @@
 
 import { Match } from 'effect'
 import { AnimatePresence, m, transform } from 'framer-motion'
-import { Fragment, type PropsWithChildren, useMemo, useState } from 'react'
+import { type PropsWithChildren, useMemo, useState } from 'react'
 import { useWindowSize } from 'usehooks-ts'
-import { DefaultFileTypeIcon, ImageFileTypeIcon } from '~/components/icons'
+import {
+  CssFileTypeIcon,
+  DefaultFileTypeIcon,
+  HtmlFileTypeIcon,
+  ImageFileTypeIcon,
+  JavaScriptFileTypeIcon,
+  JsonFileTypeIcon,
+  JsxFileTypeIcon,
+  MarkdownFileTypeIcon,
+  SassFileTypeIcon,
+  ShellFileTypeIcon,
+  TsxFileTypeIcon,
+  TypeScriptFileTypeIcon,
+  VideoFileTypeIcon,
+  YamlFileTypeIcon,
+} from '~/components/icons'
 import { diffpatcher } from '~/lib/diffpatcher'
 import { useLayoutContent } from '~/lib/hooks/use-layout-content'
 import type { Track } from '~/lib/model/docs/revisions'
@@ -137,10 +152,58 @@ function LayoutMainGrid({
   )
 }
 
-const matchFileTypeIconByExtension = Match.type<string>().pipe(
+const matchFileTypeIcon = Match.type<string>().pipe(
+  Match.when(
+    (it) => /\.(css)$/i.test(it),
+    () => CssFileTypeIcon,
+  ),
+  Match.when(
+    (it) => /\.(html)$/i.test(it),
+    () => HtmlFileTypeIcon,
+  ),
   Match.when(
     (it) => /\.(gif|jpeg|jpg|png|webp|svg)$/i.test(it),
     () => ImageFileTypeIcon,
+  ),
+  Match.when(
+    (it) => /\.(js|cjs|mjs)$/i.test(it),
+    () => JavaScriptFileTypeIcon,
+  ),
+  Match.when(
+    (it) => /\.(json|jsonc|jsonl|.babelrc|.eslintrc)$/i.test(it),
+    () => JsonFileTypeIcon,
+  ),
+  Match.when(
+    (it) => /\.(jsx)$/i.test(it),
+    () => JsxFileTypeIcon,
+  ),
+  Match.when(
+    (it) => /\.(markdown|md)$/i.test(it),
+    () => MarkdownFileTypeIcon,
+  ),
+  Match.when(
+    (it) => /\.(sass|scss)$/i.test(it),
+    () => SassFileTypeIcon,
+  ),
+  Match.when(
+    (it) => /\.(bash|sh|zsh)$/i.test(it),
+    () => ShellFileTypeIcon,
+  ),
+  Match.when(
+    (it) => /\.(tsx)$/i.test(it),
+    () => TsxFileTypeIcon,
+  ),
+  Match.when(
+    (it) => /\.(ts|cts|mts)$/i.test(it),
+    () => TypeScriptFileTypeIcon,
+  ),
+  Match.when(
+    (it) => /\.(yaml|yml)$/i.test(it),
+    () => YamlFileTypeIcon,
+  ),
+  Match.when(
+    (it) => /\.(mp4)$/i.test(it),
+    () => VideoFileTypeIcon,
   ),
   Match.orElse(() => DefaultFileTypeIcon),
 )
@@ -149,12 +212,12 @@ function LayoutMainGridPanel({
   name,
   children,
 }: PropsWithChildren & { name: string }) {
-  const FileTypeIcon = matchFileTypeIconByExtension(name)
+  const FileTypeIcon = matchFileTypeIcon(name)
 
   return (
     <article className="bg-gray-2/75 backdrop-blur-sm backdrop-saturate-150 border border-gray-4 rounded-xl">
       <header className="bg-gray-1 rounded-t-xl py-1.5 px-3 text-sm text-gray-11 flex items-center gap-1">
-        <FileTypeIcon className="size-4" />
+        <FileTypeIcon className="size-4 text-gray-9" />
         {name.split('/').pop()}
       </header>
       {children}

@@ -2,16 +2,41 @@ import type { ComponentPropsWithoutRef } from 'react'
 import { Image } from '~/components/image'
 import { cx } from '~/lib/cx'
 
+import cssFileTypeSrc from '~/public/icons/file-types/css.svg'
 import defaultFileTypeSrc from '~/public/icons/file-types/default.svg'
+import htmlFileTypeSrc from '~/public/icons/file-types/html.svg'
 import imageFileTypeSrc from '~/public/icons/file-types/image.svg'
+import javascriptFileTypeSrc from '~/public/icons/file-types/javascript.svg'
+import jsonFileTypeSrc from '~/public/icons/file-types/json.svg'
+import jsxFileTypeSrc from '~/public/icons/file-types/jsx.svg'
+import markdownFileTypeSrc from '~/public/icons/file-types/markdown.svg'
+import sassFileTypeSrc from '~/public/icons/file-types/sass.svg'
+import shellFileTypeSrc from '~/public/icons/file-types/shell.svg'
+import tsxFileTypeSrc from '~/public/icons/file-types/tsx.svg'
+import typescriptFileTypeSrc from '~/public/icons/file-types/typescript.svg'
+import yamlFileTypeSrc from '~/public/icons/file-types/yaml.svg'
 
 export {
   MenuIcon,
   XIcon as CloseIcon,
+  FileVideo as VideoFileTypeIcon,
 } from 'lucide-react'
 
 type SvgIconProps = ComponentPropsWithoutRef<'svg'>
 type ImageIconProps = { className?: string | undefined }
+
+function ImageIconBase({
+  className,
+  src,
+  alt,
+  ...props
+}: ImageIconProps & { src: string; alt: string }) {
+  return (
+    <div className={cx('relative', className)} {...props}>
+      <Image src={src} alt={alt} fill />
+    </div>
+  )
+}
 
 export function Brand2Icon(props: SvgIconProps) {
   return (
@@ -52,18 +77,82 @@ export function XIcon(props: SvgIconProps) {
   )
 }
 
-export function DefaultFileTypeIcon({ className, ...props }: ImageIconProps) {
+export function CssFileTypeIcon(props: ImageIconProps) {
+  return <ImageIconBase src={cssFileTypeSrc} alt="CSS file type" {...props} />
+}
+
+export function DefaultFileTypeIcon(props: ImageIconProps) {
   return (
-    <span className={cx('relative', className)} {...props}>
-      <Image src={defaultFileTypeSrc} alt="Default file type" fill />
-    </span>
+    <ImageIconBase
+      src={defaultFileTypeSrc}
+      alt="Default file type"
+      {...props}
+    />
   )
 }
 
-export function ImageFileTypeIcon({ className, ...props }: ImageIconProps) {
+export function HtmlFileTypeIcon(props: ImageIconProps) {
+  return <ImageIconBase src={htmlFileTypeSrc} alt="HTML file type" {...props} />
+}
+
+export function ImageFileTypeIcon(props: ImageIconProps) {
   return (
-    <span className={cx('relative', className)} {...props}>
-      <Image src={imageFileTypeSrc} alt="Image file type" fill />
-    </span>
+    <ImageIconBase src={imageFileTypeSrc} alt="Image file type" {...props} />
   )
+}
+
+export function JavaScriptFileTypeIcon(props: ImageIconProps) {
+  return (
+    <ImageIconBase
+      src={javascriptFileTypeSrc}
+      alt="JavaScript file type"
+      {...props}
+    />
+  )
+}
+
+export function JsonFileTypeIcon(props: ImageIconProps) {
+  return <ImageIconBase src={jsonFileTypeSrc} alt="JSON file type" {...props} />
+}
+
+export function JsxFileTypeIcon(props: ImageIconProps) {
+  return <ImageIconBase src={jsxFileTypeSrc} alt="JSX file type" {...props} />
+}
+
+export function MarkdownFileTypeIcon(props: ImageIconProps) {
+  return (
+    <ImageIconBase
+      src={markdownFileTypeSrc}
+      alt="Markdown file type"
+      {...props}
+    />
+  )
+}
+
+export function SassFileTypeIcon(props: ImageIconProps) {
+  return <ImageIconBase src={sassFileTypeSrc} alt="Sass file type" {...props} />
+}
+
+export function ShellFileTypeIcon(props: ImageIconProps) {
+  return (
+    <ImageIconBase src={shellFileTypeSrc} alt="Shell file type" {...props} />
+  )
+}
+
+export function TsxFileTypeIcon(props: ImageIconProps) {
+  return <ImageIconBase src={tsxFileTypeSrc} alt="TSX file type" {...props} />
+}
+
+export function TypeScriptFileTypeIcon(props: ImageIconProps) {
+  return (
+    <ImageIconBase
+      src={typescriptFileTypeSrc}
+      alt="TypeScript file type"
+      {...props}
+    />
+  )
+}
+
+export function YamlFileTypeIcon(props: ImageIconProps) {
+  return <ImageIconBase src={yamlFileTypeSrc} alt="YAML file type" {...props} />
 }
