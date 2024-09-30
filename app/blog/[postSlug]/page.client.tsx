@@ -1,11 +1,13 @@
 'use client'
 
+import { Match } from 'effect'
 import { AnimatePresence, m, transform } from 'framer-motion'
 import { Fragment, useMemo, useState } from 'react'
 import { useWindowSize } from 'usehooks-ts'
 import { diffpatcher } from '~/lib/diffpatcher'
 import { useLayoutContent } from '~/lib/hooks/use-layout-content'
 import type { Track } from '~/lib/model/docs/revisions'
+import type { StorageDoc } from '~/lib/model/docs/storages'
 import type {
   Layout,
   LayoutGrid,
@@ -19,7 +21,12 @@ import { mapSkippedPair } from '~/lib/utils/map-skipped-pair'
 export function BlogPostPlayer({
   tracks,
   layout,
-}: { tracks: Array<Track>; layout: Layout | undefined }) {
+  storageMap,
+}: {
+  tracks: Array<Track>
+  layout: Layout | undefined
+  storageMap: Record<StorageDoc['_id'], StorageDoc['src']>
+}) {
   if (!layout) {
     return null
   }
@@ -107,7 +114,12 @@ function LayoutMainGrid({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {it._id}
+            {Match.type<Track>().pipe(
+              Match.tag('ImageTrack', (track) => <div>image: {track._id}</div>),
+              Match.tag('VideoTrack', (track) => <div>video: {track._id}</div>),
+              Match.tag('TextTrack', (track) => <div>track: {track._id}</div>),
+              Match.exhaustive,
+            )(it)}
           </m.div>
         ))}
       </AnimatePresence>

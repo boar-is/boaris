@@ -6,6 +6,7 @@ import {
   type RevisionValue,
   revisionDocs,
 } from '~/lib/model/docs/revisions'
+import { type StorageDoc, storageDocs } from '~/lib/model/docs/storages'
 import { ensureNonNull } from '~/lib/utils/ensure'
 import { BlogPostPlayer } from './page.client'
 
@@ -31,11 +32,22 @@ export default async function BlogPostPage({
     `Could not retrieve revision value for post "${postSlug}"`,
   )
 
+  const storageMap = storageDocs.reduce(
+    (acc, curr) => {
+      if (post.revisionsStorageIds.includes(curr._id)) {
+        acc[curr._id] = curr.src
+      }
+      return acc
+    },
+    {} as Record<StorageDoc['_id'], StorageDoc['src']>,
+  )
+
   return (
     <div className="flex flex-col container h-0 min-h-full">
       <BlogPostPlayer
         tracks={revisionValue.tracks}
         layout={revisionValue.layout}
+        storageMap={storageMap}
       />
     </div>
   )
