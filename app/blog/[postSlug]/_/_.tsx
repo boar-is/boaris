@@ -15,18 +15,22 @@ import {
 import { type RefObject, useMemo, useRef } from 'react'
 import { Image } from '~/components/image'
 import { TextEditor } from '~/components/text-editor'
-import type { BlogPostVm } from '~/lib/api/get-blog-post'
 import { cx } from '~/lib/cx'
 import { JetBrainsMono } from '~/lib/fonts'
 import { extensions } from '~/lib/tiptap/extensions'
 
 const inlineTags = new Set(['code', 'span', 'strong', 'em', 'u', 's', 'a'])
 
-export function BlogPostPageClient({ post }: { post: BlogPostVm }) {
+export function BlogPostPageClient({
+  post,
+}: {
+  // @ts-ignore
+  post: BlogPostVm
+}) {
   const speed = 1 / 15
   const cursorLength = 25
 
-  const content = post as JSONContent // TODO WIP, silence the error
+  const content = post as JSONContent
 
   const editor = useEditor(
     {
