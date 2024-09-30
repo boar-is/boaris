@@ -2,8 +2,9 @@
 
 import { Match } from 'effect'
 import { AnimatePresence, m, transform } from 'framer-motion'
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, type PropsWithChildren, useMemo, useState } from 'react'
 import { useWindowSize } from 'usehooks-ts'
+import { DefaultFileTypeIcon, ImageFileTypeIcon } from '~/components/icons'
 import { diffpatcher } from '~/lib/diffpatcher'
 import { useLayoutContent } from '~/lib/hooks/use-layout-content'
 import type { Track } from '~/lib/model/docs/revisions'
@@ -81,6 +82,7 @@ export function BlogPostPlayer({
         step="0.001"
         value={currentProgress}
         onChange={(e) => setCurrentProgress(+e.target.value)}
+        className="mb-16"
       />
       {layoutContent.main && (
         <LayoutMainGrid tracks={tracks} grid={layoutContent.main} />
@@ -98,7 +100,7 @@ function LayoutMainGrid({
   const areasVar = areas.map((row) => `'${row.join(' ')}'`).join(' ')
 
   return (
-    <div
+    <ul
       className="grid h-full gap-2"
       style={{
         gridTemplateAreas: areasVar,
@@ -106,23 +108,56 @@ function LayoutMainGrid({
     >
       <AnimatePresence mode="popLayout">
         {filteredTracks.map((it) => (
-          <m.div
+          <m.li
             key={it._id}
-            className="bg-gray-2 rounded-lg"
+            className="*:h-full"
             style={{ gridArea: it._id }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, filter: 'blur(0)' }}
+            exit={{ opacity: 0, filter: 'blur(10px)' }}
           >
-            {Match.type<Track>().pipe(
-              Match.tag('ImageTrack', (track) => <div>image: {track._id}</div>),
-              Match.tag('VideoTrack', (track) => <div>video: {track._id}</div>),
-              Match.tag('TextTrack', (track) => <div>track: {track._id}</div>),
-              Match.exhaustive,
-            )(it)}
-          </m.div>
+            <LayoutMainGridPanel name={it.name}>
+              {Match.type<Track>().pipe(
+                Match.tag('ImageTrack', (track) => (
+                  <div>image: {track._id}</div>
+                )),
+                Match.tag('VideoTrack', (track) => (
+                  <div>video: {track._id}</div>
+                )),
+                Match.tag('TextTrack', (track) => (
+                  <div>track: {track._id}</div>
+                )),
+                Match.exhaustive,
+              )(it)}
+            </LayoutMainGridPanel>
+          </m.li>
         ))}
       </AnimatePresence>
-    </div>
+    </ul>
+  )
+}
+
+const matchFileTypeIconByExtension = Match.type<string>().pipe(
+  Match.when(
+    (it) => /\.(gif|jpeg|jpg|png|webp|svg)$/i.test(it),
+    () => ImageFileTypeIcon,
+  ),
+  Match.orElse(() => DefaultFileTypeIcon),
+)
+
+function LayoutMainGridPanel({
+  name,
+  children,
+}: PropsWithChildren & { name: string }) {
+  const FileTypeIcon = matchFileTypeIconByExtension(name)
+
+  return (
+    <article className="bg-gray-2/75 backdrop-blur-sm backdrop-saturate-150 border border-gray-4 rounded-xl">
+      <header className="bg-gray-1 rounded-t-xl py-1 px-4 text-sm text-gray-11 flex gap-1">
+        <FileTypeIcon className="size-4" />
+        {name}
+      </header>
+      {children}
+    </article>
   )
 }

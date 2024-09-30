@@ -1,4 +1,9 @@
 import type { ComponentPropsWithoutRef } from 'react'
+import { Image } from '~/components/image'
+import { cx } from '~/lib/cx'
+
+import defaultFileTypeSrc from '~/public/icons/file-types/default.svg'
+import imageFileTypeSrc from '~/public/icons/file-types/image.svg'
 
 export {
   NanoTechnologyIcon as BrandIcon,
@@ -7,6 +12,7 @@ export {
 } from 'hugeicons-react'
 
 type SvgIconProps = ComponentPropsWithoutRef<'svg'>
+type ImageIconProps = { className?: string | undefined }
 
 export function Brand2Icon(props: SvgIconProps) {
   return (
@@ -44,5 +50,21 @@ export function XIcon(props: SvgIconProps) {
         d="M714 519 1161 0h-106L667 451 357 0H0l468 682L0 1226h106l409-476 328 476h357L714 519ZM569 688l-47-68L144 80h163l304 436 48 68 396 566H892L569 688Z"
       />
     </svg>
+  )
+}
+
+export function DefaultFileTypeIcon({ className, ...props }: ImageIconProps) {
+  return (
+    <span className={cx('relative', className)} {...props}>
+      <Image src={defaultFileTypeSrc} alt="Default file type" fill />
+    </span>
+  )
+}
+
+export function ImageFileTypeIcon({ className, ...props }: ImageIconProps) {
+  return (
+    <span className={cx('relative', className)} {...props}>
+      <Image src={imageFileTypeSrc} alt="Image file type" fill />
+    </span>
   )
 }

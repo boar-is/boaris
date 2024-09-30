@@ -24,8 +24,8 @@ importers:
         specifier: 0.74.1
         version: 0.74.1(effect@3.8.4)
       '@legendapp/state':
-        specifier: 3.0.0-alpha.38
-        version: 3.0.0-alpha.38(react@18.3.1)
+        specifier: 3.0.0-beta.4
+        version: 3.0.0-beta.4(react@18.3.1)
       '@lezer/highlight':
         specifier: 1.2.1
         version: 1.2.1
@@ -589,8 +589,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@legendapp/state@3.0.0-alpha.38':
-    resolution: {integrity: sha512-qpJZZHic0Lwxgz7uOMEv7uJS2kBnK5NeiZQ8q5aGjuR9FjeuJT5ycctIKA1U1TF6MuqQ9c5/usp/ROSKtFW2BQ==}
+  '@legendapp/state@3.0.0-beta.4':
+    resolution: {integrity: sha512-RtOUgTqNAWgWnn5Xbm36gbI8N42IP+ctEgBSXhI//I2jf6rpCamlEt94x9EcWrvgtEP94nQRJdxtTvslbqRG9w==}
 
   '@lezer/common@1.2.1':
     resolution: {integrity: sha512-yemX0ZD2xS/73llMZIK6KplkjIjf2EvAHcinDi/TfJ9hS25G0388+ClHt6/3but0oOxinTcQHJLDXh6w1crzFQ==}
@@ -3175,7 +3175,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@legendapp/state@3.0.0-alpha.38(react@18.3.1)':
+  '@legendapp/state@3.0.0-beta.4(react@18.3.1)':
     dependencies:
       use-sync-external-store: 1.2.2(react@18.3.1)
     transitivePeerDependencies:
