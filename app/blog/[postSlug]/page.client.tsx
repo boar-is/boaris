@@ -153,9 +153,9 @@ function LayoutMainGridPanel({
 
   return (
     <article className="bg-gray-2/75 backdrop-blur-sm backdrop-saturate-150 border border-gray-4 rounded-xl">
-      <header className="bg-gray-1 rounded-t-xl py-1 px-4 text-sm text-gray-11 flex gap-1">
+      <header className="bg-gray-1 rounded-t-xl py-1.5 px-3 text-sm text-gray-11 flex items-center gap-1">
         <FileTypeIcon className="size-4" />
-        {name}
+        {name.split('/').pop()}
       </header>
       {children}
     </article>

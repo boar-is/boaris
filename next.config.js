@@ -4,11 +4,7 @@ import optimizeLocales from '@react-aria/optimize-locales-plugin'
 /** @type {import('next').NextConfig} */
 const baseNextConfig = {
   experimental: {
-    optimizePackageImports: [
-      'hugeicons-react',
-      'react-aria-components',
-      'usehooks-ts',
-    ],
+    optimizePackageImports: ['react-aria-components', 'usehooks-ts'],
   },
   webpack(config) {
     config.plugins.push(

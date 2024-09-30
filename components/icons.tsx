@@ -6,10 +6,9 @@ import defaultFileTypeSrc from '~/public/icons/file-types/default.svg'
 import imageFileTypeSrc from '~/public/icons/file-types/image.svg'
 
 export {
-  NanoTechnologyIcon as BrandIcon,
-  Menu09Icon as MenuIcon,
-  Cancel01Icon as CloseIcon,
-} from 'hugeicons-react'
+  MenuIcon,
+  XIcon as CloseIcon,
+} from 'lucide-react'
 
 type SvgIconProps = ComponentPropsWithoutRef<'svg'>
 type ImageIconProps = { className?: string | undefined }
