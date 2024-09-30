@@ -65,7 +65,7 @@ export default async function BlogPage() {
                 </ul>
               )}
 
-              <p className="text-gray-10 font-medium text-pretty text-sm md:text-base !leading-relaxed">
+              <p className="text-gray-10 font-medium text-pretty text-sm md:text-base !leading-relaxed max-w-prose">
                 {post.lead}
               </p>
 
