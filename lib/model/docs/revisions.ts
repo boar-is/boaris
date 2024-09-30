@@ -6,10 +6,12 @@ import type { TextTrack } from '~/lib/model/revision/text.track'
 import type { VideoTrack } from '~/lib/model/revision/video.track'
 import type { Captions } from '../revision/captions'
 
+export type Track = ImageTrack | TextTrack | VideoTrack
+
 export type RevisionValue = {
   captions?: Captions | undefined
   layout?: Layout | undefined
-  tracks: Array<ImageTrack | TextTrack | VideoTrack>
+  tracks: Array<Track>
 }
 
 export type RevisionDoc = Doc &
@@ -28,74 +30,21 @@ const layout0Content0: LayoutContent = {}
 
 const layout0Content1: LayoutContent = {
   main: {
-    _id: 'XHdqcRDmgbn2',
-    _tag: 'LayoutGroup',
-    direction: 'h',
-    content: [
-      {
-        _id: '0T14UvWe58jR',
-        _tag: 'LayoutItem',
-        trackId: 'XzuFxjGW7KwJ',
-      },
-    ],
+    areas: [['XzuFxjGW7KwJ']],
   },
 }
 
 const layout0Content2: LayoutContent = {
   main: {
-    _id: 'XHdqcRDmgbn2',
-    _tag: 'LayoutGroup',
-    direction: 'h',
-    content: [
-      {
-        _id: '0T14UvWe58jR',
-        _tag: 'LayoutItem',
-        trackId: 'XzuFxjGW7KwJ',
-      },
-      {
-        _id: 'vPNlVZ2n4mNt',
-        _tag: 'LayoutGroup',
-        direction: 'v',
-        content: [
-          {
-            _id: 'ipALsFmBuB3M',
-            _tag: 'LayoutItem',
-            trackId: 'ioXvYvdxJTtC',
-          },
-        ],
-      },
-    ],
+    areas: [['XzuFxjGW7KwJ', 'EXS2EWkhvxRp']],
   },
 }
 
 const layout0Content3: LayoutContent = {
   main: {
-    _id: 'XHdqcRDmgbn2',
-    _tag: 'LayoutGroup',
-    direction: 'h',
-    content: [
-      {
-        _id: '0T14UvWe58jR',
-        _tag: 'LayoutItem',
-        trackId: 'XzuFxjGW7KwJ',
-      },
-      {
-        _id: 'vPNlVZ2n4mNt',
-        _tag: 'LayoutGroup',
-        direction: 'v',
-        content: [
-          {
-            _id: 'ipALsFmBuB3M',
-            _tag: 'LayoutItem',
-            trackId: 'ioXvYvdxJTtC',
-          },
-          {
-            _id: 'ZV3OnZdH83kF',
-            _tag: 'LayoutItem',
-            trackId: 'yxbs4110BEDk',
-          },
-        ],
-      },
+    areas: [
+      ['XzuFxjGW7KwJ', 'EXS2EWkhvxRp'],
+      ['XzuFxjGW7KwJ', 'yEFL4yBqYkIu'],
     ],
   },
 }

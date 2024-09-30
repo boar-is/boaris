@@ -1,15 +1,14 @@
 'use client'
 
-import { Match } from 'effect'
 import { transform } from 'framer-motion'
 import { Fragment, useMemo, useState } from 'react'
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { useWindowSize } from 'usehooks-ts'
 import { diffpatcher } from '~/lib/diffpatcher'
 import { useLayoutContent } from '~/lib/hooks/use-layout-content'
+import type { Track } from '~/lib/model/docs/revisions'
 import type {
   Layout,
-  LayoutGroup,
+  LayoutGrid,
   LayoutMode,
   LayoutValue,
 } from '~/lib/model/revision/layout'
@@ -17,12 +16,10 @@ import { ensureNonNull } from '~/lib/utils/ensure'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 import { mapSkippedPair } from '~/lib/utils/map-skipped-pair'
 
-const directionMap = {
-  h: 'horizontal',
-  v: 'vertical',
-} as const
-
-export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
+export function BlogPostPlayer({
+  tracks,
+  layout,
+}: { tracks: Array<Track>; layout: Layout | undefined }) {
   if (!layout) {
     return null
   }
@@ -80,34 +77,33 @@ export function BlogPostPlayer({ layout }: { layout: Layout | undefined }) {
       />
       {layoutContent.main && (
         <div className="border border-gray-5 rounded-2xl h-full">
-          <LayoutGroupPanel group={layoutContent.main} />
+          <LayoutMainGrid tracks={tracks} grid={layoutContent.main} />
         </div>
       )}
     </>
   )
 }
 
-const matchLayoutItem = Match.type<LayoutGroup['content'][number]>().pipe(
-  Match.tag('LayoutGroup', (it) => <LayoutGroupPanel group={it} />),
-  Match.tag('LayoutItem', (it) => <div className="p-4">{it.trackId}</div>),
-  Match.exhaustive,
-)
+function LayoutMainGrid({
+  tracks,
+  grid: { areas },
+}: { tracks: Array<Track>; grid: LayoutGrid }) {
+  const areasSet = new Set(areas.flat())
+  const filteredTracks = tracks.filter((it) => areasSet.has(it._id))
+  const areasVar = areas.map((row) => `'${row.join(' ')}'`).join(' ')
 
-function LayoutGroupPanel({
-  group: { direction, content },
-}: { group: LayoutGroup }) {
   return (
-    <PanelGroup direction={directionMap[direction]}>
-      {content.map((item, index) => (
-        <Fragment key={item._id}>
-          <Panel id={item._id} order={index}>
-            {matchLayoutItem(item)}
-          </Panel>
-          {index < content.length - 1 && (
-            <PanelResizeHandle className="self-stretch bg-gray-5 data-[panel-group-direction=horizontal]:w-px data-[panel-group-direction=vertical]:h-px" />
-          )}
-        </Fragment>
+    <div
+      className="grid"
+      style={{
+        gridTemplateAreas: areasVar,
+      }}
+    >
+      {filteredTracks.map((it) => (
+        <div key={it._id} style={{ gridArea: it._id }}>
+          {it._id}
+        </div>
       ))}
-    </PanelGroup>
+    </div>
   )
 }

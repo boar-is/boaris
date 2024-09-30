@@ -26,10 +26,8 @@ export type Layout = {
 }
 
 export type LayoutContent = {
-  main?: LayoutGroup | undefined
-  floating?:
-    | Record<`${'top' | 'bottom'}-${'left' | 'right'}`, LayoutItem>
-    | undefined
+  main?: LayoutGrid | undefined
+  floating?: LayoutGrid | undefined
 }
 
 export type LayoutChangeValue =
@@ -52,16 +50,11 @@ export type LayoutValue = {
   }>
 }
 
-export type LayoutGroup = {
-  _id: string
-  _tag: 'LayoutGroup'
-  direction: 'h' | 'v'
-  content: Array<LayoutGroup | LayoutItem>
-}
-
-export type LayoutItem = {
-  _id: string
-  _tag: 'LayoutItem'
-  trackId: string
-  basis?: number | undefined
+export type LayoutGrid = {
+  /**
+   * Values are track IDs or a null token (`.`)
+   */
+  areas: Array<Array<string>>
+  columns?: Array<string> | undefined
+  rows?: Array<string> | undefined
 }
