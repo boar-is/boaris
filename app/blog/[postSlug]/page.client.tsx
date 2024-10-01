@@ -35,7 +35,7 @@ import { ensureDefined, ensureNonNull } from '~/lib/utils/ensure'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 import { mapSkippedPair } from '~/lib/utils/map-skipped-pair'
 
-export function BlogPostPlayer({
+export function BlogPostClient({
   tracks,
   layout,
   storageMap,
@@ -90,7 +90,7 @@ export function BlogPostPlayer({
   const layoutContent = useLayoutContent(layoutValue, contentIndex)
 
   return (
-    <>
+    <div>
       <input
         type="range"
         min="0"
@@ -100,6 +100,12 @@ export function BlogPostPlayer({
         onChange={(e) => setCurrentProgress(+e.target.value)}
         className="mb-16"
       />
+      <div className="h-[300vh]">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
+        dignissimos modi officiis porro sit. Ab aliquam consequatur corporis
+        eligendi, facere illo libero neque nihil nulla optio provident, quia
+        tempora veniam?
+      </div>
       {layoutContent.main && (
         <LayoutMainGrid
           tracks={tracks}
@@ -107,7 +113,7 @@ export function BlogPostPlayer({
           storageMap={storageMap}
         />
       )}
-    </>
+    </div>
   )
 }
 
@@ -124,15 +130,15 @@ function LayoutMainGrid({
   const filteredTracks = tracks.filter((it) => areasSet.has(it._id))
   const gridTemplateAreas = areas.map((row) => `'${row.join(' ')}'`).join(' ')
   const gridTemplateColumns = (
-    columns ?? ensureDefined(areas[0]).map(() => '1fr')
+    columns ?? ensureDefined(areas[0]).map(() => 'minmax(0, 1fr)')
   ).join(' ')
-  const gridTemplateRows = (rows ?? ensureDefined(areas).map(() => '1fr')).join(
-    ' ',
-  )
+  const gridTemplateRows = (
+    rows ?? ensureDefined(areas).map(() => 'minmax(0, 1fr)')
+  ).join(' ')
 
   return (
     <ul
-      className="grid h-full gap-2 *:*:h-full"
+      className="sticky bottom-8 container grid h-[60vh] gap-2 *:*:h-full"
       style={{
         gridTemplateAreas,
         gridTemplateColumns,
@@ -158,7 +164,7 @@ function LayoutMainGrid({
                       <section className="overflow-hidden flex-1 relative">
                         <Image
                           src={src}
-                          className="object-cover blur-sm"
+                          className="object-cover blur-md"
                           alt="Image's backdrop"
                           fill
                         />
@@ -183,8 +189,17 @@ function LayoutMainGrid({
                 }),
                 Match.tag('VideoTrack', (track) => (
                   <>
-                    <section className="flex-1">
+                    <section className="flex-1 relative overflow-hidden">
                       <video
+                        className="absolute inset-0 size-full -z-[2] object-cover blur-md"
+                        src={ensureDefined(storageMap[track.value.storageId])}
+                        autoPlay
+                        playsInline
+                        muted
+                        loop
+                      />
+                      <video
+                        className="max-h-full mx-auto"
                         src={ensureDefined(storageMap[track.value.storageId])}
                         autoPlay
                         playsInline

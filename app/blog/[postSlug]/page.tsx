@@ -8,7 +8,7 @@ import {
 } from '~/lib/model/docs/revisions'
 import { type StorageDoc, storageDocs } from '~/lib/model/docs/storages'
 import { ensureNonNull } from '~/lib/utils/ensure'
-import { BlogPostPlayer } from './page.client'
+import { BlogPostClient } from './page.client'
 
 export async function generateStaticParams() {
   return postDocs
@@ -44,7 +44,7 @@ export default async function BlogPostPage({
 
   return (
     <div className="flex flex-col container min-h-full">
-      <BlogPostPlayer
+      <BlogPostClient
         tracks={revisionValue.tracks}
         layout={revisionValue.layout}
         storageMap={storageMap}
