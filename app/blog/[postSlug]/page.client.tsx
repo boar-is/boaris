@@ -23,28 +23,14 @@ import {
   useState,
 } from 'react'
 import { useWindowSize } from 'usehooks-ts'
-import {
-  CssFileTypeIcon,
-  DefaultFileTypeIcon,
-  HtmlFileTypeIcon,
-  ImageFileTypeIcon,
-  JavaScriptFileTypeIcon,
-  JsonFileTypeIcon,
-  JsxFileTypeIcon,
-  MarkdownFileTypeIcon,
-  SassFileTypeIcon,
-  ShellFileTypeIcon,
-  TsxFileTypeIcon,
-  TypeScriptFileTypeIcon,
-  VideoFileTypeIcon,
-  YamlFileTypeIcon,
-} from '~/components/icons'
 import { Image } from '~/components/image'
 import { TextEditor } from '~/components/text-editor'
 import { cx } from '~/lib/cx'
 import { diffpatcher } from '~/lib/diffpatcher'
 import { JetBrainsMono } from '~/lib/fonts'
 import { useLayoutContent } from '~/lib/hooks/use-layout-content'
+
+import { matchFileTypeIcon } from '~/lib/matchers/match-file-type-icon'
 import type { PostDoc } from '~/lib/model/docs/posts'
 import type { Track } from '~/lib/model/docs/revisions'
 import type { StorageDoc } from '~/lib/model/docs/storages'
@@ -450,62 +436,6 @@ function LayoutMainGrid({
     </ul>
   )
 }
-
-const matchFileTypeIcon = Match.type<string>().pipe(
-  Match.when(
-    (it) => /\.(css)$/i.test(it),
-    () => CssFileTypeIcon,
-  ),
-  Match.when(
-    (it) => /\.(html)$/i.test(it),
-    () => HtmlFileTypeIcon,
-  ),
-  Match.when(
-    (it) => /\.(gif|jpeg|jpg|png|webp|svg)$/i.test(it),
-    () => ImageFileTypeIcon,
-  ),
-  Match.when(
-    (it) => /\.(js|cjs|mjs)$/i.test(it),
-    () => JavaScriptFileTypeIcon,
-  ),
-  Match.when(
-    (it) => /\.(json|jsonc|jsonl|.babelrc|.eslintrc)$/i.test(it),
-    () => JsonFileTypeIcon,
-  ),
-  Match.when(
-    (it) => /\.(jsx)$/i.test(it),
-    () => JsxFileTypeIcon,
-  ),
-  Match.when(
-    (it) => /\.(markdown|md)$/i.test(it),
-    () => MarkdownFileTypeIcon,
-  ),
-  Match.when(
-    (it) => /\.(sass|scss)$/i.test(it),
-    () => SassFileTypeIcon,
-  ),
-  Match.when(
-    (it) => /\.(bash|sh|zsh)$/i.test(it),
-    () => ShellFileTypeIcon,
-  ),
-  Match.when(
-    (it) => /\.(tsx)$/i.test(it),
-    () => TsxFileTypeIcon,
-  ),
-  Match.when(
-    (it) => /\.(ts|cts|mts)$/i.test(it),
-    () => TypeScriptFileTypeIcon,
-  ),
-  Match.when(
-    (it) => /\.(yaml|yml)$/i.test(it),
-    () => YamlFileTypeIcon,
-  ),
-  Match.when(
-    (it) => /\.(mp4)$/i.test(it),
-    () => VideoFileTypeIcon,
-  ),
-  Match.orElse(() => DefaultFileTypeIcon),
-)
 
 function LayoutMainGridPanel({
   name,
