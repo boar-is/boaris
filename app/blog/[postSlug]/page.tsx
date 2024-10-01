@@ -45,6 +45,8 @@ export default async function BlogPostPage({
   return (
     <div className="flex flex-col container min-h-full">
       <BlogPostClient
+        post={post}
+        captions={revisionValue.captions}
         tracks={revisionValue.tracks}
         layout={revisionValue.layout}
         storageMap={storageMap}
