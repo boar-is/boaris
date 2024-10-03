@@ -7,5 +7,5 @@ export type VideoTrack = {
   readonly _tag: 'VideoTrack'
   readonly name: string
   readonly value: VideoTrackValue
-  readonly overrides?: ReadonlyArray<VideoTrackOverride> | undefined
+  readonly overrides: ReadonlyArray<VideoTrackOverride> | null
 }

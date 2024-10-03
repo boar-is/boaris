@@ -5,7 +5,7 @@ import type { LayoutMode } from './layout-mode'
 export type LayoutOverride = {
   readonly _id: Id
   readonly modes: ReadonlyArray<LayoutMode>
-  readonly minWidthPx?: number | undefined
-  readonly disabled?: boolean | undefined
+  readonly minWidthPx: number | null
+  readonly disabled: boolean | null
   readonly valueDelta: Delta
 }

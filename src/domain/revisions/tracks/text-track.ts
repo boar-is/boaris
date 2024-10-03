@@ -12,5 +12,5 @@ export type TextTrack = {
   readonly _tag: 'TextTrack'
   readonly name: string
   readonly value: TextTrackValue
-  readonly overrides?: ReadonlyArray<TextTrackOverride> | undefined
+  readonly overrides: ReadonlyArray<TextTrackOverride> | null
 }

@@ -8,5 +8,5 @@ export type Layouts = {
   /**
    * All overrides that extend the primary value
    */
-  readonly overrides?: ReadonlyArray<LayoutOverride> | undefined
+  readonly overrides: ReadonlyArray<LayoutOverride> | null
 }

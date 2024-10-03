@@ -7,5 +7,5 @@ export type DynamicImageTrack = {
   readonly _tag: 'DynamicImageTrack'
   readonly name: string
   readonly value: DynamicImageTrackValue
-  readonly overrides?: ReadonlyArray<DynamicImageTrackOverride> | undefined
+  readonly overrides: ReadonlyArray<DynamicImageTrackOverride> | null
 }

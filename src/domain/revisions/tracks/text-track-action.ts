@@ -7,14 +7,14 @@ export type TextTrackAction = {
     | {
         readonly type: 'Insert'
         readonly from: number
-        readonly to?: number | undefined
+        readonly to: number | null
         readonly insert: string
       }
     | {
         readonly type: 'Select'
         readonly ranges: ReadonlyArray<{
           readonly anchor: number
-          readonly head?: number
+          readonly head: number | null
         }>
       }
 }

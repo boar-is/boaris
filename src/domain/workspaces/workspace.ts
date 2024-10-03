@@ -3,8 +3,8 @@ import type { Entity } from '~/src/shared/entity'
 export type Workspace = Entity & {
   readonly name: string
   readonly slug: string
-  readonly logoId?: Entity['_id'] | undefined
-  readonly socialLinks?: ReadonlyArray<string> | undefined
+  readonly logoId: Entity['_id'] | null
+  readonly socialLinks: ReadonlyArray<string> | null
 }
 
 export const workspaceRepository: ReadonlyArray<Workspace> = [

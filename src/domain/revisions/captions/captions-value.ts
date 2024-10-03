@@ -3,5 +3,5 @@ import type { Interpolation } from '~/src/shared/interpolation'
 
 export type CaptionsValue = {
   readonly content: JSONContent
-  readonly interpolation?: Interpolation | undefined
+  readonly interpolation: Interpolation | null
 }
