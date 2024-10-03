@@ -2,7 +2,7 @@
 
 import { type JSONContent, useEditor } from '@tiptap/react'
 import { TextEditor } from '~/components/text-editor'
-import { extensions } from '~/lib/tiptap/extensions'
+import { extensions } from '~/src/lib/tiptap/extensions'
 
 const content: JSONContent = {
   type: 'doc',

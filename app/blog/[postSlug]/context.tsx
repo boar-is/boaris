@@ -4,8 +4,8 @@ import type { Observable, OpaqueObject } from '@legendapp/state'
 import { useObservable } from '@legendapp/state/react'
 import type { JSONContent } from '@tiptap/react'
 import type { PropsWithChildren } from 'react'
-import { createContext } from '~/lib/context'
-import type { LayoutValue } from '~/lib/model/revision/layout'
+import { createContext } from '~/src/lib/context'
+import type { LayoutValue } from '~/src/lib/model/revision/layout'
 
 export type BlogPostState = {
   title: string

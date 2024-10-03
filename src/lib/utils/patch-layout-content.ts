@@ -1,5 +1,8 @@
-import { type Delta, diffpatcher } from '~/lib/diffpatcher'
-import type { LayoutContent, LayoutValue } from '~/lib/model/revision/layout'
+import { type Delta, diffpatcher } from '~/src/lib/diffpatcher'
+import type {
+  LayoutContent,
+  LayoutValue,
+} from '~/src/lib/model/revision/layout'
 import { ensureDefined } from './ensure'
 
 export const patchLayoutContent = (

@@ -1,5 +1,5 @@
 import { Toaster } from 'sonner'
-import { cx } from '~/lib/cx'
+import { cx } from '~/src/lib/cx'
 
 export function ToastProvider() {
   return (

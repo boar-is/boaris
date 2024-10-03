@@ -15,7 +15,7 @@ export function FocusVisibleProvider() {
 }
 
 const loadFeatures = () =>
-  import('~/lib/framer-motion/features').then((m) => m.default)
+  import('~/src/lib/framer-motion/features').then((m) => m.default)
 
 export function FramerMotionProvider({ children }: PropsWithChildren) {
   return (

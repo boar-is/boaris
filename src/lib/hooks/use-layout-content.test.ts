@@ -1,7 +1,10 @@
 import { renderHook } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import type { LayoutContent, LayoutValue } from '~/lib/model/revision/layout'
-import { ensureDefined } from '~/lib/utils/ensure'
+import type {
+  LayoutContent,
+  LayoutValue,
+} from '~/src/lib/model/revision/layout'
+import { ensureDefined } from '~/src/lib/utils/ensure'
 import { diffpatcher } from '../diffpatcher'
 import { useLayoutContent } from './use-layout-content'
 

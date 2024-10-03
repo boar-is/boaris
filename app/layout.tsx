@@ -6,18 +6,18 @@ import {
   FramerMotionProvider,
   I18nProvider,
   RouterProvider,
-} from '~/components/providers/client.providers'
+} from '~/src/components/providers/client.providers'
 import {
   LocalizedStringProvider,
   ToastProvider,
-} from '~/components/providers/server.providers'
-import { getWorkspace } from '~/lib/api/get-workspace'
-import { Switzer } from '~/lib/fonts'
+} from '~/src/components/providers/server.providers'
+import { Switzer } from '~/src/lib/fonts'
+import { queryWorkspace } from '~/src/rpc/query-workspace'
 import { Footer } from './_/footer'
 import { Navbar } from './_/navbar'
 
 export default async function RootLayout({ children }: PropsWithChildren) {
-  const workspace = await getWorkspace()
+  const workspace = await queryWorkspace('boaris')
 
   if (!workspace) {
     notFound()

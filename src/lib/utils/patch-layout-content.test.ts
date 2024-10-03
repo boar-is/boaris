@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { diffpatcher } from '~/lib/diffpatcher'
-import type { LayoutContent, LayoutValue } from '~/lib/model/revision/layout'
+import { diffpatcher } from '~/src/lib/diffpatcher'
+import type {
+  LayoutContent,
+  LayoutValue,
+} from '~/src/lib/model/revision/layout'
 import { ensureDefined } from './ensure'
 import { patchLayoutContent } from './patch-layout-content'
 

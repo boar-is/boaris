@@ -1,4 +1,4 @@
-import { toFixedNumber } from '~/lib/number'
+import { toFixedNumber } from '~/src/lib/number'
 import { ensureDefined } from './ensure'
 
 export const mapSkippedPair = (

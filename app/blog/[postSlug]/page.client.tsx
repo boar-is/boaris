@@ -25,26 +25,26 @@ import {
 import { useWindowSize } from 'usehooks-ts'
 import { Image } from '~/components/image'
 import { TextEditor } from '~/components/text-editor'
-import { cx } from '~/lib/cx'
-import { diffpatcher } from '~/lib/diffpatcher'
-import { JetBrainsMono } from '~/lib/fonts'
-import { useLayoutContent } from '~/lib/hooks/use-layout-content'
+import { cx } from '~/src/lib/cx'
+import { diffpatcher } from '~/src/lib/diffpatcher'
+import { JetBrainsMono } from '~/src/lib/fonts'
+import { useLayoutContent } from '~/src/lib/hooks/use-layout-content'
 
-import { matchFileTypeIcon } from '~/lib/matchers/match-file-type-icon'
-import type { PostDoc } from '~/lib/model/docs/posts'
-import type { Track } from '~/lib/model/docs/revisions'
-import type { StorageDoc } from '~/lib/model/docs/storages'
-import type { Captions } from '~/lib/model/revision/captions'
+import { matchFileTypeIcon } from '~/src/lib/matchers/match-file-type-icon'
+import type { PostDoc } from '~/src/lib/model/docs/posts'
+import type { Track } from '~/src/lib/model/docs/revisions'
+import type { StorageDoc } from '~/src/lib/model/docs/storages'
+import type { Captions } from '~/src/lib/model/revision/captions'
 import type {
   Layout,
   LayoutGrid,
   LayoutMode,
   LayoutValue,
-} from '~/lib/model/revision/layout'
-import { extensions } from '~/lib/tiptap/extensions'
-import { ensureDefined, ensureNonNull } from '~/lib/utils/ensure'
-import { findClosestIndex } from '~/lib/utils/find-closest-index'
-import { mapSkippedPair } from '~/lib/utils/map-skipped-pair'
+} from '~/src/lib/model/revision/layout'
+import { extensions } from '~/src/lib/tiptap/extensions'
+import { ensureDefined, ensureNonNull } from '~/src/lib/utils/ensure'
+import { findClosestIndex } from '~/src/lib/utils/find-closest-index'
+import { mapSkippedPair } from '~/src/lib/utils/map-skipped-pair'
 
 const inlineTags = new Set(['code', 'span', 'strong', 'em', 'u', 's', 'a'])
 

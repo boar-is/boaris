@@ -1,22 +1,36 @@
 import type { CSSProperties } from 'react'
-import { Button, PendingFormDisabledButtonProvider } from '~/components/button'
-import { CloseDialogButton, Dialog, DialogTrigger } from '~/components/dialog'
-import { FieldError, Form } from '~/components/form'
-import { Header } from '~/components/header'
-import { Heading } from '~/components/heading'
-import { CloseIcon, MenuIcon } from '~/components/icons'
-import { Image } from '~/components/image'
-import { Link } from '~/components/link'
-import { Menu, MenuItem, MenuTrigger } from '~/components/menu'
-import { Modal, ModalOverlay } from '~/components/modal'
-import { Popover } from '~/components/popover'
-import { Section } from '~/components/section'
-import { Input, Label, TextField } from '~/components/text-field'
-import type { WorkspaceVm } from '~/lib/api/get-workspace'
-import { cx } from '~/lib/cx'
+import {
+  Button,
+  PendingFormDisabledButtonProvider,
+} from '~/src/components/button'
+import {
+  CloseDialogButton,
+  Dialog,
+  DialogTrigger,
+} from '~/src/components/dialog'
+import { FieldError, Form } from '~/src/components/form'
+import { Header } from '~/src/components/header'
+import { Heading } from '~/src/components/heading'
+import { CloseIcon, MenuIcon } from '~/src/components/icons'
+import { Image } from '~/src/components/image'
+import { Link } from '~/src/components/link'
+import { Menu, MenuItem, MenuTrigger } from '~/src/components/menu'
+import { Modal, ModalOverlay } from '~/src/components/modal'
+import { Popover } from '~/src/components/popover'
+import { Section } from '~/src/components/section'
+import { Input, Label, TextField } from '~/src/components/text-field'
+import { cx } from '~/src/lib/cx'
 import { SubscriptionFormProvider } from './navbar.client'
 
-export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
+export function Navbar({
+  brandLogoSrc,
+  brandName,
+  socialLinks,
+}: {
+  readonly brandLogoSrc: string | null
+  readonly brandName: string
+  readonly socialLinks: ReadonlyArray<string>
+}) {
   return (
     <nav
       className={cx(
@@ -33,10 +47,10 @@ export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
               'gap-2 select-none text-gray-12 text-lg leading-tight break-all',
             )}
           >
-            {workspace.logoSrc && (
+            {brandLogoSrc && (
               <Image
-                src={workspace.logoSrc}
-                alt={`${workspace.name}'s logo`}
+                src={brandLogoSrc}
+                alt={`${brandName}'s logo`}
                 width={36}
                 height={36}
                 className="rounded-[inherit] shadow-inner size-9"
@@ -50,19 +64,19 @@ export function Navbar({ workspace }: { workspace: WorkspaceVm }) {
             Blog
           </Link>
         </li>
-        {workspace.socials?.map((social, index) => (
+        {socialLinks?.map((socialLink, index) => (
           <li
-            key={social.name}
+            key={socialLink}
             className={cx('hidden md:block', { 'ml-auto': index === 0 })}
           >
             <Link
-              href={social.src}
+              href={socialLink}
               target="_blank"
               rel="noopener noreferrer"
               className={cx(itemCx, squareCx, mutedCx)}
             >
-              <span className="sr-only">{social.name} Profile</span>
-              <social.icon className="size-5" />
+              <span className="sr-only">{socialLink.name} Profile</span>
+              <socialLink.icon className="size-5" />
             </Link>
           </li>
         ))}

@@ -3,9 +3,9 @@
 import { type PropsWithChildren, useContext, useEffect } from 'react'
 import { useFormState } from 'react-dom'
 import { toast } from 'sonner'
-import { OverlayTriggerStateContext } from '~/components/dialog'
-import { FormContext } from '~/components/form'
-import { subscribe } from '~/lib/actions/subscribe'
+import { OverlayTriggerStateContext } from '~/src/components/dialog'
+import { FormContext } from '~/src/components/form'
+import { subscribe } from '~/src/lib/actions/subscribe'
 
 export function SubscriptionFormProvider({ children }: PropsWithChildren) {
   const [state, action] = useFormState(subscribe, {
