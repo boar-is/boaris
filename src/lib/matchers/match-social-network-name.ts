@@ -1,3 +1,3 @@
 import { Match } from 'effect'
 
-export const matchSocialNetworkName = Match.type<string>()
+export const matchSocialNetworkName = Match.type<string>().pipe()
