@@ -1,8 +1,8 @@
 import type { Entity } from '~/src/shared/entity'
 
 export type PostAuthor = Entity & {
-  postId: Entity['_id']
-  authorId: Entity['_id']
+  readonly postId: Entity['_id']
+  readonly authorId: Entity['_id']
 }
 
 export const postAuthorRepository: ReadonlyArray<PostAuthor> = [
