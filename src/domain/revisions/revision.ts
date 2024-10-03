@@ -1,15 +1,15 @@
-import type { RevisionValue } from '~/src/lib/model/docs/revisions'
 import type { Delta } from '~/src/shared/delta'
 import type { Entity } from '~/src/shared/entity'
+import type { RevisionValue } from './revision-value'
 
 export type Revision = Entity &
   (
     | {
-        parentId: null
-        value: RevisionValue
+        readonly parentId: null
+        readonly value: RevisionValue
       }
     | {
-        parentId: Entity['_id']
-        delta: Delta
+        readonly parentId: Entity['_id']
+        readonly valueDelta: Delta
       }
   )

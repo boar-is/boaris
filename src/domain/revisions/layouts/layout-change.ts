@@ -10,7 +10,7 @@ export type LayoutChange = {
   readonly value:
     | {
         type: 'delta'
-        delta: Delta
+        contentDelta: Delta
       }
     | {
         type: 'skip'

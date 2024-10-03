@@ -7,5 +7,5 @@ export type LayoutOverride = {
   readonly modes: ReadonlyArray<LayoutMode>
   readonly minWidthPx?: number | undefined
   readonly disabled?: boolean | undefined
-  readonly delta: Delta
+  readonly valueDelta: Delta
 }
