@@ -6,15 +6,15 @@ import {
 } from '~/src/domain/workspaces/workspace'
 import { workspaceMemberRepository } from '~/src/domain/workspaces/workspace-member'
 
-export type WorkspaceContextValue = {
+export type WorkspaceVm = {
   readonly name: string
   readonly logoSrc: string | null
   readonly socialLinks: ReadonlyArray<string> | null
 }
 
-export const queryWorkspaceContext = async (
+export const queryWorkspace = async (
   slug: string,
-): Promise<WorkspaceContextValue | null> => {
+): Promise<WorkspaceVm | null> => {
   const workspace = workspaceRepository.find((it) => it.slug === slug)
 
   if (!workspace) {
