@@ -1,16 +1,17 @@
 import type { Delta } from '~/lib/diffpatcher'
 import type { StorageDoc } from '~/lib/model/docs/storages'
+import type { Id } from '~/src/shared/id'
 
 export const videoExtensions = ['mp4'] as const
 
 export type VideoTrack = {
-  _id: string
+  _id: Id
   _tag: 'VideoTrack'
   name: string
   value: VideoTrackValue
   overrides?:
     | Array<{
-        _id: string
+        _id: Id
         locale: string
         delta: Delta
       }>

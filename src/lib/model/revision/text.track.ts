@@ -1,4 +1,5 @@
 import type { Delta } from '~/lib/diffpatcher'
+import type { Id } from '~/src/shared/id'
 
 /**
  * @example coding files like .ts, .tsx, .md, .etc.
@@ -6,13 +7,13 @@ import type { Delta } from '~/lib/diffpatcher'
  * @example unknown file formats that would open with CodeMirror
  */
 export type TextTrack = {
-  _id: string
+  _id: Id
   _tag: 'TextTrack'
   name: string
   value: TextTrackValue
   overrides?:
     | Array<{
-        _id: string
+        _id: Id
         locale: string
         delta: Delta
       }>
@@ -23,7 +24,7 @@ export type TextTrackValue = {
   content: Array<string>
   actions?:
     | Array<{
-        _id: string
+        _id: Id
         atMs: number
         value: TextTrackActionValue
       }>
