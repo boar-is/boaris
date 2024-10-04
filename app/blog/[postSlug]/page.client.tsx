@@ -71,7 +71,7 @@ export function BlogPostClient({
 
   const [currentMode, setCurrentMode] = useState<LayoutMode>('scrolling')
 
-  const override = layout.overrides?.find(
+  const override = layout.overrides.find(
     (it) =>
       !it.disabled &&
       it.modes.includes(currentMode) &&

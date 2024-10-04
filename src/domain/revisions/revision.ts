@@ -24,8 +24,8 @@ const layout0Content0: LayoutContent = {
 const layout0Content1: LayoutContent = {
   main: {
     areas: [['XzuFxjGW7KwJ']],
-    columns: null,
-    rows: null,
+    columns: [],
+    rows: [],
   },
   floating: null,
 }
@@ -33,8 +33,8 @@ const layout0Content1: LayoutContent = {
 const layout0Content2: LayoutContent = {
   main: {
     areas: [['XzuFxjGW7KwJ'], ['EXS2EWkhvxRp']],
-    columns: null,
-    rows: null,
+    columns: [],
+    rows: [],
   },
   floating: null,
 }
@@ -45,8 +45,8 @@ const layout0Content3: LayoutContent = {
       ['XzuFxjGW7KwJ', 'XzuFxjGW7KwJ'],
       ['EXS2EWkhvxRp', 'yEFL4yBqYkIu'],
     ],
-    columns: null,
-    rows: null,
+    columns: [],
+    rows: [],
   },
   floating: null,
 }
@@ -325,7 +325,7 @@ export const revisionDocs: Array<Revision> = [
             },
           ],
         },
-        overrides: null,
+        overrides: [],
       },
       tracks: [
         {
@@ -337,7 +337,7 @@ export const revisionDocs: Array<Revision> = [
             caption: 'Syntax-highlighted code snippet',
             alt: null,
           },
-          overrides: null,
+          overrides: [],
         },
         {
           _id: 'XzuFxjGW7KwJ',
@@ -347,7 +347,7 @@ export const revisionDocs: Array<Revision> = [
             storageFileId: 'ZxfWHzsajN9w',
             caption: 'Example of the generator',
           },
-          overrides: null,
+          overrides: [],
         },
         {
           _id: 'yEFL4yBqYkIu',
@@ -368,9 +368,9 @@ export const revisionDocs: Array<Revision> = [
               '      </button>',
               '    </>',
             ],
-            actions: null,
+            actions: [],
           },
-          overrides: null,
+          overrides: [],
         },
       ],
     },

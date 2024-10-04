@@ -5,7 +5,7 @@ export type User = Entity & {
   readonly name: string
   readonly slug: string
   readonly avatarId: Entity['_id'] | null
-  readonly socialLinks: ReadonlyArray<SocialLink> | null
+  readonly socialLinks: ReadonlyArray<SocialLink>
 }
 
 export const userRepository: ReadonlyArray<User> = [
@@ -15,6 +15,6 @@ export const userRepository: ReadonlyArray<User> = [
     name: 'Boris Zubchenko',
     slug: 'boris',
     avatarId: 'F6gGQOuGSZGr',
-    socialLinks: null,
+    socialLinks: [],
   },
 ]

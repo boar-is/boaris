@@ -5,7 +5,7 @@ export type Workspace = Entity & {
   readonly name: string
   readonly slug: string
   readonly logoId: Entity['_id'] | null
-  readonly socialLinks: ReadonlyArray<SocialLink> | null
+  readonly socialLinks: ReadonlyArray<SocialLink>
 }
 
 export const workspaceRepository: ReadonlyArray<Workspace> = [

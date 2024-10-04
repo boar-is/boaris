@@ -9,7 +9,7 @@ import { workspaceMemberRepository } from '~/src/domain/workspaces/workspace-mem
 export type WorkspaceVm = {
   readonly name: string
   readonly logoSrc: string | null
-  readonly socialLinks: ReadonlyArray<WorkspaceSocialLinkVm> | null
+  readonly socialLinks: ReadonlyArray<WorkspaceSocialLinkVm>
 }
 
 export type WorkspaceSocialLinkVm = {
@@ -30,14 +30,13 @@ export const queryWorkspace = async (
   const logoSrc =
     storageFileRepository.find((it) => it._id === logoId)?.src ?? null
 
-  const socialLinks =
-    workspace.socialLinks?.map(
-      (it) =>
-        ({
-          href: it.href,
-          label: it.label,
-        }) satisfies WorkspaceSocialLinkVm,
-    ) ?? null
+  const socialLinks = workspace.socialLinks.map(
+    (it) =>
+      ({
+        href: it.href,
+        label: it.label,
+      }) satisfies WorkspaceSocialLinkVm,
+  )
 
   return {
     name: workspace.name,

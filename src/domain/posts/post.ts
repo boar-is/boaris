@@ -6,11 +6,10 @@ export type Post = Entity & {
   readonly description: string
   readonly slug: string
   readonly thumbnailId: Entity['_id'] | null
-  readonly tags: ReadonlyArray<string> | null
   readonly projectId: Entity['_id']
   readonly draftRevisionId: Entity['_id'] | null
   readonly publishedRevisionId: Entity['_id'] | null
-  readonly revisionsStorageIds: Array<Entity['_id']>
+  readonly revisionsStorageIds: ReadonlyArray<Entity['_id']>
 }
 
 export const postRepository: ReadonlyArray<Post> = [
@@ -23,7 +22,6 @@ export const postRepository: ReadonlyArray<Post> = [
     description:
       'useDeferredValue is one of the most underrated React hooks. It allows us to dramatically improve the performance of our applications in certain contexts. I recently used it to solve a gnarly performance problem on this blog, and in this tutorial, I’ll show you how! ⚡',
     thumbnailId: 'az9dKDemcJxE',
-    tags: ['React', 'TypeScript'],
     projectId: 'vyLFpVmXUmx4',
     draftRevisionId: 'CazXWqJz7tmF',
     publishedRevisionId: 'CazXWqJz7tmF',

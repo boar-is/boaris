@@ -53,7 +53,7 @@ export default async function BlogPage() {
                 </hgroup>
               </header>
 
-              {post.tags && (
+              {post.tags.length && (
                 <ul className="flex flex-wrap gap-1 md:gap-1.5 text-xs md:text-sm font-medium tracking-wide text-gray-8 *:my-0.5">
                   {post.tags.map((tag) => (
                     <li key={tag.slug}>
@@ -69,7 +69,7 @@ export default async function BlogPage() {
                 {post.lead}
               </p>
 
-              {post.authors && (
+              {post.authors.length && (
                 <ul className="space-y-1 md:space-y-2 text-gray-8 text-sm md:text-base font-semibold tracking-tight">
                   {post.authors.map((author) => (
                     <li

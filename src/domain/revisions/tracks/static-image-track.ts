@@ -7,5 +7,5 @@ export type StaticImageTrack = {
   readonly _tag: 'StaticImageTrack'
   readonly name: string
   readonly value: StaticImageTrackValue
-  readonly overrides: ReadonlyArray<StaticImageTrackOverride> | null
+  readonly overrides: ReadonlyArray<StaticImageTrackOverride>
 }
