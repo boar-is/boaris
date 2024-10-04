@@ -10,7 +10,7 @@ export const queryWorkspacePageParams = async (): Promise<
 > => {
   const latestWorkspaces = pipe(workspaceRepository, Array.takeRight(999))
 
-  return latestWorkspaces.map((it) => ({
-    workspaceSlug: it.slug,
+  return latestWorkspaces.map((workspace) => ({
+    workspaceSlug: workspace.slug,
   }))
 }

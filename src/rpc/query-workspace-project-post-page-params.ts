@@ -41,33 +41,24 @@ export const queryWorkspaceProjectPostPageStaticParams = async (): Promise<
     HashSet.fromIterable,
   )
 
-  const workspaces = pipe(
+  const workspacesGroupedById = pipe(
     workspaceRepository,
     Array.filter((it) => HashSet.has(it._id)(workspaceIdsSet)),
-  )
-
-  const workspacesGroupedById = pipe(
-    workspaces,
     Array.groupBy((it) => it._id),
   )
 
   return pipe(
     latestPublishedPosts,
-    Array.map((it) => {
-      const postSlug = it.slug
-
-      const project = ensureDefined(projectsGroupedById[it.projectId]?.[0])
-      const projectSlug = project.slug
-
+    Array.map((post) => {
+      const project = ensureDefined(projectsGroupedById[post.projectId]?.[0])
       const workspace = ensureDefined(
         workspacesGroupedById[project.workspaceId]?.[0],
       )
-      const workspaceSlug = workspace.slug
 
       return {
-        workspaceSlug,
-        projectSlug,
-        postSlug,
+        workspaceSlug: workspace.slug,
+        projectSlug: project.slug,
+        postSlug: post.slug,
       }
     }),
   )

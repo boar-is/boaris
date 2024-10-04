@@ -1,3 +1,4 @@
+import { currentWorkspaceSlug } from '~/src/shared/constants'
 import type { Entity } from '~/src/shared/entity'
 import type { SocialLink } from '~/src/shared/social-link'
 
@@ -13,7 +14,7 @@ export const workspaceRepository: ReadonlyArray<Workspace> = [
     _id: 'f1yR23PbuoDW',
     _creationTime: Date.now(),
     name: 'Boar.is',
-    slug: 'boaris',
+    slug: currentWorkspaceSlug,
     logoId: 'F6gGQOuGSZGr',
     socialLinks: [
       {

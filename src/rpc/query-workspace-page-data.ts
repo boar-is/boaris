@@ -8,7 +8,7 @@ export type WorkspacePageData = {
 
 export const queryWorkspacePageData = async ({
   workspaceSlug,
-}: { workspaceSlug: string }): Promise<WorkspacePageData | null> => {
+}: { readonly workspaceSlug: string }): Promise<WorkspacePageData | null> => {
   const workspace = workspaceRepository.find((it) => it.slug === workspaceSlug)
 
   if (!workspace) {

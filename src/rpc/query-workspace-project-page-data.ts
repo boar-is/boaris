@@ -28,10 +28,13 @@ export type WorkspaceProjectPostData = {
   }>
 }
 
-export const queryWorkspaceProjectPageData = async (
-  workspaceSlug: string,
-  projectSlug: string,
-): Promise<WorkspaceProjectPostData | null> => {
+export const queryWorkspaceProjectPageData = async ({
+  workspaceSlug,
+  projectSlug,
+}: {
+  readonly workspaceSlug: string
+  readonly projectSlug: string
+}): Promise<WorkspaceProjectPostData | null> => {
   const workspace = workspaceRepository.find((it) => it.slug === workspaceSlug)
 
   if (!workspace) {

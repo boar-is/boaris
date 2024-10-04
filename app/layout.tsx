@@ -27,6 +27,7 @@ import { Switzer } from '~/src/lib/fonts'
 import { matchSocialNetworkIcon } from '~/src/lib/matchers/match-social-network-icon'
 import { matchSocialNetworkName } from '~/src/lib/matchers/match-social-network-name'
 import { queryWorkspaceLayoutData } from '~/src/rpc/query-workspace-layout-data'
+import { currentWorkspaceSlug } from '~/src/shared/constants'
 import { SubscriptionFormProvider } from './_/subscriber-form-provider'
 
 const layerCx = cx('border border-gray-4 rounded-2xl p-4')
@@ -40,7 +41,7 @@ const itemMobileCx = cx('rounded-md')
 
 export default async function WorkspaceLayout({ children }: PropsWithChildren) {
   const data = await queryWorkspaceLayoutData({
-    workspaceSlug: 'boaris',
+    workspaceSlug: currentWorkspaceSlug,
   })
 
   if (!data) {

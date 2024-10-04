@@ -4,8 +4,18 @@ export type WorkspaceProjectPostPageData = {
   }
 }
 
-export const queryWorkspaceProjectPostPageData = async (
-  workspaceSlug: string,
-  projectSlug: string,
-  postSlug: string,
-) => {}
+export const queryWorkspaceProjectPostPageData = async ({
+  workspaceSlug,
+  projectSlug,
+  postSlug,
+}: {
+  readonly workspaceSlug: string
+  readonly projectSlug: string
+  readonly postSlug: string
+}): Promise<WorkspaceProjectPostPageData | null> => {
+  return {
+    post: {
+      title: `${workspaceSlug}/${projectSlug}/${postSlug}`,
+    },
+  }
+}
