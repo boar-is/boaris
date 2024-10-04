@@ -1,4 +1,4 @@
 export type SocialLink = {
-  href: string
-  label: string | null
+  readonly href: string
+  readonly label: string | null
 }

@@ -1,25 +1,31 @@
 import { Link } from '~/src/components/link'
-import type { WorkspaceVm } from '~/src/lib/api/get-workspace'
 import { cx } from '~/src/lib/cx'
+import type { RichSocialLink } from './rich-social-link'
 
-export function Footer({ workspace }: { workspace: WorkspaceVm }) {
+export function Footer({
+  brandName,
+  socialLinks,
+}: {
+  brandName: string
+  socialLinks: ReadonlyArray<RichSocialLink> | null
+}) {
   return (
     <div className="container">
       <ul className="flex justify-between py-4 font-semibold text-gray-9 md:gap-4">
         <li>
           <Link href="/" className="rounded-sm px-2">
-            {workspace.name}
+            {brandName}
           </Link>
         </li>
-        {workspace.socials.map((social, index) => (
-          <li key={social.name} className={cx({ 'ml-auto': index === 0 })}>
+        {socialLinks?.map((socialLink, index) => (
+          <li key={socialLink.href} className={cx({ 'ml-auto': index === 0 })}>
             <a
-              href={social.src}
+              href={socialLink.href}
               target="_blank"
               rel="noreferrer"
               className="rounded-sm px-2"
             >
-              {social.name}
+              {socialLink.label}
             </a>
           </li>
         ))}

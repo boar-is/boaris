@@ -21,6 +21,7 @@ import { Section } from '~/src/components/section'
 import { Input, Label, TextField } from '~/src/components/text-field'
 import { cx } from '~/src/lib/cx'
 import { SubscriptionFormProvider } from './navbar.client'
+import type { RichSocialLink } from './rich-social-link'
 
 export function Navbar({
   brandLogoSrc,
@@ -29,7 +30,7 @@ export function Navbar({
 }: {
   readonly brandLogoSrc: string | null
   readonly brandName: string
-  readonly socialLinks: ReadonlyArray<string>
+  readonly socialLinks: ReadonlyArray<RichSocialLink> | null
 }) {
   return (
     <nav
@@ -66,16 +67,16 @@ export function Navbar({
         </li>
         {socialLinks?.map((socialLink, index) => (
           <li
-            key={socialLink}
+            key={socialLink.href}
             className={cx('hidden md:block', { 'ml-auto': index === 0 })}
           >
             <Link
-              href={socialLink}
+              href={socialLink.href}
               target="_blank"
               rel="noopener noreferrer"
               className={cx(itemCx, squareCx, mutedCx)}
             >
-              <span className="sr-only">{socialLink.name} Profile</span>
+              <span className="sr-only">{socialLink.label} Profile</span>
               <socialLink.icon className="size-5" />
             </Link>
           </li>
@@ -206,15 +207,15 @@ export function Navbar({
                 </Section>
                 <Section className={sectionMobileCx}>
                   <Header className={headerMobileCx}>Social</Header>
-                  {workspace.socials?.map((social) => (
+                  {socialLinks?.map((socialLink) => (
                     <MenuItem
-                      key={social.name}
-                      href={social.src}
+                      key={socialLink.href}
+                      href={socialLink.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={itemMobileCx}
                     >
-                      {social.name}
+                      {socialLink.label}
                     </MenuItem>
                   ))}
                 </Section>
