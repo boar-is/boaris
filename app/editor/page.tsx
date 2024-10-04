@@ -1,7 +1,7 @@
 'use client'
 
 import { type JSONContent, useEditor } from '@tiptap/react'
-import { TextEditor } from '~/components/text-editor'
+import { TextEditor } from '~/src/components/text-editor'
 import { extensions } from '~/src/lib/tiptap/extensions'
 
 const content: JSONContent = {
