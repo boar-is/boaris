@@ -23,8 +23,8 @@ import {
   useState,
 } from 'react'
 import { useWindowSize } from 'usehooks-ts'
-import { Image } from '~/components/image'
-import { TextEditor } from '~/components/text-editor'
+import { Image } from '~/src/components/image'
+import { TextEditor } from '~/src/components/text-editor'
 import { cx } from '~/src/lib/cx'
 import { diffpatcher } from '~/src/lib/diffpatcher'
 import { JetBrainsMono } from '~/src/lib/fonts'
