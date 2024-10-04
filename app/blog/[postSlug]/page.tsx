@@ -1,21 +1,12 @@
 import { notFound } from 'next/navigation'
-import { diffpatcher } from '~/lib/diffpatcher'
-import { postDocs } from '~/lib/model/docs/posts'
-import {
-  type RevisionDoc,
-  type RevisionValue,
-  revisionDocs,
-} from '~/lib/model/docs/revisions'
-import { type StorageDoc, storageDocs } from '~/lib/model/docs/storages'
-import { ensureNonNull } from '~/lib/utils/ensure'
+import { queryPublishedPostSlugs } from '~/src/rpc/query-published-post-slugs'
 import { BlogPostClient } from './page.client'
 
 export async function generateStaticParams() {
-  return postDocs
-    .filter((it) => it.publishedRevisionId)
-    .map((it) => ({
-      postSlug: it.slug,
-    }))
+  const postSlugs = await queryPublishedPostSlugs()
+  return postSlugs.map((postSlug) => ({
+    postSlug,
+  }))
 }
 
 export default async function BlogPostPage({
