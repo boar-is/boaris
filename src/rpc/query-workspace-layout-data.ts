@@ -6,20 +6,20 @@ import {
 } from '~/src/domain/workspaces/workspace'
 import { workspaceMemberRepository } from '~/src/domain/workspaces/workspace-member'
 
-export type WorkspaceVm = {
-  readonly name: string
-  readonly logoSrc: string | null
-  readonly socialLinks: ReadonlyArray<WorkspaceSocialLinkVm>
+export type WorkspaceLayoutData = {
+  readonly workspace: {
+    readonly name: string
+    readonly logoSrc: string | null
+    readonly socialLinks: ReadonlyArray<{
+      readonly href: string
+      readonly label: string | null
+    }>
+  }
 }
 
-export type WorkspaceSocialLinkVm = {
-  readonly href: string
-  readonly label: string | null
-}
-
-export const queryWorkspace = async (
+export const queryWorkspaceLayoutData = async (
   slug: string,
-): Promise<WorkspaceVm | null> => {
+): Promise<WorkspaceLayoutData | null> => {
   const workspace = workspaceRepository.find((it) => it.slug === slug)
 
   if (!workspace) {
@@ -35,13 +35,15 @@ export const queryWorkspace = async (
       ({
         href: it.href,
         label: it.label,
-      }) satisfies WorkspaceSocialLinkVm,
+      }) satisfies WorkspaceLayoutData['workspace']['socialLinks'][number],
   )
 
   return {
-    name: workspace.name,
-    logoSrc,
-    socialLinks,
+    workspace: {
+      name: workspace.name,
+      logoSrc,
+      socialLinks,
+    },
   }
 }
 
