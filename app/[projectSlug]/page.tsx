@@ -2,21 +2,37 @@ import { notFound } from 'next/navigation'
 import { Image } from '~/src/components/image'
 import { Link } from '~/src/components/link'
 import { queryWorkspaceProjectPageData } from '~/src/rpc/query-workspace-project-page-data'
+import {
+  type WorkspaceProjectPageParams,
+  queryWorkspaceProjectPageParams,
+} from '~/src/rpc/query-workspace-project-page-params'
+import { currentWorkspaceSlug } from '~/src/shared/constants'
 
-export default async function BlogPage() {
-  const blog = await queryWorkspaceProjectPageData('boaris', 'blog')
+export async function generateStaticParams() {
+  return queryWorkspaceProjectPageParams()
+}
 
-  if (!blog) {
+export default async function WorkspaceProjectPage({
+  params: { workspaceSlug = currentWorkspaceSlug, projectSlug },
+}: { params: WorkspaceProjectPageParams }) {
+  const data = await queryWorkspaceProjectPageData({
+    workspaceSlug,
+    projectSlug,
+  })
+
+  if (!data) {
     notFound()
   }
+
+  const { name, posts } = data
 
   return (
     <article className="container flex flex-col gap-6 md:gap-10 items-stretch">
       <header className="sr-only">
-        <h1>{blog.name}</h1>
+        <h1>{name}</h1>
       </header>
-      {blog.posts.length ? (
-        blog.posts.map((post) => (
+      {posts.length ? (
+        posts.map((post) => (
           <Link
             key={post.slug}
             href={`/[projectSlug]/${post.slug}`}

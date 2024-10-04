@@ -48,9 +48,7 @@ export default async function WorkspaceLayout({ children }: PropsWithChildren) {
     notFound()
   }
 
-  const {
-    workspace: { name, logoSrc, socialLinks },
-  } = data
+  const { workspace } = data
 
   const getComputedLabel = (label: string | null, href: string) =>
     label ?? matchSocialNetworkName(href) ?? 'Link'
@@ -75,9 +73,9 @@ export default async function WorkspaceLayout({ children }: PropsWithChildren) {
                       'gap-2 select-none text-gray-12 text-lg leading-tight break-all',
                     )}
                   >
-                    {logoSrc && (
+                    {workspace.logoSrc && (
                       <Image
-                        src={logoSrc}
+                        src={workspace.logoSrc}
                         alt={`${name}'s logo`}
                         width={36}
                         height={36}
@@ -92,7 +90,7 @@ export default async function WorkspaceLayout({ children }: PropsWithChildren) {
                     Blog
                   </Link>
                 </li>
-                {socialLinks?.map(({ label, href }, index) => {
+                {workspace.socialLinks?.map(({ label, href }, index) => {
                   const computedLabel = getComputedLabel(label, href)
                   const Icon = matchSocialNetworkIcon(href)
 
@@ -242,7 +240,7 @@ export default async function WorkspaceLayout({ children }: PropsWithChildren) {
                         </Section>
                         <Section className={sectionMobileCx}>
                           <Header className={headerMobileCx}>Social</Header>
-                          {socialLinks?.map((socialLink) => (
+                          {workspace.socialLinks?.map((socialLink) => (
                             <MenuItem
                               key={socialLink.href}
                               href={socialLink.href}
@@ -268,10 +266,10 @@ export default async function WorkspaceLayout({ children }: PropsWithChildren) {
               <ul className="flex justify-between py-4 font-semibold text-gray-9 md:gap-4">
                 <li>
                   <Link href="/" className="rounded-sm px-2">
-                    {name}
+                    {workspace.name}
                   </Link>
                 </li>
-                {socialLinks?.map(({ label, href }, index) => (
+                {workspace.socialLinks?.map(({ label, href }, index) => (
                   <li key={href} className={cx({ 'ml-auto': index === 0 })}>
                     <a
                       href={href}

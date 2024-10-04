@@ -1,8 +1,12 @@
 import { notFound } from 'next/navigation'
+import { diffpatcher } from '~/src/lib/diffpatcher'
+import { ensureNonNull } from '~/src/lib/utils/ensure'
+import { queryWorkspaceProjectPostPageData } from '~/src/rpc/query-workspace-project-post-page-data'
 import {
   type WorkspaceProjectPostPageParams,
   queryWorkspaceProjectPostPageStaticParams,
 } from '~/src/rpc/query-workspace-project-post-page-params'
+import { currentWorkspaceSlug } from '~/src/shared/constants'
 import { BlogPostClient } from './page.client'
 
 export async function generateStaticParams() {
@@ -10,13 +14,19 @@ export async function generateStaticParams() {
 }
 
 export default async function WorkspaceProjectPostPage({
-  params: { postSlug },
+  params: { workspaceSlug = currentWorkspaceSlug, projectSlug, postSlug },
 }: { params: WorkspaceProjectPostPageParams }) {
-  const post = postDocs[0]
+  const data = await queryWorkspaceProjectPostPageData({
+    workspaceSlug,
+    projectSlug,
+    postSlug,
+  })
 
-  if (!post?.publishedRevisionId) {
+  if (!data) {
     notFound()
   }
+
+  const { post } = data
 
   const revisionValue = ensureNonNull(
     await getRevisionValue(post.publishedRevisionId),

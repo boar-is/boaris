@@ -13,6 +13,8 @@ export const queryWorkspaceProjectPostPageData = async ({
   readonly projectSlug: string
   readonly postSlug: string
 }): Promise<WorkspaceProjectPostPageData | null> => {
+  // null for published
+
   return {
     post: {
       title: `${workspaceSlug}/${projectSlug}/${postSlug}`,
