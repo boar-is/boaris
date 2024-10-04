@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
 import { Image } from '~/src/components/image'
 import { Link } from '~/src/components/link'
-import { queryBlogPageData } from '~/src/rpc/query-blog-page-data'
+import { queryWorkspaceProjectPageData } from '~/src/rpc/query-workspace-project-page-data'
 
 export default async function BlogPage() {
-  const blog = await queryBlogPageData('boaris', 'blog')
+  const blog = await queryWorkspaceProjectPageData('boaris', 'blog')
 
   if (!blog) {
     notFound()

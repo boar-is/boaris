@@ -31,11 +31,10 @@ export const queryWorkspaceLayoutData = async ({
     storageFileRepository.find((it) => it._id === logoId)?.src ?? null
 
   const socialLinks = workspace.socialLinks.map(
-    (it) =>
-      ({
-        href: it.href,
-        label: it.label,
-      }) satisfies WorkspaceLayoutData['workspace']['socialLinks'][number],
+    (it): WorkspaceLayoutData['workspace']['socialLinks'][number] => ({
+      href: it.href,
+      label: it.label,
+    }),
   )
 
   return {

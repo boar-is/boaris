@@ -1,17 +1,17 @@
 import { notFound } from 'next/navigation'
 import {
-  type BlogPostPageParams,
-  queryBlogPostPageStaticParams,
-} from '~/src/rpc/query-blog-post-page-params'
+  type WorkspaceProjectPostPageParams,
+  queryWorkspaceProjectPostPageStaticParams,
+} from '~/src/rpc/query-workspace-project-post-page-params'
 import { BlogPostClient } from './page.client'
 
 export async function generateStaticParams() {
-  return queryBlogPostPageStaticParams()
+  return queryWorkspaceProjectPostPageStaticParams()
 }
 
-export default async function BlogPostPage({
+export default async function WorkspaceProjectPostPage({
   params: { postSlug },
-}: { params: BlogPostPageParams }) {
+}: { params: WorkspaceProjectPostPageParams }) {
   const post = postDocs[0]
 
   if (!post?.publishedRevisionId) {

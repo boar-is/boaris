@@ -8,7 +8,7 @@ import { type User, userRepository } from '~/src/domain/users/user'
 import { workspaceRepository } from '~/src/domain/workspaces/workspace'
 import { timestampToDate } from '~/src/lib/date'
 
-export type BlogPostData = {
+export type WorkspaceProjectPostData = {
   readonly name: string
   readonly posts: ReadonlyArray<{
     readonly title: string
@@ -28,10 +28,10 @@ export type BlogPostData = {
   }>
 }
 
-export const queryBlogPageData = async (
+export const queryWorkspaceProjectPageData = async (
   workspaceSlug: string,
   projectSlug: string,
-): Promise<BlogPostData | null> => {
+): Promise<WorkspaceProjectPostData | null> => {
   const workspace = workspaceRepository.find((it) => it.slug === workspaceSlug)
 
   if (!workspace) {
