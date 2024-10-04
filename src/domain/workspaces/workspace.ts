@@ -1,10 +1,11 @@
 import type { Entity } from '~/src/shared/entity'
+import type { SocialLink } from '~/src/shared/social-link'
 
 export type Workspace = Entity & {
   readonly name: string
   readonly slug: string
   readonly logoId: Entity['_id'] | null
-  readonly socialLinks: ReadonlyArray<string> | null
+  readonly socialLinks: ReadonlyArray<SocialLink> | null
 }
 
 export const workspaceRepository: ReadonlyArray<Workspace> = [
@@ -15,9 +16,18 @@ export const workspaceRepository: ReadonlyArray<Workspace> = [
     slug: 'boaris',
     logoId: 'F6gGQOuGSZGr',
     socialLinks: [
-      'https://linkedin.com/in/boris-zubchenko/',
-      'https://x.com/BorisZubchenk',
-      'https://github.com/BorisZubchenko',
+      {
+        href: 'https://linkedin.com/in/boris-zubchenko/',
+        label: null,
+      },
+      {
+        href: 'https://x.com/BorisZubchenk',
+        label: null,
+      },
+      {
+        href: 'https://github.com/BorisZubchenko',
+        label: null,
+      },
     ],
   },
 ]

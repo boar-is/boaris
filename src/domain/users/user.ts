@@ -1,10 +1,11 @@
 import type { Entity } from '~/src/shared/entity'
+import type { SocialLink } from '~/src/shared/social-link'
 
 export type User = Entity & {
   readonly name: string
   readonly slug: string
   readonly avatarId: Entity['_id'] | null
-  readonly socialLinks: ReadonlyArray<string> | null
+  readonly socialLinks: ReadonlyArray<SocialLink> | null
 }
 
 export const userRepository: ReadonlyArray<User> = [

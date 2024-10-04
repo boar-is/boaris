@@ -20,6 +20,7 @@ export {
   MenuIcon,
   XIcon as CloseIcon,
   FileVideo as VideoFileTypeIcon,
+  LinkIcon,
 } from 'lucide-react'
 
 type SvgIconProps = ComponentPropsWithoutRef<'svg'>
@@ -72,6 +73,66 @@ export function XIcon(props: SvgIconProps) {
       <path
         fill="currentColor"
         d="M714 519 1161 0h-106L667 451 357 0H0l468 682L0 1226h106l409-476 328 476h357L714 519ZM569 688l-47-68L144 80h163l304 436 48 68 396 566H892L569 688Z"
+      />
+    </svg>
+  )
+}
+
+export function StackOverflowIcon(props: SvgIconProps) {
+  return (
+    <svg fill="currentColor" viewBox="0 0 32 32" {...props}>
+      <title>Stack Overflow</title>
+      <path
+        fill="currentColor"
+        d="M25.3 29.2v-8.6h2.9V32H2.5V20.6h2.8v8.6zM8.1 26.3h14.4v-2.8H8zm.4-6.5 14 3L23 20 9 17zm1.8-6.7 13 6 1.1-2.6-12.9-6-1.2 2.6zM14 6.7 25 16l1.8-2.2-11-9.1-1.8 2zM21 0l-2.3 1.7 8.5 11.5 2.3-1.7z"
+      />
+    </svg>
+  )
+}
+
+export function DiscordIcon(props: SvgIconProps) {
+  return (
+    <svg fill="none" viewBox="0 0 24 24" {...props}>
+      <title>Discord</title>
+      <path
+        fill="currentColor"
+        d="M18.59 5.89a15.7 15.7 0 0 0-3.92-1.23c-.17.3-.37.71-.5 1.04a14.35 14.35 0 0 0-4.34 0c-.14-.33-.34-.74-.51-1.04A15.7 15.7 0 0 0 5.4 5.89a16.41 16.41 0 0 0-2.82 10.98 15.7 15.7 0 0 0 4.81 2.46c.39-.53.73-1.1 1.03-1.69a9.34 9.34 0 0 1-1.62-.79l.4-.31a11.09 11.09 0 0 0 9.61 0l.4.31c-.51.31-1.06.57-1.62.79.3.59.64 1.16 1.03 1.69a15.59 15.59 0 0 0 4.81-2.46c.39-4.17-.67-7.78-2.82-10.98h-.02Zm-9.75 8.78c-.94 0-1.71-.87-1.71-1.94 0-1.07.75-1.94 1.71-1.94s1.72.87 1.71 1.94c0 1.06-.75 1.94-1.71 1.94Zm6.31 0c-.94 0-1.71-.87-1.71-1.94 0-1.07.75-1.94 1.71-1.94s1.72.87 1.71 1.94c0 1.06-.75 1.94-1.71 1.94Z"
+      />
+    </svg>
+  )
+}
+
+export function YouTubeIcon(props: SvgIconProps) {
+  return (
+    <svg viewBox="-271 311 256 180" {...props}>
+      <title>YouTube</title>
+      <path
+        fill="currentColor"
+        d="M-59 311h-168s-44 0-44 44v92s0 44 44 44h168s44 0 44-44v-92s0-44-44-44zm-118 139v-98l84 49-84 49z"
+      />
+    </svg>
+  )
+}
+
+export function RedditIcon(props: SvgIconProps) {
+  return (
+    <svg viewBox="0 0 256 256" {...props}>
+      <title>Reddit</title>
+      <path
+        fill="currentColor"
+        d="M248 104a32 32 0 0 0-53-24c-17-9-37-14-58-16l6-31 21 3a24 24 0 1 0 3-15l-30-5a8 8 0 0 0-9 7l-7 41c-22 1-43 7-60 16a32 32 0 0 0-43 48 59 59 0 0 0-2 16c0 22 12 42 34 57 21 15 49 23 78 23s57-8 78-23c22-15 34-35 34-57a59 59 0 0 0-2-16 32 32 0 0 0 10-24ZM72 132a16 16 0 1 1 16 16 16 16 0 0 1-16-16Zm93 51a80 80 0 0 1-74 0 8 8 0 0 1 8-14 64 64 0 0 0 58 0 8 8 0 0 1 8 14Zm3-35a16 16 0 1 1 16-16 16 16 0 0 1-16 16Z"
+      />
+    </svg>
+  )
+}
+
+export function TelegramIcon(props: SvgIconProps) {
+  return (
+    <svg fill="none" viewBox="0 0 24 24" {...props}>
+      <title>Telegram</title>
+      <path
+        fill="currentColor"
+        d="M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm4 5.5-1.4 6.2c0 .4-.3.5-.7.3l-2-1.5-1 1a.5.5 0 0 1-.4.2l.1-2 3.7-3.4c.2-.1 0-.2-.2 0L9.6 13l-2-.6c-.5-.2-.5-.5 0-.7l7.8-3c.3 0 .7.1.5.7Z"
       />
     </svg>
   )
