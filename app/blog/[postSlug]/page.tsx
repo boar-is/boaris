@@ -1,17 +1,17 @@
 import { notFound } from 'next/navigation'
-import { queryPublishedPostSlugs } from '~/src/rpc/query-published-post-slugs'
+import {
+  type BlogPostPageParams,
+  queryBlogPostPageStaticParams,
+} from '~/src/rpc/query-blog-post-page-params'
 import { BlogPostClient } from './page.client'
 
 export async function generateStaticParams() {
-  const postSlugs = await queryPublishedPostSlugs()
-  return postSlugs.map((postSlug) => ({
-    postSlug,
-  }))
+  return queryBlogPostPageStaticParams()
 }
 
 export default async function BlogPostPage({
   params: { postSlug },
-}: { params: { postSlug: string } }) {
+}: { params: BlogPostPageParams }) {
   const post = postDocs[0]
 
   if (!post?.publishedRevisionId) {

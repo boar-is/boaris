@@ -8,36 +8,30 @@ import { type User, userRepository } from '~/src/domain/users/user'
 import { workspaceRepository } from '~/src/domain/workspaces/workspace'
 import { timestampToDate } from '~/src/lib/date'
 
-export type BlogProjectVm = {
+export type BlogPostData = {
   readonly name: string
-  readonly posts: ReadonlyArray<BlogProjectPostVm>
+  readonly posts: ReadonlyArray<{
+    readonly title: string
+    readonly lead: string
+    readonly slug: string
+    readonly date: string
+    readonly thumbnailSrc: string | null
+    readonly tags: ReadonlyArray<{
+      name: string
+      slug: string
+    }>
+    readonly authors: ReadonlyArray<{
+      name: string
+      slug: string
+      avatarSrc: string | null
+    }>
+  }>
 }
 
-export type BlogProjectPostVm = {
-  readonly title: string
-  readonly lead: string
-  readonly slug: string
-  readonly date: string
-  readonly thumbnailSrc: string | null
-  readonly tags: ReadonlyArray<BlogProjectPostTagVm>
-  readonly authors: ReadonlyArray<BlogProjectPostAuthorVm>
-}
-
-export type BlogProjectPostTagVm = {
-  name: string
-  slug: string
-}
-
-export type BlogProjectPostAuthorVm = {
-  name: string
-  slug: string
-  avatarSrc: string | null
-}
-
-export const queryBlogProject = async (
+export const queryBlogPageData = async (
   workspaceSlug: string,
   projectSlug: string,
-): Promise<BlogProjectVm | null> => {
+): Promise<BlogPostData | null> => {
   const workspace = workspaceRepository.find((it) => it.slug === workspaceSlug)
 
   if (!workspace) {
@@ -66,7 +60,7 @@ const getPosts = async (project: Project) => {
   return Promise.all(publishedProjectPosts.map((it) => getPost(it)))
 }
 
-const getPost = async (post: Post): Promise<BlogProjectPostVm> => {
+const getPost = async (post: Post) => {
   const [thumbnailSrc, tags, authors] = await Promise.all([
     getPostThumbnailSrc(post),
     getTags(post),
@@ -84,15 +78,10 @@ const getPost = async (post: Post): Promise<BlogProjectPostVm> => {
   }
 }
 
-const getPostThumbnailSrc = async (post: Post) => {
-  return (
-    storageFileRepository.find((it) => it._id === post.thumbnailId)?.src ?? null
-  )
-}
+const getPostThumbnailSrc = async (post: Post) =>
+  storageFileRepository.find((it) => it._id === post.thumbnailId)?.src ?? null
 
-const getTags = async (
-  post: Post,
-): Promise<ReadonlyArray<BlogProjectPostTagVm>> => {
+const getTags = async (post: Post) => {
   const postPostTagsTagIds = postTagRepository
     .filter((it) => it.postId === post._id)
     .map((it) => it.tagId)
@@ -107,9 +96,7 @@ const getTags = async (
   }))
 }
 
-const getAuthors = async (
-  post: Post,
-): Promise<ReadonlyArray<BlogProjectPostAuthorVm>> => {
+const getAuthors = async (post: Post) => {
   const postPostAuthorsAuthorIds = postAuthorRepository
     .filter((it) => it.postId === post._id)
     .map((it) => it.authorId)
@@ -121,7 +108,7 @@ const getAuthors = async (
   return Promise.all(postUsers.map((it) => getAuthor(it)))
 }
 
-const getAuthor = async (user: User): Promise<BlogProjectPostAuthorVm> => {
+const getAuthor = async (user: User) => {
   const avatarSrc =
     storageFileRepository.find((it) => it._id === user.avatarId)?.src ?? null
 
