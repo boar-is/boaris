@@ -41,7 +41,8 @@
         "noParameterAssign": "off",
         "useShorthandAssign": "error",
         "useSingleCaseStatement": "error"
-      }
+      },
+      "suspicious": { "noShadowRestrictedNames": "off" }
     }
   }
 }

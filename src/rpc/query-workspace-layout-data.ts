@@ -17,10 +17,10 @@ export type WorkspaceLayoutData = {
   }
 }
 
-export const queryWorkspaceLayoutData = async (
-  slug: string,
-): Promise<WorkspaceLayoutData | null> => {
-  const workspace = workspaceRepository.find((it) => it.slug === slug)
+export const queryWorkspaceLayoutData = async ({
+  workspaceSlug,
+}: { workspaceSlug: string }): Promise<WorkspaceLayoutData | null> => {
+  const workspace = workspaceRepository.find((it) => it.slug === workspaceSlug)
 
   if (!workspace) {
     return null

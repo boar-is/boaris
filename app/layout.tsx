@@ -39,7 +39,9 @@ const headerMobileCx = cx('text-xs uppercase text-gray-9 tracking-tight')
 const itemMobileCx = cx('rounded-md')
 
 export default async function RootLayout({ children }: PropsWithChildren) {
-  const data = await queryWorkspaceLayoutData('boaris')
+  const data = await queryWorkspaceLayoutData({
+    workspaceSlug: 'boaris',
+  })
 
   if (!data) {
     notFound()
