@@ -1,4 +1,4 @@
-import { Array, HashSet, pipe } from 'effect'
+import { Array, pipe } from 'effect'
 import { ensureDefined } from '~/src/lib/utils/ensure'
 
 import { projectRepository } from '~/src/repositories/project-repository'
@@ -12,31 +12,24 @@ export type WorkspaceProjectPageParams = {
 export const queryWorkspaceProjectPageParams = async (): Promise<
   Array<WorkspaceProjectPageParams>
 > => {
-  const latestProjects = pipe(projectRepository, Array.takeRight(999))
+  const latestProjects = Array.takeRight(projectRepository, 999)
 
-  const workspaceIdsSet = pipe(
-    latestProjects,
-    Array.map((it) => it.workspaceId),
-    HashSet.fromIterable,
-  )
+  const workspaceIdsSet = new Set(latestProjects.map((it) => it.workspaceId))
 
   const workspacesGroupedById = pipe(
     workspaceRepository,
-    Array.filter((it) => HashSet.has(it._id)(workspaceIdsSet)),
+    Array.filter((it) => workspaceIdsSet.has(it._id)),
     Array.groupBy((it) => it._id),
   )
 
-  return pipe(
-    latestProjects,
-    Array.map((project) => {
-      const workspace = ensureDefined(
-        workspacesGroupedById[project.workspaceId]?.[0],
-      )
+  return latestProjects.map((project) => {
+    const workspace = ensureDefined(
+      workspacesGroupedById[project.workspaceId]?.[0],
+    )
 
-      return {
-        workspaceSlug: workspace.slug,
-        projectSlug: project.slug,
-      }
-    }),
-  )
+    return {
+      workspaceSlug: workspace.slug,
+      projectSlug: project.slug,
+    }
+  })
 }

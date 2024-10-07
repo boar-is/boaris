@@ -1,4 +1,4 @@
-import { Array, pipe } from 'effect'
+import { Array } from 'effect'
 import { workspaceRepository } from '~/src/repositories/workspace-repository'
 
 export type WorkspacePageParams = {
@@ -8,7 +8,7 @@ export type WorkspacePageParams = {
 export const queryWorkspacePageParams = async (): Promise<
   Array<WorkspacePageParams>
 > => {
-  const latestWorkspaces = pipe(workspaceRepository, Array.takeRight(999))
+  const latestWorkspaces = Array.takeRight(workspaceRepository, 999)
 
   return latestWorkspaces.map((workspace) => ({
     workspaceSlug: workspace.slug,
