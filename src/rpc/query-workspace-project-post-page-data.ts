@@ -26,7 +26,13 @@ export type WorkspaceProjectPostPageData = {
       interpolation: Interpolation | null
     }
     layouts: {
-      primary: {}
+      primary: {
+        modes: Array<'static' | 'scrolling' | 'watching' | 'sliding'>
+        changes: Array<{
+          at: number
+          value: true | null
+        }>
+      }
       overrides: {}
     }
   }
