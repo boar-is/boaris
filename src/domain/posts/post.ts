@@ -1,3 +1,6 @@
+import type { Project } from '~/src/domain/projects/project'
+import type { Revision } from '~/src/domain/revisions/revision'
+import type { StorageFile } from '~/src/domain/storage/storage-file'
 import type { Entity } from '~/src/shared/entity'
 
 export type Post = Entity & {
@@ -5,11 +8,11 @@ export type Post = Entity & {
   readonly lead: string | null
   readonly description: string
   readonly slug: string
-  readonly thumbnailId: Entity['_id'] | null
-  readonly projectId: Entity['_id']
-  readonly draftRevisionId: Entity['_id'] | null
-  readonly publishedRevisionId: Entity['_id'] | null
-  readonly revisionsStorageIds: ReadonlyArray<Entity['_id']>
+  readonly thumbnailId: StorageFile['_id'] | null
+  readonly projectId: Project['_id']
+  readonly draftRevisionId: Revision['_id'] | null
+  readonly publishedRevisionId: Revision['_id'] | null
+  readonly revisionsStorageIds: ReadonlyArray<StorageFile['_id']>
 }
 
 export const postRepository: ReadonlyArray<Post> = [

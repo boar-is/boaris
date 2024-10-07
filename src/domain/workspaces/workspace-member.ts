@@ -1,8 +1,10 @@
+import type { User } from '~/src/domain/users/user'
 import type { Entity } from '~/src/shared/entity'
+import type { Workspace } from './workspace'
 
 export type WorkspaceMember = Entity & {
-  readonly memberId: Entity['_id']
-  readonly workspaceId: Entity['_id']
+  readonly memberId: User['_id']
+  readonly workspaceId: Workspace['_id']
   readonly role: 'owner' | 'editor'
 }
 

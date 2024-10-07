@@ -1,3 +1,4 @@
+import type { StorageFile } from '~/src/domain/storage/storage-file'
 import { currentWorkspaceSlug } from '~/src/shared/constants'
 import type { Entity } from '~/src/shared/entity'
 import type { SocialLink } from '~/src/shared/social-link'
@@ -5,7 +6,7 @@ import type { SocialLink } from '~/src/shared/social-link'
 export type Workspace = Entity & {
   readonly name: string
   readonly slug: string
-  readonly logoId: Entity['_id'] | null
+  readonly logoId: StorageFile['_id'] | null
   readonly socialLinks: ReadonlyArray<SocialLink>
 }
 

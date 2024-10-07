@@ -1,31 +1,33 @@
 import { type Post, postRepository } from '~/src/domain/posts/post'
 import { postAuthorRepository } from '~/src/domain/posts/post-author'
 import { postTagRepository } from '~/src/domain/posts/post-tag'
-import { tagRepository } from '~/src/domain/posts/tag'
 import { type Project, projectRepository } from '~/src/domain/projects/project'
 import { storageFileRepository } from '~/src/domain/storage/storage-file'
+import { tagRepository } from '~/src/domain/tags/tag'
 import { type User, userRepository } from '~/src/domain/users/user'
 import { workspaceRepository } from '~/src/domain/workspaces/workspace'
 import { timestampToDate } from '~/src/lib/date'
 
 export type WorkspaceProjectPostData = {
-  readonly name: string
-  readonly posts: ReadonlyArray<{
-    readonly title: string
-    readonly lead: string
-    readonly slug: string
-    readonly date: string
-    readonly thumbnailSrc: string | null
-    readonly tags: ReadonlyArray<{
-      name: string
-      slug: string
+  readonly project: {
+    readonly name: string
+    readonly posts: ReadonlyArray<{
+      readonly title: string
+      readonly lead: string
+      readonly slug: string
+      readonly date: string
+      readonly thumbnailSrc: string | null
+      readonly tags: ReadonlyArray<{
+        readonly name: string
+        readonly slug: string
+      }>
+      readonly authors: ReadonlyArray<{
+        readonly name: string
+        readonly slug: string
+        readonly avatarSrc: string | null
+      }>
     }>
-    readonly authors: ReadonlyArray<{
-      name: string
-      slug: string
-      avatarSrc: string | null
-    }>
-  }>
+  }
 }
 
 export const queryWorkspaceProjectPageData = async ({
@@ -50,8 +52,10 @@ export const queryWorkspaceProjectPageData = async ({
   }
 
   return {
-    name: project.name,
-    posts: await getPosts(project),
+    project: {
+      name: project.name,
+      posts: await getPosts(project),
+    },
   }
 }
 

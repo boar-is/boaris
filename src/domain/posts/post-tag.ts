@@ -1,8 +1,10 @@
+import type { Tag } from '~/src/domain/tags/tag'
 import type { Entity } from '~/src/shared/entity'
+import type { Post } from './post'
 
 export type PostTag = Entity & {
-  readonly postId: Entity['_id']
-  readonly tagId: Entity['_id']
+  readonly postId: Post['_id']
+  readonly tagId: Tag['_id']
 }
 
 export const postTagRepository: ReadonlyArray<PostTag> = [

@@ -24,15 +24,15 @@ export default async function WorkspaceProjectPage({
     notFound()
   }
 
-  const { name, posts } = data
+  const { project } = data
 
   return (
     <article className="container flex flex-col gap-6 md:gap-10 items-stretch">
       <header className="sr-only">
-        <h1>{name}</h1>
+        <h1>{project.name}</h1>
       </header>
-      {posts.length ? (
-        posts.map((post) => (
+      {project.posts.length ? (
+        project.posts.map((post) => (
           <Link
             key={post.slug}
             href={`/[projectSlug]/${post.slug}`}

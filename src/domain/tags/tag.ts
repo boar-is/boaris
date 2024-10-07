@@ -1,12 +1,13 @@
+import type { Project } from '~/src/domain/projects/project'
 import type { Entity } from '~/src/shared/entity'
 
 export type Tag = Entity & {
   readonly name: string
   readonly slug: string
   /**
-   * If undefined, then the tag is global
+   * If null, then the tag is global
    */
-  readonly projectId: Entity['_id'] | null
+  readonly projectId: Project['_id'] | null
 }
 
 export const tagRepository: ReadonlyArray<Tag> = [

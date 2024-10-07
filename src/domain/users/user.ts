@@ -1,10 +1,11 @@
+import type { StorageFile } from '~/src/domain/storage/storage-file'
 import type { Entity } from '~/src/shared/entity'
 import type { SocialLink } from '~/src/shared/social-link'
 
 export type User = Entity & {
   readonly name: string
   readonly slug: string
-  readonly avatarId: Entity['_id'] | null
+  readonly avatarId: StorageFile['_id'] | null
   readonly socialLinks: ReadonlyArray<SocialLink>
 }
 

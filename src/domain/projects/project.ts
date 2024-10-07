@@ -1,7 +1,8 @@
+import type { Workspace } from '~/src/domain/workspaces/workspace'
 import type { Entity } from '~/src/shared/entity'
 
 export type Project = Entity & {
-  readonly workspaceId: Entity['_id']
+  readonly workspaceId: Workspace['_id']
   readonly name: string
   readonly slug: string
 }

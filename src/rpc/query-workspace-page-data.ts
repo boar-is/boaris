@@ -1,9 +1,10 @@
-import { workspaceRepository } from '../domain/workspaces/workspace'
+import {
+  type Workspace,
+  workspaceRepository,
+} from '~/src/domain/workspaces/workspace'
 
 export type WorkspacePageData = {
-  readonly workspace: {
-    readonly name: string
-  }
+  readonly workspace: Pick<Workspace, 'name'>
 }
 
 export const queryWorkspacePageData = async ({

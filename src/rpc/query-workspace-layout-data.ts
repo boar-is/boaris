@@ -7,13 +7,8 @@ import {
 import { workspaceMemberRepository } from '~/src/domain/workspaces/workspace-member'
 
 export type WorkspaceLayoutData = {
-  readonly workspace: {
-    readonly name: string
+  readonly workspace: Pick<Workspace, 'name' | 'socialLinks'> & {
     readonly logoSrc: string | null
-    readonly socialLinks: ReadonlyArray<{
-      readonly href: string
-      readonly label: string | null
-    }>
   }
 }
 

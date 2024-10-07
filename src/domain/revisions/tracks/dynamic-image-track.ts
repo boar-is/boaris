@@ -1,8 +1,8 @@
-import type { Entity } from '~/src/shared/entity'
+import type { StorageFile } from '~/src/domain/storage/storage-file'
 
 export type DynamicImageTrack = {
   readonly _tag: 'DynamicImageTrack'
   readonly name: string
-  readonly storageFileId: Entity['_id']
+  readonly storageFileId: StorageFile['_id']
   readonly caption: string | null
 }

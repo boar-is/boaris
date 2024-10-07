@@ -6,7 +6,7 @@ import type { Track } from './tracks/track'
 export type Revision = Entity & {
   readonly captions: Captions | null
   readonly layouts: Layouts | null
-  readonly tracks: Record<string, Track>
+  readonly tracks: ReadonlyArray<Track>
 }
 
 export const revisionRepository: ReadonlyArray<Revision> = [
@@ -301,21 +301,24 @@ export const revisionRepository: ReadonlyArray<Revision> = [
       },
       overrides: [],
     },
-    tracks: {
-      EXS2EWkhvxRp: {
+    tracks: [
+      {
+        _id: 'EXS2EWkhvxRp',
         _tag: 'StaticImageTrack',
         name: '.meta/css-snippet.webp',
         storageFileId: 'zNCYjhOo5NPl',
         caption: 'Syntax-highlighted code snippet',
         alt: null,
       },
-      XzuFxjGW7KwJ: {
+      {
+        _id: 'XzuFxjGW7KwJ',
         _tag: 'DynamicImageTrack',
         name: '.meta/shadow-palette-initial.mp4',
         storageFileId: 'ZxfWHzsajN9w',
         caption: 'Example of the generator',
       },
-      yEFL4yBqYkIu: {
+      {
+        _id: 'yEFL4yBqYkIu',
         _tag: 'TextTrack',
         name: 'app.jsx',
         value: `
@@ -335,6 +338,6 @@ function App() {
 }
         `,
       },
-    },
+    ],
   },
 ]
