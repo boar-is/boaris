@@ -1,16 +1,16 @@
 import { Array, HashSet, pipe } from 'effect'
 import { ensureDefined } from '~/src/lib/utils/ensure'
 
-import { projectRepository } from '~/src/repositories/projectRepository'
+import { projectRepository } from '~/src/repositories/project-repository'
 import { workspaceRepository } from '~/src/repositories/workspace-repository'
 
 export type WorkspaceProjectPageParams = {
-  readonly workspaceSlug: string
-  readonly projectSlug: string
+  workspaceSlug: string
+  projectSlug: string
 }
 
 export const queryWorkspaceProjectPageParams = async (): Promise<
-  ReadonlyArray<WorkspaceProjectPageParams>
+  Array<WorkspaceProjectPageParams>
 > => {
   const latestProjects = pipe(projectRepository, Array.takeRight(999))
 

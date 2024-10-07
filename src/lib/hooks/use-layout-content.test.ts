@@ -10,7 +10,7 @@ import { useLayoutContent } from './use-layout-content'
 
 describe('useLayoutContent', () => {
   describe('4 changes (delta, skip, delta, skip)', () => {
-    const contents: ReadonlyArray<LayoutContent> = [
+    const contents: Array<LayoutContent> = [
       {},
       {
         main: {

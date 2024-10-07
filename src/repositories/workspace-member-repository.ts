@@ -1,6 +1,6 @@
 import type { WorkspaceMember } from '~/src/domain/workspaces/workspace-member'
 
-export const workspaceMemberRepository: ReadonlyArray<WorkspaceMember> = [
+export const workspaceMemberRepository: Array<WorkspaceMember> = [
   {
     _id: 'f1yR23PbuoDW',
     _creationTime: Date.now(),

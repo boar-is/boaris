@@ -9,7 +9,7 @@ import { patchLayoutContent } from './patch-layout-content'
 
 describe('patchLayoutContent', () => {
   describe('6 changes (skip, delta, skip, delta, skip, delta)', () => {
-    const contents: ReadonlyArray<LayoutContent> = [
+    const contents: Array<LayoutContent> = [
       {},
       {
         main: {

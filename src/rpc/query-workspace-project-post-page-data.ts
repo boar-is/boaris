@@ -1,34 +1,34 @@
 import type { JSONContent } from '@tiptap/react'
 import { Array, Option } from 'effect'
-import { chunkRepository } from '~/src/repositories/chunk.repository'
+import { chunkRepository } from '~/src/repositories/chunk-repository'
 import { postRepository } from '~/src/repositories/post-repository'
-import { projectRepository } from '~/src/repositories/projectRepository'
+import { projectRepository } from '~/src/repositories/project-repository'
 import { revisionRepository } from '~/src/repositories/revision-repository'
 import { workspaceRepository } from '~/src/repositories/workspace-repository'
 import type { Interpolation } from '~/src/shared/interpolation'
 
 export type WorkspaceProjectPostPageData = {
-  readonly post: {
-    readonly title: string
-    readonly lead: string | null
-    readonly description: string
-    readonly thumbnailSrc: string | null
-    readonly authors: ReadonlyArray<{
-      readonly name: string
-      readonly slug: string
-      readonly avatarSrc: string | null
+  post: {
+    title: string
+    lead: string | null
+    description: string
+    thumbnailSrc: string | null
+    authors: Array<{
+      name: string
+      slug: string
+      avatarSrc: string | null
     }>
-    readonly tags: ReadonlyArray<{
-      readonly name: string
-      readonly slug: string
+    tags: Array<{
+      name: string
+      slug: string
     }>
-    readonly captions: {
-      readonly value: JSONContent
-      readonly interpolation: Interpolation | null
+    captions: {
+      value: JSONContent
+      interpolation: Interpolation | null
     }
-    readonly layouts: {
-      readonly primary: {}
-      readonly overrides: {}
+    layouts: {
+      primary: {}
+      overrides: {}
     }
   }
 }
@@ -38,9 +38,9 @@ export const queryWorkspaceProjectPostPageData = async ({
   projectSlug,
   postSlug,
 }: {
-  readonly workspaceSlug: string
-  readonly projectSlug: string
-  readonly postSlug: string
+  workspaceSlug: string
+  projectSlug: string
+  postSlug: string
 }): Promise<WorkspaceProjectPostPageData | null> =>
   Option.gen(function* () {
     const workspace = yield* Array.findFirst(
