@@ -1,5 +1,5 @@
-import type { Delta } from '~/src/shared/delta'
 import type { Id } from '~/src/shared/id'
+import type { LayoutValue } from './layout-value'
 
 export type LayoutChange = {
   readonly _id: Id
@@ -7,12 +7,8 @@ export type LayoutChange = {
    * a number from 0 to 1
    */
   readonly at: number
-  readonly value:
-    | {
-        type: 'delta'
-        contentDelta: Delta
-      }
-    | {
-        type: 'skip'
-      }
+  /**
+   * null is for skip
+   */
+  readonly value: LayoutValue | null
 }

@@ -1,5 +1,6 @@
-import type { LayoutChange } from './layout-change'
+import type { LayoutLayer } from './layout-layer'
 
 export type LayoutValue = {
-  readonly changes: ReadonlyArray<LayoutChange>
+  readonly static: LayoutLayer | null
+  readonly floating: LayoutLayer | null
 }

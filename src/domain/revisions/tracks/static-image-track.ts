@@ -1,11 +1,9 @@
-import type { Id } from '~/src/shared/id'
-import type { StaticImageTrackOverride } from './static-image-track-override'
-import type { StaticImageTrackValue } from './static-image-track-value'
+import type { Entity } from '~/src/shared/entity'
 
 export type StaticImageTrack = {
-  readonly _id: Id
   readonly _tag: 'StaticImageTrack'
   readonly name: string
-  readonly value: StaticImageTrackValue
-  readonly overrides: ReadonlyArray<StaticImageTrackOverride>
+  readonly storageFileId: Entity['_id']
+  readonly alt: string | null
+  readonly caption: string | null
 }
