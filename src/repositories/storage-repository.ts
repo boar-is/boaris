@@ -43,7 +43,9 @@ type StorageMap = Record<Id, string>
 const getStorageMap = async (_ids: Array<Id | null>): Promise<StorageMap> => {
   return Object.fromEntries(
     await Promise.all(
-      _ids.filter((id) => id !== null).map((id) => [id, getUrl(id)] as const),
+      [...new Set(_ids)]
+        .filter((id) => id !== null)
+        .map((id) => [id, getUrl(id)] as const),
     ),
   )
 }

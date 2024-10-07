@@ -1,4 +1,4 @@
-import { storageRepository } from '~/src/repositories/storage-file-repository'
+import { storageRepository } from '~/src/repositories/storage-repository'
 import { workspaceRepository } from '~/src/repositories/workspace-repository'
 
 export const queryWorkspaceLayoutData = async ({

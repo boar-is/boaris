@@ -5,12 +5,12 @@ export type WorkspacePageParams = {
   workspaceSlug: string
 }
 
-export const queryWorkspacePageParams = async (): Promise<
-  Array<WorkspacePageParams>
-> => {
+export const queryWorkspacePageParams = async () => {
   const latestWorkspaces = Array.takeRight(workspaceRepository, 999)
 
-  return latestWorkspaces.map((workspace) => ({
-    workspaceSlug: workspace.slug,
-  }))
+  return latestWorkspaces.map(
+    (workspace): WorkspacePageParams => ({
+      workspaceSlug: workspace.slug,
+    }),
+  )
 }
