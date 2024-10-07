@@ -1,8 +1,6 @@
 import { Array, pipe } from 'effect'
-import {
-  type Workspace,
-  workspaceRepository,
-} from '~/src/domain/workspaces/workspace'
+import type { Workspace } from '~/src/domain/workspaces/workspace'
+import { workspaceRepository } from '~/src/repositories/workspace-repository'
 
 export type WorkspacePageParams = {
   readonly workspaceSlug: Workspace['slug']

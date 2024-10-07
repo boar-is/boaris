@@ -1,10 +1,10 @@
 import type { JSONContent } from '@tiptap/react'
 import { Array, Option } from 'effect'
-import { chunkRepository } from '~/src/domain/chunks/chunk'
-import { postRepository } from '~/src/domain/posts/post'
-import { projectRepository } from '~/src/domain/projects/project'
-import { revisionRepository } from '~/src/domain/revisions/revision'
-import { workspaceRepository } from '~/src/domain/workspaces/workspace'
+import { chunkRepository } from '~/src/repositories/chunk.repository'
+import { postRepository } from '~/src/repositories/post-repository'
+import { projectRepository } from '~/src/repositories/projectRepository'
+import { revisionRepository } from '~/src/repositories/revision-repository'
+import { workspaceRepository } from '~/src/repositories/workspace-repository'
 import type { Interpolation } from '~/src/shared/interpolation'
 
 export type WorkspaceProjectPostPageData = {

@@ -1,15 +1,17 @@
-import { type Post, postRepository } from '~/src/domain/posts/post'
-import { postAuthorRepository } from '~/src/domain/posts/post-author'
-import { postTagRepository } from '~/src/domain/posts/post-tag'
-import { type Project, projectRepository } from '~/src/domain/projects/project'
-import { storageFileRepository } from '~/src/domain/storage/storage-file'
-import { type Tag, tagRepository } from '~/src/domain/tags/tag'
-import { type User, userRepository } from '~/src/domain/users/user'
-import {
-  type Workspace,
-  workspaceRepository,
-} from '~/src/domain/workspaces/workspace'
+import type { Post } from '~/src/domain/posts/post'
+import type { Project } from '~/src/domain/projects/project'
+import type { Tag } from '~/src/domain/tags/tag'
+import type { User } from '~/src/domain/users/user'
+import type { Workspace } from '~/src/domain/workspaces/workspace'
 import { timestampToDate } from '~/src/lib/date'
+import { postAuthorRepository } from '~/src/repositories/post-author-repository'
+import { postRepository } from '~/src/repositories/post-repository'
+import { postTagRepository } from '~/src/repositories/post-tag-repository'
+import { projectRepository } from '~/src/repositories/projectRepository'
+import { storageFileRepository } from '~/src/repositories/storage-file-repository'
+import { tagRepository } from '~/src/repositories/tag-repository'
+import { userRepository } from '~/src/repositories/user-repository'
+import { workspaceRepository } from '~/src/repositories/workspace-repository'
 
 export type WorkspaceProjectPostData = {
   readonly project: Pick<Project, 'name'> & {

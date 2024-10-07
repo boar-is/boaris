@@ -1,7 +1,5 @@
-import {
-  type Workspace,
-  workspaceRepository,
-} from '~/src/domain/workspaces/workspace'
+import type { Workspace } from '~/src/domain/workspaces/workspace'
+import { workspaceRepository } from '~/src/repositories/workspace-repository'
 
 export type WorkspacePageData = {
   readonly workspace: Pick<Workspace, 'name'>

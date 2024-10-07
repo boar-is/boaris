@@ -9,14 +9,3 @@ export type User = {
   avatarId: Id | null
   socialLinks: Array<SocialLink>
 }
-
-export const userRepository: Array<User> = [
-  {
-    _id: 'QcXfwMYqlHu5',
-    _creationTime: Date.now(),
-    name: 'Boris Zubchenko',
-    slug: 'boris',
-    avatarId: 'F6gGQOuGSZGr',
-    socialLinks: [],
-  },
-]

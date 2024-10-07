@@ -1,8 +1,8 @@
 import { Array, HashSet, pipe } from 'effect'
-import { postRepository } from '~/src/domain/posts/post'
-import { projectRepository } from '~/src/domain/projects/project'
-import { workspaceRepository } from '~/src/domain/workspaces/workspace'
 import { ensureDefined } from '~/src/lib/utils/ensure'
+import { postRepository } from '~/src/repositories/post-repository'
+import { projectRepository } from '~/src/repositories/projectRepository'
+import { workspaceRepository } from '~/src/repositories/workspace-repository'
 
 export type WorkspaceProjectPostPageParams = {
   readonly workspaceSlug: string

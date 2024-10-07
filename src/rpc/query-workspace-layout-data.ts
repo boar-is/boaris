@@ -1,21 +1,21 @@
-import { storageFileRepository } from '~/src/domain/storage/storage-file'
-import { userRepository } from '~/src/domain/users/user'
-import {
-  type Workspace,
-  workspaceRepository,
-} from '~/src/domain/workspaces/workspace'
-import { workspaceMemberRepository } from '~/src/domain/workspaces/workspace-member'
+import { storageFileRepository } from '~/src/repositories/storage-file-repository'
+import { userRepository } from '~/src/repositories/user-repository'
+import { workspaceMemberRepository } from '~/src/repositories/workspace-member-repository'
+import { workspaceRepository } from '~/src/repositories/workspace-repository'
+import type { SocialLink } from '~/src/shared/social-link'
 
 export type WorkspaceLayoutData = {
-  readonly workspace: Pick<Workspace, 'name' | 'socialLinks'> & {
-    readonly logoSrc: string | null
+  workspace: {
+    name: string
+    socialLinks: Array<SocialLink>
+    logoSrc: string | null
   }
 }
 
 export const queryWorkspaceLayoutData = async ({
   workspaceSlug,
 }: {
-  readonly workspaceSlug: Workspace['slug']
+  workspaceSlug: string
 }): Promise<WorkspaceLayoutData | null> => {
   const workspace = workspaceRepository.find((it) => it.slug === workspaceSlug)
 
@@ -28,7 +28,7 @@ export const queryWorkspaceLayoutData = async ({
     storageFileRepository.find((it) => it._id === logoId)?.src ?? null
 
   const socialLinks = workspace.socialLinks.map(
-    (it): WorkspaceLayoutData['workspace']['socialLinks'][number] => ({
+    (it): SocialLink => ({
       href: it.href,
       label: it.label,
     }),
@@ -43,7 +43,9 @@ export const queryWorkspaceLayoutData = async ({
   }
 }
 
-const getLogoOrOwnerAvatarId = async (workspace: Workspace) => {
+const getLogoOrOwnerAvatarId = async (
+  workspace: (typeof workspaceRepository)[number],
+) => {
   if (workspace.logoId) {
     return workspace.logoId
   }
