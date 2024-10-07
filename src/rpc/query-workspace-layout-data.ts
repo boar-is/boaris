@@ -14,7 +14,9 @@ export type WorkspaceLayoutData = {
 
 export const queryWorkspaceLayoutData = async ({
   workspaceSlug,
-}: { readonly workspaceSlug: string }): Promise<WorkspaceLayoutData | null> => {
+}: {
+  readonly workspaceSlug: Workspace['slug']
+}): Promise<WorkspaceLayoutData | null> => {
   const workspace = workspaceRepository.find((it) => it.slug === workspaceSlug)
 
   if (!workspace) {

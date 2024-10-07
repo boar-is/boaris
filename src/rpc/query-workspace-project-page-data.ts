@@ -3,30 +3,28 @@ import { postAuthorRepository } from '~/src/domain/posts/post-author'
 import { postTagRepository } from '~/src/domain/posts/post-tag'
 import { type Project, projectRepository } from '~/src/domain/projects/project'
 import { storageFileRepository } from '~/src/domain/storage/storage-file'
-import { tagRepository } from '~/src/domain/tags/tag'
+import { type Tag, tagRepository } from '~/src/domain/tags/tag'
 import { type User, userRepository } from '~/src/domain/users/user'
-import { workspaceRepository } from '~/src/domain/workspaces/workspace'
+import {
+  type Workspace,
+  workspaceRepository,
+} from '~/src/domain/workspaces/workspace'
 import { timestampToDate } from '~/src/lib/date'
 
 export type WorkspaceProjectPostData = {
-  readonly project: {
-    readonly name: string
-    readonly posts: ReadonlyArray<{
-      readonly title: string
-      readonly lead: string
-      readonly slug: string
-      readonly date: string
-      readonly thumbnailSrc: string | null
-      readonly tags: ReadonlyArray<{
-        readonly name: string
-        readonly slug: string
-      }>
-      readonly authors: ReadonlyArray<{
-        readonly name: string
-        readonly slug: string
-        readonly avatarSrc: string | null
-      }>
-    }>
+  readonly project: Pick<Project, 'name'> & {
+    readonly posts: ReadonlyArray<
+      Pick<Post, 'title' | 'lead' | 'slug'> & {
+        readonly date: string
+        readonly thumbnailSrc: string | null
+        readonly tags: ReadonlyArray<Pick<Tag, 'name' | 'slug'>>
+        readonly authors: ReadonlyArray<
+          Pick<User, 'name' | 'slug'> & {
+            readonly avatarSrc: string | null
+          }
+        >
+      }
+    >
   }
 }
 
@@ -34,8 +32,8 @@ export const queryWorkspaceProjectPageData = async ({
   workspaceSlug,
   projectSlug,
 }: {
-  readonly workspaceSlug: string
-  readonly projectSlug: string
+  readonly workspaceSlug: Workspace['slug']
+  readonly projectSlug: Project['slug']
 }): Promise<WorkspaceProjectPostData | null> => {
   const workspace = workspaceRepository.find((it) => it.slug === workspaceSlug)
 

@@ -1,8 +1,11 @@
 import { Array, pipe } from 'effect'
-import { workspaceRepository } from '~/src/domain/workspaces/workspace'
+import {
+  type Workspace,
+  workspaceRepository,
+} from '~/src/domain/workspaces/workspace'
 
 export type WorkspacePageParams = {
-  readonly workspaceSlug: string
+  readonly workspaceSlug: Workspace['slug']
 }
 
 export const queryWorkspacePageParams = async (): Promise<
