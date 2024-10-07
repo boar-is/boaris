@@ -1,16 +1,17 @@
-import type { Project } from '~/src/domain/projects/project'
-import type { Entity } from '~/src/shared/entity'
+import type { Id } from '~/src/shared/id'
 
-export type Tag = Entity & {
-  readonly name: string
-  readonly slug: string
+export type Tag = {
+  _id: Id
+  _creationTime: number
+  name: string
+  slug: string
   /**
    * If null, then the tag is global
    */
-  readonly projectId: Project['_id'] | null
+  projectId: Id | null
 }
 
-export const tagRepository: ReadonlyArray<Tag> = [
+export const tagRepository: Array<Tag> = [
   {
     _id: 'BD7CUF0KvKWK',
     _creationTime: Date.now(),

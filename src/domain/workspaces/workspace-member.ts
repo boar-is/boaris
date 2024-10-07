@@ -1,11 +1,11 @@
-import type { User } from '~/src/domain/users/user'
-import type { Entity } from '~/src/shared/entity'
-import type { Workspace } from './workspace'
+import type { Id } from '~/src/shared/id'
 
-export type WorkspaceMember = Entity & {
-  readonly memberId: User['_id']
-  readonly workspaceId: Workspace['_id']
-  readonly role: 'owner' | 'editor'
+export type WorkspaceMember = {
+  _id: Id
+  _creationTime: number
+  memberId: Id
+  workspaceId: Id
+  role: 'owner' | 'editor'
 }
 
 export const workspaceMemberRepository: ReadonlyArray<WorkspaceMember> = [

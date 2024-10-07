@@ -1,15 +1,16 @@
-import type { StorageFile } from '~/src/domain/storage/storage-file'
-import type { Entity } from '~/src/shared/entity'
+import type { Id } from '~/src/shared/id'
 import type { SocialLink } from '~/src/shared/social-link'
 
-export type User = Entity & {
-  readonly name: string
-  readonly slug: string
-  readonly avatarId: StorageFile['_id'] | null
-  readonly socialLinks: ReadonlyArray<SocialLink>
+export type User = {
+  _id: Id
+  _creationTime: number
+  name: string
+  slug: string
+  avatarId: Id | null
+  socialLinks: Array<SocialLink>
 }
 
-export const userRepository: ReadonlyArray<User> = [
+export const userRepository: Array<User> = [
   {
     _id: 'QcXfwMYqlHu5',
     _creationTime: Date.now(),

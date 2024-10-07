@@ -1,13 +1,13 @@
-import type { Tag } from '~/src/domain/tags/tag'
-import type { Entity } from '~/src/shared/entity'
-import type { Post } from './post'
+import type { Id } from '~/src/shared/id'
 
-export type PostTag = Entity & {
-  readonly postId: Post['_id']
-  readonly tagId: Tag['_id']
+export type PostTag = {
+  _id: Id
+  _creationTime: number
+  postId: Id
+  tagId: Id
 }
 
-export const postTagRepository: ReadonlyArray<PostTag> = [
+export const postTagRepository: Array<PostTag> = [
   {
     _id: 'm7XxpMjq1Coa',
     _creationTime: Date.now(),

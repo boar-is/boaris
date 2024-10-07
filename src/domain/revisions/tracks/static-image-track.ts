@@ -1,9 +1,10 @@
-import type { StorageFile } from '~/src/domain/storage/storage-file'
+import type { Id } from '~/src/shared/id'
 
 export type StaticImageTrack = {
-  readonly _tag: 'StaticImageTrack'
-  readonly name: string
-  readonly storageFileId: StorageFile['_id']
-  readonly alt: string | null
-  readonly caption: string | null
+  _id: Id
+  _tag: 'StaticImageTrack'
+  name: string
+  storageFileId: Id
+  alt: string | null
+  caption: string | null
 }

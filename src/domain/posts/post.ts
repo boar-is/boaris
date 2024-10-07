@@ -1,21 +1,20 @@
-import type { Project } from '~/src/domain/projects/project'
-import type { Revision } from '~/src/domain/revisions/revision'
-import type { StorageFile } from '~/src/domain/storage/storage-file'
-import type { Entity } from '~/src/shared/entity'
+import type { Id } from '~/src/shared/id'
 
-export type Post = Entity & {
-  readonly title: string
-  readonly lead: string | null
-  readonly description: string
-  readonly slug: string
-  readonly thumbnailId: StorageFile['_id'] | null
-  readonly projectId: Project['_id']
-  readonly draftRevisionId: Revision['_id'] | null
-  readonly publishedRevisionId: Revision['_id'] | null
-  readonly revisionsStorageIds: ReadonlyArray<StorageFile['_id']>
+export type Post = {
+  _id: Id
+  _creationTime: number
+  title: string
+  lead: string | null
+  description: string
+  slug: string
+  thumbnailId: Id | null
+  projectId: Id
+  draftRevisionId: Id | null
+  publishedRevisionId: Id | null
+  revisionsStorageIds: Array<Id>
 }
 
-export const postRepository: ReadonlyArray<Post> = [
+export const postRepository: Array<Post> = [
   {
     _id: 'oclcmSQoOSCF',
     _creationTime: Date.now(),

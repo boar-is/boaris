@@ -1,13 +1,14 @@
-import type { Workspace } from '~/src/domain/workspaces/workspace'
-import type { Entity } from '~/src/shared/entity'
+import type { Id } from '~/src/shared/id'
 
-export type Project = Entity & {
-  readonly workspaceId: Workspace['_id']
-  readonly name: string
-  readonly slug: string
+export type Project = {
+  _id: Id
+  _creationTime: number
+  workspaceId: Id
+  name: string
+  slug: string
 }
 
-export const projectRepository: ReadonlyArray<Project> = [
+export const projectRepository: Array<Project> = [
   {
     _id: 'vyLFpVmXUmx4',
     _creationTime: Date.now(),

@@ -1,15 +1,15 @@
-import type { Revision } from '~/src/domain/revisions/revision'
-import type { Track } from '~/src/domain/revisions/tracks/track'
-import type { Entity } from '~/src/shared/entity'
+import type { Id } from '~/src/shared/id'
 import type { Action } from './actions/action'
 
-export type Chunk = Entity & {
-  readonly revisionId: Revision['_id']
-  readonly offset: number
-  readonly actions: Record<Track['_id'], ReadonlyArray<Action>>
+export type Chunk = {
+  _id: Id
+  _creationTime: number
+  revisionId: Id
+  offset: number
+  actions: Record<Id, Array<Action>>
 }
 
-export const chunkRepository: ReadonlyArray<Chunk> = [
+export const chunkRepository: Array<Chunk> = [
   {
     _id: 'pApo1ZtHnWwV',
     _creationTime: Date.now(),

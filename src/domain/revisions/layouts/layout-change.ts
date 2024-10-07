@@ -2,13 +2,16 @@ import type { Id } from '~/src/shared/id'
 import type { LayoutValue } from './layout-value'
 
 export type LayoutChange = {
-  readonly _id: Id
+  /**
+   * id is needed for patching optimizations
+   */
+  _id: Id
   /**
    * a number from 0 to 1
    */
-  readonly at: number
+  at: number
   /**
    * null is for skip
    */
-  readonly value: LayoutValue | null
+  value: LayoutValue | null
 }

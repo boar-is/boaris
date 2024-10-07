@@ -1,15 +1,17 @@
-import type { Entity } from '~/src/shared/entity'
+import type { Id } from '~/src/shared/id'
 import type { Captions } from './captions/captions'
 import type { Layouts } from './layouts/layouts'
 import type { Track } from './tracks/track'
 
-export type Revision = Entity & {
-  readonly captions: Captions | null
-  readonly layouts: Layouts | null
-  readonly tracks: ReadonlyArray<Track>
+export type Revision = {
+  _id: Id
+  _creationTime: number
+  captions: Captions | null
+  layouts: Layouts | null
+  tracks: Array<Track>
 }
 
-export const revisionRepository: ReadonlyArray<Revision> = [
+export const revisionRepository: Array<Revision> = [
   {
     _id: 'CazXWqJz7tmF',
     _creationTime: Date.now(),
@@ -221,7 +223,7 @@ export const revisionRepository: ReadonlyArray<Revision> = [
             _id: 'JvbFc0asCVQN',
             at: 0.15,
             value: {
-              static: { areas: [['XzuFxjGW7KwJ']], columns: [], rows: [] },
+              static: { areas: "'XzuFxjGW7KwJ'", columns: null, rows: null },
               floating: null,
             },
           },
@@ -230,9 +232,9 @@ export const revisionRepository: ReadonlyArray<Revision> = [
             at: 0.25,
             value: {
               static: {
-                areas: [['XzuFxjGW7KwJ'], ['EXS2EWkhvxRp']],
-                columns: [],
-                rows: [],
+                areas: "'XzuFxjGW7KwJ' 'EXS2EWkhvxRp'",
+                columns: null,
+                rows: null,
               },
               floating: null,
             },
@@ -242,12 +244,10 @@ export const revisionRepository: ReadonlyArray<Revision> = [
             at: 0.35,
             value: {
               static: {
-                areas: [
-                  ['XzuFxjGW7KwJ', 'XzuFxjGW7KwJ'],
-                  ['EXS2EWkhvxRp', 'yEFL4yBqYkIu'],
-                ],
-                columns: [],
-                rows: [],
+                areas:
+                  "'XzuFxjGW7KwJ XzuFxjGW7KwJ' 'EXS2EWkhvxRp yEFL4yBqYkIu'",
+                columns: null,
+                rows: null,
               },
               floating: null,
             },
@@ -257,12 +257,10 @@ export const revisionRepository: ReadonlyArray<Revision> = [
             at: 0.5,
             value: {
               static: {
-                areas: [
-                  ['EXS2EWkhvxRp', 'yEFL4yBqYkIu'],
-                  ['XzuFxjGW7KwJ', 'XzuFxjGW7KwJ'],
-                ],
-                columns: [],
-                rows: [],
+                areas:
+                  "'EXS2EWkhvxRp yEFL4yBqYkIu' 'XzuFxjGW7KwJ XzuFxjGW7KwJ'",
+                columns: null,
+                rows: null,
               },
               floating: null,
             },
@@ -272,12 +270,10 @@ export const revisionRepository: ReadonlyArray<Revision> = [
             at: 0.7,
             value: {
               static: {
-                areas: [
-                  ['XzuFxjGW7KwJ', 'yEFL4yBqYkIu'],
-                  ['XzuFxjGW7KwJ', 'EXS2EWkhvxRp'],
-                ],
-                columns: [],
-                rows: [],
+                areas:
+                  "'XzuFxjGW7KwJ yEFL4yBqYkIu' 'XzuFxjGW7KwJ EXS2EWkhvxRp'",
+                columns: null,
+                rows: null,
               },
               floating: null,
             },
@@ -287,12 +283,9 @@ export const revisionRepository: ReadonlyArray<Revision> = [
             at: 0.9,
             value: {
               static: {
-                areas: [
-                  ['XzuFxjGW7KwJ', 'XzuFxjGW7KwJ'],
-                  ['XzuFxjGW7KwJ', 'XzuFxjGW7KwJ'],
-                ],
-                columns: [],
-                rows: [],
+                areas: "'XzuFxjGW7KwJ'",
+                columns: null,
+                rows: null,
               },
               floating: null,
             },

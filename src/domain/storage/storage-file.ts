@@ -1,10 +1,12 @@
-import type { Entity } from '~/src/shared/entity'
+import type { Id } from '~/src/shared/id'
 
-export type StorageFile = Entity & {
-  readonly src: string
+export type StorageFile = {
+  _id: Id
+  _creationTime: number
+  src: string
 }
 
-export const storageFileRepository: ReadonlyArray<StorageFile> = [
+export const storageFileRepository: Array<StorageFile> = [
   {
     _id: 'F6gGQOuGSZGr',
     _creationTime: Date.now(),

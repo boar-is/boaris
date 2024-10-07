@@ -1,3 +1,3 @@
 export type Action = {
-  readonly offset: number
+  offset: number
 }
