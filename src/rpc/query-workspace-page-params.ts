@@ -1,16 +1,12 @@
-import { Array } from 'effect'
 import { workspaceRepository } from '~/src/repositories/workspace-repository'
 
 export type WorkspacePageParams = {
   workspaceSlug: string
 }
 
-export const queryWorkspacePageParams = async () => {
-  const latestWorkspaces = Array.takeRight(workspaceRepository, 999)
-
-  return latestWorkspaces.map(
+export const queryWorkspacePageParams = async () =>
+  workspaceRepository.map(
     (workspace): WorkspacePageParams => ({
       workspaceSlug: workspace.slug,
     }),
   )
-}

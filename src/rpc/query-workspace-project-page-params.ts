@@ -1,31 +1,26 @@
-import { Array, pipe } from 'effect'
 import { ensureDefined } from '~/src/lib/utils/ensure'
 
 import { projectRepository } from '~/src/repositories/project-repository'
 import { workspaceRepository } from '~/src/repositories/workspace-repository'
+import { forceGroupBy } from '~/src/shared/force-group-by'
 
 export type WorkspaceProjectPageParams = {
   workspaceSlug: string
   projectSlug: string
 }
 
-export const queryWorkspaceProjectPageParams = async (): Promise<
-  Array<WorkspaceProjectPageParams>
-> => {
-  const latestProjects = Array.takeRight(projectRepository, 999)
+export const queryWorkspaceProjectPageParams = async () => {
+  const projects = projectRepository
 
-  const workspaceIdsSet = new Set(latestProjects.map((it) => it.workspaceId))
+  const workspaceIdsSet = new Set(projects.map((it) => it.workspaceId))
 
-  const workspacesGroupedById = pipe(
-    workspaceRepository,
-    Array.filter((it) => workspaceIdsSet.has(it._id)),
-    Array.groupBy((it) => it._id),
+  const workspacesGroupedById = forceGroupBy(
+    workspaceRepository.filter((it) => workspaceIdsSet.has(it._id)),
+    (it) => it._id,
   )
 
-  return latestProjects.map((project) => {
-    const workspace = ensureDefined(
-      workspacesGroupedById[project.workspaceId]?.[0],
-    )
+  return projects.map((project): WorkspaceProjectPageParams => {
+    const workspace = ensureDefined(workspacesGroupedById[project.workspaceId])
 
     return {
       workspaceSlug: workspace.slug,

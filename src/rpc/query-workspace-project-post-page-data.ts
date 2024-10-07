@@ -1,30 +1,8 @@
-import type { Captions } from '~/src/domain/revisions/captions/captions'
-import type { Layouts } from '~/src/domain/revisions/layouts/layouts'
 import { chunkRepository } from '~/src/repositories/chunk-repository'
 import { postRepository } from '~/src/repositories/post-repository'
 import { projectRepository } from '~/src/repositories/project-repository'
 import { revisionRepository } from '~/src/repositories/revision-repository'
 import { workspaceRepository } from '~/src/repositories/workspace-repository'
-
-export type WorkspaceProjectPostPageData = {
-  post: {
-    title: string
-    lead: string | null
-    description: string
-    thumbnailSrc: string | null
-    authors: Array<{
-      name: string
-      slug: string
-      avatarSrc: string | null
-    }>
-    tags: Array<{
-      name: string
-      slug: string
-    }>
-    captions: Captions
-    layouts: Layouts
-  }
-}
 
 export const queryWorkspaceProjectPostPageData = async ({
   workspaceSlug,
@@ -34,7 +12,7 @@ export const queryWorkspaceProjectPostPageData = async ({
   workspaceSlug: string
   projectSlug: string
   postSlug: string
-}): Promise<WorkspaceProjectPostPageData | null> => {
+}) => {
   const workspace = workspaceRepository.find((it) => it.slug === workspaceSlug)
 
   if (!workspace) {
