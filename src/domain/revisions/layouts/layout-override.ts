@@ -5,5 +5,5 @@ export type LayoutOverride = {
   modes: Array<LayoutMode>
   minWidthPx: number | null
   disabled: boolean
-  actionsDelta: Delta
+  changesDelta: Delta
 }

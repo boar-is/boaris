@@ -2,7 +2,7 @@ import type { Id } from '~/src/shared/id'
 
 export type StaticImageTrack = {
   _id: Id
-  _tag: 'StaticImageTrack'
+  type: 'static-image'
   name: string
   storageFileId: Id
   alt: string | null

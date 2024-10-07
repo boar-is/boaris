@@ -286,7 +286,7 @@ export const revisionRepository: Array<Revision> = [
     tracks: [
       {
         _id: 'EXS2EWkhvxRp',
-        _tag: 'StaticImageTrack',
+        type: 'static-image',
         name: '.meta/css-snippet.webp',
         storageFileId: 'zNCYjhOo5NPl',
         caption: 'Syntax-highlighted code snippet',
@@ -294,14 +294,14 @@ export const revisionRepository: Array<Revision> = [
       },
       {
         _id: 'XzuFxjGW7KwJ',
-        _tag: 'DynamicImageTrack',
+        type: 'dynamic-image',
         name: '.meta/shadow-palette-initial.mp4',
         storageFileId: 'ZxfWHzsajN9w',
         caption: 'Example of the generator',
       },
       {
         _id: 'yEFL4yBqYkIu',
-        _tag: 'TextTrack',
+        type: 'text',
         name: 'app.jsx',
         value: `
 function App() {

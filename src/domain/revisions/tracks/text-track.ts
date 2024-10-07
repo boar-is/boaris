@@ -7,7 +7,7 @@ import type { Id } from '~/src/shared/id'
  */
 export type TextTrack = {
   _id: Id
-  _tag: 'TextTrack'
+  type: 'text'
   name: string
   value: string
 }

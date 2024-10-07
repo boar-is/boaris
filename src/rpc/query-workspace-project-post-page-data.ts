@@ -1,10 +1,10 @@
-import type { JSONContent } from '@tiptap/react'
+import type { Captions } from '~/src/domain/revisions/captions/captions'
+import type { Layouts } from '~/src/domain/revisions/layouts/layouts'
 import { chunkRepository } from '~/src/repositories/chunk-repository'
 import { postRepository } from '~/src/repositories/post-repository'
 import { projectRepository } from '~/src/repositories/project-repository'
 import { revisionRepository } from '~/src/repositories/revision-repository'
 import { workspaceRepository } from '~/src/repositories/workspace-repository'
-import type { Interpolation } from '~/src/shared/interpolation'
 
 export type WorkspaceProjectPostPageData = {
   post: {
@@ -21,20 +21,8 @@ export type WorkspaceProjectPostPageData = {
       name: string
       slug: string
     }>
-    captions: {
-      value: JSONContent
-      interpolation: Interpolation | null
-    }
-    layouts: {
-      primary: {
-        modes: Array<'static' | 'scrolling' | 'watching' | 'sliding'>
-        changes: Array<{
-          at: number
-          value: true | null
-        }>
-      }
-      overrides: {}
-    }
+    captions: Captions
+    layouts: Layouts
   }
 }
 
