@@ -54,6 +54,7 @@
     "@uiw/react-codemirror": "4.23.5",
     "@vitejs/plugin-react": "4.3.2",
     "clsx": "2.1.1",
+    "convex": "1.16.4",
     "effect": "3.9.1",
     "framer-motion": "11.11.7",
     "jsdom": "25.0.1",
