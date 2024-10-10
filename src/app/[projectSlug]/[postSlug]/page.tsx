@@ -1,8 +1,8 @@
 import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
-import { diffpatcher } from '~/src/lib/delta/diffpatcher'
 import { currentWorkspaceSlug } from '~/src/constants'
+import { diffpatcher } from '~/src/lib/delta/diffpatcher'
 import { ensureNonNull } from '~/utils/ensure-non-null'
 import { BlogPostClient } from './page.client'
 
