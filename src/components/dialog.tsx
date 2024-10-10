@@ -1,9 +1,8 @@
 'use client'
 
-import { mergeProps } from '@react-aria/utils'
-import { useContext } from 'react'
+import { type PropsWithChildren, useContext, useMemo } from 'react'
 import { OverlayTriggerStateContext } from 'react-aria-components'
-import { Button, type ButtonProps } from '~/src/components/button'
+import { ButtonContext } from '~/src/components/button'
 
 export {
   DialogTrigger,
@@ -12,14 +11,12 @@ export {
   OverlayTriggerStateContext,
 } from 'react-aria-components'
 
-export function CloseDialogButton(props: ButtonProps) {
+export function CloseDialogButtonProvider({ children }: PropsWithChildren) {
   const { close } = useContext(OverlayTriggerStateContext)
 
+  const value = useMemo(() => ({ onPress: close }), [close])
+
   return (
-    <Button
-      {...mergeProps(props, {
-        onPress: close,
-      })}
-    />
+    <ButtonContext.Provider value={value}>{children}</ButtonContext.Provider>
   )
 }

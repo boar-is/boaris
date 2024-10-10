@@ -8,7 +8,7 @@ import {
   PendingFormDisabledButtonProvider,
 } from '~/src/components/button'
 import {
-  CloseDialogButton,
+  CloseDialogButtonProvider,
   Dialog,
   DialogTrigger,
 } from '~/src/components/dialog'
@@ -158,10 +158,12 @@ export default async function WorkspaceLayout({
                             >
                               Like the format?
                             </Heading>
-                            <CloseDialogButton className="rounded-sm text-gray-7">
-                              <span className="sr-only">Close</span>
-                              <CloseIcon className="size-6 md:size-8" />
-                            </CloseDialogButton>
+                            <CloseDialogButtonProvider>
+                              <Button className="rounded-sm text-gray-7">
+                                <span className="sr-only">Close</span>
+                                <CloseIcon className="size-6 md:size-8" />
+                              </Button>
+                            </CloseDialogButtonProvider>
                           </header>
                           <section className="flex flex-col gap-4">
                             <p>
