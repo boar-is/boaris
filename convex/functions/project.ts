@@ -2,7 +2,8 @@ import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
 import { createStorageMap } from '~/convex/utils/createStorageMap'
 import { formatCreationTime } from '~/convex/utils/date'
-import { ensureNonNull, ensurePresent } from '~/src/lib/utils/ensure'
+import { ensureNonNull } from '~/utils/ensure-non-null'
+import { ensurePresent } from '~/utils/ensure-present'
 
 export const params = query({
   handler: async ({ db }) => {

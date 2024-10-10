@@ -25,10 +25,10 @@ import {
 import { useWindowSize } from 'usehooks-ts'
 import { Image } from '~/app/_primitives/image'
 import { TextEditor } from '~/app/_primitives/text-editor'
-import { cx } from '~/src/lib/cx'
-import { diffpatcher } from '~/src/lib/diffpatcher'
+import { useLayoutContent } from '~/src/hooks/use-layout-content'
+import { diffpatcher } from '~/src/lib/delta/diffpatcher'
 import { JetBrainsMono } from '~/src/lib/fonts'
-import { useLayoutContent } from '~/src/lib/hooks/use-layout-content'
+import { cx } from '~/src/lib/react/cx'
 
 import { matchFileTypeIcon } from '~/src/lib/matchers/match-file-type-icon'
 import type { PostDoc } from '~/src/lib/model/docs/posts'
@@ -42,9 +42,10 @@ import type {
   LayoutValue,
 } from '~/src/lib/model/revision/layout'
 import { extensions } from '~/src/lib/tiptap/extensions'
-import { ensureDefined, ensureNonNull } from '~/src/lib/utils/ensure'
-import { findClosestIndex } from '~/src/lib/utils/find-closest-index'
-import { mapSkippedPair } from '~/src/lib/utils/map-skipped-pair'
+import { ensureDefined } from '~/utils/ensure-defined'
+import { ensureNonNull } from '~/utils/ensure-non-null'
+import { findClosestIndex } from '~/utils/find-closest-index'
+import { mapSkippedPair } from '~/utils/map-skipped-pair'
 
 const inlineTags = new Set(['code', 'span', 'strong', 'em', 'u', 's', 'a'])
 

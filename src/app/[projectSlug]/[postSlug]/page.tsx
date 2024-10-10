@@ -1,9 +1,9 @@
 import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
-import { diffpatcher } from '~/src/lib/diffpatcher'
-import { ensureNonNull } from '~/src/lib/utils/ensure'
-import { currentWorkspaceSlug } from '~/src/shared/constants'
+import { diffpatcher } from '~/src/lib/delta/diffpatcher'
+import { currentWorkspaceSlug } from '~/src/constants'
+import { ensureNonNull } from '~/utils/ensure-non-null'
 import { BlogPostClient } from './page.client'
 
 export async function generateStaticParams() {

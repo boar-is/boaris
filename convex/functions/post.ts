@@ -1,7 +1,8 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
 import { formatCreationTime } from '~/convex/utils/date'
-import { ensurePresent } from '~/src/lib/utils/ensure'
+
+import { ensurePresent } from '~/utils/ensure-present'
 
 export const params = query({
   handler: async ({ db }) => {

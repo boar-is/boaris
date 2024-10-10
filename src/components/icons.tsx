@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef } from 'react'
 import { Image } from '~/app/_primitives/image'
-import { cx } from '~/src/lib/cx'
+import { cx } from '~/src/lib/react/cx'
 
 import cssFileTypeSrc from '~/public/icons/file-types/css.svg'
 import defaultFileTypeSrc from '~/public/icons/file-types/default.svg'

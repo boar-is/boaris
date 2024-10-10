@@ -1,4 +1,4 @@
-import { ensureDefined } from './ensure'
+import { ensureDefined } from '~/utils/ensure-defined'
 
 export const findClosestIndex = <T>(
   sortedArr: Array<T>,

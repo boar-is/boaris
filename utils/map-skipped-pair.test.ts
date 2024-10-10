@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { toFixedNumber } from '~/src/lib/number'
+import { toFixedNumber } from '~/utils/to-fixed-number'
 import { mapSkippedPair } from './map-skipped-pair'
 
 describe.concurrent('mapSkippedPair', () => {

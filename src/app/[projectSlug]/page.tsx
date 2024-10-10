@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { Image } from '~/app/_primitives/image'
 import { Link } from '~/app/_primitives/link'
 import { api } from '~/convex/_generated/api'
-import { currentWorkspaceSlug } from '~/src/shared/constants'
+import { currentWorkspaceSlug } from '~/src/constants'
 
 export async function generateStaticParams() {
   return fetchQuery(api.functions.project.params)

@@ -19,12 +19,12 @@ import { Popover } from '~/app/_primitives/popover'
 import { Section } from '~/app/_primitives/section'
 import { Input, Label, TextField } from '~/app/_primitives/text-field'
 import { api } from '~/convex/_generated/api'
-import { cx } from '~/src/lib/cx'
+import { cx } from '~/src/lib/react/cx'
 import { Switzer } from '~/src/lib/fonts'
 import { matchSocialNetworkIcon } from '~/src/lib/matchers/match-social-network-icon'
 import { matchSocialNetworkName } from '~/src/lib/matchers/match-social-network-name'
 import { Providers } from '~/src/providers/providers'
-import { currentWorkspaceSlug } from '~/src/shared/constants'
+import { currentWorkspaceSlug } from '~/src/constants'
 
 const layerCx = cx('border border-gray-4 rounded-2xl p-4')
 const mutedCx = cx('transition-colors text-gray-10 hover:text-gray-12')
