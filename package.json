@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"next dev\" \"convex dev\"",
     "build": "next build",
     "start": "next start",
     "typescript:check": "tsc --noEmit --incremental",
@@ -54,7 +54,9 @@
     "@uiw/react-codemirror": "4.23.5",
     "@vitejs/plugin-react": "4.3.2",
     "clsx": "2.1.1",
+    "concurrently": "9.0.1",
     "convex": "1.16.4",
+    "convex-helpers": "0.1.59",
     "effect": "3.9.1",
     "framer-motion": "11.11.7",
     "jsdom": "25.0.1",
