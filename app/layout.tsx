@@ -5,6 +5,7 @@ import type { CSSProperties, PropsWithChildren } from 'react'
 import { CloseDialogButtonProvider } from '~/app/_components/close-dialog-button-provider'
 import { CloseIcon, MenuIcon } from '~/app/_components/icons'
 import { PendingFormDisabledButtonProvider } from '~/app/_components/pending-form-disabled-button-provider'
+import { SubscriptionFormProvider } from '~/app/_components/subscription-form-provider'
 import { Button } from '~/app/_primitives/button'
 import { Dialog, DialogTrigger } from '~/app/_primitives/dialog'
 import { FieldError, Form } from '~/app/_primitives/form'
@@ -24,7 +25,6 @@ import { matchSocialNetworkIcon } from '~/src/lib/matchers/match-social-network-
 import { matchSocialNetworkName } from '~/src/lib/matchers/match-social-network-name'
 import { Providers } from '~/src/providers/providers'
 import { currentWorkspaceSlug } from '~/src/shared/constants'
-import { SubscriptionFormProvider } from './_/subscriber-form-provider'
 
 const layerCx = cx('border border-gray-4 rounded-2xl p-4')
 const mutedCx = cx('transition-colors text-gray-10 hover:text-gray-12')
