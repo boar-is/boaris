@@ -1,5 +1,6 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
+import { formatCreationTime } from '~/convex/utils/date'
 import { ensurePresent } from '~/src/lib/utils/ensure'
 
 export const params = query({
@@ -66,6 +67,7 @@ export const page = query({
     return {
       post: {
         _id: post._id,
+        date: formatCreationTime(post._creationTime),
       },
     }
   },

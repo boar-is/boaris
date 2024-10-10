@@ -1,6 +1,7 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
 import { createStorageMap } from '~/convex/utils/createStorageMap'
+import { formatCreationTime } from '~/convex/utils/date'
 import { ensureNonNull, ensurePresent } from '~/src/lib/utils/ensure'
 
 export const params = query({
@@ -93,6 +94,7 @@ export const page = query({
         lead: it.lead,
         description: it.description,
         thumbnailSrc: getStorageUrl(it.thumbnailId),
+        date: formatCreationTime(it._creationTime),
         projectId: it.projectId,
       })),
       postTags: postTags.map((it) => ({

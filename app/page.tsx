@@ -1,18 +1,15 @@
-import { queryWorkspacePageData } from '~/src/rpc/query-workspace-page-data'
-import {
-  type WorkspacePageParams,
-  queryWorkspacePageParams,
-} from '~/src/rpc/query-workspace-page-params'
+import { fetchQuery } from 'convex/nextjs'
+import { api } from '~/convex/_generated/api'
 import { currentWorkspaceSlug } from '~/src/shared/constants'
 
 export async function generateStaticParams() {
-  return queryWorkspacePageParams()
+  return fetchQuery(api.functions.workspace.params)
 }
 
 export default async function WorkspacePage({
   params: { workspaceSlug = currentWorkspaceSlug },
-}: { params: WorkspacePageParams }) {
-  const data = await queryWorkspacePageData({
+}: { params: Awaited<ReturnType<typeof generateStaticParams>>[number] }) {
+  const data = await fetchQuery(api.functions.workspace.page, {
     workspaceSlug,
   })
 

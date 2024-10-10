@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"next dev\" \"convex dev\"",
+    "convex:dev": "convex dev",
     "build": "next build",
     "start": "next start",
     "typescript:check": "tsc --noEmit --incremental",

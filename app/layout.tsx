@@ -1,6 +1,8 @@
 import './globals.css'
+import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
 import type { CSSProperties, PropsWithChildren } from 'react'
+import { api } from '~/convex/_generated/api'
 import {
   Button,
   PendingFormDisabledButtonProvider,
@@ -26,7 +28,6 @@ import { cx } from '~/src/lib/cx'
 import { Switzer } from '~/src/lib/fonts'
 import { matchSocialNetworkIcon } from '~/src/lib/matchers/match-social-network-icon'
 import { matchSocialNetworkName } from '~/src/lib/matchers/match-social-network-name'
-import { queryWorkspaceLayoutData } from '~/src/rpc/query-workspace-layout-data'
 import { currentWorkspaceSlug } from '~/src/shared/constants'
 import { SubscriptionFormProvider } from './_/subscriber-form-provider'
 
@@ -39,9 +40,16 @@ const sectionMobileCx = cx('flex flex-col *:px-2 *:py-1')
 const headerMobileCx = cx('text-xs uppercase text-gray-9 tracking-tight')
 const itemMobileCx = cx('rounded-md')
 
-export default async function WorkspaceLayout({ children }: PropsWithChildren) {
-  const data = await queryWorkspaceLayoutData({
-    workspaceSlug: currentWorkspaceSlug,
+export default async function WorkspaceLayout({
+  children,
+  params: { workspaceSlug = currentWorkspaceSlug },
+}: PropsWithChildren & {
+  params: {
+    workspaceSlug: string
+  }
+}) {
+  const data = await fetchQuery(api.functions.workspace.layout, {
+    workspaceSlug,
   })
 
   if (!data) {
@@ -50,7 +58,7 @@ export default async function WorkspaceLayout({ children }: PropsWithChildren) {
 
   const { workspace } = data
 
-  const getComputedLabel = (label: string | null, href: string) =>
+  const getComputedLabel = (label: string | undefined, href: string) =>
     label ?? matchSocialNetworkName(href) ?? 'Link'
 
   return (
@@ -76,7 +84,7 @@ export default async function WorkspaceLayout({ children }: PropsWithChildren) {
                     {workspace.logoSrc && (
                       <Image
                         src={workspace.logoSrc}
-                        alt={`${name}'s logo`}
+                        alt={`${workspace.name}'s logo`}
                         width={36}
                         height={36}
                         className="rounded-[inherit] shadow-inner size-9"
