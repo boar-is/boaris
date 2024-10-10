@@ -5,6 +5,6 @@ import { socialLink } from '~/convex/values/socialLink'
 export const workspaces = defineTable({
   slug: v.string(),
   name: v.string(),
-  avatarId: v.optional(v.id('_storage')),
+  logoId: v.optional(v.id('_storage')),
   socialLinks: v.array(socialLink),
 }).index('by_slug', ['slug'])
