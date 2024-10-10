@@ -1,6 +1,6 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
-import { getStorageMap } from '~/convex/utils/getStorageMap'
+import { createStorageMap } from '~/convex/utils/createStorageMap'
 
 export const params = query({
   handler: async ({ db }) => {
@@ -22,18 +22,17 @@ export const layout = query({
       return null
     }
 
-    const storageMap = await getStorageMap(storage, workspace.logoId)
+    const { getStorageUrl } = await createStorageMap(storage, workspace.logoId)
 
     return {
       workspace: {
         name: workspace.name,
-        logoId: workspace.logoId,
+        logoSrc: getStorageUrl(workspace.logoId),
         socialLinks: workspace.socialLinks.map((it) => ({
           href: it.href,
           label: it.label,
         })),
       },
-      storageMap,
     }
   },
 })

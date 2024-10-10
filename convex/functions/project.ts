@@ -1,6 +1,7 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
-import { ensurePresent } from '~/src/lib/utils/ensure'
+import { createStorageMap } from '~/convex/utils/createStorageMap'
+import { ensureNonNull, ensurePresent } from '~/src/lib/utils/ensure'
 
 export const params = query({
   handler: async ({ db }) => {
@@ -47,6 +48,88 @@ export const page = query({
       .order('desc')
       .take(25)
 
-    const asd = await db.query('postTags').withIndex('by_postId', q => q.)
+    const [postTags, postAuthors] = await Promise.all([
+      Promise.all(
+        posts.map((post) =>
+          db
+            .query('postTags')
+            .withIndex('by_postId', (q) => q.eq('postId', post._id))
+            .collect(),
+        ),
+      ).then((it) => it.flat()),
+      Promise.all(
+        posts.map((post) =>
+          db
+            .query('postAuthors')
+            .withIndex('by_postId', (q) => q.eq('postId', post._id))
+            .collect(),
+        ),
+      ).then((it) => it.flat()),
+    ])
+
+    const [tags, users] = await Promise.all([
+      Promise.all(postTags.map((it) => db.get(it.tagId).then(ensureNonNull))),
+      Promise.all(
+        postAuthors.map((it) => db.get(it.authorId).then(ensureNonNull)),
+      ),
+    ])
+
+    const { getStorageUrl } = await createStorageMap(
+      storage,
+      ...posts.map((it) => it.thumbnailId),
+    )
+
+    return {
+      workspace: {
+        _id: workspace._id,
+        name: workspace.name,
+        logoSrc: getStorageUrl(workspace.logoId),
+        socialLinks: workspace.socialLinks.map((it) => ({
+          href: it.href,
+          label: it.label,
+        })),
+      },
+      project: {
+        _id: project._id,
+        slug: project.slug,
+        name: project.name,
+        workspaceId: project.workspaceId,
+      },
+      posts: posts.map((it) => ({
+        _id: it._id,
+        slug: it.slug,
+        title: it.title,
+        lead: it.lead,
+        description: it.description,
+        thumbnailSrc: getStorageUrl(it.thumbnailId),
+        projectId: it.projectId,
+      })),
+      postTags: postTags.map((it) => ({
+        _id: it._id,
+        postId: it.postId,
+        tagId: it.tagId,
+      })),
+      postAuthors: postAuthors.map((it) => ({
+        _id: it._id,
+        postId: it.postId,
+        authorId: it.authorId,
+      })),
+      tags: tags.map((it) => ({
+        _id: it._id,
+        slug: it.slug,
+        name: it.name,
+        isGlobal: it.projectId === undefined,
+      })),
+      users: users.map((it) => ({
+        _id: it._id,
+        slug: it.slug,
+        name: it.name,
+        avatarSrc: it.avatarSrc,
+        socialLinks: workspace.socialLinks.map((it) => ({
+          href: it.href,
+          label: it.label,
+        })),
+      })),
+    }
   },
 })
