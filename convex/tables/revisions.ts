@@ -19,7 +19,7 @@ const layoutLayer = v.object({
 })
 
 const trackBase = v.object({
-  _id: v.string(),
+  id: v.string(),
   name: v.string(),
 })
 
@@ -46,7 +46,7 @@ export const revisions = defineTable({
               /**
                * id is needed for patching optimizations
                */
-              _id: v.string(),
+              id: v.string(),
               /**
                * a number from 0 to 1
                */
