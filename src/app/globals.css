@@ -9,34 +9,36 @@
     scrollbar-color: #606060 transparent;
   }
 
-  *, *::before, *::after {
-    @apply border-gray-4 outline-gray-8
+  *,
+  *::before,
+  *::after {
+    @apply border-gray-4 outline-gray-8;
   }
 
   :focus-visible {
-    @apply outline-none
+    @apply outline-none;
   }
 
   .focus-visible :focus-visible {
-    @apply outline-2 outline-inherit outline-offset-2
+    @apply outline-2 outline-inherit outline-offset-2;
   }
 }
 
 .tiptap {
-  @apply rounded-md
+  @apply rounded-md;
 }
 
 .tiptap .is-editor-empty:first-child::before {
-  @apply text-gray-7 content-[attr(data-placeholder)] float-left h-0 pointer-events-none
+  @apply text-gray-7 content-[attr(data-placeholder)] float-left h-0 pointer-events-none;
 }
 
 .cm-scroller {
-  @apply bg-gray-2 font-mono text-sm z-10 !important
+  @apply bg-gray-2 font-mono text-sm z-10 !important;
 }
 
 @layer components {
   .typography {
-    @apply max-w-prose text-pretty text-gray-11
+    @apply max-w-prose text-pretty text-gray-11;
   }
 
   .typography .tiptap > *:first-child {
@@ -48,50 +50,51 @@
   }
 
   .typography :where([data-slot~="heading"]) {
-    @apply text-gray-12 mt-8 mb-3 text-3xl font-semibold tracking-tight text-balance
+    @apply text-gray-12 mt-8 mb-3 text-3xl font-semibold tracking-tight text-balance;
   }
 
   .typography :where([data-slot~="subheading"]) {
-    @apply text-gray-12 mt-4 mb-2 text-2xl font-medium tracking-tighter text-balance
+    @apply text-gray-12 mt-4 mb-2 text-2xl font-medium tracking-tighter text-balance;
   }
 
   .typography :where(p) {
-    @apply my-5 leading-relaxed text-lg first:mt-0
+    @apply my-5 leading-relaxed text-lg first:mt-0;
   }
 
   .typography :where(code) {
-    @apply font-mono text-[80%] font-medium [font-variant-ligatures:normal] border border-gray-4 py-[0.25%] px-[1%] bg-gray-2 text-gray-11 rounded-md tracking-normal  
+    @apply font-mono text-[80%] font-medium [font-variant-ligatures:normal] border border-gray-4 py-[0.25%] px-[1%] bg-gray-2 text-gray-11 rounded-md tracking-normal;
   }
 
   .typography :where(strong) {
-    @apply text-gray-12
+    @apply text-gray-12;
   }
 
   .typography :where(a) {
-    @apply text-gray-12 cursor-pointer border-b border-transparent hover:border-current font-medium transition-colors
+    @apply text-gray-12 cursor-pointer border-b border-transparent hover:border-current font-medium transition-colors;
   }
 
   .typography :where(ol, ul) {
-    @apply my-5 pl-6
+    @apply my-5 pl-6;
   }
 
   .typography :where(ol) {
-    @apply list-decimal
+    @apply list-decimal;
   }
 
   .typography :where(ul) {
-    @apply list-disc
+    @apply list-disc;
   }
 
   .typography :where(ul ul) {
-    @apply list-[square]
+    @apply list-[square];
   }
 
   .typography :where(li) {
-    @apply marker:text-gray-8
+    @apply marker:text-gray-8;
   }
 
-  .typography :where([data-slot~="heading"] + *, [data-slot~="subheading"] + *) {
-    @apply mt-0
+  .typography
+    :where([data-slot~="heading"] + *, [data-slot~="subheading"] + *) {
+    @apply mt-0;
   }
 }
