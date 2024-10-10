@@ -1,22 +1,19 @@
+import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
+import { api } from '~/convex/_generated/api'
 import { diffpatcher } from '~/src/lib/diffpatcher'
 import { ensureNonNull } from '~/src/lib/utils/ensure'
-import { queryWorkspaceProjectPostPageData } from '~/src/rpc/query-workspace-project-post-page-data'
-import {
-  type WorkspaceProjectPostPageParams,
-  queryWorkspaceProjectPostPageStaticParams,
-} from '~/src/rpc/query-workspace-project-post-page-params'
 import { currentWorkspaceSlug } from '~/src/shared/constants'
 import { BlogPostClient } from './page.client'
 
 export async function generateStaticParams() {
-  return queryWorkspaceProjectPostPageStaticParams()
+  return fetchQuery(api.functions.post.params)
 }
 
 export default async function WorkspaceProjectPostPage({
   params: { workspaceSlug = currentWorkspaceSlug, projectSlug, postSlug },
-}: { params: WorkspaceProjectPostPageParams }) {
-  const data = await queryWorkspaceProjectPostPageData({
+}: { params: Awaited<ReturnType<typeof generateStaticParams>>[number] }) {
+  const data = await fetchQuery(api.functions.post.page, {
     workspaceSlug,
     projectSlug,
     postSlug,
