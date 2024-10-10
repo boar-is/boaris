@@ -1,15 +1,6 @@
-'use client'
-
 import { type PropsWithChildren, useContext, useMemo } from 'react'
-import { OverlayTriggerStateContext } from 'react-aria-components'
-import { ButtonContext } from '~/app/_components/button'
-
-export {
-  DialogTrigger,
-  Dialog,
-  DialogContext,
-  OverlayTriggerStateContext,
-} from 'react-aria-components'
+import { ButtonContext } from '~/app/_primitives/button'
+import { OverlayTriggerStateContext } from '~/app/_primitives/dialog'
 
 export function CloseDialogButtonProvider({ children }: PropsWithChildren) {
   const { close } = useContext(OverlayTriggerStateContext)
