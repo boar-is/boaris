@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef } from 'react'
-import { Image } from '~/src/components/image'
+import { Image } from '~/app/_components/image'
 import { cx } from '~/src/lib/cx'
 
 import cssFileTypeSrc from '~/public/icons/file-types/css.svg'

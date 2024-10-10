@@ -2,7 +2,7 @@
 
 import { type PropsWithChildren, useContext, useMemo } from 'react'
 import { OverlayTriggerStateContext } from 'react-aria-components'
-import { ButtonContext } from '~/src/components/button'
+import { ButtonContext } from '~/app/_components/button'
 
 export {
   DialogTrigger,
