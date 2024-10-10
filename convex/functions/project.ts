@@ -8,7 +8,7 @@ export const params = query({
     const projects = await db.query('projects').order('desc').take(100)
 
     const workspaces = await Promise.all(
-      projects.map(async (it) => db.get(it.workspaceId)),
+      projects.map((it) => db.get(it.workspaceId)),
     )
 
     return projects.map((project, index) => ({
@@ -80,15 +80,6 @@ export const page = query({
     )
 
     return {
-      workspace: {
-        _id: workspace._id,
-        name: workspace.name,
-        logoSrc: getStorageUrl(workspace.logoId),
-        socialLinks: workspace.socialLinks.map((it) => ({
-          href: it.href,
-          label: it.label,
-        })),
-      },
       project: {
         _id: project._id,
         slug: project.slug,
