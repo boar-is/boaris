@@ -23,25 +23,13 @@ import {
   useState,
 } from 'react'
 import { useWindowSize } from 'usehooks-ts'
-import { Image } from '~/app/_primitives/image'
-import { TextEditor } from '~/app/_primitives/text-editor'
-import { useLayoutContent } from '~/src/hooks/use-layout-content'
 import { diffpatcher } from '~/src/lib/delta/diffpatcher'
 import { JetBrainsMono } from '~/src/lib/fonts'
 import { cx } from '~/src/lib/react/cx'
 
 import { matchFileTypeIcon } from '~/src/lib/matchers/match-file-type-icon'
-import type { PostDoc } from '~/src/lib/model/docs/posts'
-import type { Track } from '~/src/lib/model/docs/revisions'
-import type { StorageDoc } from '~/src/lib/model/docs/storages'
-import type { Captions } from '~/src/lib/model/revision/captions'
-import type {
-  Layout,
-  LayoutGrid,
-  LayoutMode,
-  LayoutValue,
-} from '~/src/lib/model/revision/layout'
 import { extensions } from '~/src/lib/tiptap/extensions'
+import { TextEditor } from '~/src/primitives/text-editor'
 import { ensureDefined } from '~/utils/ensure-defined'
 import { ensureNonNull } from '~/utils/ensure-non-null'
 import { findClosestIndex } from '~/utils/find-closest-index'

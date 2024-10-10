@@ -1,8 +1,8 @@
 'use client'
 
 import { type JSONContent, useEditor } from '@tiptap/react'
-import { TextEditor } from '~/app/_primitives/text-editor'
 import { extensions } from '~/src/lib/tiptap/extensions'
+import { TextEditor } from '~/src/primitives/text-editor'
 
 const content: JSONContent = {
   type: 'doc',

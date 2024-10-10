@@ -1,9 +1,9 @@
 import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
-import { Image } from '~/app/_primitives/image'
-import { Link } from '~/app/_primitives/link'
 import { api } from '~/convex/_generated/api'
 import { currentWorkspaceSlug } from '~/src/constants'
+import { Image } from '~/src/primitives/image'
+import { Link } from '~/src/primitives/link'
 
 export async function generateStaticParams() {
   return fetchQuery(api.functions.project.params)

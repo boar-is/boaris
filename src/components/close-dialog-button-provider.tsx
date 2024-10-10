@@ -1,6 +1,6 @@
 import { type PropsWithChildren, useContext, useMemo } from 'react'
-import { ButtonContext } from '~/app/_primitives/button'
-import { OverlayTriggerStateContext } from '~/app/_primitives/dialog'
+import { ButtonContext } from '~/src/primitives/button'
+import { OverlayTriggerStateContext } from '~/src/primitives/dialog'
 
 export function CloseDialogButtonProvider({ children }: PropsWithChildren) {
   const { close } = useContext(OverlayTriggerStateContext)

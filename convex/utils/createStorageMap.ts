@@ -1,6 +1,6 @@
 import type { StorageReader } from 'convex/server'
+import type { Id } from '~/convex/_generated/dataModel'
 import { ensureDefined } from '~/utils/ensure-defined'
-import type { Id } from '../_generated/dataModel'
 
 export const createStorageMap = async (
   storage: StorageReader,
