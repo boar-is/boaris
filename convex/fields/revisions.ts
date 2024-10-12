@@ -1,4 +1,3 @@
-import { defineTable } from 'convex/server'
 import { v } from 'convex/values'
 import { interpolation } from '~/convex/values/interpolation'
 
@@ -23,7 +22,7 @@ const trackBase = v.object({
   name: v.string(),
 })
 
-export const revisions = defineTable({
+export const revisionFields = {
   captions: v.optional(
     v.object({
       /**
@@ -108,4 +107,4 @@ export const revisions = defineTable({
       ),
     ),
   ),
-})
+}
