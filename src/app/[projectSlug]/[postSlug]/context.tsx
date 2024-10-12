@@ -42,7 +42,7 @@ export function WorkspaceProjectPostProvider({
     },
     tracks,
     windowWidth: 0,
-    layoutMode: 'scrolling' as LayoutMode,
+    layoutMode: 'scrolling',
     scrollYProgress: 0,
   })
 
