@@ -19,7 +19,7 @@ const radixGray = {
 } as const
 
 const tailwindConfig = {
-  content: ['./app/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     colors: {
       transparent: 'transparent',

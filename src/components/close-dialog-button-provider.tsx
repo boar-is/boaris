@@ -1,3 +1,5 @@
+'use client'
+
 import { type PropsWithChildren, useContext, useMemo } from 'react'
 import { ButtonContext } from '~/src/primitives/button'
 import { OverlayTriggerStateContext } from '~/src/primitives/dialog'

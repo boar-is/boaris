@@ -32,7 +32,7 @@ export default async function WorkspaceProjectPage({
         posts.map((post) => (
           <Link
             key={post.slug}
-            href={`/[projectSlug]/${post.slug}`}
+            href={`/${project.slug}/${post.slug}`}
             className="group rounded-xl md:rounded-3xl"
           >
             <article className="flex flex-col justify-between md:group-even:flex-row md:flex-row-reverse border border-gray-3 rounded-[inherit] overflow-hidden transition-colors bg-gradient-to-tr from-gray-1 to-gray-2">

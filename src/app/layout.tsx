@@ -253,7 +253,10 @@ export default async function WorkspaceLayout({
                               rel="noopener noreferrer"
                               className={itemMobileCx}
                             >
-                              {socialLink.label}
+                              {getComputedLabel(
+                                socialLink.label,
+                                socialLink.href,
+                              )}
                             </MenuItem>
                           ))}
                         </Section>

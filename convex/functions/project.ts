@@ -100,6 +100,7 @@ export const page = query({
     return {
       project: {
         name: project.name,
+        slug: project.slug,
       },
       posts,
     }

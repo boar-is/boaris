@@ -23,7 +23,7 @@ const baseNextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'picsum.photos',
+        hostname: process.env['NEXT_PUBLIC_CONVEX_URL'].replace('https://', ''),
         port: '',
       },
     ],

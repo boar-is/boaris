@@ -1,3 +1,5 @@
+'use client'
+
 import { type PropsWithChildren, useMemo } from 'react'
 import { useFormStatus } from 'react-dom'
 import { ButtonContext } from '~/src/primitives/button'
