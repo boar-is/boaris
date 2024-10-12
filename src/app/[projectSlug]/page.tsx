@@ -47,10 +47,10 @@ export default async function WorkspaceProjectPage({
               className="group rounded-xl md:rounded-3xl"
             >
               <article className="flex flex-col justify-between md:group-even:flex-row md:flex-row-reverse border border-gray-3 rounded-[inherit] overflow-hidden transition-colors bg-gradient-to-tr from-gray-1 to-gray-2">
-                {post.thumbnailSrc && (
+                {post.thumbnailUrl && (
                   <aside className="relative basis-2/5 aspect-video">
                     <Image
-                      src={post.thumbnailSrc}
+                      src={post.thumbnailUrl}
                       alt={`${post.title}'s thumbnail`}
                       width={1024}
                       height={768}
@@ -92,10 +92,10 @@ export default async function WorkspaceProjectPage({
                           key={author.slug}
                           className="flex items-center gap-1.5 md:gap-2"
                         >
-                          {author.avatarSrc && (
+                          {author.avatarUrl && (
                             <aside className="relative size-6 md:size-8 rounded-full overflow-hidden border shadow-inner">
                               <Image
-                                src={author.avatarSrc}
+                                src={author.avatarUrl}
                                 alt={`${author.name}'s avatar`}
                                 width={32}
                                 height={32}

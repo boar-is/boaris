@@ -67,7 +67,6 @@ export const page = query({
 
     return {
       post: {
-        _id: post._id,
         date: formatCreationTime(post._creationTime),
       },
     }

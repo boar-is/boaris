@@ -1,7 +1,6 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
-import { createStorageMap } from '~/convex/utils/createStorageMap'
-import { formatCreationTime } from '~/convex/utils/date'
+import { getUrl } from '~/convex/utils/getUrl'
 import { ensureNonNull } from '~/utils/ensure-non-null'
 import { ensurePresent } from '~/utils/ensure-present'
 
@@ -43,87 +42,60 @@ export const page = query({
       return project
     }
 
-    const posts = await db
+    const latestPosts = await db
       .query('posts')
       .withIndex('by_projectId_slug', (q) => q.eq('projectId', project._id))
       .filter((q) => q.not(q.eq('publishedRevisionId', undefined)))
       .order('desc')
       .take(25)
 
-    const [postTags, postAuthors] = await Promise.all([
-      Promise.all(
-        posts.map((post) =>
+    const posts = await Promise.all(
+      latestPosts.map(async (post) => {
+        const [postTags, postAuthors] = await Promise.all([
           db
             .query('postTags')
             .withIndex('by_postId', (q) => q.eq('postId', post._id))
             .collect(),
-        ),
-      ).then((it) => it.flat()),
-      Promise.all(
-        posts.map((post) =>
           db
             .query('postAuthors')
             .withIndex('by_postId', (q) => q.eq('postId', post._id))
             .collect(),
-        ),
-      ).then((it) => it.flat()),
-    ])
+        ])
 
-    const [tags, users] = await Promise.all([
-      Promise.all(postTags.map((it) => db.get(it.tagId).then(ensureNonNull))),
-      Promise.all(
-        postAuthors.map((it) => db.get(it.authorId).then(ensureNonNull)),
-      ),
-    ])
+        const [tags, authors, thumbnailUrl] = await Promise.all([
+          Promise.all(
+            postTags.map((it) => db.get(it.tagId).then(ensureNonNull)),
+          ),
+          Promise.all(
+            postAuthors.map((it) => db.get(it.authorId).then(ensureNonNull)),
+          ),
+          getUrl(storage, post.thumbnailId),
+        ])
 
-    const { getStorageUrl } = await createStorageMap(
-      storage,
-      ...posts.map((it) => it.thumbnailId),
+        return {
+          slug: post.slug,
+          title: post.title,
+          lead: post.lead,
+          description: post.description,
+          thumbnailUrl,
+          tags: tags.map((it) => ({
+            slug: it.slug,
+            name: it.name,
+          })),
+          authors: authors.map((it) => ({
+            slug: it.slug,
+            name: it.name,
+            avatarUrl: it.avatarUrl,
+          })),
+        }
+      }),
     )
 
     return {
       project: {
-        _id: project._id,
-        slug: project.slug,
         name: project.name,
-        workspaceId: project.workspaceId,
       },
-      posts: posts.map((it) => ({
-        _id: it._id,
-        slug: it.slug,
-        title: it.title,
-        lead: it.lead,
-        description: it.description,
-        thumbnailSrc: getStorageUrl(it.thumbnailId),
-        date: formatCreationTime(it._creationTime),
-        projectId: it.projectId,
-      })),
-      postTags: postTags.map((it) => ({
-        _id: it._id,
-        postId: it.postId,
-        tagId: it.tagId,
-      })),
-      postAuthors: postAuthors.map((it) => ({
-        _id: it._id,
-        postId: it.postId,
-        authorId: it.authorId,
-      })),
-      tags: tags.map((it) => ({
-        _id: it._id,
-        slug: it.slug,
-        name: it.name,
-        isGlobal: it.projectId === undefined,
-      })),
-      users: users.map((it) => ({
-        _id: it._id,
-        slug: it.slug,
-        name: it.name,
-        avatarSrc: it.avatarSrc,
-        socialLinks: workspace.socialLinks.map((it) => ({
-          href: it.href,
-          label: it.label,
-        })),
-      })),
+      posts,
     }
   },
 })

@@ -76,9 +76,9 @@ export default async function WorkspaceLayout({
                       'gap-2 select-none text-gray-12 text-lg leading-tight break-all',
                     )}
                   >
-                    {workspace.logoSrc && (
+                    {workspace.logoUrl && (
                       <Image
-                        src={workspace.logoSrc}
+                        src={workspace.logoUrl}
                         alt={`${workspace.name}'s logo`}
                         width={36}
                         height={36}

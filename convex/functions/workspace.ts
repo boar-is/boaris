@@ -27,7 +27,7 @@ export const layout = query({
     return {
       workspace: {
         name: workspace.name,
-        logoSrc: getStorageUrl(workspace.logoId),
+        logoUrl: getStorageUrl(workspace.logoId),
         socialLinks: workspace.socialLinks.map((it) => ({
           href: it.href,
           label: it.label,
@@ -50,7 +50,9 @@ export const page = query({
     }
 
     return {
-      workspace,
+      workspace: {
+        name: workspace.name,
+      },
     }
   },
 })
