@@ -58,7 +58,7 @@ export default async function WorkspaceLayout({
 
   return (
     <html lang="en" className={Switzer.variable}>
-      <body className="dark flex flex-col gap-4 md:gap-10 items-stretch h-0 min-h-dvh bg-gray-1 font-sans text-gray-11 antialiased">
+      <body className="dark flex flex-col gap-4 md:gap-10 items-stretch min-h-dvh bg-gray-1 font-sans text-gray-11 antialiased">
         <Providers>
           <header className="container sticky z-10 top-0 py-3">
             <nav

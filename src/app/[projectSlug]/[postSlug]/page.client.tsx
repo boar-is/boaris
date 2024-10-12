@@ -26,10 +26,12 @@ export function WorkspaceProjectClientPage() {
   return (
     <div>
       <div className="fixed bottom-0 left-0">
-        <Memo>{state$.scrollYProgress}</Memo>
+        <div>
+          <Memo>{state$.scrollYProgress}</Memo>
+        </div>
       </div>
-      <div className="h-[400dvh]" ref={scrollableRef}>
-        1
+      <div className="h-[400dvh] bg-gray-12/5" ref={scrollableRef}>
+        2
       </div>
     </div>
   )
