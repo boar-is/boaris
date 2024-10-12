@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"next dev\" \"convex dev\"",
+    "predev": "convex dev --until-success",
     "convex:dev": "convex dev",
     "build": "next build",
     "start": "next start",
+    "test": "vitest",
     "typescript:check": "tsc --noEmit --incremental",
     "biome:all": "biome check --write --unsafe ./"
   },
