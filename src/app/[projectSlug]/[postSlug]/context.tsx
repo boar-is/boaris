@@ -25,12 +25,10 @@ const mapToContextValue = ({ post, captions, layouts, tracks }: PageData) => ({
   tracks,
 })
 
-export type WorkspaceProjectPostContextValue = ReturnType<
-  typeof mapToContextValue
->
+export type WorkspaceProjectPostState = ReturnType<typeof mapToContextValue>
 
 export const [WorkspaceProjectPostContext, useWorkspaceProjectPostContext] =
-  createStrictContext<Observable<WorkspaceProjectPostContextValue>>({
+  createStrictContext<Observable<WorkspaceProjectPostState>>({
     name: 'WorkspaceProjectPostContext',
   })
 
@@ -40,12 +38,12 @@ export function WorkspaceProjectPostProvider({
 }: PropsWithChildren & {
   data: PageData
 }) {
-  const value$ = useObservable<WorkspaceProjectPostContextValue>(
+  const state$ = useObservable<WorkspaceProjectPostState>(
     mapToContextValue(data),
   )
 
   return (
-    <WorkspaceProjectPostContext.Provider value={value$}>
+    <WorkspaceProjectPostContext.Provider value={state$}>
       {children}
     </WorkspaceProjectPostContext.Provider>
   )
