@@ -4,13 +4,11 @@ import {
 } from 'react'
 
 export interface CreateContextOptions {
-  strict?: boolean
   errorMessage?: string
   name?: string
 }
 
-export function createContext<ContextType>({
-  strict = true,
+export function createStrictContext<ContextType>({
   errorMessage = 'useContext: `context` is undefined. Seems you forgot to wrap component within the Provider',
   name,
 }: CreateContextOptions = {}) {
@@ -21,7 +19,7 @@ export function createContext<ContextType>({
   function useContext() {
     const context = _useContext(Context)
 
-    if (!context && strict) {
+    if (!context) {
       const error = new Error(errorMessage)
 
       error.name = 'ContextError'

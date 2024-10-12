@@ -1,8 +1,9 @@
 import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
+import { WorkspaceProjectPostProvider } from '~/src/app/[projectSlug]/[postSlug]/context'
+import { WorkspaceProjectClientPage } from '~/src/app/[projectSlug]/[postSlug]/page.client'
 import { currentWorkspaceSlug } from '~/src/constants'
-import { BlogPostClient } from './page.client'
 
 export async function generateStaticParams() {
   return fetchQuery(api.functions.post.params)
@@ -21,17 +22,11 @@ export default async function WorkspaceProjectPostPage({
     notFound()
   }
 
-  const { post } = data
-
   return (
     <div className="flex flex-col container min-h-full">
-      <BlogPostClient
-        post={post}
-        captions={revisionValue.captions}
-        tracks={revisionValue.tracks}
-        layout={revisionValue.layout}
-        storageMap={storageMap}
-      />
+      <WorkspaceProjectPostProvider data={data}>
+        <WorkspaceProjectClientPage />
+      </WorkspaceProjectPostProvider>
     </div>
   )
 }
