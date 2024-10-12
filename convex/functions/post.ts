@@ -1,7 +1,7 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
 import { formatCreationTime } from '~/convex/utils/date'
-
+import { getUrl } from '~/convex/utils/getUrl'
 import { ensurePresent } from '~/utils/ensure-present'
 
 export const params = query({
@@ -65,10 +65,83 @@ export const page = query({
 
     const revision = await db.get(post.publishedRevisionId)
 
+    if (!revision) {
+      return null
+    }
+
+    const thumbnailUrl = await getUrl(storage, post.thumbnailId)
+
+    const captions = revision.captions && {
+      value: revision.captions.value,
+      interpolation: revision.captions.interpolation,
+    }
+
+    const layouts = revision.layouts && {
+      primary: {
+        modes: revision.layouts.primary.modes,
+        /**
+         * this field should be mapped as-is due to the patching logic, see changesDelta from overrides
+         */
+        changes: revision.layouts.primary.changes,
+      },
+      overrides: revision.layouts.overrides
+        ?.filter((it) => !it.disabled)
+        .map((it) => ({
+          modes: it.modes,
+          minWidthPx: it.minWidthPx,
+          changesDelta: it.changesDelta,
+        })),
+    }
+
+    const tracks =
+      revision.tracks &&
+      (await Promise.all(
+        revision.tracks.map(async (track) => {
+          switch (track.type) {
+            case 'dynamic-image': {
+              return {
+                id: track.id,
+                name: track.name,
+                type: track.type,
+                url: await getUrl(storage, track.storageId),
+                caption: track.caption,
+              }
+            }
+            case 'static-image': {
+              return {
+                id: track.id,
+                name: track.name,
+                type: track.type,
+                url: await getUrl(storage, track.storageId),
+                caption: track.caption,
+                alt: track.alt,
+              }
+            }
+            case 'text': {
+              return {
+                id: track.id,
+                name: track.name,
+                type: track.type,
+                value: track.value,
+              }
+            }
+            default:
+              throw new Error(`Unknown track type '${track['type']}'`)
+          }
+        }),
+      ))
+
     return {
       post: {
+        title: post.title,
+        lead: post.lead,
+        description: post.description,
         date: formatCreationTime(post._creationTime),
+        thumbnailUrl,
       },
+      captions,
+      layouts,
+      tracks,
     }
   },
 })
