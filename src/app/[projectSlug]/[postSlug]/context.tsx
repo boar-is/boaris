@@ -5,6 +5,7 @@ import { useObservable } from '@legendapp/state/react'
 import type { FunctionReturnType } from 'convex/server'
 import type { PropsWithChildren } from 'react'
 import type { api } from '~/convex/_generated/api'
+import type { LayoutMode } from '~/convex/fields/revisions'
 import { createStrictContext } from '~/src/lib/react/create-strict-context'
 
 type PageData = NonNullable<FunctionReturnType<typeof api.functions.post.page>>
@@ -23,6 +24,9 @@ const mapToContextValue = ({ post, captions, layouts, tracks }: PageData) => ({
     })),
   },
   tracks,
+  scrollYProgress: 0,
+  windowWidth: 0,
+  layoutMode: 'scrolling' as LayoutMode,
 })
 
 export type WorkspaceProjectPostState = ReturnType<typeof mapToContextValue>

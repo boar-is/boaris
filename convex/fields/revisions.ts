@@ -8,6 +8,8 @@ const layoutMode = v.union(
   v.literal('sliding'),
 )
 
+export type LayoutMode = typeof layoutMode.type
+
 const layoutLayer = v.object({
   /**
    * Values are track IDs or a null token (`.`)
