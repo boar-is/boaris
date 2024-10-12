@@ -5,5 +5,5 @@ export const getUrl = async (
   storage: StorageReader,
   id: Id<'_storage'> | null | undefined,
 ) => {
-  return id ? storage.getUrl(id) : null
+  return id ? storage.getUrl(id) : undefined
 }
