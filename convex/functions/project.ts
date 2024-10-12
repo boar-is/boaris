@@ -1,5 +1,6 @@
-import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
+import { projectFields } from '~/convex/fields/projects'
+import { workspaceFields } from '~/convex/fields/workspaces'
 import { formatCreationTime } from '~/convex/utils/date'
 import { getUrl } from '~/convex/utils/getUrl'
 import { ensureNonNull } from '~/utils/ensure-non-null'
@@ -21,7 +22,10 @@ export const params = query({
 })
 
 export const page = query({
-  args: { workspaceSlug: v.string(), projectSlug: v.string() },
+  args: {
+    workspaceSlug: workspaceFields.slug,
+    projectSlug: projectFields.slug,
+  },
   handler: async ({ db, storage }, { workspaceSlug, projectSlug }) => {
     const workspace = await db
       .query('workspaces')
