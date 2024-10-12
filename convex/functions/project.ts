@@ -1,5 +1,6 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
+import { formatCreationTime } from '~/convex/utils/date'
 import { getUrl } from '~/convex/utils/getUrl'
 import { ensureNonNull } from '~/utils/ensure-non-null'
 import { ensurePresent } from '~/utils/ensure-present'
@@ -78,6 +79,7 @@ export const page = query({
           lead: post.lead,
           description: post.description,
           thumbnailUrl,
+          date: formatCreationTime(post._creationTime),
           tags: tags.map((it) => ({
             slug: it.slug,
             name: it.name,
