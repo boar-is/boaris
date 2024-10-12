@@ -24,9 +24,9 @@ const mapToContextValue = ({ post, captions, layouts, tracks }: PageData) => ({
     })),
   },
   tracks,
-  scrollYProgress: 0,
   windowWidth: 0,
   layoutMode: 'scrolling' as LayoutMode,
+  scrollYProgress: 0,
 })
 
 export type WorkspaceProjectPostState = ReturnType<typeof mapToContextValue>
