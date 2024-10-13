@@ -8,7 +8,7 @@ import {
 
 export type TextEditorProps = {
   editor: Editor | null
-  content?: JSONContent | undefined
+  content?: JSONContent | null | undefined
   extensions: Extensions
 }
 
@@ -19,7 +19,7 @@ export function TextEditor({ editor, content, extensions }: TextEditorProps) {
     }
 
     return (
-      // Simulating TipTap layout
+      // Emulating TipTap layout
       <div>
         <div
           className="tiptap ProseMirror"

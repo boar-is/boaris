@@ -2,7 +2,7 @@
 
 import { observer } from '@legendapp/state/react'
 import { useResizeObserver } from '@react-aria/utils'
-import { useEditor } from '@tiptap/react'
+import { type JSONContent, useEditor } from '@tiptap/react'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { useWindowSize } from 'usehooks-ts'
@@ -31,7 +31,7 @@ export const WorkspaceProjectClientPage = observer(
     })
     useEffect(() => state$.windowWidth.set(width), [state$, width])
 
-    const content = state$.captions.value.get()
+    const content: JSONContent | null = state$.captions.value.get() ?? null
 
     const editor = useEditor(
       {
