@@ -44,37 +44,24 @@ export default async function WorkspaceProjectPage({
                     />
                   </aside>
                 )}
-                <section className="flex-1 flex flex-col gap-3 lg:gap-4">
+                <section className="flex-1 flex flex-col gap-2 lg:gap-3">
                   <header>
-                    <hgroup className="space-y-1">
-                      <h3 className="text-2xl lg:text-3xl font-medium tracking-tight text-gray-12 text-balance">
-                        {post.title}
-                      </h3>
-                      {post.authors.length && (
-                        <ul className="space-y-1 lg:space-y-2 text-gray-8 text-sm lg:text-base font-semibold tracking-tight">
-                          {post.authors.map((author) => (
-                            <li
-                              key={author.slug}
-                              className="flex items-center gap-1.5 lg:gap-2"
-                            >
-                              {author.avatarUrl && (
-                                <aside className="relative size-6 lg:size-8 rounded-full overflow-hidden border shadow-inner">
-                                  <Image
-                                    src={author.avatarUrl}
-                                    alt={`${author.name}'s avatar`}
-                                    width={32}
-                                    height={32}
-                                    className="size-full object-cover shadow-inner"
-                                  />
-                                </aside>
-                              )}
-                              {author.name}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </hgroup>
+                    <h3 className="text-2xl lg:text-3xl font-medium tracking-tight text-gray-12 text-balance">
+                      {post.title}
+                    </h3>
                   </header>
+
+                  {post.tags.length && (
+                    <ul className="flex flex-wrap gap-1 lg:gap-1.5 text-xs lg:text-sm font-medium tracking-wide text-gray-8 *:my-0.5">
+                      {post.tags.map((tag) => (
+                        <li key={tag.slug}>
+                          <span className="border border-gray-7 rounded-full px-3 py-0.5">
+                            {tag.name}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
 
                   {post.lead && (
                     <p className="text-gray-10 text-pretty !leading-relaxed max-w-prose">
@@ -83,13 +70,25 @@ export default async function WorkspaceProjectPage({
                   )}
 
                   <footer className="flex justify-between gap-8 items-center">
-                    {post.tags.length && (
-                      <ul className="flex flex-wrap gap-1 lg:gap-1.5 text-xs lg:text-sm font-medium tracking-wide text-gray-8 *:my-0.5">
-                        {post.tags.map((tag) => (
-                          <li key={tag.slug}>
-                            <span className="border border-gray-7 rounded-full px-3 py-0.5">
-                              {tag.name}
-                            </span>
+                    {post.authors.length && (
+                      <ul className="space-y-1 lg:space-y-2 text-gray-8 text-sm lg:text-base font-medium tracking-tight">
+                        {post.authors.map((author) => (
+                          <li
+                            key={author.slug}
+                            className="flex items-center gap-1.5 lg:gap-2"
+                          >
+                            {author.avatarUrl && (
+                              <aside className="relative size-6 lg:size-8 rounded-full overflow-hidden border shadow-inner">
+                                <Image
+                                  src={author.avatarUrl}
+                                  alt={`${author.name}'s avatar`}
+                                  width={32}
+                                  height={32}
+                                  className="size-full object-cover shadow-inner"
+                                />
+                              </aside>
+                            )}
+                            {author.name}
                           </li>
                         ))}
                       </ul>

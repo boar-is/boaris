@@ -16,7 +16,10 @@ import { mapSkippedPair } from '~/utils/map-skipped-pair'
 
 type PageData = NonNullable<FunctionReturnType<typeof api.functions.post.page>>
 
-export type WorkspaceProjectPostState = PageData & {
+export type WorkspaceProjectPostState = {
+  captions: PageData['captions']
+  layouts: PageData['layouts']
+  tracks: PageData['tracks']
   windowWidth: number
   scrollYProgress: number
   layoutMode: LayoutMode
@@ -37,12 +40,11 @@ export const [WorkspaceProjectPostContext, useWorkspaceProjectPostContext] =
 
 export function WorkspaceProjectPostProvider({
   children,
-  data: { post, captions, layouts, tracks },
+  data: { captions, layouts, tracks },
 }: PropsWithChildren & {
   data: PageData
 }) {
   const state$ = useObservable({
-    post,
     captions: captions && {
       ...captions,
       value: ObservableHint.plain(captions.value),

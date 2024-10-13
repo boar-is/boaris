@@ -48,25 +48,13 @@ export default async function WorkspaceProjectPostPage({
             <h1 className="text-4xl text-gray-12 font-semibold tracking-tight text-balance">
               {data.post.title}
             </h1>
-            {data.authors.length && (
-              <ul className="space-y-1 lg:space-y-2 text-gray-8 lg:text-lg font-semibold tracking-tight">
-                {data.authors.map((author) => (
-                  <li
-                    key={author.slug}
-                    className="flex items-center gap-1.5 lg:gap-2"
-                  >
-                    {author.avatarUrl && (
-                      <aside className="relative size-8 lg:size-10 rounded-full overflow-hidden border shadow-inner">
-                        <Image
-                          src={author.avatarUrl}
-                          alt={`${author.name}'s avatar`}
-                          width={32}
-                          height={32}
-                          className="size-full object-cover shadow-inner"
-                        />
-                      </aside>
-                    )}
-                    {author.name}
+            {data.tags.length && (
+              <ul className="flex flex-wrap gap-1.5 lg:gap-2 text-sm lg:text-base font-medium tracking-wide text-gray-8 *:my-0.5">
+                {data.tags.map((tag) => (
+                  <li key={tag.slug}>
+                    <span className="border border-gray-7 rounded-full px-3 py-0.5">
+                      {tag.name}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -77,13 +65,25 @@ export default async function WorkspaceProjectPostPage({
               </p>
             )}
             <div className="flex justify-between gap-8 items-center">
-              {data.tags.length && (
-                <ul className="flex flex-wrap gap-1.5 lg:gap-2 text-sm lg:text-base font-medium tracking-wide text-gray-8 *:my-0.5">
-                  {data.tags.map((tag) => (
-                    <li key={tag.slug}>
-                      <span className="border border-gray-7 rounded-full px-3 py-0.5">
-                        {tag.name}
-                      </span>
+              {data.authors.length && (
+                <ul className="space-y-1 lg:space-y-2 text-gray-8 lg:text-lg font-medium tracking-tight">
+                  {data.authors.map((author) => (
+                    <li
+                      key={author.slug}
+                      className="flex items-center gap-1.5 lg:gap-2"
+                    >
+                      {author.avatarUrl && (
+                        <aside className="relative size-8 lg:size-10 rounded-full overflow-hidden border shadow-inner">
+                          <Image
+                            src={author.avatarUrl}
+                            alt={`${author.name}'s avatar`}
+                            width={32}
+                            height={32}
+                            className="size-full object-cover shadow-inner"
+                          />
+                        </aside>
+                      )}
+                      {author.name}
                     </li>
                   ))}
                 </ul>
