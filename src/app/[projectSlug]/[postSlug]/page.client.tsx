@@ -5,7 +5,7 @@ import { useResizeObserver } from '@react-aria/utils'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { useWindowSize } from 'usehooks-ts'
-import { useWorkspaceProjectPostContext } from '~/src/app/[projectSlug]/[postSlug]/context'
+import { useWorkspaceProjectPostContext } from './context'
 
 export function WorkspaceProjectClientPage() {
   const state$ = useWorkspaceProjectPostContext()
