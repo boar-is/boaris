@@ -4,6 +4,8 @@ import { api } from '~/convex/_generated/api'
 import { WorkspaceProjectPostProvider } from '~/src/app/[projectSlug]/[postSlug]/context'
 import { WorkspaceProjectClientPage } from '~/src/app/[projectSlug]/[postSlug]/page.client'
 import { currentWorkspaceSlug } from '~/src/constants'
+import { JetBrainsMono } from '~/src/lib/fonts'
+import { cx } from '~/src/lib/react/cx'
 import { Image } from '~/src/primitives/image'
 
 export async function generateStaticParams() {
@@ -25,7 +27,12 @@ export default async function WorkspaceProjectPostPage({
 
   return (
     <WorkspaceProjectPostProvider data={data}>
-      <article className="container flex flex-col gap-12 items-center">
+      <article
+        className={cx(
+          JetBrainsMono.variable,
+          'container flex flex-col gap-12 items-center',
+        )}
+      >
         <header className="w-full max-w-prose">
           <hgroup className="flex flex-col gap-6">
             {data.post.thumbnailUrl && (
@@ -50,10 +57,10 @@ export default async function WorkspaceProjectPostPage({
               {data.post.title}
             </h1>
             {data.tags.length && (
-              <ul className="flex flex-wrap gap-1.5 lg:gap-2 text-sm lg:text-base font-medium tracking-wide text-gray-8 *:my-0.5">
+              <ul className="flex flex-wrap gap-1.5 lg:gap-2 text-sm lg:text-base font-medium tracking-wide text-gray-10 *:my-0.5">
                 {data.tags.map((tag) => (
                   <li key={tag.slug}>
-                    <span className="border border-gray-7 rounded-full px-3 py-0.5">
+                    <span className="border border-gray-9 rounded-full px-3 py-0.5">
                       {tag.name}
                     </span>
                   </li>
@@ -61,13 +68,13 @@ export default async function WorkspaceProjectPostPage({
               </ul>
             )}
             {data.post.lead && (
-              <p className="text-gray-10 text-pretty text-lg font-medium">
+              <p className="text-gray-11 text-pretty text-lg font-medium">
                 {data.post.lead}
               </p>
             )}
             <div className="flex justify-between gap-8 items-center">
               {data.authors.length && (
-                <ul className="space-y-1 lg:space-y-2 text-gray-8 lg:text-lg font-medium tracking-tight">
+                <ul className="space-y-1 lg:space-y-2 text-gray-10 lg:text-lg font-medium tracking-tight">
                   {data.authors.map((author) => (
                     <li
                       key={author.slug}
@@ -89,7 +96,7 @@ export default async function WorkspaceProjectPostPage({
                   ))}
                 </ul>
               )}
-              <small className="text-gray-8 font-medium tracking-wide text-sm lg:text-base">
+              <small className="text-gray-10 font-medium tracking-wide text-sm lg:text-base">
                 {data.post.date}
               </small>
             </div>
