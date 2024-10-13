@@ -77,9 +77,11 @@ export default async function WorkspaceProjectPage({
                     </ul>
                   )}
 
-                  <p className="text-gray-10 text-pretty !leading-relaxed max-w-prose">
-                    {post.lead}
-                  </p>
+                  {post.lead && (
+                    <p className="text-gray-10 text-pretty !leading-relaxed max-w-prose">
+                      {post.lead}
+                    </p>
+                  )}
 
                   <footer className="flex justify-between gap-8 items-center">
                     {post.tags.length && (
@@ -103,7 +105,7 @@ export default async function WorkspaceProjectPage({
           ))}
         </div>
       ) : (
-        <div className="text-center text-2xl lg:text-5xl text-gray-8 font-semibold capitalize">
+        <div className="text-center text-2xl lg:text-4xl text-gray-12 font-medium capitalize">
           No posts yet
         </div>
       )}
