@@ -18,7 +18,10 @@ export type WorkspaceProjectPostState = PageData & {
   scrollYProgress: number
   layoutMode: LayoutMode
   layoutChanges: () => Array<LayoutChange>
-  transformProgress: () => (progress: number) => number
+  progressInterpolation: () => {
+    input: Array<number>
+    output: Array<number>
+  }
   progress: () => number
 }
 
@@ -67,16 +70,23 @@ export function WorkspaceProjectPostProvider({
 
       return layoutChanges ?? []
     },
-    transformProgress: () => {
-      const inputs: Array<number> = []
-      const outputs: Array<boolean> = []
+    progressInterpolation: () => {
+      const i: Array<number> = []
+      const o: Array<boolean> = []
       for (const change of state$.layoutChanges.get(true)) {
-        inputs.push(change.at)
-        outputs.push(!!change.value)
+        i.push(change.at)
+        o.push(!!change.value)
       }
-      return transform(...mapSkippedPair(inputs, outputs))
+      const [inputs, outputs] = mapSkippedPair(i, o)
+      return {
+        inputs,
+        outputs,
+      }
     },
-    progress: () => state$.transformProgress()(state$.scrollYProgress.get()),
+    progress: () => {
+      const { inputs, outputs } = state$.progressInterpolation.peek()
+      return transform(state$.scrollYProgress.get(), inputs, outputs)
+    },
   } as const)
 
   return (
