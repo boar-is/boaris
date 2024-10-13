@@ -64,7 +64,7 @@ export default async function WorkspaceLayout({
             <nav
               className={cx(
                 layerCx,
-                'bg-gray-1/75 backdrop-blur-sm backdrop-saturate-150',
+                'bg-gray-1/50 backdrop-blur-md backdrop-saturate-150',
               )}
             >
               <ul className="flex items-stretch font-medium justify-between gap-2 text-sm md:gap-6 md:text-base">

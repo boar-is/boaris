@@ -25,9 +25,9 @@ export default async function WorkspaceProjectPostPage({
 
   return (
     <WorkspaceProjectPostProvider data={data}>
-      <article className="container flex flex-col gap-8 items-center">
+      <article className="container flex flex-col gap-12 items-center">
         <header className="w-full max-w-prose">
-          <hgroup className="flex flex-col gap-4">
+          <hgroup className="flex flex-col gap-6">
             {data.post.thumbnailUrl && (
               <figure className="relative">
                 <Image
@@ -95,9 +95,8 @@ export default async function WorkspaceProjectPostPage({
             </div>
           </hgroup>
         </header>
-        <section className="w-full max-w-prose">
-          <WorkspaceProjectClientPage />
-        </section>
+        <hr className="w-full max-w-prose border-gray-3" />
+        <WorkspaceProjectClientPage />
       </article>
     </WorkspaceProjectPostProvider>
   )
