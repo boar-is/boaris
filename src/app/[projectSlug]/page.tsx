@@ -1,9 +1,11 @@
 import { fetchQuery } from 'convex/nextjs'
+import { Array } from 'effect'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
 import { currentWorkspaceSlug } from '~/src/constants'
 import { Image } from '~/src/primitives/image'
 import { Link } from '~/src/primitives/link'
+import { ensureDefined } from '~/utils/ensure-defined'
 
 export async function generateStaticParams() {
   return fetchQuery(api.functions.project.params)
@@ -29,9 +31,13 @@ export default async function WorkspaceProjectPage({
         <h1>{project.name}</h1>
       </header>
       {posts.length ? (
-        <div className="flex flex-col max-w-prose mx-auto items-center">
-          {posts.map((post) => (
-            <Link key={post.slug} href={`/${project.slug}/${post.slug}`}>
+        <div className="flex flex-row flex-wrap items-center w-full gap-8">
+          {Array.replicate(ensureDefined(posts[0]), 1).map((post) => (
+            <Link
+              key={post.slug}
+              href={`/${project.slug}/${post.slug}`}
+              className="max-w-prose"
+            >
               <article className="group rounded-xl md:rounded-3xl flex flex-col justify-between items-center border border-gray-3 overflow-hidden transition-colors bg-gradient-to-tr from-gray-1/90 to-gray-2/90">
                 {post.thumbnailUrl && (
                   <aside className="relative">
