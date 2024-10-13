@@ -5,6 +5,7 @@ import { useResizeObserver } from '@react-aria/utils'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { useWindowSize } from 'usehooks-ts'
+import { PostLayout } from './_/post-layout'
 import { useWorkspaceProjectPostContext } from './context'
 
 export function WorkspaceProjectClientPage() {
@@ -37,11 +38,9 @@ export function WorkspaceProjectClientPage() {
           <div>
             progress: <Memo>{state$.progress}</Memo>
           </div>
-          <div>
-            index: <Memo>{state$.layoutContentIndex}</Memo>
-          </div>
         </div>
       </div>
+      <PostLayout />
       <div className="h-[400dvh] bg-gray-12/5" ref={scrollableRef}>
         ABC
       </div>
