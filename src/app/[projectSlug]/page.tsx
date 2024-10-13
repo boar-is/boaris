@@ -1,11 +1,9 @@
 import { fetchQuery } from 'convex/nextjs'
-import { Array } from 'effect'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
 import { currentWorkspaceSlug } from '~/src/constants'
 import { Image } from '~/src/primitives/image'
 import { Link } from '~/src/primitives/link'
-import { ensureDefined } from '~/utils/ensure-defined'
 
 export async function generateStaticParams() {
   return fetchQuery(api.functions.project.params)
@@ -32,7 +30,7 @@ export default async function WorkspaceProjectPage({
       </header>
       {posts.length ? (
         <div className="flex flex-col gap-8">
-          {Array.replicate(ensureDefined(posts[0]), 10).map((post) => (
+          {posts.map((post) => (
             <Link key={post.slug} href={`/${project.slug}/${post.slug}`}>
               <article className="group rounded-xl lg:rounded-3xl flex flex-col lg:flex-row gap-4 lg:gap-8 p-6 justify-between items-center border border-gray-3 overflow-hidden transition-colors bg-gradient-to-tr from-gray-1/90 to-gray-2/90">
                 {post.thumbnailUrl && (
