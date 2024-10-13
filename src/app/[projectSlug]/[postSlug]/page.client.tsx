@@ -1,11 +1,9 @@
 'use client'
 
-import { Memo } from '@legendapp/state/react'
 import { useResizeObserver } from '@react-aria/utils'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { useWindowSize } from 'usehooks-ts'
-import { PostLayout } from './_/post-layout'
 import { useWorkspaceProjectPostContext } from './context'
 
 export function WorkspaceProjectClientPage() {
@@ -29,21 +27,17 @@ export function WorkspaceProjectClientPage() {
   useEffect(() => state$.windowWidth.set(width), [state$, width])
 
   return (
-    <div>
-      <div className="fixed bottom-0 left-0">
-        <div>
-          <div>
-            scrollYProgress: <Memo>{state$.scrollYProgress}</Memo>
-          </div>
-          <div>
-            progress: <Memo>{state$.progress}</Memo>
-          </div>
-        </div>
-      </div>
-      <PostLayout />
-      <div className="h-[400dvh] bg-gray-12/5" ref={scrollableRef}>
-        ABC
-      </div>
-    </div>
+    <article>
+      <header>
+        <hgroup>
+          <figure>
+            <img alt="" />
+          </figure>
+          <h1>h1</h1>
+          <p>lead</p>
+        </hgroup>
+      </header>
+      <section>content</section>
+    </article>
   )
 }
