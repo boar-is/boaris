@@ -24,7 +24,7 @@ export default async function WorkspaceProjectPostPage({
 
   return (
     <WorkspaceProjectPostProvider data={data}>
-      <article className="flex flex-col gap-8 items-center">
+      <article className="container flex flex-col gap-8 items-center">
         <header className="max-w-prose">
           <hgroup className="flex flex-col gap-4">
             {data.post.thumbnailUrl && (
@@ -56,7 +56,7 @@ export default async function WorkspaceProjectPostPage({
                     className="flex items-center gap-1.5 lg:gap-2"
                   >
                     {author.avatarUrl && (
-                      <aside className="relative size-8 lg:size-12 rounded-full overflow-hidden border shadow-inner">
+                      <aside className="relative size-8 lg:size-10 rounded-full overflow-hidden border shadow-inner">
                         <Image
                           src={author.avatarUrl}
                           alt={`${author.name}'s avatar`}
@@ -94,6 +94,7 @@ export default async function WorkspaceProjectPostPage({
             </div>
           </hgroup>
         </header>
+        <section />
       </article>
     </WorkspaceProjectPostProvider>
   )
