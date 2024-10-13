@@ -3,11 +3,13 @@
 import { type Observable, ObservableHint } from '@legendapp/state'
 import { useObservable } from '@legendapp/state/react'
 import type { FunctionReturnType } from 'convex/server'
+import { transform } from 'framer-motion'
 import type { PropsWithChildren } from 'react'
 import type { api } from '~/convex/_generated/api'
 import type { LayoutChange, LayoutMode } from '~/convex/fields/revisions'
 import { diffpatcher } from '~/src/lib/delta/diffpatcher'
 import { createStrictContext } from '~/src/lib/react/create-strict-context'
+import { mapSkippedPair } from '~/utils/map-skipped-pair'
 
 type PageData = NonNullable<FunctionReturnType<typeof api.functions.post.page>>
 
@@ -15,7 +17,9 @@ export type WorkspaceProjectPostState = PageData & {
   windowWidth: number
   scrollYProgress: number
   layoutMode: LayoutMode
-  layoutChanges: () => Array<LayoutChange> | undefined
+  layoutChanges: () => Array<LayoutChange>
+  transformProgress: () => (progress: number) => number
+  progress: () => number
 }
 
 export const [WorkspaceProjectPostContext, useWorkspaceProjectPostContext] =
@@ -37,7 +41,7 @@ export function WorkspaceProjectPostProvider({
     },
     layouts: layouts && {
       ...layouts,
-      overrides: (layouts.overrides ?? []).map((override) => ({
+      overrides: layouts.overrides?.map((override) => ({
         ...override,
         changesDelta: ObservableHint.plain(override.changesDelta),
       })),
@@ -61,8 +65,18 @@ export function WorkspaceProjectPostProvider({
           ) as Array<LayoutChange>)
         : primaryLayoutChanges
 
-      return layoutChanges
+      return layoutChanges ?? []
     },
+    transformProgress: () => {
+      const inputs: Array<number> = []
+      const outputs: Array<boolean> = []
+      for (const change of state$.layoutChanges.get(true)) {
+        inputs.push(change.at)
+        outputs.push(!!change.value)
+      }
+      return transform(...mapSkippedPair(inputs, outputs))
+    },
+    progress: () => state$.transformProgress()(state$.scrollYProgress.get()),
   } as const)
 
   return (
