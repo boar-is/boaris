@@ -93,7 +93,7 @@ export default async function WorkspaceProjectPage({
                         ))}
                       </ul>
                     )}
-                    <small className="text-gray-8 font-medium tracking-wide uppercase text-xs lg:text-sm">
+                    <small className="text-gray-8 font-medium tracking-wide text-xs lg:text-sm">
                       {post.date}
                     </small>
                   </footer>

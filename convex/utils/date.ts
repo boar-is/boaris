@@ -1,6 +1,6 @@
 const creationTimeFormat = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
-  month: 'short',
+  month: 'long',
   day: 'numeric',
 })
 
