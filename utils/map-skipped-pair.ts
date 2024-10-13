@@ -46,5 +46,5 @@ export const mapSkippedPair = (
     startingRatio = mappedInputEnd
   }
 
-  return [mappedInputs, mappedOutputs] as const
+  return [mappedInputs, mappedOutputs]
 }

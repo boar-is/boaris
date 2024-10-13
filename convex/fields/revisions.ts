@@ -19,6 +19,28 @@ const layoutLayer = v.object({
   rows: v.optional(v.string()),
 })
 
+const layoutChange = v.object({
+  /**
+   * id is needed for patching optimizations
+   */
+  id: v.string(),
+  /**
+   * a number from 0 to 1
+   */
+  at: v.number(),
+  /**
+   * null is for skip
+   */
+  value: v.optional(
+    v.object({
+      static: v.optional(layoutLayer),
+      floating: v.optional(layoutLayer),
+    }),
+  ),
+})
+
+export type LayoutChange = typeof layoutChange.type
+
 const trackBase = v.object({
   id: v.string(),
   name: v.string(),
@@ -41,29 +63,7 @@ export const revisionFields = {
          * Empty or undefined array means every mode
          */
         modes: v.optional(v.array(layoutMode)),
-        changes: v.optional(
-          v.array(
-            v.object({
-              /**
-               * id is needed for patching optimizations
-               */
-              id: v.string(),
-              /**
-               * a number from 0 to 1
-               */
-              at: v.number(),
-              /**
-               * null is for skip
-               */
-              value: v.optional(
-                v.object({
-                  static: v.optional(layoutLayer),
-                  floating: v.optional(layoutLayer),
-                }),
-              ),
-            }),
-          ),
-        ),
+        changes: v.optional(v.array(layoutChange)),
       }),
       overrides: v.optional(
         v.array(
