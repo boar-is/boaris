@@ -37,6 +37,9 @@ export function WorkspaceProjectClientPage() {
           <div>
             progress: <Memo>{state$.progress}</Memo>
           </div>
+          <div>
+            index: <Memo>{state$.layoutContentIndex}</Memo>
+          </div>
         </div>
       </div>
       <div className="h-[400dvh] bg-gray-12/5" ref={scrollableRef}>

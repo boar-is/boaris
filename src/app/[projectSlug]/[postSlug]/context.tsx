@@ -9,6 +9,8 @@ import type { api } from '~/convex/_generated/api'
 import type { LayoutChange, LayoutMode } from '~/convex/fields/revisions'
 import { diffpatcher } from '~/src/lib/delta/diffpatcher'
 import { createStrictContext } from '~/src/lib/react/create-strict-context'
+import { ensureNonNull } from '~/utils/ensure-non-null'
+import { findClosestIndex } from '~/utils/find-closest-index'
 import { mapSkippedPair } from '~/utils/map-skipped-pair'
 
 type PageData = NonNullable<FunctionReturnType<typeof api.functions.post.page>>
@@ -23,6 +25,7 @@ export type WorkspaceProjectPostState = PageData & {
     output: Array<number>
   }
   progress: () => number
+  layoutContentIndex: () => number
 }
 
 export const [WorkspaceProjectPostContext, useWorkspaceProjectPostContext] =
@@ -77,16 +80,24 @@ export function WorkspaceProjectPostProvider({
         i.push(change.at)
         o.push(!!change.value)
       }
-      const [inputs, outputs] = mapSkippedPair(i, o)
+      const [input, output] = mapSkippedPair(i, o)
       return {
-        inputs,
-        outputs,
+        input,
+        output,
       }
     },
     progress: () => {
-      const { inputs, outputs } = state$.progressInterpolation.peek()
-      return transform(state$.scrollYProgress.get(), inputs, outputs)
+      const { input, output } = state$.progressInterpolation.peek()
+      return transform(state$.scrollYProgress.get(), input, output)
     },
+    layoutContentIndex: () =>
+      ensureNonNull(
+        findClosestIndex(
+          state$.layoutChanges.peek(),
+          state$.progress.get(),
+          (it) => it.at,
+        ),
+      ),
   } as const)
 
   return (
