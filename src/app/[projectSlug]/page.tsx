@@ -29,7 +29,7 @@ export default async function WorkspaceProjectPage({
         <h1>{project.name}</h1>
       </header>
       {posts.length ? (
-        <div className="flex flex-col max-w-2xl mx-auto items-center">
+        <div className="flex flex-col max-w-prose mx-auto items-center">
           {posts.map((post) => (
             <Link key={post.slug} href={`/${project.slug}/${post.slug}`}>
               <article className="group rounded-xl md:rounded-3xl flex flex-col justify-between items-center border border-gray-3 overflow-hidden transition-colors bg-gradient-to-tr from-gray-1/90 to-gray-2/90">
@@ -93,13 +93,14 @@ export default async function WorkspaceProjectPage({
                     {post.lead}
                   </p>
 
+                  <small className="text-gray-8 font-medium tracking-wide uppercase text-xs md:text-sm">
+                    {post.date}
+                  </small>
+
                   <footer className="mt-auto">
-                    <div className="block font-semibold text-sm md:text-base py-2 md:py-3 text-center border border-gray-4 rounded-md md:rounded-2xl text-gray-10 bg-gray-2 group-hover:bg-gray-3 transition-colors">
+                    <div className="block font-semibold text-sm md:text-base py-2 text-center border border-gray-4 rounded-md md:rounded-2xl text-gray-10 bg-gray-2 group-hover:bg-gray-3 transition-colors">
                       Read More
                     </div>
-                    <small className="text-gray-8 font-medium tracking-wide uppercase text-xs md:text-sm">
-                      {post.date}
-                    </small>
                   </footer>
                 </section>
               </article>
