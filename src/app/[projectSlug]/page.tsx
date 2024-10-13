@@ -34,7 +34,7 @@ export default async function WorkspaceProjectPage({
             <Link key={post.slug} href={`/${project.slug}/${post.slug}`}>
               <article className="group rounded-xl lg:rounded-3xl flex flex-col lg:flex-row gap-4 lg:gap-8 p-6 justify-between items-center border border-gray-3 overflow-hidden transition-colors bg-gradient-to-tr from-gray-1/90 to-gray-2/90">
                 {post.thumbnailUrl && (
-                  <aside className="relative lg:max-w-sm aspect-video">
+                  <aside className="relative lg:basis-1/2 xl:basis-1/3">
                     <Image
                       src={post.thumbnailUrl}
                       alt={`${post.title}'s thumbnail`}
