@@ -2,6 +2,7 @@ import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
 import { WorkspaceProjectPostProvider } from '~/src/app/[projectSlug]/[postSlug]/context'
+import { WorkspaceProjectClientPage } from '~/src/app/[projectSlug]/[postSlug]/page.client'
 import { currentWorkspaceSlug } from '~/src/constants'
 import { Image } from '~/src/primitives/image'
 
@@ -25,7 +26,7 @@ export default async function WorkspaceProjectPostPage({
   return (
     <WorkspaceProjectPostProvider data={data}>
       <article className="container flex flex-col gap-8 items-center">
-        <header className="max-w-prose">
+        <header className="w-full max-w-prose">
           <hgroup className="flex flex-col gap-4">
             {data.post.thumbnailUrl && (
               <figure className="relative">
@@ -94,7 +95,9 @@ export default async function WorkspaceProjectPostPage({
             </div>
           </hgroup>
         </header>
-        <section />
+        <section className="w-full max-w-prose">
+          <WorkspaceProjectClientPage />
+        </section>
       </article>
     </WorkspaceProjectPostProvider>
   )
