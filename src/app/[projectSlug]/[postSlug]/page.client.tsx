@@ -1,14 +1,12 @@
 'use client'
 
-import { Computed, Memo, reactive } from '@legendapp/state/react'
+import { Computed, Memo } from '@legendapp/state/react'
 import { useResizeObserver } from '@react-aria/utils'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { useWindowSize } from 'usehooks-ts'
 import { Image } from '~/src/primitives/image'
 import { useWorkspaceProjectPostContext } from './context'
-
-const ReactiveImage = reactive(Image)
 
 export function WorkspaceProjectClientPage() {
   const state$ = useWorkspaceProjectPostContext()

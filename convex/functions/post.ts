@@ -4,6 +4,7 @@ import { projectFields } from '~/convex/fields/projects'
 import { workspaceFields } from '~/convex/fields/workspaces'
 import { formatCreationTime } from '~/convex/utils/date'
 import { getUrl } from '~/convex/utils/getUrl'
+import { ensureNonNull } from '~/utils/ensure-non-null'
 import { ensurePresent } from '~/utils/ensure-present'
 
 export const params = query({
@@ -71,7 +72,24 @@ export const page = query({
       return null
     }
 
-    const thumbnailUrl = await getUrl(storage, post.thumbnailId)
+    const [postTags, postAuthors] = await Promise.all([
+      db
+        .query('postTags')
+        .withIndex('by_postId', (q) => q.eq('postId', post._id))
+        .collect(),
+      db
+        .query('postAuthors')
+        .withIndex('by_postId', (q) => q.eq('postId', post._id))
+        .collect(),
+    ])
+
+    const [tags, authors, thumbnailUrl] = await Promise.all([
+      Promise.all(postTags.map((it) => db.get(it.tagId).then(ensureNonNull))),
+      Promise.all(
+        postAuthors.map((it) => db.get(it.authorId).then(ensureNonNull)),
+      ),
+      getUrl(storage, post.thumbnailId),
+    ])
 
     const captions = revision.captions && {
       value: revision.captions.value,
@@ -141,6 +159,15 @@ export const page = query({
         date: formatCreationTime(post._creationTime),
         thumbnailUrl,
       },
+      tags: tags.map((it) => ({
+        slug: it.slug,
+        name: it.name,
+      })),
+      authors: authors.map((it) => ({
+        slug: it.slug,
+        name: it.name,
+        avatarUrl: it.avatarUrl,
+      })),
       captions,
       layouts,
       tracks,
