@@ -8,23 +8,29 @@ import {
 
 export type TextEditorProps = {
   editor: Editor | null
-  content: JSONContent
+  content?: JSONContent | undefined
   extensions: Extensions
 }
 
 export function TextEditor({ editor, content, extensions }: TextEditorProps) {
-  return editor ? (
-    <EditorContent editor={editor} />
-  ) : (
-    // Simulating TipTap layout
-    <div>
-      <div
-        className="tiptap ProseMirror"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: It's okay here
-        dangerouslySetInnerHTML={{
-          __html: generateHTML(content, extensions),
-        }}
-      />
-    </div>
-  )
+  if (!editor) {
+    if (!content) {
+      return null
+    }
+
+    return (
+      // Simulating TipTap layout
+      <div>
+        <div
+          className="tiptap ProseMirror"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: It's okay here
+          dangerouslySetInnerHTML={{
+            __html: generateHTML(content, extensions),
+          }}
+        />
+      </div>
+    )
+  }
+
+  return <EditorContent editor={editor} />
 }
