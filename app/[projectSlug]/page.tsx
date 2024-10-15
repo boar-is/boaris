@@ -2,17 +2,18 @@ import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
 import { currentWorkspaceSlug } from '~/constants'
 import { api } from '~/convex/_generated/api'
+import type { PropsWithStaticParams } from '~/src/lib/react/props-with-static-params'
 import { Image } from '~/src/primitives/image'
 import { Link } from '~/src/primitives/link'
 
 export async function generateStaticParams() {
-  return fetchQuery(api.functions.project.params)
+  return fetchQuery(api.queries.projectParams.default)
 }
 
 export default async function WorkspaceProjectPage({
   params: { workspaceSlug = currentWorkspaceSlug, projectSlug },
-}: { params: Awaited<ReturnType<typeof generateStaticParams>>[number] }) {
-  const data = await fetchQuery(api.functions.project.page, {
+}: PropsWithStaticParams<typeof generateStaticParams>) {
+  const data = await fetchQuery(api.queries.projectPage.default, {
     workspaceSlug,
     projectSlug,
   })

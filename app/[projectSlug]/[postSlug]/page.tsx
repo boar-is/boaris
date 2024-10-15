@@ -6,16 +6,17 @@ import { WorkspaceProjectPostProvider } from '~/src/app/[projectSlug]/[postSlug]
 import { WorkspaceProjectClientPage } from '~/src/app/[projectSlug]/[postSlug]/page.client'
 import { JetBrainsMono } from '~/src/lib/fonts'
 import { cx } from '~/src/lib/react/cx'
+import type { PropsWithStaticParams } from '~/src/lib/react/props-with-static-params'
 import { Image } from '~/src/primitives/image'
 
 export async function generateStaticParams() {
-  return fetchQuery(api.functions.post.params)
+  return fetchQuery(api.queries.postParams.default)
 }
 
 export default async function WorkspaceProjectPostPage({
   params: { workspaceSlug = currentWorkspaceSlug, projectSlug, postSlug },
-}: { params: Awaited<ReturnType<typeof generateStaticParams>>[number] }) {
-  const data = await fetchQuery(api.functions.post.page, {
+}: PropsWithStaticParams<typeof generateStaticParams>) {
+  const data = await fetchQuery(api.queries.postPage.default, {
     workspaceSlug,
     projectSlug,
     postSlug,

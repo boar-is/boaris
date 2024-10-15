@@ -43,7 +43,7 @@ export default async function WorkspaceLayout({
     workspaceSlug: string
   }
 }) {
-  const data = await fetchQuery(api.functions.workspace.layout, {
+  const data = await fetchQuery(api.queries.workspaceLayout.default, {
     workspaceSlug,
   })
 
