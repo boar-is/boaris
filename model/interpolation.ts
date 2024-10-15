@@ -1,5 +1,4 @@
 import { fixed } from './number'
-import { defined } from './unknown'
 
 export type Interpolation<T = number> = {
   input: Array<number>
@@ -20,7 +19,7 @@ export const remappedFalsyOutput = (
       continue
     }
 
-    const start = defined(input[i])
+    const start = input[i]!
     const end = input[i + 1]
 
     trueRatio += (end ?? 1) - start
@@ -39,7 +38,7 @@ export const remappedFalsyOutput = (
       continue
     }
 
-    const start = defined(input[i])
+    const start = input[i]!
     const end = input[i + 1] ?? 1
 
     const mappedInputEnd = startingRatio + (end - start) * multiplier

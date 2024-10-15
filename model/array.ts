@@ -1,5 +1,3 @@
-import { defined } from './unknown'
-
 export const findClosestIndex = <T>(
   sortedArr: Array<T>,
   target: number,
@@ -12,7 +10,7 @@ export const findClosestIndex = <T>(
   let lowIndex = 0
   let highIndex = sortedArr.length - 1
 
-  const low = propFn(defined(sortedArr[lowIndex]))
+  const low = propFn(sortedArr[lowIndex]!)
 
   if (target < low) {
     return null
@@ -21,7 +19,7 @@ export const findClosestIndex = <T>(
   while (lowIndex <= highIndex) {
     const midIndex = Math.floor((lowIndex + highIndex) / 2)
 
-    const mid = propFn(defined(sortedArr[midIndex]))
+    const mid = propFn(sortedArr[midIndex]!)
 
     if (mid === target) {
       return midIndex

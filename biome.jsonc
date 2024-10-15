@@ -21,6 +21,7 @@
       },
       "style": {
         "noNegationElse": "error",
+        "noNonNullAssertion": "off",
         "noShoutyConstants": "error",
         "useBlockStatements": "error",
         "useCollapsedElseIf": "error",
