@@ -1,6 +1,6 @@
 import { fetchQuery } from 'convex/nextjs'
+import { currentWorkspaceSlug } from '~/constants'
 import { api } from '~/convex/_generated/api'
-import { currentWorkspaceSlug } from '~/src/constants'
 
 export async function generateStaticParams() {
   return fetchQuery(api.functions.workspace.params)
