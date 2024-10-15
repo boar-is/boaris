@@ -1,8 +1,8 @@
 import { v } from 'convex/values'
 import { layoutChange } from './layoutChange'
-import { layoutModes } from './layoutMode'
+import { layoutMode } from './layoutMode'
 
 export const layoutPrimary = v.object({
-  modes: layoutModes,
+  modes: v.array(layoutMode),
   changes: v.optional(v.array(layoutChange)),
 })

@@ -1,7 +1,7 @@
 import { query } from '~/convex/_generated/server'
 import { project } from '~/convex/values/projects/project'
 import { workspace } from '~/convex/values/workspaces/workspace'
-import { readableFromTimestamp } from '~/utils/date'
+import { readableFromTimestamp } from '~/shared/date'
 
 export const params = query({
   handler: async ({ db }) => {
