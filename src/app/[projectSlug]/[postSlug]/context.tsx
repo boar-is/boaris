@@ -6,7 +6,10 @@ import type { FunctionReturnType } from 'convex/server'
 import { transform } from 'framer-motion'
 import type { PropsWithChildren } from 'react'
 import type { api } from '~/convex/_generated/api'
-import type { LayoutChange, LayoutMode } from '~/convex/fields/revisions'
+import type { Interpolation } from '~/convex/values/_shared/interpolation'
+import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
+import type { LayoutChangeValue } from '~/convex/values/revisions/layouts/layoutChangeValue'
+import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import { diffpatcher } from '~/src/lib/delta/diffpatcher'
 import { createStrictContext } from '~/src/lib/react/create-strict-context'
 import { ensureDefined } from '~/utils/ensure-defined'
@@ -24,13 +27,10 @@ export type WorkspaceProjectPostState = {
   scrollYProgress: number
   layoutMode: LayoutMode
   layoutChanges: Array<LayoutChange>
-  progressInterpolation: {
-    input: Array<number>
-    output: Array<number>
-  }
+  progressInterpolation: Interpolation
   progress: number
   layoutChangesIndex: number
-  layout: NonNullable<LayoutChange['value']>
+  layout: LayoutChangeValue
 }
 
 export const [WorkspaceProjectPostContext, useWorkspaceProjectPostContext] =
