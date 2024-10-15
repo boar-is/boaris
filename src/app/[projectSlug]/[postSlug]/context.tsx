@@ -23,14 +23,14 @@ export type WorkspaceProjectPostState = {
   windowWidth: number
   scrollYProgress: number
   layoutMode: LayoutMode
-  layoutChanges: () => Array<LayoutChange>
-  progressInterpolation: () => {
+  layoutChanges: Array<LayoutChange>
+  progressInterpolation: {
     input: Array<number>
     output: Array<number>
   }
-  progress: () => number
-  layoutChangesIndex: () => number
-  layout: () => NonNullable<LayoutChange['value']>
+  progress: number
+  layoutChangesIndex: number
+  layout: NonNullable<LayoutChange['value']>
 }
 
 export const [WorkspaceProjectPostContext, useWorkspaceProjectPostContext] =
@@ -44,7 +44,7 @@ export function WorkspaceProjectPostProvider({
 }: PropsWithChildren & {
   data: PageData
 }) {
-  const state$ = useObservable({
+  const state$ = useObservable<WorkspaceProjectPostState>({
     captions: captions && {
       ...captions,
       value: ObservableHint.plain(captions.value),
@@ -90,11 +90,11 @@ export function WorkspaceProjectPostProvider({
         output,
       }
     },
-    progress: () => {
+    progress: (): number => {
       const { input, output } = state$.progressInterpolation.peek()
       return transform(state$.scrollYProgress.get(), input, output)
     },
-    layoutChangesIndex: () =>
+    layoutChangesIndex: (): number =>
       ensureNonNull(
         findClosestIndex(
           state$.layoutChanges.peek(),
