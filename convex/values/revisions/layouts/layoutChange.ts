@@ -1,5 +1,5 @@
 import { v } from 'convex/values'
-import { layoutChangeValue } from './layoutChangeValue'
+import { layout } from './layout'
 
 export const layoutChange = v.object({
   /**
@@ -13,7 +13,7 @@ export const layoutChange = v.object({
   /**
    * null is for skip
    */
-  value: v.optional(layoutChangeValue),
+  value: v.optional(layout),
 })
 
 export type LayoutChange = typeof layoutChange.type

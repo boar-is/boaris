@@ -7,8 +7,8 @@ import { transform } from 'framer-motion'
 import type { PropsWithChildren } from 'react'
 import type { api } from '~/convex/_generated/api'
 import type { Interpolation } from '~/convex/values/_shared/interpolation'
+import type { Layout } from '~/convex/values/revisions/layouts/layout'
 import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
-import type { LayoutChangeValue } from '~/convex/values/revisions/layouts/layoutChangeValue'
 import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import { diffpatcher } from '~/src/lib/delta/diffpatcher'
 import { createStrictContext } from '~/src/lib/react/create-strict-context'
@@ -30,7 +30,7 @@ export type WorkspaceProjectPostState = {
   progressInterpolation: Interpolation
   progress: number
   layoutChangesIndex: number
-  layout: LayoutChangeValue
+  layout: Layout
 }
 
 export const [WorkspaceProjectPostContext, useWorkspaceProjectPostContext] =
