@@ -1,4 +1,4 @@
-import { type Infer, v } from 'convex/values'
+import { v } from 'convex/values'
 import { layoutMode } from './layoutMode'
 
 export const layoutOverride = v.object({
@@ -10,5 +10,3 @@ export const layoutOverride = v.object({
    */
   changesDelta: v.any(),
 })
-
-export type LayoutOverride = Infer<typeof layoutOverride>

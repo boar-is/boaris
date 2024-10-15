@@ -1,4 +1,4 @@
-import { type Infer, v } from 'convex/values'
+import { v } from 'convex/values'
 import { layout } from './layout'
 
 export const layoutChange = v.object({
@@ -15,5 +15,3 @@ export const layoutChange = v.object({
    */
   value: v.optional(layout),
 })
-
-export type LayoutChange = Infer<typeof layoutChange>

@@ -1,4 +1,4 @@
-import { type Infer, v } from 'convex/values'
+import { v } from 'convex/values'
 import { trackBase } from './trackBase'
 
 export const dynamicImageTrack = v.object({
@@ -7,5 +7,3 @@ export const dynamicImageTrack = v.object({
   storageId: v.id('_storage'),
   caption: v.optional(v.string()),
 })
-
-export type DynamicImageTrack = Infer<typeof dynamicImageTrack>

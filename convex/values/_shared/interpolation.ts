@@ -1,8 +1,6 @@
-import { type Infer, v } from 'convex/values'
+import { v } from 'convex/values'
 
 export const interpolation = v.object({
   input: v.array(v.number()),
   output: v.array(v.number()),
 })
-
-export type Interpolation = Infer<typeof interpolation>
