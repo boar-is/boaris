@@ -1,11 +1,22 @@
 import { query } from '~/convex/_generated/server'
+import type { Delta } from '~/convex/values/_shared/delta'
+import type { Interpolation } from '~/convex/values/_shared/interpolation'
 import { post } from '~/convex/values/posts/post'
 import { project } from '~/convex/values/projects/project'
+import type { CaptionsValue } from '~/convex/values/revisions/captions/captionsValue'
+import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
+import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import { workspace } from '~/convex/values/workspaces/workspace'
 import { readableFromTimestamp } from '~/shared/date'
 
+export type PostParamsQueryResult = Array<{
+  workspaceSlug: string
+  projectSlug: string
+  postSlug: string
+}>
+
 export const params = query({
-  handler: async ({ db }) => {
+  handler: async ({ db }): Promise<PostParamsQueryResult> => {
     const posts = await db.query('posts').order('desc').take(100)
 
     const projects = await Promise.all(posts.map((it) => db.get(it.projectId)))
@@ -15,12 +26,80 @@ export const params = query({
     )
 
     return posts.map((post, index) => ({
-      workspaceSlug: workspaces[index]?.slug,
+      workspaceSlug: workspaces[index]!.slug,
       projectSlug: projects[index]!.slug,
       postSlug: post.slug,
     }))
   },
 })
+
+export type PostPageQueryResult = {
+  post: {
+    title: string
+    lead: string | undefined
+    description: string
+    date: string
+    thumbnailUrl: string | undefined
+  }
+  tags: Array<{
+    slug: string
+    name: string
+  }>
+  authors: Array<{
+    slug: string
+    name: string
+    avatarUrl: string | undefined
+  }>
+  captions:
+    | {
+        value: CaptionsValue
+        interpolation: Interpolation | undefined
+      }
+    | undefined
+  layouts:
+    | {
+        primary: {
+          modes: Array<LayoutMode>
+          /**
+           * this field should be mapped as-is due to the patching logic, see changesDelta from overrides
+           */
+          changes: Array<LayoutChange> | undefined
+        }
+        overrides:
+          | Array<{
+              modes: Array<LayoutMode>
+              minWidthPx: number | undefined
+              changesDelta: Delta
+            }>
+          | undefined
+      }
+    | undefined
+  tracks:
+    | Array<
+        | {
+            id: string
+            name: string
+            type: 'dynamic-image'
+            url: string
+            caption: string | undefined
+          }
+        | {
+            id: string
+            name: string
+            type: 'static-image'
+            url: string
+            caption: string | undefined
+            alt: string | undefined
+          }
+        | {
+            id: string
+            name: string
+            type: 'text'
+            value: string
+          }
+      >
+    | undefined
+} | null
 
 export const page = query({
   args: {
@@ -31,7 +110,7 @@ export const page = query({
   handler: async (
     { db, storage },
     { workspaceSlug, projectSlug, postSlug },
-  ) => {
+  ): Promise<PostPageQueryResult> => {
     const workspace = await db
       .query('workspaces')
       .withIndex('by_slug', (q) => q.eq('slug', workspaceSlug))
@@ -96,9 +175,6 @@ export const page = query({
     const layouts = revision.layouts && {
       primary: {
         modes: revision.layouts.primary.modes,
-        /**
-         * this field should be mapped as-is due to the patching logic, see changesDelta from overrides
-         */
         changes: revision.layouts.primary.changes,
       },
       overrides: revision.layouts.overrides
@@ -120,7 +196,7 @@ export const page = query({
                 id: track.id,
                 name: track.name,
                 type: track.type,
-                url: track.storageId && (await storage.getUrl(track.storageId)),
+                url: (await storage.getUrl(track.storageId))!,
                 caption: track.caption,
               }
             }
@@ -129,7 +205,7 @@ export const page = query({
                 id: track.id,
                 name: track.name,
                 type: track.type,
-                url: track.storageId && (await storage.getUrl(track.storageId)),
+                url: (await storage.getUrl(track.storageId))!,
                 caption: track.caption,
                 alt: track.alt,
               }
@@ -154,7 +230,7 @@ export const page = query({
         lead: post.lead,
         description: post.description,
         date: readableFromTimestamp(post._creationTime),
-        thumbnailUrl,
+        thumbnailUrl: thumbnailUrl ?? undefined,
       },
       tags: tags.map((it) => ({
         slug: it.slug,
