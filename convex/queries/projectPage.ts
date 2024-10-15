@@ -2,26 +2,6 @@ import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
 import { readableFromTimestamp } from '~/shared/date'
 
-export type ProjectParamsQueryResult = Array<{
-  workspaceSlug: string
-  projectSlug: string
-}>
-
-export const params = query({
-  handler: async ({ db }): Promise<ProjectParamsQueryResult> => {
-    const projects = await db.query('projects').order('desc').take(100)
-
-    const workspaces = await Promise.all(
-      projects.map((it) => db.get(it.workspaceId)),
-    )
-
-    return projects.map((project, index) => ({
-      workspaceSlug: workspaces[index]!.slug,
-      projectSlug: project.slug,
-    }))
-  },
-})
-
 export type ProjectPageQueryResult = {
   project: {
     name: string
@@ -46,7 +26,7 @@ export type ProjectPageQueryResult = {
   }>
 } | null
 
-export const page = query({
+const projectPage = query({
   args: {
     workspaceSlug: v.string(),
     projectSlug: v.string(),
@@ -132,3 +112,5 @@ export const page = query({
     }
   },
 })
+
+export default projectPage

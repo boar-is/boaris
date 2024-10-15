@@ -7,30 +7,6 @@ import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChang
 import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import { readableFromTimestamp } from '~/shared/date'
 
-export type PostParamsQueryResult = Array<{
-  workspaceSlug: string
-  projectSlug: string
-  postSlug: string
-}>
-
-export const params = query({
-  handler: async ({ db }): Promise<PostParamsQueryResult> => {
-    const posts = await db.query('posts').order('desc').take(100)
-
-    const projects = await Promise.all(posts.map((it) => db.get(it.projectId)))
-
-    const workspaces = await Promise.all(
-      projects.map((it) => it && db.get(it.workspaceId)),
-    )
-
-    return posts.map((post, index) => ({
-      workspaceSlug: workspaces[index]!.slug,
-      projectSlug: projects[index]!.slug,
-      postSlug: post.slug,
-    }))
-  },
-})
-
 export type PostPageQueryResult = {
   post: {
     title: string
@@ -99,7 +75,7 @@ export type PostPageQueryResult = {
     | undefined
 } | null
 
-export const page = query({
+const postPage = query({
   args: {
     workspaceSlug: v.string(),
     projectSlug: v.string(),
@@ -245,3 +221,5 @@ export const page = query({
     }
   },
 })
+
+export default postPage
