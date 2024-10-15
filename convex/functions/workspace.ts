@@ -1,6 +1,6 @@
 import { query } from '~/convex/_generated/server'
-import { workspaceFields } from '~/convex/fields/workspaces'
 import { getUrl } from '~/convex/utils/getUrl'
+import { workspace } from '~/convex/values/workspaces/workspace'
 
 export const params = query({
   handler: async ({ db }) => {
@@ -11,7 +11,7 @@ export const params = query({
 })
 
 export const layout = query({
-  args: { workspaceSlug: workspaceFields.slug },
+  args: { workspaceSlug: workspace.fields.slug },
   handler: async ({ db, storage }, { workspaceSlug }) => {
     const workspace = await db
       .query('workspaces')
@@ -38,7 +38,7 @@ export const layout = query({
 })
 
 export const page = query({
-  args: { workspaceSlug: workspaceFields.slug },
+  args: { workspaceSlug: workspace.fields.slug },
   handler: async ({ db }, { workspaceSlug }) => {
     const workspace = await db
       .query('workspaces')

@@ -1,9 +1,11 @@
 import { v } from 'convex/values'
-import { socialLink } from '~/convex/values/socialLink'
+import { socialLink } from '~/convex/values/_shared/socialLink'
 
-export const workspaceFields = {
+export const workspace = v.object({
   slug: v.string(),
   name: v.string(),
   logoId: v.optional(v.id('_storage')),
   socialLinks: v.array(socialLink),
-}
+})
+
+export type Workspace = typeof workspace.type

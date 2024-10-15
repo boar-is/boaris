@@ -1,40 +1,37 @@
 import { defineSchema, defineTable } from 'convex/server'
-import { chunkFields } from './fields/chunks'
-import { postAuthorFields } from './fields/postAuthors'
-import { postTagFields } from './fields/postTags'
-import { postFields } from './fields/posts'
-import { projectFields } from './fields/projects'
-import { revisionFields } from './fields/revisions'
-import { tagFields } from './fields/tags'
-import { userFields } from './fields/users'
-import { workspaceMemberFields } from './fields/workspaceMembers'
-import { workspaceFields } from './fields/workspaces'
+import { chunk } from './values/chunks/chunk'
+import { post } from './values/posts/post'
+import { postAuthor } from './values/posts/postAuthor'
+import { postTag } from './values/posts/postTag'
+import { project } from './values/projects/project'
+import { revision } from './values/revisions/revision'
+import { tag } from './values/tags/tag'
+import { user } from './values/users/user'
+import { workspace } from './values/workspaces/workspace'
+import { workspaceMember } from './values/workspaces/workspaceMember'
 
 const schema = defineSchema({
-  chunks: defineTable(chunkFields),
-  postAuthors: defineTable(postAuthorFields)
+  chunks: defineTable(chunk),
+  postAuthors: defineTable(postAuthor)
     .index('by_postId', ['postId'])
     .index('by_authorId', ['authorId']),
-  postTags: defineTable(postTagFields)
+  postTags: defineTable(postTag)
     .index('by_postId', ['postId'])
     .index('by_tagId', ['tagId']),
-  posts: defineTable(postFields).index('by_projectId_slug', [
-    'projectId',
-    'slug',
-  ]),
-  projects: defineTable(projectFields).index('by_workspaceId_slug', [
+  posts: defineTable(post).index('by_projectId_slug', ['projectId', 'slug']),
+  projects: defineTable(project).index('by_workspaceId_slug', [
     'workspaceId',
     'slug',
   ]),
-  revisions: defineTable(revisionFields),
-  tags: defineTable(tagFields)
+  revisions: defineTable(revision),
+  tags: defineTable(tag)
     .index('by_slug', ['slug'])
     .index('by_projectId_slug', ['projectId', 'slug']),
-  users: defineTable(userFields).index('by_slug', ['slug']),
-  workspaceMembers: defineTable(workspaceMemberFields)
+  users: defineTable(user).index('by_slug', ['slug']),
+  workspaceMembers: defineTable(workspaceMember)
     .index('by_workspaceId', ['workspaceId'])
     .index('by_memberId', ['memberId']),
-  workspaces: defineTable(workspaceFields).index('by_slug', ['slug']),
+  workspaces: defineTable(workspace).index('by_slug', ['slug']),
 })
 
 export default schema

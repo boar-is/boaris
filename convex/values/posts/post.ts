@@ -1,6 +1,6 @@
 import { v } from 'convex/values'
 
-export const postFields = {
+export const post = v.object({
   slug: v.string(),
   title: v.string(),
   lead: v.optional(v.string()),
@@ -10,4 +10,6 @@ export const postFields = {
   draftRevisionId: v.id('revisions'),
   publishedRevisionId: v.optional(v.id('revisions')),
   revisionStorageIds: v.optional(v.array(v.id('_storage'))),
-}
+})
+
+export type Post = typeof post.type
