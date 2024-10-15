@@ -1,5 +1,5 @@
-import { toFixedNumber } from './number/to-fixed-number'
-import { ensureDefined } from './unknown/ensure-defined'
+import { toFixedNumber } from './number'
+import { ensureDefined } from './unknown'
 
 export type Interpolation<T = number> = {
   input: Array<number>

@@ -1,4 +1,4 @@
-import { ensureDefined } from '~/utils/ensure-defined'
+import { ensureDefined } from './unknown'
 
 export const findClosestIndex = <T>(
   sortedArr: Array<T>,
@@ -36,3 +36,15 @@ export const findClosestIndex = <T>(
 
   return highIndex
 }
+
+export const forceGroupBy = <T, K extends string | number>(
+  array: Array<T>,
+  keyFn: (item: T) => K,
+) =>
+  array.reduce(
+    (acc, cur) => {
+      acc[keyFn(cur)] = cur
+      return acc
+    },
+    {} as Record<K, T>,
+  )

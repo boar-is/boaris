@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { toFixedNumber } from '~/model/number/to-fixed-number'
 import { remappedFalsyOutput } from './interpolation'
+import { toFixedNumber } from './number'
 
 describe.concurrent('interpolation', () => {
   describe.concurrent('remappedFalsyOutput', () => {
