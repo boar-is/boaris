@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { remappedFalsyOutput } from './interpolation'
-import { toFixedNumber } from './number'
+import { fixed } from './number'
 
 describe.concurrent('interpolation', () => {
   describe.concurrent('remappedFalsyOutput', () => {
     const digits = 5
-    const toFixed = toFixedNumber()(digits)
+    const toFixed = fixed()(digits)
 
     it.concurrent.each<{
       interpolation: Parameters<typeof remappedFalsyOutput>[0]

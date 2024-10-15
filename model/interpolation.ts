@@ -1,5 +1,5 @@
-import { toFixedNumber } from './number'
-import { ensureDefined } from './unknown'
+import { fixed } from './number'
+import { ensuredDefined } from './unknown'
 
 export type Interpolation<T = number> = {
   input: Array<number>
@@ -20,7 +20,7 @@ export const remappedFalsyOutput = (
       continue
     }
 
-    const start = ensureDefined(input[i])
+    const start = ensuredDefined(input[i])
     const end = input[i + 1]
 
     trueRatio += (end ?? 1) - start
@@ -28,7 +28,7 @@ export const remappedFalsyOutput = (
 
   const multiplier = 1 / trueRatio
 
-  const toFixed = toFixedNumber()(digits)
+  const toFixed = fixed()(digits)
 
   const remappedInput: Array<number> = []
   const remappedOutput: Array<number> = []
@@ -39,7 +39,7 @@ export const remappedFalsyOutput = (
       continue
     }
 
-    const start = ensureDefined(input[i])
+    const start = ensuredDefined(input[i])
     const end = input[i + 1] ?? 1
 
     const mappedInputEnd = startingRatio + (end - start) * multiplier

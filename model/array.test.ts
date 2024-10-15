@@ -1,6 +1,6 @@
 import { identity } from 'effect'
 import { describe, expect, it } from 'vitest'
-import { findClosestIndex } from './array'
+import { closestIndexOf } from './array'
 
 describe.concurrent('array', () => {
   describe.concurrent('findClosestIndex', () => {
@@ -38,7 +38,7 @@ describe.concurrent('array', () => {
         targetValue: number,
         expectedIndex: number | null,
       ) => {
-        expect(findClosestIndex(sortedArr, targetValue, identity)).toBe(
+        expect(closestIndexOf(sortedArr, targetValue, identity)).toBe(
           expectedIndex,
         )
       },
@@ -67,7 +67,7 @@ describe.concurrent('array', () => {
           value: 'hello',
         },
       ]
-      expect(findClosestIndex(arr, 0.3, (it) => it.at)).toBe(1)
+      expect(closestIndexOf(arr, 0.3, (it) => it.at)).toBe(1)
     })
   })
 })

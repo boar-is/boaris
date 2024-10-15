@@ -1,8 +1,8 @@
 import { v } from 'convex/values'
-import { layoutMode } from './layoutMode'
+import { layoutModes } from './layoutMode'
 
 export const layoutOverride = v.object({
-  modes: v.optional(v.array(layoutMode)),
+  modes: layoutModes,
   minWidthPx: v.optional(v.number()),
   disabled: v.optional(v.boolean()),
   /**

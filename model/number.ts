@@ -1,4 +1,4 @@
-export const toFixedNumber =
+export const fixed =
   (base = 10) =>
   (digits = 2) =>
   (num: number) => {

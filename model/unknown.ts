@@ -1,4 +1,4 @@
-export const ensureDefined = <T>(
+export const ensuredDefined = <T>(
   value: T | undefined,
   message = 'the value is undefined',
 ): T => {
@@ -8,7 +8,7 @@ export const ensureDefined = <T>(
   return value
 }
 
-export const ensureNonNull = <T>(
+export const ensuredNonNull = <T>(
   value: T | null,
   message = 'the value is null',
 ): T => {
@@ -18,7 +18,7 @@ export const ensureNonNull = <T>(
   return value
 }
 
-export const ensurePresent = <T>(
+export const ensuredPresent = <T>(
   value: T | null | undefined,
   message = 'the value is null or undefined',
 ): T => {
