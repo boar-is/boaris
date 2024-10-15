@@ -2,7 +2,7 @@ import type { Interpolation } from '~/convex/values/_shared/interpolation'
 import { toFixedNumber } from '~/model/number/to-fixed-number'
 import { ensureDefined } from '~/model/unknown/ensure-defined'
 
-export const interpolateSkipped = (
+export const toProgressInterpolation = (
   changes: Array<{ at: number; value?: unknown | undefined }>,
   digits = 5,
 ): Interpolation => {
