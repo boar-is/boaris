@@ -2,7 +2,7 @@ import { query } from '~/convex/_generated/server'
 import { project } from '~/convex/values/projects/project'
 import { workspace } from '~/convex/values/workspaces/workspace'
 import { Timestamp, readable } from '~/model/timestamp'
-import { ensuredNonNull, ensuredPresent } from '~/model/unknown'
+import { nonNull, present } from '~/model/unknown'
 
 export const params = query({
   handler: async ({ db }) => {
@@ -13,7 +13,7 @@ export const params = query({
     )
 
     return projects.map((project, index) => ({
-      workspaceSlug: ensuredPresent(workspaces[index]).slug,
+      workspaceSlug: present(workspaces[index]).slug,
       projectSlug: project.slug,
     }))
   },
@@ -66,11 +66,9 @@ export const page = query({
         ])
 
         const [tags, authors, thumbnailUrl] = await Promise.all([
+          Promise.all(postTags.map((it) => db.get(it.tagId).then(nonNull))),
           Promise.all(
-            postTags.map((it) => db.get(it.tagId).then(ensuredNonNull)),
-          ),
-          Promise.all(
-            postAuthors.map((it) => db.get(it.authorId).then(ensuredNonNull)),
+            postAuthors.map((it) => db.get(it.authorId).then(nonNull)),
           ),
           post.thumbnailId && storage.getUrl(post.thumbnailId),
         ])

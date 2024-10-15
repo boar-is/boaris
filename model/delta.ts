@@ -1,1 +1,3 @@
-export type { Delta } from 'jsondiffpatch'
+import type { Delta } from 'jsondiffpatch'
+
+export type { Delta }

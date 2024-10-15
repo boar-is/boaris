@@ -1,6 +1,6 @@
-import { ensuredDefined } from './unknown'
+import { defined } from './unknown'
 
-export const closestIndexOf = <T>(
+export const findClosestIndex = <T>(
   sortedArr: Array<T>,
   target: number,
   propFn: (t: T) => number,
@@ -12,7 +12,7 @@ export const closestIndexOf = <T>(
   let lowIndex = 0
   let highIndex = sortedArr.length - 1
 
-  const low = propFn(ensuredDefined(sortedArr[lowIndex]))
+  const low = propFn(defined(sortedArr[lowIndex]))
 
   if (target < low) {
     return null
@@ -21,7 +21,7 @@ export const closestIndexOf = <T>(
   while (lowIndex <= highIndex) {
     const midIndex = Math.floor((lowIndex + highIndex) / 2)
 
-    const mid = propFn(ensuredDefined(sortedArr[midIndex]))
+    const mid = propFn(defined(sortedArr[midIndex]))
 
     if (mid === target) {
       return midIndex
@@ -37,7 +37,7 @@ export const closestIndexOf = <T>(
   return highIndex
 }
 
-export const forcedGroupedBy = <T, K extends string | number>(
+export const forcedGroupBy = <T, K extends string | number>(
   array: Array<T>,
   keyFn: (item: T) => K,
 ) =>
