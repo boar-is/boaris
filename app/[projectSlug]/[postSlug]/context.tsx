@@ -5,17 +5,8 @@ import { useObservable } from '@legendapp/state/react'
 import type { FunctionReturnType } from 'convex/server'
 import { transform } from 'framer-motion'
 import type { PropsWithChildren } from 'react'
-import type { api } from '~/convex/_generated/api'
-import type { Interpolation } from '~/convex/values/_shared/interpolation'
-import type { Layout } from '~/convex/values/revisions/layouts/layout'
-import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
-import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import { diffpatcher } from '~/src/lib/delta/diffpatcher'
 import { createStrictContext } from '~/src/lib/react/create-strict-context'
-import { ensureDefined } from '~/utils/ensure-defined'
-import { ensureNonNull } from '~/utils/ensure-non-null'
-import { findClosestIndex } from '~/utils/find-closest-index'
-import { mapSkippedPair } from '~/utils/map-skipped-pair'
 
 type PageData = NonNullable<FunctionReturnType<typeof api.functions.post.page>>
 
@@ -102,9 +93,9 @@ export function WorkspaceProjectPostProvider({
       ),
     layout: () => {
       const layoutChanges = state$.layoutChanges.get()
-      const index = ensureNonNull(state$.layoutChangesIndex.get())
+      const index = state$.layoutChangesIndex.get()!
 
-      return ensureDefined(layoutChanges[index]?.value)
+      return layoutChanges[index]?.value!
     },
   } as const)
 

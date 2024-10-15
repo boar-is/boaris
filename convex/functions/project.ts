@@ -1,7 +1,7 @@
 import { query } from '~/convex/_generated/server'
 import { project } from '~/convex/values/projects/project'
 import { workspace } from '~/convex/values/workspaces/workspace'
-import { Timestamp, readable } from '~/model/timestamp'
+import { readableFromTimestamp } from '~/utils/date'
 
 export const params = query({
   handler: async ({ db }) => {
@@ -78,7 +78,7 @@ export const page = query({
           lead: post.lead,
           description: post.description,
           thumbnailUrl,
-          date: readable(Timestamp(post._creationTime)),
+          date: readableFromTimestamp(post._creationTime),
           tags: tags.map((it) => ({
             slug: it.slug,
             name: it.name,
