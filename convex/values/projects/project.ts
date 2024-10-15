@@ -1,4 +1,4 @@
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 
 export const project = v.object({
   slug: v.string(),
@@ -6,4 +6,4 @@ export const project = v.object({
   workspaceId: v.id('workspaces'),
 })
 
-export type Project = typeof project.type
+export type Project = Infer<typeof project>

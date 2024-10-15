@@ -1,4 +1,4 @@
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 
 export const layoutMode = v.union(
   v.literal('static'),
@@ -7,4 +7,4 @@ export const layoutMode = v.union(
   v.literal('sliding'),
 )
 
-export type LayoutMode = typeof layoutMode.type
+export type LayoutMode = Infer<typeof layoutMode>

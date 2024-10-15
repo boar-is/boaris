@@ -1,4 +1,4 @@
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 import { layoutChange } from './layoutChange'
 import { layoutMode } from './layoutMode'
 
@@ -10,4 +10,4 @@ export const layoutPrimary = v.object({
   changes: v.optional(v.array(layoutChange)),
 })
 
-export type LayoutPrimary = typeof layoutPrimary.type
+export type LayoutPrimary = Infer<typeof layoutPrimary>

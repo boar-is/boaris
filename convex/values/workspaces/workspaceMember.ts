@@ -1,4 +1,4 @@
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 
 export const workspaceMember = v.object({
   workspaceId: v.id('workspaces'),
@@ -6,4 +6,4 @@ export const workspaceMember = v.object({
   role: v.union(v.literal('owner'), v.literal('editor')),
 })
 
-export type WorkspaceMember = typeof workspaceMember.type
+export type WorkspaceMember = Infer<typeof workspaceMember>

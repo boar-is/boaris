@@ -1,4 +1,4 @@
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 import { trackBase } from './trackBase'
 
 export const staticImageTrack = v.object({
@@ -9,4 +9,4 @@ export const staticImageTrack = v.object({
   alt: v.optional(v.string()),
 })
 
-export type StaticImageTrack = typeof staticImageTrack.type
+export type StaticImageTrack = Infer<typeof staticImageTrack>

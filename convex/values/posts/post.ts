@@ -1,4 +1,4 @@
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 
 export const post = v.object({
   slug: v.string(),
@@ -12,4 +12,4 @@ export const post = v.object({
   revisionStorageIds: v.optional(v.array(v.id('_storage'))),
 })
 
-export type Post = typeof post.type
+export type Post = Infer<typeof post>

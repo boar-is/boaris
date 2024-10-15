@@ -1,4 +1,4 @@
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 import { layoutOverride } from './layoutOverride'
 import { layoutPrimary } from './layoutPrimary'
 
@@ -7,4 +7,4 @@ export const layouts = v.object({
   overrides: v.optional(v.array(layoutOverride)),
 })
 
-export type Layouts = typeof layouts.type
+export type Layouts = Infer<typeof layouts>

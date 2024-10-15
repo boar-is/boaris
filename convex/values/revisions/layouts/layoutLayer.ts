@@ -1,4 +1,4 @@
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 
 export const layoutLayer = v.object({
   /**
@@ -9,4 +9,4 @@ export const layoutLayer = v.object({
   rows: v.optional(v.string()),
 })
 
-export type LayoutLayer = typeof layoutLayer.type
+export type LayoutLayer = Infer<typeof layoutLayer>

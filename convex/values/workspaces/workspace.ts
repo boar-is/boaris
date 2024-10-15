@@ -1,4 +1,4 @@
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 import { socialLink } from '~/convex/values/_shared/socialLink'
 
 export const workspace = v.object({
@@ -8,4 +8,4 @@ export const workspace = v.object({
   socialLinks: v.array(socialLink),
 })
 
-export type Workspace = typeof workspace.type
+export type Workspace = Infer<typeof workspace>

@@ -1,4 +1,4 @@
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 import { trackBase } from './trackBase'
 
 /**
@@ -12,4 +12,4 @@ export const textTrack = v.object({
   value: v.string(),
 })
 
-export type TextTrack = typeof textTrack.type
+export type TextTrack = Infer<typeof textTrack>
