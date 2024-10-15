@@ -1,6 +1,5 @@
 import { v } from 'convex/values'
 
-/**
- * @see Delta
- */
 export const delta = v.any()
+
+export type { Delta } from 'jsondiffpatch'

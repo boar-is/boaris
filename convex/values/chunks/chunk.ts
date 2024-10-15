@@ -1,4 +1,4 @@
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 import { action } from './action'
 
 export const chunk = v.object({
@@ -9,3 +9,5 @@ export const chunk = v.object({
    */
   actions: v.record(v.string(), v.array(action)),
 })
+
+export type Chunk = Infer<typeof chunk>

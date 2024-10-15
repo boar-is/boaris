@@ -1,4 +1,4 @@
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 import { socialLink } from '~/convex/values/_shared/socialLink'
 
 export const user = v.object({
@@ -7,3 +7,5 @@ export const user = v.object({
   avatarUrl: v.optional(v.string()),
   socialLinks: v.optional(v.array(socialLink)),
 })
+
+export type User = Infer<typeof user>
