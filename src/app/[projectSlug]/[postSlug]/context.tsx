@@ -29,7 +29,7 @@ export type WorkspaceProjectPostState = {
   layoutChanges: Array<LayoutChange>
   progressInterpolation: Interpolation
   progress: number
-  layoutChangesIndex: number
+  layoutChangesIndex: () => number | null
   layout: Layout
 }
 
@@ -94,17 +94,15 @@ export function WorkspaceProjectPostProvider({
       const { input, output } = state$.progressInterpolation.peek()
       return transform(state$.scrollYProgress.get(), input, output)
     },
-    layoutChangesIndex: (): number =>
-      ensureNonNull(
-        findClosestIndex(
-          state$.layoutChanges.peek(),
-          state$.progress.get(),
-          (it) => it.at,
-        ),
+    layoutChangesIndex: (): number | null =>
+      findClosestIndex(
+        state$.layoutChanges.peek(),
+        state$.progress.get(),
+        (it) => it.at,
       ),
     layout: () => {
       const layoutChanges = state$.layoutChanges.get()
-      const index = state$.layoutChangesIndex.get()
+      const index = ensureNonNull(state$.layoutChangesIndex.get())
 
       return ensureDefined(layoutChanges[index]?.value)
     },
