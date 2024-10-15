@@ -1,5 +1,4 @@
 import { query } from '~/convex/_generated/server'
-import { getUrl } from '~/convex/utils/getUrl'
 import { workspace } from '~/convex/values/workspaces/workspace'
 
 export const params = query({
@@ -22,7 +21,7 @@ export const layout = query({
       return null
     }
 
-    const logoUrl = await getUrl(storage, workspace.logoId)
+    const logoUrl = workspace.logoId && (await storage.getUrl(workspace.logoId))
 
     return {
       workspace: {

@@ -1,11 +1,9 @@
 import { query } from '~/convex/_generated/server'
-import { formatCreationTime } from '~/convex/utils/date'
-import { getUrl } from '~/convex/utils/getUrl'
 import { post } from '~/convex/values/posts/post'
 import { project } from '~/convex/values/projects/project'
 import { workspace } from '~/convex/values/workspaces/workspace'
-import { ensureNonNull } from '~/utils/ensure-non-null'
-import { ensurePresent } from '~/utils/ensure-present'
+import { Timestamp, readable } from '~/model/timestamp'
+import { ensureNonNull, ensurePresent } from '~/model/unknown'
 
 export const params = query({
   handler: async ({ db }) => {
@@ -88,7 +86,7 @@ export const page = query({
       Promise.all(
         postAuthors.map((it) => db.get(it.authorId).then(ensureNonNull)),
       ),
-      getUrl(storage, post.thumbnailId),
+      post.thumbnailId && storage.getUrl(post.thumbnailId),
     ])
 
     const captions = revision.captions && {
@@ -123,7 +121,7 @@ export const page = query({
                 id: track.id,
                 name: track.name,
                 type: track.type,
-                url: await getUrl(storage, track.storageId),
+                url: track.storageId && (await storage.getUrl(track.storageId)),
                 caption: track.caption,
               }
             }
@@ -132,7 +130,7 @@ export const page = query({
                 id: track.id,
                 name: track.name,
                 type: track.type,
-                url: await getUrl(storage, track.storageId),
+                url: track.storageId && (await storage.getUrl(track.storageId)),
                 caption: track.caption,
                 alt: track.alt,
               }
@@ -156,7 +154,7 @@ export const page = query({
         title: post.title,
         lead: post.lead,
         description: post.description,
-        date: formatCreationTime(post._creationTime),
+        date: readable(Timestamp(post._creationTime)),
         thumbnailUrl,
       },
       tags: tags.map((it) => ({

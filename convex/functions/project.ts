@@ -1,10 +1,8 @@
 import { query } from '~/convex/_generated/server'
-import { formatCreationTime } from '~/convex/utils/date'
-import { getUrl } from '~/convex/utils/getUrl'
 import { project } from '~/convex/values/projects/project'
 import { workspace } from '~/convex/values/workspaces/workspace'
-import { ensureNonNull } from '~/utils/ensure-non-null'
-import { ensurePresent } from '~/utils/ensure-present'
+import { Timestamp, readable } from '~/model/timestamp'
+import { ensureNonNull, ensurePresent } from '~/model/unknown'
 
 export const params = query({
   handler: async ({ db }) => {
@@ -74,7 +72,7 @@ export const page = query({
           Promise.all(
             postAuthors.map((it) => db.get(it.authorId).then(ensureNonNull)),
           ),
-          getUrl(storage, post.thumbnailId),
+          post.thumbnailId && storage.getUrl(post.thumbnailId),
         ])
 
         return {
@@ -83,7 +81,7 @@ export const page = query({
           lead: post.lead,
           description: post.description,
           thumbnailUrl,
-          date: formatCreationTime(post._creationTime),
+          date: readable(Timestamp(post._creationTime)),
           tags: tags.map((it) => ({
             slug: it.slug,
             name: it.name,
