@@ -1,8 +1,13 @@
+import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
 import { workspace } from '~/convex/values/workspaces/workspace'
 
+export type WorkspaceParamsQueryResult = Array<{
+  workspaceSlug: string
+}>
+
 export const params = query({
-  handler: async ({ db }) => {
+  handler: async ({ db }): Promise<WorkspaceParamsQueryResult> => {
     const workspaces = await db.query('workspaces').order('desc').take(100)
 
     return workspaces.map((it) => ({ workspaceSlug: it.slug }))
@@ -36,9 +41,18 @@ export const layout = query({
   },
 })
 
+export type WorkspacePageQueryResult = {
+  workspace: {
+    name: string
+  }
+} | null
+
 export const page = query({
-  args: { workspaceSlug: workspace.fields.slug },
-  handler: async ({ db }, { workspaceSlug }) => {
+  args: { workspaceSlug: v.string() },
+  handler: async (
+    { db },
+    { workspaceSlug },
+  ): Promise<WorkspacePageQueryResult> => {
     const workspace = await db
       .query('workspaces')
       .withIndex('by_slug', (q) => q.eq('slug', workspaceSlug))

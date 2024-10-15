@@ -1,12 +1,10 @@
+import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
 import type { Delta } from '~/convex/values/_shared/delta'
 import type { Interpolation } from '~/convex/values/_shared/interpolation'
-import { post } from '~/convex/values/posts/post'
-import { project } from '~/convex/values/projects/project'
 import type { CaptionsValue } from '~/convex/values/revisions/captions/captionsValue'
 import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
 import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
-import { workspace } from '~/convex/values/workspaces/workspace'
 import { readableFromTimestamp } from '~/shared/date'
 
 export type PostParamsQueryResult = Array<{
@@ -103,9 +101,9 @@ export type PostPageQueryResult = {
 
 export const page = query({
   args: {
-    workspaceSlug: workspace.fields.slug,
-    projectSlug: project.fields.slug,
-    postSlug: post.fields.slug,
+    workspaceSlug: v.string(),
+    projectSlug: v.string(),
+    postSlug: v.string(),
   },
   handler: async (
     { db, storage },

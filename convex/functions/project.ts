@@ -1,10 +1,14 @@
+import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
-import { project } from '~/convex/values/projects/project'
-import { workspace } from '~/convex/values/workspaces/workspace'
 import { readableFromTimestamp } from '~/shared/date'
 
+export type ProjectParamsQueryResult = Array<{
+  workspaceSlug: string
+  projectSlug: string
+}>
+
 export const params = query({
-  handler: async ({ db }) => {
+  handler: async ({ db }): Promise<ProjectParamsQueryResult> => {
     const projects = await db.query('projects').order('desc').take(100)
 
     const workspaces = await Promise.all(
@@ -18,12 +22,39 @@ export const params = query({
   },
 })
 
+export type ProjectPageQueryResult = {
+  project: {
+    name: string
+    slug: string
+  }
+  posts: Array<{
+    slug: string
+    title: string
+    lead: string | undefined
+    description: string
+    thumbnailUrl: string | undefined
+    date: string
+    tags: Array<{
+      slug: string
+      name: string
+    }>
+    authors: Array<{
+      slug: string
+      name: string
+      avatarUrl: string | undefined
+    }>
+  }>
+} | null
+
 export const page = query({
   args: {
-    workspaceSlug: workspace.fields.slug,
-    projectSlug: project.fields.slug,
+    workspaceSlug: v.string(),
+    projectSlug: v.string(),
   },
-  handler: async ({ db, storage }, { workspaceSlug, projectSlug }) => {
+  handler: async (
+    { db, storage },
+    { workspaceSlug, projectSlug },
+  ): Promise<ProjectPageQueryResult> => {
     const workspace = await db
       .query('workspaces')
       .withIndex('by_slug', (q) => q.eq('slug', workspaceSlug))
@@ -77,7 +108,7 @@ export const page = query({
           title: post.title,
           lead: post.lead,
           description: post.description,
-          thumbnailUrl,
+          thumbnailUrl: thumbnailUrl ?? undefined,
           date: readableFromTimestamp(post._creationTime),
           tags: tags.map((it) => ({
             slug: it.slug,
