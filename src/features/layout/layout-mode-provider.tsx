@@ -7,7 +7,8 @@ import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 
 export type LayoutModeContextValue = {
-  layoutMode$: Observable<LayoutMode>
+  currentLayoutMode$: Observable<LayoutMode>
+  primaryLayoutModes: Array<LayoutMode>
 }
 
 export const [LayoutModeContext, useLayoutModeContext] =
@@ -17,24 +18,24 @@ export const [LayoutModeContext, useLayoutModeContext] =
 
 export function LayoutModeProvider({
   children,
-  primaryModes,
+  primaryLayoutModes = [],
 }: PropsWithChildren & {
-  primaryModes?: Array<LayoutMode> | undefined
+  primaryLayoutModes?: Array<LayoutMode> | undefined
 }) {
   const initialLayoutMode: LayoutMode =
-    !primaryModes?.length || primaryModes.includes('static')
+    !primaryLayoutModes?.length || primaryLayoutModes.includes('static')
       ? 'static'
-      : primaryModes.includes('scrolling')
+      : primaryLayoutModes.includes('scrolling')
         ? 'scrolling'
-        : primaryModes.includes('sliding')
+        : primaryLayoutModes.includes('sliding')
           ? 'sliding'
           : 'watching'
 
-  const layoutMode$ = useObservable(initialLayoutMode)
+  const currentLayoutMode$ = useObservable(initialLayoutMode)
 
   const value = useMemo(
-    (): LayoutModeContextValue => ({ layoutMode$ }),
-    [layoutMode$],
+    (): LayoutModeContextValue => ({ currentLayoutMode$, primaryLayoutModes }),
+    [currentLayoutMode$, primaryLayoutModes],
   )
 
   return (

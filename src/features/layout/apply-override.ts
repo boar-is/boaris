@@ -6,10 +6,11 @@ export const applyOverride = ({
   changes,
   override,
 }: {
-  changes?: Array<LayoutChange> | undefined
+  changes: Array<LayoutChange>
   override?: LayoutOverride | undefined
 }) => {
-  return diffpatcher.patch(changes, override?.changesDelta) as
-    | Array<LayoutChange>
-    | undefined
+  return diffpatcher.patch(
+    changes,
+    override?.changesDelta,
+  ) as Array<LayoutChange>
 }
