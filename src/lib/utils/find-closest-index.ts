@@ -1,3 +1,4 @@
+// TODO refactor this and everything else to return undefined not null
 export const findClosestIndex = <T>(
   sortedArr: Array<T>,
   target: number,
