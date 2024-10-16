@@ -2,7 +2,6 @@
 
 import { type PropsWithChildren, useContext, useEffect } from 'react'
 import { useFormState } from 'react-dom'
-import { toast } from 'sonner'
 import { OverlayTriggerStateContext } from '~/src/primitives/dialog'
 import { FormContext } from '~/src/primitives/form'
 import { subscribe } from './subscribe'
