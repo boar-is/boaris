@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { toFixed } from '../../lib/utils/to-fixed'
-import { progressInterpolationFromChanges } from './progress-interpolation-from-changes'
+import { toFixed } from '~/lib/utils/to-fixed'
+import { playbackProgressInterpolationFromChanges } from './playback-progress-interpolation-from-changes'
 
-describe.concurrent('progressInterpolationFromChanges', () => {
+describe.concurrent('playbackProgressInterpolationFromChanges', () => {
   const digits = 5
   const toFixedDigits = toFixed(digits)
 
   it.concurrent.each<{
-    changes: Parameters<typeof progressInterpolationFromChanges>[0]
-    returns: ReturnType<typeof progressInterpolationFromChanges>
+    changes: Parameters<typeof playbackProgressInterpolationFromChanges>[0]
+    returns: ReturnType<typeof playbackProgressInterpolationFromChanges>
   }>([
     {
       changes: [],
@@ -69,7 +69,7 @@ describe.concurrent('progressInterpolationFromChanges', () => {
       },
     },
   ])('$changes -> $returns', ({ changes, returns: { input, output } }) => {
-    expect(progressInterpolationFromChanges(changes, digits)).toEqual({
+    expect(playbackProgressInterpolationFromChanges(changes, digits)).toEqual({
       input: input.map(toFixedDigits),
       output: output.map(toFixedDigits),
     })

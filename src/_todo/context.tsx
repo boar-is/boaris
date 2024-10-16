@@ -11,7 +11,7 @@ import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChang
 import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import { applyOverride } from '~/features/layout/apply-override'
 import { determineOverride } from '~/features/layout/determine-override'
-import { progressInterpolationFromChanges } from '~/features/layout/progress-interpolation-from-changes'
+import { playbackProgressInterpolationFromChanges } from '~/features/layout/playback-progress-interpolation-from-changes'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 
@@ -79,7 +79,7 @@ export function WorkspaceProjectPostProvider({
       })
     },
     progressInterpolation: () =>
-      progressInterpolationFromChanges(state$.layoutChanges.get(true)),
+      playbackProgressInterpolationFromChanges(state$.layoutChanges.get(true)),
     progress: (): number => {
       const { input, output } = state$.progressInterpolation.peek()
       return transform(state$.scrollYProgress.get(), input, output)
