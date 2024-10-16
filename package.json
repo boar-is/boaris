@@ -18,7 +18,7 @@
     "@codemirror/lang-css": "6.3.0",
     "@codemirror/lang-javascript": "6.2.2",
     "@codemirror/lang-json": "6.0.1",
-    "@effect/schema": "0.75.4",
+    "@effect/schema": "0.75.5",
     "@legendapp/state": "3.0.0-beta.9",
     "@lezer/highlight": "1.2.1",
     "@next/bundle-analyzer": "14.2.15",
