@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { remappedFalsyOutput } from './interpolation'
-import { fixed } from './number'
+import { toFixed } from './number'
 
 describe.concurrent('interpolation', () => {
   describe.concurrent('remappedFalsyOutput', () => {
     const digits = 5
-    const toFixed = fixed()(digits)
+    const toFixedDigits = toFixed(digits)
 
     it.concurrent.each<{
       interpolation: Parameters<typeof remappedFalsyOutput>[0]
@@ -47,8 +47,8 @@ describe.concurrent('interpolation', () => {
       '$interpolation -> $returns',
       ({ interpolation, returns: { input, output } }) => {
         expect(remappedFalsyOutput(interpolation, digits)).toEqual({
-          input: input.map(toFixed),
-          output: output.map(toFixed),
+          input: input.map(toFixedDigits),
+          output: output.map(toFixedDigits),
         })
       },
     )

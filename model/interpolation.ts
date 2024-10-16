@@ -1,14 +1,18 @@
-import { fixed } from './number'
-
-export type Interpolation<T = number> = {
-  input: Array<number>
-  output: Array<T>
-}
+import { toFixed } from './number'
 
 export const remappedFalsyOutput = (
-  { input, output }: Interpolation<unknown>,
+  {
+    input,
+    output,
+  }: {
+    input: Array<number>
+    output: Array<unknown>
+  },
   digits = 5,
-): Interpolation<number> => {
+): {
+  input: Array<number>
+  output: Array<number>
+} => {
   if (input.length !== output.length) {
     throw new Error('Inputs and output arrays must be of the same length')
   }
@@ -27,7 +31,7 @@ export const remappedFalsyOutput = (
 
   const multiplier = 1 / trueRatio
 
-  const toFixed = fixed()(digits)
+  const toFixedDigits = toFixed(digits)
 
   const remappedInput: Array<number> = []
   const remappedOutput: Array<number> = []
@@ -43,8 +47,11 @@ export const remappedFalsyOutput = (
 
     const mappedInputEnd = startingRatio + (end - start) * multiplier
 
-    remappedInput.push(toFixed(startingRatio), toFixed(mappedInputEnd))
-    remappedOutput.push(toFixed(start), toFixed(end))
+    remappedInput.push(
+      toFixedDigits(startingRatio),
+      toFixedDigits(mappedInputEnd),
+    )
+    remappedOutput.push(toFixedDigits(start), toFixedDigits(end))
 
     startingRatio = mappedInputEnd
   }
