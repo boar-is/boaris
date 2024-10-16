@@ -1,6 +1,6 @@
-import { toFixed } from './number'
+import { toFixed } from './to-fixed'
 
-export const remappedFalsyOutput = (
+export const remapFalsyOutput = (
   {
     input,
     output,

@@ -1,6 +1,6 @@
 import * as jsondiffpatch from 'jsondiffpatch'
 
-const diffpatcher = jsondiffpatch.create({
+export const diffpatcher = jsondiffpatch.create({
   // biome-ignore lint/suspicious/noExplicitAny: the best choice here
   objectHash: (obj: any) => {
     return obj._id ?? obj.id ?? obj.attrs?.id

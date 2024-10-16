@@ -1,4 +1,4 @@
-export const socialRegexes = {
+export const socialNetworkRegexes = {
   github: /^(https:\/\/)?(www\.)?github\.com\/[A-Za-z0-9_.-]+\/?(.*)?$/,
   twitter:
     /^(https:\/\/)?(www\.)?(twitter\.com|x\.com)\/[A-Za-z0-9_.-]+\/?(.*)?$/,

@@ -19,6 +19,7 @@ const radixGray = {
 } as const
 
 const tailwindConfig = {
+  // TODO more specific
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     colors: {

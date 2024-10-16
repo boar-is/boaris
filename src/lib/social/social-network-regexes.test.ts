@@ -1,10 +1,10 @@
 // noinspection HttpUrlsUsage
 
 import { describe, expect, it } from 'vitest'
-import { socialRegexes } from '~/src/lib/regex/social'
+import { socialNetworkRegexes } from './social-network-regexes'
 
-describe.concurrent('social network regexes', () => {
-  describe.concurrent('github', () => {
+describe.concurrent('socialNetworkRegexes', () => {
+  describe.concurrent('GitHub', () => {
     it.concurrent.each([
       'github.com/username',
       'www.github.com/username',
@@ -13,7 +13,7 @@ describe.concurrent('social network regexes', () => {
       'https://www.github.com/username/',
       'https://www.github.com/username/repo',
     ])('should succeed for %s', (url) => {
-      expect(socialRegexes.github.test(url)).toBe(true)
+      expect(socialNetworkRegexes.github.test(url)).toBe(true)
     })
 
     it.concurrent.each([
@@ -21,11 +21,11 @@ describe.concurrent('social network regexes', () => {
       'ftp://github.com/username',
       'https://gitlab.com/username',
     ])('should fail for %s', (url) => {
-      expect(socialRegexes.github.test(url)).toBe(false)
+      expect(socialNetworkRegexes.github.test(url)).toBe(false)
     })
   })
 
-  describe.concurrent('x (twitter)', () => {
+  describe.concurrent('X (Twitter)', () => {
     it.concurrent.each([
       'twitter.com/username',
       'x.com/username',
@@ -35,7 +35,7 @@ describe.concurrent('social network regexes', () => {
       'https://x.com/username/',
       'https://twitter.com/username/status/12345',
     ])('should succeed for %s', (url) => {
-      expect(socialRegexes.twitter.test(url)).toBe(true)
+      expect(socialNetworkRegexes.twitter.test(url)).toBe(true)
     })
 
     it.concurrent.each([
@@ -43,11 +43,11 @@ describe.concurrent('social network regexes', () => {
       'ftp://twitter.com/username',
       'https://github.com/username',
     ])('should fail for %s', (url) => {
-      expect(socialRegexes.twitter.test(url)).toBe(false)
+      expect(socialNetworkRegexes.twitter.test(url)).toBe(false)
     })
   })
 
-  describe.concurrent('linkedin', () => {
+  describe.concurrent('LinkedIn', () => {
     it.concurrent.each([
       'linkedin.com/in/username',
       'www.linkedin.com/in/username',
@@ -56,7 +56,7 @@ describe.concurrent('social network regexes', () => {
       'https://linkedin.com/company/companyname',
       'https://www.linkedin.com/pub/username',
     ])('should succeed for %s', (url) => {
-      expect(socialRegexes.linkedin.test(url)).toBe(true)
+      expect(socialNetworkRegexes.linkedin.test(url)).toBe(true)
     })
 
     it.concurrent.each([
@@ -64,18 +64,18 @@ describe.concurrent('social network regexes', () => {
       'ftp://linkedin.com/in/username',
       'https://github.com/username',
     ])('should fail for %s', (url) => {
-      expect(socialRegexes.linkedin.test(url)).toBe(false)
+      expect(socialNetworkRegexes.linkedin.test(url)).toBe(false)
     })
   })
 
-  describe.concurrent('stackoverflow', () => {
+  describe.concurrent('Stack Overflow', () => {
     it.concurrent.each([
       'stackoverflow.com/users/12345/username',
       'www.stackoverflow.com/users/12345/username',
       'https://stackoverflow.com/users/12345/username',
       'https://www.stackoverflow.com/users/12345/username',
     ])('should succeed for %s', (url) => {
-      expect(socialRegexes.stackoverflow.test(url)).toBe(true)
+      expect(socialNetworkRegexes.stackoverflow.test(url)).toBe(true)
     })
 
     it.concurrent.each([
@@ -83,18 +83,18 @@ describe.concurrent('social network regexes', () => {
       'ftp://stackoverflow.com/users/12345/username',
       'https://github.com/username',
     ])('should fail for %s', (url) => {
-      expect(socialRegexes.stackoverflow.test(url)).toBe(false)
+      expect(socialNetworkRegexes.stackoverflow.test(url)).toBe(false)
     })
   })
 
-  describe.concurrent('discord', () => {
+  describe.concurrent('Discord', () => {
     it.concurrent.each([
       'discord.gg/abc123',
       'www.discord.gg/abc123',
       'https://discord.gg/abc123',
       'https://www.discord.gg/abc123/',
     ])('should succeed for %s', (url) => {
-      expect(socialRegexes.discord.test(url)).toBe(true)
+      expect(socialNetworkRegexes.discord.test(url)).toBe(true)
     })
 
     it.concurrent.each([
@@ -102,11 +102,11 @@ describe.concurrent('social network regexes', () => {
       'ftp://discord.gg/abc123',
       'https://github.com/username',
     ])('should fail for %s', (url) => {
-      expect(socialRegexes.discord.test(url)).toBe(false)
+      expect(socialNetworkRegexes.discord.test(url)).toBe(false)
     })
   })
 
-  describe.concurrent('youtube', () => {
+  describe.concurrent('YouTube', () => {
     it.concurrent.each([
       'youtube.com/user/username',
       'www.youtube.com/user/username',
@@ -115,7 +115,7 @@ describe.concurrent('social network regexes', () => {
       'https://youtube.com/watch?v=dQw4w9WgXcQ',
       'https://youtu.be/dQw4w9WgXcQ',
     ])('should succeed for %s', (url) => {
-      expect(socialRegexes.youtube.test(url)).toBe(true)
+      expect(socialNetworkRegexes.youtube.test(url)).toBe(true)
     })
 
     it.concurrent.each([
@@ -123,11 +123,11 @@ describe.concurrent('social network regexes', () => {
       'ftp://youtube.com/user/username',
       'https://github.com/username',
     ])('should fail for %s', (url) => {
-      expect(socialRegexes.youtube.test(url)).toBe(false)
+      expect(socialNetworkRegexes.youtube.test(url)).toBe(false)
     })
   })
 
-  describe.concurrent('reddit', () => {
+  describe.concurrent('Reddit', () => {
     it.concurrent.each([
       'reddit.com/user/username',
       'www.reddit.com/user/username',
@@ -136,7 +136,7 @@ describe.concurrent('social network regexes', () => {
       'https://reddit.com/r/subreddit',
       'https://www.reddit.com/r/subreddit/',
     ])('should succeed for %s', (url) => {
-      expect(socialRegexes.reddit.test(url)).toBe(true)
+      expect(socialNetworkRegexes.reddit.test(url)).toBe(true)
     })
 
     it.concurrent.each([
@@ -144,18 +144,18 @@ describe.concurrent('social network regexes', () => {
       'ftp://reddit.com/user/username',
       'https://github.com/username',
     ])('should fail for %s', (url) => {
-      expect(socialRegexes.reddit.test(url)).toBe(false)
+      expect(socialNetworkRegexes.reddit.test(url)).toBe(false)
     })
   })
 
-  describe.concurrent('telegram', () => {
+  describe.concurrent('Telegram', () => {
     it.concurrent.each([
       't.me/username',
       'www.t.me/username',
       'https://t.me/username',
       'https://www.t.me/username/',
     ])('should succeed for %s', (url) => {
-      expect(socialRegexes.telegram.test(url)).toBe(true)
+      expect(socialNetworkRegexes.telegram.test(url)).toBe(true)
     })
 
     it.concurrent.each([
@@ -163,7 +163,7 @@ describe.concurrent('social network regexes', () => {
       'ftp://t.me/username',
       'https://github.com/username',
     ])('should fail for %s', (url) => {
-      expect(socialRegexes.telegram.test(url)).toBe(false)
+      expect(socialNetworkRegexes.telegram.test(url)).toBe(false)
     })
   })
 })

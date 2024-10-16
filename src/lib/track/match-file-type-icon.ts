@@ -34,7 +34,7 @@ export const matchFileTypeIcon = Match.type<string>().pipe(
     () => JavaScriptFileTypeIcon,
   ),
   Match.when(
-    (it) => /\.(json|jsonc|jsonl|.babelrc|.eslintrc)$/i.test(it),
+    (it) => /\.(json|jsonc|jsonl|.babelrc|.eslintrc|.prettierrc)$/i.test(it),
     () => JsonFileTypeIcon,
   ),
   Match.when(
