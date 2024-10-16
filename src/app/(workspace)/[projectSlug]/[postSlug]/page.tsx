@@ -2,9 +2,9 @@ import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
 import { currentWorkspaceSlug } from '~/lib/constants'
+import { getMonoFontClassName } from '~/lib/media/fonts/get-mono-font-class-name'
 import { Image } from '~/lib/media/image'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
-import { getMonoFontVariable } from '~/lib/style/fonts/get-mono-font-variable'
 import { cx } from '~/lib/utils/cx'
 
 export async function generateStaticParams() {
@@ -27,7 +27,7 @@ export default async function WorkspaceProjectPostPage({
   return (
     <article
       className={cx(
-        getMonoFontVariable(),
+        getMonoFontClassName(),
         'container flex flex-col gap-12 items-center',
       )}
     >

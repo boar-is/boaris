@@ -10,4 +10,4 @@ const Switzer = localFont({
   ],
 })
 
-export const getSansFontVariable = () => Switzer.variable
+export const getSansFontClassName = () => Switzer.variable

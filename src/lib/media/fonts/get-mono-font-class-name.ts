@@ -10,4 +10,4 @@ const JetBrainsMono = localFont({
   ],
 })
 
-export const getMonoFontVariable = () => JetBrainsMono.variable
+export const getMonoFontClassName = () => JetBrainsMono.variable
