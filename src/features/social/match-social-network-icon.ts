@@ -9,7 +9,7 @@ import {
   TelegramIcon,
   XIcon,
   YouTubeIcon,
-} from '~/lib/icons/icons'
+} from '~/lib/media/icons'
 import { socialNetworkRegexes } from './social-network-regexes'
 
 export const matchSocialNetworkIcon = Match.type<string>().pipe(
