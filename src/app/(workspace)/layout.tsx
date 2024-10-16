@@ -1,4 +1,3 @@
-import './_/globals.css'
 import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
 import type { CSSProperties, PropsWithChildren } from 'react'

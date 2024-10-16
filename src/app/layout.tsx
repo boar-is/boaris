@@ -1,3 +1,4 @@
+import '~/lib/style/globals.css'
 import type { PropsWithChildren } from 'react'
 import { FramerMotionProvider } from '~/lib/framer-motion/provider'
 import { I18nProvider } from '~/lib/i18n/i18n-provider'
