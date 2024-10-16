@@ -1,10 +1,10 @@
 import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
-import { currentWorkspaceSlug } from '~/constants'
 import { api } from '~/convex/_generated/api'
-import type { PropsWithStaticParams } from '~/src/lib/react/props-with-static-params'
-import { Image } from '~/src/primitives/image'
-import { Link } from '~/src/primitives/link'
+import { currentWorkspaceSlug } from '~/lib/constants'
+import { Image } from '~/lib/media/image'
+import { Link } from '~/lib/navigation/link'
+import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
 
 export async function generateStaticParams() {
   return fetchQuery(api.queries.projectParams.default)
