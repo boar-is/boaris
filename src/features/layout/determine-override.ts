@@ -1,7 +1,7 @@
 import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import type { LayoutOverride } from '~/convex/values/revisions/layouts/layoutOverride'
 
-const determineOverride = <
+export const determineOverride = <
   OverrideT extends Pick<LayoutOverride, 'modes' | 'disabled' | 'minWidth'>,
 >({
   currentLayoutMode,

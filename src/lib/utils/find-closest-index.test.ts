@@ -4,11 +4,11 @@ import { findClosestIndex } from './find-closest-index'
 
 describe.concurrent('findClosestIndex', () => {
   it.concurrent.each([
-    [[], 33, null],
+    [[], 33, undefined],
     [
       [10, 20, 30, 40, 50],
       5,
-      null, // the target is smaller than all
+      undefined, // the target is smaller than everything
     ],
     [
       [10, 20, 30, 40, 50],
@@ -35,7 +35,7 @@ describe.concurrent('findClosestIndex', () => {
     (
       sortedArr: Array<number>,
       targetValue: number,
-      expectedIndex: number | null,
+      expectedIndex: number | undefined,
     ) => {
       expect(findClosestIndex(sortedArr, targetValue, identity)).toBe(
         expectedIndex,

@@ -124,7 +124,7 @@ export function BlogPostClient({
   const scrollYProgress = useTransform(scrollY, (scrollYValue) => {
     const scrollableEl = scrollableRef.current
     if (!scrollableEl) {
-      return null
+      return undefined
     }
 
     const relativeScrollY = scrollYValue - scrollableEl.offsetTop
@@ -134,7 +134,7 @@ export function BlogPostClient({
 
   const position = useTransform(scrollYProgress, (scrollYProgressValue) => {
     if (!(scrollYProgressValue && editor)) {
-      return null
+      return undefined
     }
 
     return Math.floor(
@@ -183,7 +183,7 @@ export function BlogPostClient({
     animationFrameId.current && cancelAnimationFrame(animationFrameId.current)
 
     animationFrameId.current = requestAnimationFrame(() => {
-      if (position.get() === null) {
+      if (position.get() === undefined) {
         animate(contentY, 0)
       }
     })
@@ -281,8 +281,8 @@ function ContentFlowCursorItem({
   offset,
 }: {
   scrollableRef: RefObject<HTMLElement>
-  editor: Editor | null
-  position: MotionValue<number | null>
+  editor?: Editor | undefined
+  position: MotionValue<number | undefined>
   contentY: MotionValue<number | undefined>
   offset: number
 }) {

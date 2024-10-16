@@ -34,5 +34,5 @@ export const matchSocialNetworkName = Match.type<string>().pipe(
     (it) => socialNetworkRegexes.telegram.test(it),
     () => 'Telegram',
   ),
-  Match.orElse(() => null),
+  Match.orElse(() => undefined),
 )

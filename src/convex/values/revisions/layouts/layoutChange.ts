@@ -11,7 +11,7 @@ export const layoutChange = v.object({
    */
   at: v.number(),
   /**
-   * null is for skip
+   * undefined is for skip
    */
   value: v.optional(layout),
 })

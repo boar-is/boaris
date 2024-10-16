@@ -5,6 +5,7 @@ import { useObservable } from '@legendapp/state/react'
 import type { FunctionReturnType } from 'convex/server'
 import { transform } from 'framer-motion'
 import type { PropsWithChildren } from 'react'
+import { findClosestIndex } from '~/lib/utils/find-closest-index'
 import { diffpatcher } from '~/src/lib/delta/diffpatcher'
 import { createStrictContext } from '~/src/lib/react/create-strict-context'
 
@@ -20,7 +21,7 @@ export type WorkspaceProjectPostState = {
   layoutChanges: Array<LayoutChange>
   progressInterpolation: Interpolation
   progress: number
-  layoutChangesIndex: () => number | null
+  layoutChangesIndex: () => number | undefined
   layout: Layout
 }
 
@@ -85,7 +86,7 @@ export function WorkspaceProjectPostProvider({
       const { input, output } = state$.progressInterpolation.peek()
       return transform(state$.scrollYProgress.get(), input, output)
     },
-    layoutChangesIndex: (): number | null =>
+    layoutChangesIndex: (): number | undefined =>
       findClosestIndex(
         state$.layoutChanges.peek(),
         state$.progress.get(),

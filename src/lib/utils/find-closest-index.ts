@@ -1,11 +1,10 @@
-// TODO refactor this and everything else to return undefined not null
 export const findClosestIndex = <T>(
   sortedArr: Array<T>,
   target: number,
   propFn: (t: T) => number,
 ) => {
   if (!sortedArr.length) {
-    return null
+    return undefined
   }
 
   let lowIndex = 0
@@ -14,7 +13,7 @@ export const findClosestIndex = <T>(
   const low = propFn(sortedArr[lowIndex]!)
 
   if (target < low) {
-    return null
+    return undefined
   }
 
   while (lowIndex <= highIndex) {
