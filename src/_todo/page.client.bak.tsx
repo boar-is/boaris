@@ -64,7 +64,7 @@ export function BlogPostClient({
     (it) =>
       !it.disabled &&
       it.modes.includes(currentMode) &&
-      (!it?.minWidthPx || width >= it.minWidthPx),
+      (!it?.minWidth || width >= it.minWidthPx),
   )
 
   if (!layout.primary.modes.includes(currentMode)) {

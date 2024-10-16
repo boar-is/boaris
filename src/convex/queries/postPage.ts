@@ -42,7 +42,7 @@ export type PostPageQueryResult = {
         overrides:
           | Array<{
               modes: Array<LayoutMode>
-              minWidthPx: number | undefined
+              minWidth: number | undefined
               changesDelta: Delta
             }>
           | undefined
@@ -155,7 +155,7 @@ const postPage = query({
         ?.filter((it) => !it.disabled)
         .map((it) => ({
           modes: it.modes,
-          minWidthPx: it.minWidthPx,
+          minWidth: it.minWidth,
           changesDelta: it.changesDelta,
         })),
     }

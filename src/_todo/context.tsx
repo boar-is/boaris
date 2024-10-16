@@ -56,7 +56,7 @@ export function WorkspaceProjectPostProvider({
       const override = state$.layouts.overrides.find(
         (it) =>
           it.modes.includes(state$.layoutMode) &&
-          (!it.minWidthPx || state$.windowWidth >= it.minWidthPx),
+          (!it.minWidth || state$.windowWidth >= it.minWidthPx),
       )
 
       const primaryLayoutChanges = state$.layouts.primary.changes.get()
