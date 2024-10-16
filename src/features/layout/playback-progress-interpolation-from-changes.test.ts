@@ -17,7 +17,7 @@ describe.concurrent('playbackProgressInterpolationFromChanges', () => {
     {
       changes: [
         { at: 0, value: true },
-        { at: 0.25, value: false },
+        { at: 0.25 },
         { at: 0.75, value: true },
       ],
       returns: {
@@ -27,7 +27,7 @@ describe.concurrent('playbackProgressInterpolationFromChanges', () => {
     },
     {
       changes: [
-        { at: 0, value: false },
+        { at: 0 },
         { at: 0.25, value: true },
         { at: 0.75, value: true },
       ],
@@ -38,14 +38,14 @@ describe.concurrent('playbackProgressInterpolationFromChanges', () => {
     },
     {
       changes: [
-        { at: 0, value: false },
+        { at: 0 },
         { at: 0.1, value: true },
-        { at: 0.3, value: false },
+        { at: 0.3 },
         { at: 0.4, value: true },
-        { at: 0.5, value: false },
-        { at: 0.6, value: false },
+        { at: 0.5 },
+        { at: 0.6 },
         { at: 0.7, value: true },
-        { at: 0.9, value: false },
+        { at: 0.9 },
       ],
       returns: {
         input: [0, 0.4, 0.4, 0.6, 0.6, 1],
@@ -55,13 +55,13 @@ describe.concurrent('playbackProgressInterpolationFromChanges', () => {
     {
       changes: [
         { at: 0, value: true },
-        { at: 0.1, value: false },
-        { at: 0.3, value: false },
+        { at: 0.1 },
+        { at: 0.3 },
         { at: 0.4, value: true },
         { at: 0.5, value: true },
-        { at: 0.6, value: false },
-        { at: 0.7, value: false },
-        { at: 0.9, value: false },
+        { at: 0.6 },
+        { at: 0.7 },
+        { at: 0.9 },
       ],
       returns: {
         input: [0, 1 / 3, 1 / 3, 2 / 3, 2 / 3, 1],

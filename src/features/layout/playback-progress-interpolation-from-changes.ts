@@ -2,7 +2,7 @@ import type { Interpolation } from '~/convex/values/_shared/interpolation'
 import { toFixed } from '../../lib/utils/to-fixed'
 
 export const playbackProgressInterpolationFromChanges = (
-  changes: Array<{ at: number; value: unknown }>,
+  changes: Array<{ at: number; value?: unknown }>,
   digits = 5,
 ): Interpolation => {
   let trueRatio = 0

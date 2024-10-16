@@ -25,9 +25,9 @@ export type WorkspaceProjectPostState = {
   scrollYProgress: number
   layoutMode: LayoutMode
   layoutChanges: Array<LayoutChange>
-  progressInterpolation: Interpolation
+  playbackProgressInterpolation: Interpolation
   progress: number
-  layoutChangesIndex: () => number | undefined
+  layoutChangesIndex: () => number | null
   layout: Layout
 }
 
@@ -73,23 +73,25 @@ export function WorkspaceProjectPostProvider({
         includeDisabled: false,
       })
 
-      return applyOverride({
-        changes: layouts.primary.changes,
-        override,
-      })
+      return (
+        applyOverride({
+          changes: layouts.primary.changes,
+          override,
+        }) ?? []
+      )
     },
-    progressInterpolation: () =>
+    playbackProgressInterpolation: () =>
       playbackProgressInterpolationFromChanges(state$.layoutChanges.get(true)),
     progress: (): number => {
-      const { input, output } = state$.progressInterpolation.peek()
+      const { input, output } = state$.playbackProgressInterpolation.peek()
       return transform(state$.scrollYProgress.get(), input, output)
     },
-    layoutChangesIndex: (): number | undefined =>
+    layoutChangesIndex: (): number | null =>
       findClosestIndex(
         state$.layoutChanges.peek(),
         state$.progress.get(),
         (it) => it.at,
-      ),
+      ) ?? null,
     layout: () => {
       const layoutChanges = state$.layoutChanges.get()
       const index = state$.layoutChangesIndex.get()!
