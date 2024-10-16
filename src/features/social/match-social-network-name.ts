@@ -1,37 +1,37 @@
 import { Match } from 'effect'
-import { socialRegexes } from '~/src/lib/regex/social'
+import { socialNetworkRegexes } from './social-network-regexes'
 
 export const matchSocialNetworkName = Match.type<string>().pipe(
   Match.when(
-    (it) => socialRegexes.github.test(it),
+    (it) => socialNetworkRegexes.github.test(it),
     () => 'GitHub',
   ),
   Match.when(
-    (it) => socialRegexes.twitter.test(it),
+    (it) => socialNetworkRegexes.twitter.test(it),
     () => 'X',
   ),
   Match.when(
-    (it) => socialRegexes.linkedin.test(it),
+    (it) => socialNetworkRegexes.linkedin.test(it),
     () => 'LinkedIn',
   ),
   Match.when(
-    (it) => socialRegexes.stackoverflow.test(it),
+    (it) => socialNetworkRegexes.stackoverflow.test(it),
     () => 'Stack Overflow',
   ),
   Match.when(
-    (it) => socialRegexes.discord.test(it),
+    (it) => socialNetworkRegexes.discord.test(it),
     () => 'Discord',
   ),
   Match.when(
-    (it) => socialRegexes.youtube.test(it),
+    (it) => socialNetworkRegexes.youtube.test(it),
     () => 'YouTube',
   ),
   Match.when(
-    (it) => socialRegexes.reddit.test(it),
+    (it) => socialNetworkRegexes.reddit.test(it),
     () => 'Reddit',
   ),
   Match.when(
-    (it) => socialRegexes.telegram.test(it),
+    (it) => socialNetworkRegexes.telegram.test(it),
     () => 'Telegram',
   ),
   Match.orElse(() => null),

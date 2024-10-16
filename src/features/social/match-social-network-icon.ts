@@ -9,40 +9,40 @@ import {
   TelegramIcon,
   XIcon,
   YouTubeIcon,
-} from '~/src/components/icons'
-import { socialRegexes } from '~/src/lib/regex/social'
+} from '~/lib/icons/icons'
+import { socialNetworkRegexes } from './social-network-regexes'
 
 export const matchSocialNetworkIcon = Match.type<string>().pipe(
   Match.when(
-    (it) => socialRegexes.github.test(it),
+    (it) => socialNetworkRegexes.github.test(it),
     () => GitHubIcon,
   ),
   Match.when(
-    (it) => socialRegexes.twitter.test(it),
+    (it) => socialNetworkRegexes.twitter.test(it),
     () => XIcon,
   ),
   Match.when(
-    (it) => socialRegexes.linkedin.test(it),
+    (it) => socialNetworkRegexes.linkedin.test(it),
     () => LinkedInIcon,
   ),
   Match.when(
-    (it) => socialRegexes.stackoverflow.test(it),
+    (it) => socialNetworkRegexes.stackoverflow.test(it),
     () => StackOverflowIcon,
   ),
   Match.when(
-    (it) => socialRegexes.discord.test(it),
+    (it) => socialNetworkRegexes.discord.test(it),
     () => DiscordIcon,
   ),
   Match.when(
-    (it) => socialRegexes.youtube.test(it),
+    (it) => socialNetworkRegexes.youtube.test(it),
     () => YouTubeIcon,
   ),
   Match.when(
-    (it) => socialRegexes.reddit.test(it),
+    (it) => socialNetworkRegexes.reddit.test(it),
     () => RedditIcon,
   ),
   Match.when(
-    (it) => socialRegexes.telegram.test(it),
+    (it) => socialNetworkRegexes.telegram.test(it),
     () => TelegramIcon,
   ),
   Match.orElse(() => LinkIcon),

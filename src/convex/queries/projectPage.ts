@@ -1,6 +1,6 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
-import { readableFromTimestamp } from '~/shared/date'
+import { readableFromTimestamp } from '~/lib/utils/readable-from-timestamp'
 
 export type ProjectPageQueryResult = {
   project: {

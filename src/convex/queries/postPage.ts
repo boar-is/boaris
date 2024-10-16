@@ -5,7 +5,7 @@ import type { Interpolation } from '~/convex/values/_shared/interpolation'
 import type { CaptionsValue } from '~/convex/values/revisions/captions/captionsValue'
 import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
 import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
-import { readableFromTimestamp } from '~/shared/date'
+import { readableFromTimestamp } from '~/lib/utils/readable-from-timestamp'
 
 export type PostPageQueryResult = {
   post: {

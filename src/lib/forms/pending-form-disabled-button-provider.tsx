@@ -2,7 +2,7 @@
 
 import { type PropsWithChildren, useMemo } from 'react'
 import { useFormStatus } from 'react-dom'
-import { ButtonContext } from '~/src/primitives/button'
+import { ButtonContext } from '~/lib/buttons/button'
 
 export function PendingFormDisabledButtonProvider({
   children,
