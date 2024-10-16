@@ -1,7 +1,7 @@
 import type { Interpolation } from '~/convex/values/_shared/interpolation'
 import { toFixed } from '../../lib/utils/to-fixed'
 
-export const playbackProgressInterpolationFromChanges = (
+export const layoutProgressInterpolationFromChanges = (
   changes: Array<{ at: number; value?: unknown }>,
   digits = 5,
 ): Interpolation => {

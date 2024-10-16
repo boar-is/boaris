@@ -11,7 +11,7 @@ import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChang
 import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import { applyOverride } from '~/features/layout/apply-override'
 import { determineOverride } from '~/features/layout/determine-override'
-import { playbackProgressInterpolationFromChanges } from '~/features/layout/playback-progress-interpolation-from-changes'
+import { layoutProgressInterpolationFromChanges } from '~/features/layout/layout-progress-interpolation-from-changes'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 
@@ -25,8 +25,8 @@ export type WorkspaceProjectPostState = {
   scrollYProgress: number
   layoutMode: LayoutMode
   layoutChanges: Array<LayoutChange>
-  playbackProgressInterpolation: Interpolation
-  progress: number
+  layoutProgressInterpolation: Interpolation
+  layoutProgress: number
   layoutChangesIndex: () => number | null
   layout: Layout
 }
@@ -80,16 +80,16 @@ export function WorkspaceProjectPostProvider({
         }) ?? []
       )
     },
-    playbackProgressInterpolation: () =>
-      playbackProgressInterpolationFromChanges(state$.layoutChanges.get(true)),
-    progress: (): number => {
-      const { input, output } = state$.playbackProgressInterpolation.peek()
+    layoutProgressInterpolation: () =>
+      layoutProgressInterpolationFromChanges(state$.layoutChanges.get(true)),
+    layoutProgress: (): number => {
+      const { input, output } = state$.layoutProgressInterpolation.peek()
       return transform(state$.scrollYProgress.get(), input, output)
     },
     layoutChangesIndex: (): number | null =>
       findClosestIndex(
         state$.layoutChanges.peek(),
-        state$.progress.get(),
+        state$.layoutProgress.get(),
         (it) => it.at,
       ) ?? null,
     layout: () => {
