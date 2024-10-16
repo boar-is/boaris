@@ -36,8 +36,8 @@ const tailwindConfig = {
       },
     },
     fontFamily: {
-      sans: ['var(--font-switzer)', ...fontFamily.sans],
-      mono: ['var(--font-jetbrains-mono)', ...fontFamily.mono],
+      sans: ['var(--font-sans)', ...fontFamily.sans],
+      mono: ['var(--font-mono)', ...fontFamily.mono],
     },
     extend: {
       maxWidth: {
