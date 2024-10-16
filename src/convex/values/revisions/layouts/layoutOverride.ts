@@ -5,7 +5,7 @@ import { layoutMode } from './layoutMode'
 export const layoutOverride = v.object({
   name: v.optional(v.string()),
   modes: v.array(layoutMode),
-  minWidthPx: v.optional(v.number()),
+  minWidth: v.optional(v.number()),
   disabled: v.optional(v.boolean()),
   changesDelta: delta,
 })
