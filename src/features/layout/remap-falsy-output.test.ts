@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
+import { toFixed } from '../../lib/utils/to-fixed'
 import { remapFalsyOutput } from './remap-falsy-output'
-import { toFixed } from './to-fixed'
 
 describe.concurrent('remapFalsyOutput', () => {
   const digits = 5

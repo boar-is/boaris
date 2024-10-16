@@ -1,4 +1,4 @@
-import { toFixed } from './to-fixed'
+import { toFixed } from '../../lib/utils/to-fixed'
 
 export const remapFalsyOutput = (
   {
