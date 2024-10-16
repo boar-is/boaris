@@ -27,6 +27,8 @@ import { diffpatcher } from '~/src/lib/delta/diffpatcher'
 import { JetBrainsMono } from '~/src/lib/fonts'
 import { cx } from '~/src/lib/react/cx'
 
+import { firstNonInlineAncestor } from '~/features/captions/first-non-inline-ancestor'
+import { Image } from '~/lib/media/image'
 import { matchFileTypeIcon } from '~/src/lib/matchers/match-file-type-icon'
 import { extensions } from '~/src/lib/tiptap/extensions'
 import { TextEditor } from '~/src/primitives/text-editor'
@@ -147,11 +149,13 @@ export function BlogPostClient({
       return
     }
 
-    let parentElement = editor?.view?.domAtPos(pos)?.node?.parentElement
+    const nodeAtPos = editor?.view?.domAtPos(pos)?.node
 
-    while (inlineTags.has(parentElement?.tagName.toLowerCase() ?? '')) {
-      parentElement = parentElement?.parentElement
+    if (!nodeAtPos) {
+      return
     }
+
+    const parentElement = firstNonInlineAncestor(nodeAtPos)
 
     const y = parentElement?.offsetTop
 
@@ -201,7 +205,7 @@ export function BlogPostClient({
           <figure className="relative aspect-video">
             {post.thumbnailId && (
               <Image
-                src={ensureDefined(storageMap[post.thumbnailId])}
+                src={storageMap[post.thumbnailId]!}
                 alt={`${post.title}'s thumbnail`}
                 fill
                 className="object-cover rounded-2xl"

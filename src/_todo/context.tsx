@@ -2,14 +2,20 @@
 
 import { type Observable, ObservableHint } from '@legendapp/state'
 import { useObservable } from '@legendapp/state/react'
-import type { FunctionReturnType } from 'convex/server'
 import { transform } from 'framer-motion'
 import type { PropsWithChildren } from 'react'
+import type { PostPageQueryResult } from '~/convex/queries/postPage'
+import type { Interpolation } from '~/convex/values/_shared/interpolation'
+import type { Layout } from '~/convex/values/revisions/layouts/layout'
+import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
+import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
+import { applyOverride } from '~/features/layout/apply-override'
+import { determineOverride } from '~/features/layout/determine-override'
+import { progressInterpolationFromChanges } from '~/features/layout/progress-interpolation-from-changes'
+import { createStrictContext } from '~/lib/react/create-strict-context'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
-import { diffpatcher } from '~/src/lib/delta/diffpatcher'
-import { createStrictContext } from '~/src/lib/react/create-strict-context'
 
-type PageData = NonNullable<FunctionReturnType<typeof api.functions.post.page>>
+type PageData = NonNullable<PostPageQueryResult>
 
 export type WorkspaceProjectPostState = {
   captions: PageData['captions']
@@ -53,35 +59,27 @@ export function WorkspaceProjectPostProvider({
     layoutMode: 'scrolling',
     scrollYProgress: 0,
     layoutChanges: () => {
-      const override = state$.layouts.overrides.find(
-        (it) =>
-          it.modes.includes(state$.layoutMode) &&
-          (!it.minWidth || state$.windowWidth >= it.minWidthPx),
-      )
+      const layouts = state$.layouts.get()
 
-      const primaryLayoutChanges = state$.layouts.primary.changes.get()
-      const layoutChanges = override
-        ? (diffpatcher.patch(
-            primaryLayoutChanges,
-            override.changesDelta.get(),
-          ) as Array<LayoutChange>)
-        : primaryLayoutChanges
+      if (!layouts) {
+        return []
+      }
 
-      return layoutChanges ?? []
+      const override = determineOverride({
+        currentLayoutMode: state$.layoutMode.get(),
+        primaryLayoutModes: layouts.primary.modes,
+        overrides: layouts.overrides,
+        width: state$.windowWidth.get(),
+        includeDisabled: false,
+      })
+
+      return applyOverride({
+        changes: layouts.primary.changes,
+        override,
+      })
     },
-    progressInterpolation: () => {
-      const i: Array<number> = []
-      const o: Array<boolean> = []
-      for (const change of state$.layoutChanges.get(true)) {
-        i.push(change.at)
-        o.push(!!change.value)
-      }
-      const [input, output] = mapSkippedPair(i, o)
-      return {
-        input,
-        output,
-      }
-    },
+    progressInterpolation: () =>
+      progressInterpolationFromChanges(state$.layoutChanges.get(true)),
     progress: (): number => {
       const { input, output } = state$.progressInterpolation.peek()
       return transform(state$.scrollYProgress.get(), input, output)
