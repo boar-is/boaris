@@ -2,18 +2,17 @@
 
 import type { Observable } from '@legendapp/state'
 import { useObservable } from '@legendapp/state/react'
-import { type PropsWithChildren, useEffect, useMemo } from 'react'
+import { type PropsWithChildren, useEffect } from 'react'
 import { useWindowSize } from 'usehooks-ts'
 import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
+import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import type { LayoutOverride } from '~/convex/values/revisions/layouts/layoutOverride'
 import { applyOverride } from '~/features/layout/apply-override'
 import { determineOverride } from '~/features/layout/determine-override'
 import { useLayoutMode$ } from '~/features/layout/layout-mode-provider'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 
-export type LayoutChangesContextValue = {
-  layoutChanges$: Observable<Array<LayoutChange>>
-}
+export type LayoutChangesContextValue = Observable<Array<LayoutChange>>
 
 export const [LayoutChangesContext, useLayoutChanges] =
   createStrictContext<LayoutChangesContextValue>({
@@ -23,14 +22,16 @@ export const [LayoutChangesContext, useLayoutChanges] =
 export function LayoutChangesProvider({
   children,
   primaryLayoutChanges,
+  primaryLayoutModes,
   overrides,
   includeDisabledOverrides = false,
 }: PropsWithChildren & {
   primaryLayoutChanges?: Array<LayoutChange> | undefined
+  primaryLayoutModes?: Array<LayoutMode> | undefined
   overrides?: Array<LayoutOverride> | undefined
   includeDisabledOverrides?: boolean | undefined
 }) {
-  const { currentLayoutMode$, primaryLayoutModes } = useLayoutMode$()
+  const layoutMode$ = useLayoutMode$()
 
   const { width } = useWindowSize({
     debounceDelay: 250,
@@ -44,7 +45,7 @@ export function LayoutChangesProvider({
     }
 
     const override = determineOverride({
-      currentLayoutMode: currentLayoutMode$.get(),
+      currentLayoutMode: layoutMode$.get(),
       primaryLayoutModes,
       overrides,
       width: windowWidth$.get(),
@@ -54,13 +55,8 @@ export function LayoutChangesProvider({
     return applyOverride({ changes: primaryLayoutChanges, override })
   })
 
-  const value = useMemo(
-    (): LayoutChangesContextValue => ({ layoutChanges$ }),
-    [layoutChanges$],
-  )
-
   return (
-    <LayoutChangesContext.Provider value={value}>
+    <LayoutChangesContext.Provider value={layoutChanges$}>
       {children}
     </LayoutChangesContext.Provider>
   )

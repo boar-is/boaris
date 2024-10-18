@@ -1,6 +1,7 @@
 import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
+import { LayoutChangesProvider } from '~/features/layout/layout-changes-provider'
 import { LayoutModeProvider } from '~/features/layout/layout-mode-provider'
 import { PostPageProvider } from '~/features/post/post-page-provider'
 import { currentWorkspaceSlug } from '~/lib/constants'
@@ -27,7 +28,9 @@ export default async function WorkspaceProjectPostPage({
   return (
     <PostPageProvider result={result}>
       <LayoutModeProvider primaryLayoutModes={result.layouts?.primary?.modes}>
-        <PostContent />
+        <LayoutChangesProvider>
+          <PostContent />
+        </LayoutChangesProvider>
       </LayoutModeProvider>
     </PostPageProvider>
   )
