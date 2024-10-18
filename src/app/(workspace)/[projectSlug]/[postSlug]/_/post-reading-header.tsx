@@ -1,6 +1,24 @@
+'use client'
+
 import { useSelector } from '@legendapp/state/react'
+import type { PropsWithChildren } from 'react'
 import { usePostPageContext } from '~/features/post/post-page-provider'
+import { getMonoFontClassName } from '~/lib/media/fonts/get-mono-font-class-name'
 import { Image } from '~/lib/media/image'
+import { cx } from '~/lib/utils/cx'
+
+export function PostReading({ children }: PropsWithChildren) {
+  return (
+    <article
+      className={cx(
+        getMonoFontClassName(),
+        'container flex flex-col gap-12 items-center',
+      )}
+    >
+      {children}
+    </article>
+  )
+}
 
 export function PostReadingHeader() {
   const result$ = usePostPageContext()
@@ -78,4 +96,8 @@ export function PostReadingHeader() {
       </hgroup>
     </header>
   )
+}
+
+export function PostReadingSeparator() {
+  return <hr className="w-full max-w-prose border-gray-3" />
 }
