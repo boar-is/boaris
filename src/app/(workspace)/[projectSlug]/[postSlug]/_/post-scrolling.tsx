@@ -80,11 +80,13 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
   const contentRef = useRef<HTMLDivElement | null>(null)
   const scrollableHeight = useCaptionsScrollableHeight({ contentRef })
 
-  const cursorLength = 25
+  const cursorLength = 1
   const emptyArrayOfLength = useMemo(
     () => Array.from({ length: cursorLength }),
     [],
   )
+
+  const containerOffset = 128
 
   return (
     <motion.div
@@ -95,7 +97,7 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
       <div className="fixed bottom-4 left-4">
         <Memo>{position$}</Memo>
       </div>
-      <div className="sticky top-32 inset-x-0 h-0">
+      <div className="sticky inset-x-0 h-0" style={{ top: containerOffset }}>
         <ReactiveMotionDiv
           $animate={() => ({
             y: contentOffset$.get(),
@@ -110,6 +112,7 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
                 key={index}
                 position$={position$}
                 positionOffset={index}
+                containerOffset={containerOffset}
                 contentOffset$={contentOffset$}
                 offsetLeft={() => scrollableRef.current?.offsetLeft ?? 0}
                 coordsAtPos={(pos) => editor.view.coordsAtPos(pos)}
@@ -126,12 +129,14 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
 function PostScrollingContentCursorItem({
   position$,
   positionOffset,
+  containerOffset,
   contentOffset$,
   offsetLeft,
   coordsAtPos,
 }: {
   position$: Observable<number>
   positionOffset: number
+  containerOffset: number
   contentOffset$: Observable<number>
   offsetLeft: () => number
   coordsAtPos: (pos: number) => {
@@ -156,7 +161,7 @@ function PostScrollingContentCursorItem({
     const contentY = contentOffset$.get()
 
     return {
-      top: coords.top + contentY,
+      top: coords.top - contentY - containerOffset,
       left: coords.left - offsetLeft(),
       height: coords.bottom - coords.top,
       width: nextCoords.left - coords.left + 1, // +1px to avoid gaps
