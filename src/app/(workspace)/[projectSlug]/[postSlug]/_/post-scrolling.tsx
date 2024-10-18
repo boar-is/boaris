@@ -1,6 +1,6 @@
 'use client'
 
-import { useSelector } from '@legendapp/state/react'
+import { reactive, useObservable, useSelector } from '@legendapp/state/react'
 import { type Editor, EditorContent } from '@tiptap/react'
 import { type MutableRefObject, useRef } from 'react'
 import { useCaptions } from '~/features/captions/use-captions'
@@ -14,6 +14,7 @@ import {
 } from '~/features/playback/playback-progress-provider'
 import { usePlaybackProgressScrollSync } from '~/features/playback/use-playback-progress-scroll-sync'
 import { usePostPageContext } from '~/features/post/post-page-provider'
+import { motion } from '~/lib/framer-motion/motion'
 import { extensions } from '~/lib/text-editor/extensions'
 import { StaticEditorContent } from '~/lib/text-editor/static-editor-content'
 import {
@@ -61,6 +62,8 @@ function PostScrollingContent() {
   )
 }
 
+const ReactiveMotionDiv = reactive(motion.div)
+
 function PostScrollingContentCaptions({
   editor,
   scrollableRef,
@@ -68,13 +71,27 @@ function PostScrollingContentCaptions({
   const playbackProgress$ = usePlaybackProgress$()
   const position$ = useCaptionsPosition$(editor, playbackProgress$)
   const contentOffset$ = useCaptionsCursorOffset$(editor, position$)
+  const contentAnimate$ = useObservable<{ y: number } | undefined>(() => {
+    const offset = contentOffset$.get()
+    return offset && { y: offset * -1 + 144 }
+  })
 
   const contentRef = useRef<HTMLDivElement | null>(null)
   const scrollableHeight$ = useCaptionsScrollableHeight$({ contentRef })
 
   return (
     <div className="typography max-w-prose w-full">
-      <EditorContent editor={editor} />
+      <ReactiveMotionDiv
+        className="relative w-full"
+        $style={() => ({ height: scrollableHeight$.get() })}
+        ref={scrollableRef}
+      >
+        <div className="sticky top-0 inset-x-0 h-0">
+          <ReactiveMotionDiv $animate={contentAnimate$} ref={contentRef}>
+            <EditorContent editor={editor} />
+          </ReactiveMotionDiv>
+        </div>
+      </ReactiveMotionDiv>
     </div>
   )
 }
