@@ -1,3 +1,4 @@
+import { useResizeObserver } from '@react-aria/utils'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { useRef } from 'react'
 import { usePlaybackProgress$ } from '~/features/playback/playback-progress-provider'
@@ -5,12 +6,20 @@ import { usePlaybackProgress$ } from '~/features/playback/playback-progress-prov
 export const usePlaybackProgressScrollSync = () => {
   const playbackProgress$ = usePlaybackProgress$()
 
-  const target = useRef<HTMLDivElement | null>(null)
-  const { scrollYProgress } = useScroll({ target })
+  const ref = useRef<HTMLDivElement | null>(null)
+  const { scrollYProgress } = useScroll({ target: ref })
 
   useMotionValueEvent(scrollYProgress, 'change', (progress) =>
     playbackProgress$.set(progress),
   )
+  /**
+   * A hack to recalculate scrollYProgress
+   * @see https://github.com/framer/motion/issues/2718
+   */
+  useResizeObserver({
+    ref,
+    onResize: () => window.scrollTo({ top: window.scrollY + 1 }),
+  })
 
-  return [target] as const
+  return [ref] as const
 }

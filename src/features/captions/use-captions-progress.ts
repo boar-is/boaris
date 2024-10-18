@@ -7,5 +7,5 @@ export const useCaptionsProgress$ = ({
   interpolation,
 }: { interpolation: Interpolation }) => {
   const playbackProgress$ = usePlaybackProgress$()
-  return useObservable(playbackProgress$)
+  return useObservable<number>(playbackProgress$)
 }

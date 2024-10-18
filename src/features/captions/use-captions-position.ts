@@ -6,7 +6,7 @@ export const useCaptionsPosition$ = (
   editor: Editor,
   progress$: ObservablePrimitive<number>,
 ) =>
-  useObservable(() => {
+  useObservable<number>(() => {
     const size = editor.state.doc.content.size - 1
 
     return Math.floor(size * progress$.get())
