@@ -1,5 +1,3 @@
-'use client'
-
 import { useMemo } from 'react'
 import type { Captions } from '~/convex/values/revisions/captions/captions'
 import { useLayoutChangesContext } from '~/features/layout/layout-changes-provider'
