@@ -14,7 +14,7 @@ import { createStrictContext } from '~/lib/react/create-strict-context'
 
 export type LayoutChangesContextValue = Observable<Array<LayoutChange>>
 
-export const [LayoutChangesContext, useLayoutChanges] =
+export const [LayoutChangesContext, useLayoutChanges$] =
   createStrictContext<LayoutChangesContextValue>({
     name: 'LayoutChangesContext',
   })
