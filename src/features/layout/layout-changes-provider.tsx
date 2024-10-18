@@ -8,7 +8,7 @@ import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChang
 import type { LayoutOverride } from '~/convex/values/revisions/layouts/layoutOverride'
 import { applyOverride } from '~/features/layout/apply-override'
 import { determineOverride } from '~/features/layout/determine-override'
-import { useLayoutMode } from '~/features/layout/layout-mode-provider'
+import { useLayoutMode$ } from '~/features/layout/layout-mode-provider'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 
 export type LayoutChangesContextValue = {
@@ -30,7 +30,7 @@ export function LayoutChangesProvider({
   overrides?: Array<LayoutOverride> | undefined
   includeDisabledOverrides?: boolean | undefined
 }) {
-  const { currentLayoutMode$, primaryLayoutModes } = useLayoutMode()
+  const { currentLayoutMode$, primaryLayoutModes } = useLayoutMode$()
 
   const { width } = useWindowSize({
     debounceDelay: 250,

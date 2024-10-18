@@ -1,8 +1,10 @@
 import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
+import { LayoutModeProvider } from '~/features/layout/layout-mode-provider'
 import { currentWorkspaceSlug } from '~/lib/constants'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
+import { PostContent } from './_post-content'
 
 export async function generateStaticParams() {
   return fetchQuery(api.queries.postParams.default)
@@ -11,20 +13,22 @@ export async function generateStaticParams() {
 export default async function WorkspaceProjectPostPage({
   params: { workspaceSlug = currentWorkspaceSlug, projectSlug, postSlug },
 }: PropsWithStaticParams<typeof generateStaticParams>) {
-  const data = await fetchQuery(api.queries.postPage.default, {
+  const result = await fetchQuery(api.queries.postPage.default, {
     workspaceSlug,
     projectSlug,
     postSlug,
   })
 
-  if (!data) {
+  if (!result) {
     notFound()
   }
 
-  const { post, tags, authors, layouts, captions, tracks } = data
+  const { post, tags, authors, layouts, captions, tracks } = result
 
   return (
-    <div>11</div>
+    <LayoutModeProvider primaryLayoutModes={layouts?.primary?.modes}>
+      <PostContent />
+    </LayoutModeProvider>
     // <article
     //   className={cx(
     //     getMonoFontClassName(),

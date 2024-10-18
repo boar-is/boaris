@@ -1,17 +1,14 @@
 'use client'
 
-import type { Observable } from '@legendapp/state'
+import type { ObservablePrimitive } from '@legendapp/state'
 import { useObservable } from '@legendapp/state/react'
-import { type PropsWithChildren, useMemo } from 'react'
+import type { PropsWithChildren } from 'react'
 import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 
-export type LayoutModeContextValue = {
-  currentLayoutMode$: Observable<LayoutMode>
-  primaryLayoutModes: Array<LayoutMode>
-}
+export type LayoutModeContextValue = ObservablePrimitive<LayoutMode>
 
-export const [LayoutModeContext, useLayoutMode] =
+export const [LayoutModeContext, useLayoutMode$] =
   createStrictContext<LayoutModeContextValue>({
     name: 'LayoutModeContext',
   })
@@ -31,15 +28,10 @@ export function LayoutModeProvider({
           ? 'sliding'
           : 'watching'
 
-  const currentLayoutMode$ = useObservable(initialLayoutMode)
-
-  const value = useMemo(
-    (): LayoutModeContextValue => ({ currentLayoutMode$, primaryLayoutModes }),
-    [currentLayoutMode$, primaryLayoutModes],
-  )
+  const layoutMode$ = useObservable(initialLayoutMode)
 
   return (
-    <LayoutModeContext.Provider value={value}>
+    <LayoutModeContext.Provider value={layoutMode$}>
       {children}
     </LayoutModeContext.Provider>
   )
