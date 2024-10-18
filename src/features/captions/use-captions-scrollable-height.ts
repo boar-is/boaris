@@ -1,9 +1,6 @@
-import { Reactive, useObservable } from '@legendapp/state/react'
+import { useObservable } from '@legendapp/state/react'
 import { useResizeObserver } from '@react-aria/utils'
 import type { RefObject } from 'react'
-import { motion } from '~/lib/framer-motion/motion'
-
-const ReactiveMotionDiv = Reactive(motion.div)
 
 export const useCaptionsScrollableHeight$ = ({
   contentRef,
