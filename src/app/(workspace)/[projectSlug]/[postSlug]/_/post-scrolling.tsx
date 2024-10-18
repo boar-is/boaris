@@ -1,23 +1,17 @@
 'use client'
 
-import type { Observable } from '@legendapp/state'
-import {
-  Memo,
-  Reactive,
-  reactive,
-  useObservable,
-  useSelector,
-} from '@legendapp/state/react'
+import { useSelector } from '@legendapp/state/react'
 import { type Editor, EditorContent } from '@tiptap/react'
-import { type CSSProperties, useMemo, useRef } from 'react'
+import { type MotionStyle, type MotionValue, useTransform } from 'framer-motion'
+import { useMemo, useRef } from 'react'
 import { useCaptions } from '~/features/captions/use-captions'
 import { useCaptionsEditor } from '~/features/captions/use-captions-editor'
-import { useCaptionsOffset$ } from '~/features/captions/use-captions-offset'
-import { useCaptionsPosition$ } from '~/features/captions/use-captions-position'
+import { useCaptionsOffset } from '~/features/captions/use-captions-offset'
+import { useCaptionsPosition } from '~/features/captions/use-captions-position'
 import { useCaptionsScrollableHeight } from '~/features/captions/use-captions-scrollable-height'
 import {
   PlaybackProgressProvider,
-  usePlaybackProgress$,
+  usePlaybackProgress,
 } from '~/features/playback/playback-progress-provider'
 import { usePlaybackProgressScrollSync } from '~/features/playback/use-playback-progress-scroll-sync'
 import { usePostPageContext } from '~/features/post/post-page-provider'
@@ -69,12 +63,10 @@ function PostScrollingContent() {
   )
 }
 
-const ReactiveMotionDiv = reactive(motion.div)
-
 function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
-  const playbackProgress$ = usePlaybackProgress$()
-  const position$ = useCaptionsPosition$(editor, playbackProgress$)
-  const offset$ = useCaptionsOffset$(editor, position$)
+  const playbackProgress = usePlaybackProgress()
+  const position = useCaptionsPosition(editor, playbackProgress)
+  const offset = useCaptionsOffset(editor, position)
 
   const contentRef = useRef<HTMLDivElement | null>(null)
 
@@ -96,18 +88,33 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
       ref={scrollableRef}
     >
       <div className="fixed bottom-4 left-4">
-        <Memo>{playbackProgress$}</Memo>
         <div>
-          <Reactive.input type="number" $value={position$} />
+          playbackProgress <motion.span>{playbackProgress}</motion.span>
+        </div>
+        <div>
+          position: <motion.span>{position}</motion.span>
+        </div>
+        <div>
+          <button
+            type="button"
+            onClick={() => position.set(position.get() - 1)}
+          >
+            dec
+          </button>
+          <button
+            type="button"
+            onClick={() => position.set(position.get() + 1)}
+          >
+            inc
+          </button>
         </div>
       </div>
       <div className="sticky inset-x-0 h-0" style={{ top: containerOffset }}>
-        <ReactiveMotionDiv
+        <motion.div
           className="relative"
-          $animate={() => ({
-            y: offset$.get(),
-          })}
-          transition={{ duration: 0.8 }}
+          style={{
+            y: offset,
+          }}
           ref={contentRef}
         >
           <div className="pointer-events-none absolute top-0 left-0 *:pointer-events-none *:absolute *:bg-gray-6">
@@ -115,34 +122,34 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
               <PostScrollingContentCursorItem
                 // biome-ignore lint/suspicious/noArrayIndexKey: I know what I'm doing
                 key={index}
-                position$={position$}
+                position={position}
                 positionOffset={index}
                 containerOffset={containerOffset}
-                offset$={offset$}
+                offset={offset}
                 offsetLeft={() => scrollableRef.current?.offsetLeft ?? 0}
                 coordsAtPos={(pos) => editor.view.coordsAtPos(pos)}
               />
             ))}
           </div>
           <EditorContent editor={editor} />
-        </ReactiveMotionDiv>
+        </motion.div>
       </div>
     </motion.div>
   )
 }
 
 function PostScrollingContentCursorItem({
-  position$,
+  position,
   positionOffset,
   containerOffset,
-  offset$,
+  offset,
   offsetLeft,
   coordsAtPos,
 }: {
-  position$: Observable<number>
+  position: MotionValue<number>
   positionOffset: number
   containerOffset: number
-  offset$: Observable<number>
+  offset: MotionValue<number>
   offsetLeft: () => number
   coordsAtPos: (pos: number) => {
     left: number
@@ -151,8 +158,8 @@ function PostScrollingContentCursorItem({
     bottom: number
   }
 }) {
-  const style$ = useObservable((): CSSProperties => {
-    const computedPosition = position$.get() - positionOffset
+  const style = useTransform((): MotionStyle => {
+    const computedPosition = position.get() - positionOffset
 
     if (computedPosition < 0) {
       return {
@@ -163,17 +170,22 @@ function PostScrollingContentCursorItem({
     const coords = coordsAtPos(computedPosition)
     const nextCoords = coordsAtPos(computedPosition + 1)
 
-    const contentY = offset$.get()
+    const contentY = offset.get()
 
     return {
-      top: coords.top - contentY - containerOffset,
-      left: coords.left - offsetLeft(),
+      y: coords.top - contentY - containerOffset,
+      x: coords.left - offsetLeft(),
       height: coords.bottom - coords.top,
       width: nextCoords.left - coords.left + 1, // +1px to avoid gaps
     }
   })
 
-  return <Reactive.i $style={style$} />
+  const y = useTransform(() => style.get().y)
+  const x = useTransform(() => style.get().x)
+  const height = useTransform(() => style.get().height)
+  const width = useTransform(() => style.get().width)
+
+  return <motion.i style={{ y, x, height, width }} />
 }
 
 function PostScrollingContentLayout() {

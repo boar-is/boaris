@@ -1,14 +1,19 @@
-import { type Observable, observe } from '@legendapp/state'
-import { useObservable } from '@legendapp/state/react'
 import type { Editor } from '@tiptap/react'
+import {
+  type MotionValue,
+  animate,
+  useMotionValue,
+  useMotionValueEvent,
+  useTransform,
+} from 'framer-motion'
 import { firstNonInlineAncestor } from '~/features/captions/first-non-inline-ancestor'
 
-export const useCaptionsOffset$ = (
+export const useCaptionsOffset = (
   editor: Editor,
-  position$: Observable<number>,
+  position: MotionValue<number>,
 ) => {
-  const offsetTop$ = useObservable<number | undefined>(() => {
-    const { node, offset } = editor.view.domAtPos(position$.get())
+  const offsetTop = useTransform(() => {
+    const { node, offset } = editor.view.domAtPos(position.get())
 
     if (!offset) {
       return undefined
@@ -23,11 +28,18 @@ export const useCaptionsOffset$ = (
       return undefined
     }
 
-    return ancestor!.offsetTop * -1
+    return ancestor!.offsetTop
   })
 
-  const offset$ = useObservable(0)
-  observe(() => offset$.set((prev) => offsetTop$.get() ?? prev))
+  const offset = useMotionValue(0)
 
-  return offset$
+  useMotionValueEvent(offsetTop, 'change', (offsetTopValue) => {
+    if (offsetTopValue) {
+      animate(offset, offsetTopValue * -1, {
+        duration: 0.8,
+      })
+    }
+  })
+
+  return offset
 }

@@ -1,13 +1,11 @@
-import type { Observable } from '@legendapp/state'
-import { useObservable } from '@legendapp/state/react'
 import type { Editor } from '@tiptap/react'
+import { type MotionValue, useTransform } from 'framer-motion'
 
-export const useCaptionsPosition$ = (
+export const useCaptionsPosition = (
   editor: Editor,
-  progress$: Observable<number>,
+  progress: MotionValue<number>,
 ) =>
-  useObservable<number>(() => {
+  useTransform(() => {
     const size = editor.state.doc.content.size - 1
-
-    return Math.floor(size * progress$.get())
+    return Math.floor(size * progress.get())
   })

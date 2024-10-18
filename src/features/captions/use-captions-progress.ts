@@ -1,11 +1,10 @@
-import { useObservable } from '@legendapp/state/react'
 import type { Interpolation } from '~/convex/values/_shared/interpolation'
-import { usePlaybackProgress$ } from '~/features/playback/playback-progress-provider'
+import { usePlaybackProgress } from '~/features/playback/playback-progress-provider'
 
 // TODO Implement interpolation
-export const useCaptionsProgress$ = ({
+export const useCaptionsProgress = ({
   interpolation,
 }: { interpolation: Interpolation }) => {
-  const playbackProgress$ = usePlaybackProgress$()
-  return useObservable<number>(playbackProgress$)
+  const playbackProgress = usePlaybackProgress()
+  return playbackProgress
 }

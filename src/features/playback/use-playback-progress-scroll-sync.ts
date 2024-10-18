@@ -1,12 +1,12 @@
 import { useResizeObserver } from '@react-aria/utils'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { useRef } from 'react'
-import { usePlaybackProgress$ } from '~/features/playback/playback-progress-provider'
+import { usePlaybackProgress } from '~/features/playback/playback-progress-provider'
 
 export const usePlaybackProgressScrollSync = ({
   scrollableHeight,
 }: { scrollableHeight: number | 'auto' }) => {
-  const playbackProgress$ = usePlaybackProgress$()
+  const playbackProgress = usePlaybackProgress()
 
   const ref = useRef<HTMLDivElement | null>(null)
   const { scrollYProgress } = useScroll({
@@ -15,7 +15,7 @@ export const usePlaybackProgressScrollSync = ({
 
   useMotionValueEvent(scrollYProgress, 'change', (progress) => {
     if (scrollableHeight !== 'auto') {
-      playbackProgress$.set(progress)
+      playbackProgress.set(progress)
     }
   })
   /**
