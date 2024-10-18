@@ -1,7 +1,7 @@
 import { generateHTML } from '@tiptap/html'
 import type { Extensions, JSONContent } from '@tiptap/react'
 
-export function StaticTextEditor({
+export function StaticEditorContent({
   content,
   extensions,
 }: { content: JSONContent; extensions: Extensions }) {

@@ -2,14 +2,12 @@
 
 import type { Observable } from '@legendapp/state'
 import { useObservable } from '@legendapp/state/react'
-import { type PropsWithChildren, useMemo } from 'react'
+import type { PropsWithChildren } from 'react'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 
-export type PlaybackProgressContextValue = {
-  playbackProgress$: Observable<number>
-}
+export type PlaybackProgressContextValue = Observable<number>
 
-export const [PlaybackProgressContext, usePlaybackProgressContext] =
+export const [PlaybackProgressContext, usePlaybackProgress$] =
   createStrictContext<PlaybackProgressContextValue>({
     name: 'PlaybackProgressContext',
   })
@@ -17,13 +15,8 @@ export const [PlaybackProgressContext, usePlaybackProgressContext] =
 export function PlaybackProgressProvider({ children }: PropsWithChildren) {
   const playbackProgress$ = useObservable(0)
 
-  const value = useMemo(
-    (): PlaybackProgressContextValue => ({ playbackProgress$ }),
-    [playbackProgress$],
-  )
-
   return (
-    <PlaybackProgressContext.Provider value={value}>
+    <PlaybackProgressContext.Provider value={playbackProgress$}>
       {children}
     </PlaybackProgressContext.Provider>
   )

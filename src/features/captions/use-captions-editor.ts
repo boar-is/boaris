@@ -1,8 +1,10 @@
-import { useEditor } from '@tiptap/react'
+import { type Extensions, useEditor } from '@tiptap/react'
 import type { CaptionsContent } from '~/convex/values/revisions/captions/captionsContent'
-import { extensions } from '~/lib/text-editor/extensions'
 
-export const useCaptionsEditor = (content: CaptionsContent) => {
+export const useCaptionsEditor = (
+  content: CaptionsContent,
+  extensions: Extensions,
+) => {
   return useEditor(
     {
       editable: false,
@@ -11,6 +13,6 @@ export const useCaptionsEditor = (content: CaptionsContent) => {
       immediatelyRender: false,
       shouldRerenderOnTransaction: false,
     },
-    [content],
+    [content, extensions],
   )
 }
