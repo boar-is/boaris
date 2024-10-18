@@ -7,11 +7,18 @@ import { getSansFontClassName } from '~/lib/media/fonts/get-sans-font-class-name
 import { AriaRouterProvider } from '~/lib/routing/aria-router-provider'
 import { ToastProvider } from '~/lib/toast/toast-provider'
 import './globals.css'
+import { cx } from '~/lib/utils/cx'
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className={getSansFontClassName()}>
-      <body className="dark flex flex-col gap-4 md:gap-10 items-stretch min-h-dvh bg-gray-1 font-sans text-gray-11 antialiased">
+    <html
+      lang="en"
+      className={cx(
+        getSansFontClassName(),
+        'relative dark antialiased bg-gray-1 font-sans text-gray-11',
+      )}
+    >
+      <body>
         <FocusVisibleProvider />
         <LocalizedStringProvider locale="en-US" />
         <ToastProvider />

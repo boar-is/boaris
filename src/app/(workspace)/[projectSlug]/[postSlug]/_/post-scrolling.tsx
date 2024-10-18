@@ -9,17 +9,12 @@ import {
   useSelector,
 } from '@legendapp/state/react'
 import { type Editor, EditorContent } from '@tiptap/react'
-import {
-  type CSSProperties,
-  type MutableRefObject,
-  useMemo,
-  useRef,
-} from 'react'
+import { type CSSProperties, useMemo, useRef } from 'react'
 import { useCaptions } from '~/features/captions/use-captions'
 import { useCaptionsCursorOffset$ } from '~/features/captions/use-captions-cursor-offset'
 import { useCaptionsEditor } from '~/features/captions/use-captions-editor'
 import { useCaptionsPosition$ } from '~/features/captions/use-captions-position'
-import { useCaptionsScrollableHeight$ } from '~/features/captions/use-captions-scrollable-height'
+import { useCaptionsScrollableHeight } from '~/features/captions/use-captions-scrollable-height'
 import {
   PlaybackProgressProvider,
   usePlaybackProgress$,
@@ -33,7 +28,7 @@ import {
   PostReading,
   PostReadingHeader,
   PostReadingSeparator,
-} from './post-reading-header'
+} from './post-reading'
 
 export function PostScrolling() {
   return (
@@ -59,15 +54,11 @@ function PostScrollingContent() {
   }
 
   const editor = useCaptionsEditor(layoutCaptions.content, extensions)
-  const [scrollableRef] = usePlaybackProgressScrollSync()
 
   return (
     <div className="typography max-w-prose w-full">
       {editor ? (
-        <PostScrollingContentCaptions
-          editor={editor}
-          scrollableRef={scrollableRef}
-        />
+        <PostScrollingContentCaptions editor={editor} />
       ) : (
         <StaticEditorContent
           content={layoutCaptions.content}
@@ -80,10 +71,7 @@ function PostScrollingContent() {
 
 const ReactiveMotionDiv = reactive(motion.div)
 
-function PostScrollingContentCaptions({
-  editor,
-  scrollableRef,
-}: { editor: Editor; scrollableRef: MutableRefObject<HTMLDivElement | null> }) {
+function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
   const playbackProgress$ = usePlaybackProgress$()
   const position$ = useCaptionsPosition$(editor, playbackProgress$)
   const contentOffset$ = useCaptionsCursorOffset$(editor, position$)
@@ -92,8 +80,9 @@ function PostScrollingContentCaptions({
     return offset ? offset * -1 + 144 : 0
   })
 
+  const [scrollableRef] = usePlaybackProgressScrollSync()
   const contentRef = useRef<HTMLDivElement | null>(null)
-  const scrollableHeight$ = useCaptionsScrollableHeight$({ contentRef })
+  const scrollableHeight = useCaptionsScrollableHeight({ contentRef })
 
   const cursorLength = 25
   const emptyArrayOfLength = useMemo(
@@ -102,9 +91,9 @@ function PostScrollingContentCaptions({
   )
 
   return (
-    <ReactiveMotionDiv
+    <motion.div
       className="relative w-full"
-      $style={() => ({ height: scrollableHeight$.get() })}
+      style={{ height: scrollableHeight }}
       ref={scrollableRef}
     >
       <div className="fixed bottom-4 left-4">
@@ -134,7 +123,7 @@ function PostScrollingContentCaptions({
           <EditorContent editor={editor} />
         </ReactiveMotionDiv>
       </div>
-    </ReactiveMotionDiv>
+    </motion.div>
   )
 }
 

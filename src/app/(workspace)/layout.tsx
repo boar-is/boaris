@@ -54,7 +54,7 @@ export default async function WorkspaceLayout({
     label ?? matchSocialNetworkName(href) ?? 'Link'
 
   return (
-    <>
+    <div className="flex flex-col gap-4 md:gap-10 items-stretch min-h-dvh">
       <header className="container sticky z-10 top-0 py-3">
         <nav
           className={cx(
@@ -284,6 +284,6 @@ export default async function WorkspaceLayout({
           </ul>
         </div>
       </footer>
-    </>
+    </div>
   )
 }
