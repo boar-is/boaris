@@ -1,6 +1,8 @@
 import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
+import { LayoutChangesProvider } from '~/features/layout/layout-changes-provider'
+import { LayoutModeProvider } from '~/features/layout/layout-mode-provider'
 import { currentWorkspaceSlug } from '~/lib/constants'
 import { getMonoFontClassName } from '~/lib/media/fonts/get-mono-font-class-name'
 import { Image } from '~/lib/media/image'
@@ -24,6 +26,8 @@ export default async function WorkspaceProjectPostPage({
     notFound()
   }
 
+  const { post, tags, authors, layouts, captions, tracks } = data
+
   return (
     <article
       className={cx(
@@ -33,18 +37,18 @@ export default async function WorkspaceProjectPostPage({
     >
       <header className="w-full max-w-prose">
         <hgroup className="flex flex-col gap-6">
-          {data.post.thumbnailUrl && (
+          {post.thumbnailUrl && (
             <figure className="relative">
               <Image
-                src={data.post.thumbnailUrl}
-                alt={`${data.post.title}'s thumbnail's blur`}
+                src={post.thumbnailUrl}
+                alt={`${post.title}'s thumbnail's blur`}
                 width={1024}
                 height={768}
                 className="absolute rounded-2xl blur-2xl opacity-35 pointer-events-none"
               />
               <Image
-                src={data.post.thumbnailUrl}
-                alt={`${data.post.title}'s thumbnail`}
+                src={post.thumbnailUrl}
+                alt={`${post.title}'s thumbnail`}
                 width={1024}
                 height={768}
                 className="rounded-2xl drop-shadow-xl"
@@ -52,11 +56,11 @@ export default async function WorkspaceProjectPostPage({
             </figure>
           )}
           <h1 className="text-4xl text-gray-12 font-semibold tracking-tight text-balance">
-            {data.post.title}
+            {post.title}
           </h1>
-          {data.tags.length && (
+          {tags.length && (
             <ul className="flex flex-wrap gap-1.5 lg:gap-2 text-sm lg:text-base font-medium tracking-wide text-gray-10 *:my-0.5">
-              {data.tags.map((tag) => (
+              {tags.map((tag) => (
                 <li key={tag.slug}>
                   <span className="border border-gray-9 rounded-full px-3 py-0.5">
                     {tag.name}
@@ -65,15 +69,15 @@ export default async function WorkspaceProjectPostPage({
               ))}
             </ul>
           )}
-          {data.post.lead && (
+          {post.lead && (
             <p className="text-gray-11 text-pretty text-lg font-medium">
-              {data.post.lead}
+              {post.lead}
             </p>
           )}
           <div className="flex justify-between gap-8 items-center">
-            {data.authors.length && (
+            {authors.length && (
               <ul className="space-y-1 lg:space-y-2 text-gray-10 lg:text-lg font-medium tracking-tight">
-                {data.authors.map((author) => (
+                {authors.map((author) => (
                   <li
                     key={author.slug}
                     className="flex items-center gap-1.5 lg:gap-2"
@@ -95,12 +99,20 @@ export default async function WorkspaceProjectPostPage({
               </ul>
             )}
             <small className="text-gray-10 font-medium tracking-wide text-sm lg:text-base">
-              {data.post.date}
+              {post.date}
             </small>
           </div>
         </hgroup>
       </header>
       <hr className="w-full max-w-prose border-gray-3" />
+      <LayoutModeProvider primaryLayoutModes={layouts?.primary?.modes}>
+        <LayoutChangesProvider
+          primaryLayoutChanges={layouts?.primary?.changes}
+          overrides={layouts?.overrides}
+        >
+          1
+        </LayoutChangesProvider>
+      </LayoutModeProvider>
     </article>
   )
 }
