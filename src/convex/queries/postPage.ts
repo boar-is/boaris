@@ -2,7 +2,7 @@ import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
 import type { Delta } from '~/convex/values/_shared/delta'
 import type { Interpolation } from '~/convex/values/_shared/interpolation'
-import type { CaptionsValue } from '~/convex/values/revisions/captions/captionsValue'
+import type { CaptionsContent } from '~/convex/values/revisions/captions/captionsContent'
 import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
 import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import { readableFromTimestamp } from '~/lib/utils/readable-from-timestamp'
@@ -26,7 +26,7 @@ export type PostPageQueryResult = {
   }>
   captions:
     | {
-        value: CaptionsValue
+        content: CaptionsContent
         interpolation: Interpolation | undefined
       }
     | undefined
@@ -142,7 +142,7 @@ const postPage = query({
     ])
 
     const captions = revision.captions && {
-      value: revision.captions.value,
+      content: revision.captions.content,
       interpolation: revision.captions.interpolation,
     }
 
