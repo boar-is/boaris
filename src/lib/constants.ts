@@ -1,3 +1,3 @@
 export const currentWorkspaceSlug = 'boaris'
 
-export const headerHeight = 94
+export const headerOffset = 120
