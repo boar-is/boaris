@@ -10,7 +10,6 @@ export const useLayoutChangesIndex$ = ({
   changes$: Observable<Array<LayoutChange>>
   progress$: ObservablePrimitive<number>
 }) =>
-  useObservable<number | null>(
-    () =>
-      findClosestIndex(changes$.get(), progress$.get(), (it) => it.at) ?? null,
+  useObservable<number>(
+    () => findClosestIndex(changes$.get(), progress$.get(), (it) => it.at)!,
   )
