@@ -6,7 +6,7 @@ import { LayoutModeProvider } from '~/features/layout/layout-mode-provider'
 import { PostPageProvider } from '~/features/post/post-page-provider'
 import { currentWorkspaceSlug } from '~/lib/constants'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
-import { PostContent } from './_post-content'
+import { PostContent } from './_/post-content'
 
 export async function generateStaticParams() {
   return fetchQuery(api.queries.postParams.default)
