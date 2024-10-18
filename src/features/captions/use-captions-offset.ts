@@ -3,7 +3,7 @@ import { useObservable } from '@legendapp/state/react'
 import type { Editor } from '@tiptap/react'
 import { firstNonInlineAncestor } from '~/features/captions/first-non-inline-ancestor'
 
-export const useCaptionsCursorOffset$ = (
+export const useCaptionsOffset$ = (
   editor: Editor,
   position$: Observable<number>,
 ) =>
@@ -12,5 +12,5 @@ export const useCaptionsCursorOffset$ = (
 
     const ancestor = firstNonInlineAncestor(nodeAtPos)
 
-    return (ancestor?.offsetTop ?? 0) * -1
+    return ancestor!.offsetTop * -1
   })

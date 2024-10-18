@@ -11,8 +11,8 @@ import {
 import { type Editor, EditorContent } from '@tiptap/react'
 import { type CSSProperties, useMemo, useRef } from 'react'
 import { useCaptions } from '~/features/captions/use-captions'
-import { useCaptionsCursorOffset$ } from '~/features/captions/use-captions-cursor-offset'
 import { useCaptionsEditor } from '~/features/captions/use-captions-editor'
+import { useCaptionsOffset$ } from '~/features/captions/use-captions-offset'
 import { useCaptionsPosition$ } from '~/features/captions/use-captions-position'
 import { useCaptionsScrollableHeight } from '~/features/captions/use-captions-scrollable-height'
 import {
@@ -74,13 +74,13 @@ const ReactiveMotionDiv = reactive(motion.div)
 function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
   const playbackProgress$ = usePlaybackProgress$()
   const position$ = useCaptionsPosition$(editor, playbackProgress$)
-  const contentOffset$ = useCaptionsCursorOffset$(editor, position$)
+  const offset$ = useCaptionsOffset$(editor, position$)
 
   const [scrollableRef] = usePlaybackProgressScrollSync()
   const contentRef = useRef<HTMLDivElement | null>(null)
   const scrollableHeight = useCaptionsScrollableHeight({ contentRef })
 
-  const cursorLength = 1
+  const cursorLength = 25
   const emptyArrayOfLength = useMemo(
     () => Array.from({ length: cursorLength }),
     [],
@@ -95,17 +95,21 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
       ref={scrollableRef}
     >
       <div className="fixed bottom-4 left-4">
-        <Memo>{position$}</Memo>
+        <Memo>{playbackProgress$}</Memo>
+        <div>
+          <Reactive.input type="number" $value={position$} />
+        </div>
       </div>
       <div className="sticky inset-x-0 h-0" style={{ top: containerOffset }}>
         <ReactiveMotionDiv
+          className="relative"
           $animate={() => ({
-            y: contentOffset$.get(),
+            y: offset$.get(),
           })}
           transition={{ duration: 0.8 }}
           ref={contentRef}
         >
-          <div className="pointer-events-none fixed top-0 left-0 *:pointer-events-none *:fixed *:bg-gray-6">
+          <div className="pointer-events-none absolute top-0 left-0 *:pointer-events-none *:absolute *:bg-gray-6">
             {emptyArrayOfLength.map((_, index) => (
               <PostScrollingContentCursorItem
                 // biome-ignore lint/suspicious/noArrayIndexKey: I know what I'm doing
@@ -113,7 +117,7 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
                 position$={position$}
                 positionOffset={index}
                 containerOffset={containerOffset}
-                contentOffset$={contentOffset$}
+                offset$={offset$}
                 offsetLeft={() => scrollableRef.current?.offsetLeft ?? 0}
                 coordsAtPos={(pos) => editor.view.coordsAtPos(pos)}
               />
@@ -130,14 +134,14 @@ function PostScrollingContentCursorItem({
   position$,
   positionOffset,
   containerOffset,
-  contentOffset$,
+  offset$,
   offsetLeft,
   coordsAtPos,
 }: {
   position$: Observable<number>
   positionOffset: number
   containerOffset: number
-  contentOffset$: Observable<number>
+  offset$: Observable<number>
   offsetLeft: () => number
   coordsAtPos: (pos: number) => {
     left: number
@@ -158,7 +162,7 @@ function PostScrollingContentCursorItem({
     const coords = coordsAtPos(computedPosition)
     const nextCoords = coordsAtPos(computedPosition + 1)
 
-    const contentY = contentOffset$.get()
+    const contentY = offset$.get()
 
     return {
       top: coords.top - contentY - containerOffset,
