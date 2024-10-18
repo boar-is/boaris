@@ -49,16 +49,20 @@ function PostScrollingContent() {
   const [scrollableRef] = usePlaybackProgressScrollSync()
   const editor = useCaptionsEditor(layoutCaptions.content, extensions)
 
-  return editor ? (
-    <PostScrollingContentCaptions
-      editor={editor}
-      scrollableRef={scrollableRef}
-    />
-  ) : (
-    <StaticEditorContent
-      content={layoutCaptions.content}
-      extensions={extensions}
-    />
+  return (
+    <div className="typography max-w-prose w-full">
+      {editor ? (
+        <PostScrollingContentCaptions
+          editor={editor}
+          scrollableRef={scrollableRef}
+        />
+      ) : (
+        <StaticEditorContent
+          content={layoutCaptions.content}
+          extensions={extensions}
+        />
+      )}
+    </div>
   )
 }
 
@@ -80,19 +84,21 @@ function PostScrollingContentCaptions({
   const scrollableHeight$ = useCaptionsScrollableHeight$({ contentRef })
 
   return (
-    <div className="typography max-w-prose w-full">
-      <ReactiveMotionDiv
-        className="relative w-full"
-        $style={() => ({ height: scrollableHeight$.get() })}
-        ref={scrollableRef}
-      >
-        <div className="sticky top-0 inset-x-0 h-0">
-          <ReactiveMotionDiv $animate={contentAnimate$} ref={contentRef}>
-            <EditorContent editor={editor} />
-          </ReactiveMotionDiv>
-        </div>
-      </ReactiveMotionDiv>
-    </div>
+    <ReactiveMotionDiv
+      className="relative w-full"
+      $style={() => ({ height: scrollableHeight$.get() })}
+      ref={scrollableRef}
+    >
+      <div className="sticky top-0 inset-x-0 h-0">
+        <ReactiveMotionDiv
+          $animate={contentAnimate$}
+          transition={{ duration: 0.8 }}
+          ref={contentRef}
+        >
+          <EditorContent editor={editor} />
+        </ReactiveMotionDiv>
+      </div>
+    </ReactiveMotionDiv>
   )
 }
 
