@@ -76,9 +76,10 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
   const position$ = useCaptionsPosition$(editor, playbackProgress$)
   const offset$ = useCaptionsOffset$(editor, position$)
 
-  const [scrollableRef] = usePlaybackProgressScrollSync()
   const contentRef = useRef<HTMLDivElement | null>(null)
+
   const scrollableHeight = useCaptionsScrollableHeight({ contentRef })
+  const [scrollableRef] = usePlaybackProgressScrollSync({ scrollableHeight })
 
   const cursorLength = 25
   const emptyArrayOfLength = useMemo(

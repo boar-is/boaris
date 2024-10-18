@@ -3,7 +3,9 @@ import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { useRef } from 'react'
 import { usePlaybackProgress$ } from '~/features/playback/playback-progress-provider'
 
-export const usePlaybackProgressScrollSync = () => {
+export const usePlaybackProgressScrollSync = ({
+  scrollableHeight,
+}: { scrollableHeight: number | 'auto' }) => {
   const playbackProgress$ = usePlaybackProgress$()
 
   const ref = useRef<HTMLDivElement | null>(null)
@@ -11,9 +13,11 @@ export const usePlaybackProgressScrollSync = () => {
     target: ref,
   })
 
-  useMotionValueEvent(scrollYProgress, 'change', (progress) =>
-    playbackProgress$.set(progress),
-  )
+  useMotionValueEvent(scrollYProgress, 'change', (progress) => {
+    if (scrollableHeight !== 'auto') {
+      playbackProgress$.set(progress)
+    }
+  })
   /**
    * A hack to recalculate scrollYProgress
    * @see https://github.com/framer/motion/issues/2718
