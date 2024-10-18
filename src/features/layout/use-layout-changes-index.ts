@@ -1,4 +1,4 @@
-import type { Observable, ObservablePrimitive } from '@legendapp/state'
+import type { Observable } from '@legendapp/state'
 import { useObservable } from '@legendapp/state/react'
 import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
@@ -8,7 +8,7 @@ export const useLayoutChangesIndex$ = ({
   progress$,
 }: {
   changes$: Observable<Array<LayoutChange>>
-  progress$: ObservablePrimitive<number>
+  progress$: Observable<number>
 }) =>
   useObservable<number>(
     () => findClosestIndex(changes$.get(), progress$.get(), (it) => it.at)!,

@@ -317,7 +317,7 @@ function ContentFlowCursorItem({
   const height = useTransform(style, (s) => s.height)
   const width = useTransform(style, (s) => s.width)
 
-  return <m.i style={{ y, x, height, width }} />
+  return <m.i className="bg-[blue]" style={{ y, x, height, width }} />
 }
 
 function LayoutMainGrid({

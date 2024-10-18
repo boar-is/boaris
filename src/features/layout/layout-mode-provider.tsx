@@ -1,17 +1,16 @@
 'use client'
 
-import type { ObservablePrimitive } from '@legendapp/state'
+import type { Observable } from '@legendapp/state'
 import { useObservable } from '@legendapp/state/react'
 import type { PropsWithChildren } from 'react'
 import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 
-export type LayoutModeContextValue = ObservablePrimitive<LayoutMode>
-
-export const [LayoutModeContext, useLayoutMode$] =
-  createStrictContext<LayoutModeContextValue>({
-    name: 'LayoutModeContext',
-  })
+export const [LayoutModeContext, useLayoutMode$] = createStrictContext<
+  Observable<LayoutMode>
+>({
+  name: 'LayoutModeContext',
+})
 
 export function LayoutModeProvider({
   children,

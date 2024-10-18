@@ -1,4 +1,4 @@
-import type { Observable, ObservablePrimitive } from '@legendapp/state'
+import type { Observable } from '@legendapp/state'
 import { useObservable } from '@legendapp/state/react'
 import { transform } from 'framer-motion'
 import type { Interpolation } from '~/convex/values/_shared/interpolation'
@@ -7,7 +7,7 @@ export const useLayoutProgress$ = ({
   progress$,
   interpolation$,
 }: {
-  progress$: ObservablePrimitive<number>
+  progress$: Observable<number>
   interpolation$: Observable<Interpolation>
 }) =>
   useObservable<number>(() => {

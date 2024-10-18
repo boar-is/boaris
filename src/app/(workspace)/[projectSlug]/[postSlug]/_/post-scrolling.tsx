@@ -1,8 +1,19 @@
 'use client'
 
-import { reactive, useObservable, useSelector } from '@legendapp/state/react'
+import type { Observable } from '@legendapp/state'
+import {
+  Reactive,
+  reactive,
+  useObservable,
+  useSelector,
+} from '@legendapp/state/react'
 import { type Editor, EditorContent } from '@tiptap/react'
-import { type MutableRefObject, useRef } from 'react'
+import {
+  type CSSProperties,
+  type MutableRefObject,
+  useMemo,
+  useRef,
+} from 'react'
 import { useCaptions } from '~/features/captions/use-captions'
 import { useCaptionsCursorOffset$ } from '~/features/captions/use-captions-cursor-offset'
 import { useCaptionsEditor } from '~/features/captions/use-captions-editor'
@@ -75,13 +86,19 @@ function PostScrollingContentCaptions({
   const playbackProgress$ = usePlaybackProgress$()
   const position$ = useCaptionsPosition$(editor, playbackProgress$)
   const contentOffset$ = useCaptionsCursorOffset$(editor, position$)
-  const contentAnimate$ = useObservable<{ y: number } | undefined>(() => {
+  const contentY$ = useObservable<number>(() => {
     const offset = contentOffset$.get()
-    return offset && { y: offset * -1 + 144 }
+    return offset ? offset * -1 + 144 : 0
   })
 
   const contentRef = useRef<HTMLDivElement | null>(null)
   const scrollableHeight$ = useCaptionsScrollableHeight$({ contentRef })
+
+  const cursorLength = 25
+  const emptyArrayOfLength = useMemo(
+    () => Array.from({ length: cursorLength }),
+    [],
+  )
 
   return (
     <ReactiveMotionDiv
@@ -91,15 +108,73 @@ function PostScrollingContentCaptions({
     >
       <div className="sticky top-0 inset-x-0 h-0">
         <ReactiveMotionDiv
-          $animate={contentAnimate$}
+          $animate={() => ({
+            y: contentY$.get(),
+          })}
           transition={{ duration: 0.8 }}
           ref={contentRef}
         >
+          <div className="pointer-events-none fixed top-0 left-0 *:pointer-events-none *:fixed *:bg-gray-6">
+            {emptyArrayOfLength.map((_, index) => (
+              <PostScrollingContentCursorItem
+                // biome-ignore lint/suspicious/noArrayIndexKey: I know what I'm doing
+                key={index}
+                position$={position$}
+                positionOffset={index}
+                contentY$={contentY$}
+                offsetLeft={scrollableRef.current?.offsetLeft ?? 0}
+                coordsAtPos={(pos) => editor.view.coordsAtPos(pos)}
+              />
+            ))}
+          </div>
           <EditorContent editor={editor} />
         </ReactiveMotionDiv>
       </div>
     </ReactiveMotionDiv>
   )
+}
+
+function PostScrollingContentCursorItem({
+  position$,
+  positionOffset,
+  contentY$,
+  offsetLeft,
+  coordsAtPos,
+}: {
+  position$: Observable<number>
+  positionOffset: number
+  contentY$: Observable<number>
+  offsetLeft: number
+  coordsAtPos: (pos: number) => {
+    left: number
+    right: number
+    top: number
+    bottom: number
+  }
+}) {
+  const style$ = useObservable((): CSSProperties => {
+    const computedPosition = position$.get() - positionOffset
+
+    if (computedPosition < 0) {
+      return {
+        display: 'none',
+      }
+    }
+
+    const coords = coordsAtPos(computedPosition)
+    const nextCoords = coordsAtPos(computedPosition + 1)
+
+    const contentY = contentY$.get()
+
+    return {
+      top: coords.top - contentY,
+      left: coords.left - offsetLeft,
+      height: coords.bottom - coords.top,
+      width: nextCoords.left - coords.left + 1, // +1px to avoid gaps
+    }
+  })
+
+  return <Reactive.i $style={style$} />
 }
 
 function PostScrollingContentLayout() {
