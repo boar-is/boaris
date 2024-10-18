@@ -5,7 +5,7 @@ import { useLayoutChanges$ } from '~/features/layout/layout-changes-provider'
 export const useCaptions = ({
   captions,
 }: {
-  captions: Captions
+  captions?: Captions | undefined
 }) => {
   // TODO Implement cutting skipped parts
   // TODO Implement compound interpolation
