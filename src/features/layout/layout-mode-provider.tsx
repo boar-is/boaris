@@ -11,7 +11,7 @@ export type LayoutModeContextValue = {
   primaryLayoutModes: Array<LayoutMode>
 }
 
-export const [LayoutModeContext, useLayoutModeContext] =
+export const [LayoutModeContext, useLayoutMode] =
   createStrictContext<LayoutModeContextValue>({
     name: 'LayoutModeContext',
   })

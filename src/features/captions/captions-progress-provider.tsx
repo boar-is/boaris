@@ -11,7 +11,7 @@ export type CaptionsProgressContextValue = {
   captionsProgress$: Observable<number>
 }
 
-export const [CaptionsProgressContext, useCaptionsProgressContext] =
+export const [CaptionsProgressContext, useCaptionsProgress] =
   createStrictContext<CaptionsProgressContextValue>({
     name: 'CaptionsProgressContext',
   })

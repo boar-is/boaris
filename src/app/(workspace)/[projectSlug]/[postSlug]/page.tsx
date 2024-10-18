@@ -8,6 +8,7 @@ import { getMonoFontClassName } from '~/lib/media/fonts/get-mono-font-class-name
 import { Image } from '~/lib/media/image'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
 import { cx } from '~/lib/utils/cx'
+import { PostCaptions } from './_post-captions'
 
 export async function generateStaticParams() {
   return fetchQuery(api.queries.postParams.default)
@@ -110,7 +111,8 @@ export default async function WorkspaceProjectPostPage({
           primaryLayoutChanges={layouts?.primary?.changes}
           overrides={layouts?.overrides}
         >
-          1
+          {/* TODO Implement no captions */}
+          {captions && <PostCaptions captions={captions} />}
         </LayoutChangesProvider>
       </LayoutModeProvider>
     </article>

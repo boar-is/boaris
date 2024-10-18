@@ -1,19 +1,15 @@
 import { useMemo } from 'react'
 import type { Captions } from '~/convex/values/revisions/captions/captions'
-import { useLayoutChangesContext } from '~/features/layout/layout-changes-provider'
+import { useLayoutChanges } from '~/features/layout/layout-changes-provider'
 
 export const useCaptions = ({
   captions,
 }: {
-  captions?: Captions | undefined
+  captions: Captions
 }) => {
   // TODO Implement cutting skipped parts
   // TODO Implement compound interpolation
-  const layoutChanges = useLayoutChangesContext()
-
-  if (!captions) {
-    return undefined
-  }
+  const layoutChanges = useLayoutChanges()
 
   return useMemo(() => captions, [captions])
 }
