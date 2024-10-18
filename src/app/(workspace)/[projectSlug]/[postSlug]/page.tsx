@@ -1,14 +1,11 @@
 import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
-import { LayoutChangesProvider } from '~/features/layout/layout-changes-provider'
-import { LayoutModeProvider } from '~/features/layout/layout-mode-provider'
 import { currentWorkspaceSlug } from '~/lib/constants'
 import { getMonoFontClassName } from '~/lib/media/fonts/get-mono-font-class-name'
 import { Image } from '~/lib/media/image'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
 import { cx } from '~/lib/utils/cx'
-import { PostCaptions } from './_post-captions'
 
 export async function generateStaticParams() {
   return fetchQuery(api.queries.postParams.default)
@@ -106,15 +103,15 @@ export default async function WorkspaceProjectPostPage({
         </hgroup>
       </header>
       <hr className="w-full max-w-prose border-gray-3" />
-      <LayoutModeProvider primaryLayoutModes={layouts?.primary?.modes}>
-        <LayoutChangesProvider
-          primaryLayoutChanges={layouts?.primary?.changes}
-          overrides={layouts?.overrides}
-        >
-          {/* TODO Implement no captions */}
-          {captions && <PostCaptions captions={captions} />}
-        </LayoutChangesProvider>
-      </LayoutModeProvider>
+      {/*<LayoutModeProvider primaryLayoutModes={layouts?.primary?.modes}>*/}
+      {/*  */}
+      {/*  <LayoutChangesProvider*/}
+      {/*    primaryLayoutChanges={layouts?.primary?.changes}*/}
+      {/*    overrides={layouts?.overrides}*/}
+      {/*  >*/}
+      {/*    */}
+      {/*  </LayoutChangesProvider>*/}
+      {/*</LayoutModeProvider>*/}
     </article>
   )
 }
