@@ -4,8 +4,8 @@ import type { CaptionsContent } from '~/convex/values/revisions/captions/caption
 export const useCaptionsEditor = (
   content: CaptionsContent,
   extensions: Extensions,
-) => {
-  return useEditor(
+) =>
+  useEditor(
     {
       editable: false,
       extensions,
@@ -15,4 +15,3 @@ export const useCaptionsEditor = (
     },
     [content, extensions],
   )
-}

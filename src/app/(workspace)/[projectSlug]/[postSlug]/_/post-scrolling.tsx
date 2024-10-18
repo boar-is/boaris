@@ -5,7 +5,11 @@ import type { Editor } from '@tiptap/react'
 import type { MutableRefObject } from 'react'
 import { useCaptions } from '~/features/captions/use-captions'
 import { useCaptionsEditor } from '~/features/captions/use-captions-editor'
-import { PlaybackProgressProvider } from '~/features/playback/playback-progress-provider'
+import { useCaptionsPosition$ } from '~/features/captions/use-captions-position'
+import {
+  PlaybackProgressProvider,
+  usePlaybackProgress$,
+} from '~/features/playback/playback-progress-provider'
 import { usePlaybackProgressScrollSync } from '~/features/playback/use-playback-progress-scroll-sync'
 import { usePostPageContext } from '~/features/post/post-page-provider'
 import { extensions } from '~/lib/text-editor/extensions'
@@ -59,6 +63,9 @@ function PostScrollingContentCaptions({
   editor,
   scrollableRef,
 }: { editor: Editor; scrollableRef: MutableRefObject<HTMLDivElement | null> }) {
+  const playbackProgress$ = usePlaybackProgress$()
+  const captionsPosition$ = useCaptionsPosition$(editor, playbackProgress$)
+
   return <div>1</div>
 }
 

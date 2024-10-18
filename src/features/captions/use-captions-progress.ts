@@ -6,6 +6,6 @@ import { usePlaybackProgress$ } from '~/features/playback/playback-progress-prov
 export const useCaptionsProgress$ = ({
   interpolation,
 }: { interpolation: Interpolation }) => {
-  const { playbackProgress$ } = usePlaybackProgress$()
+  const playbackProgress$ = usePlaybackProgress$()
   return useObservable(playbackProgress$)
 }
