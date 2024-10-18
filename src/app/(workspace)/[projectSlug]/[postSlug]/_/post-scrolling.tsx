@@ -2,6 +2,7 @@
 
 import type { Observable } from '@legendapp/state'
 import {
+  Memo,
   Reactive,
   reactive,
   useObservable,
@@ -57,8 +58,8 @@ function PostScrollingContent() {
     throw new Error('post without captions is not implemented')
   }
 
-  const [scrollableRef] = usePlaybackProgressScrollSync()
   const editor = useCaptionsEditor(layoutCaptions.content, extensions)
+  const [scrollableRef] = usePlaybackProgressScrollSync()
 
   return (
     <div className="typography max-w-prose w-full">
@@ -106,6 +107,9 @@ function PostScrollingContentCaptions({
       $style={() => ({ height: scrollableHeight$.get() })}
       ref={scrollableRef}
     >
+      <div className="fixed bottom-4 left-4">
+        <Memo>{position$}</Memo>
+      </div>
       <div className="sticky top-0 inset-x-0 h-0">
         <ReactiveMotionDiv
           $animate={() => ({
