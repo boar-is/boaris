@@ -2,11 +2,12 @@
 
 import { useSelector } from '@legendapp/state/react'
 import { type Editor, EditorContent } from '@tiptap/react'
-import type { MutableRefObject } from 'react'
+import { type MutableRefObject, useRef } from 'react'
 import { useCaptions } from '~/features/captions/use-captions'
 import { useCaptionsCursorOffset$ } from '~/features/captions/use-captions-cursor-offset'
 import { useCaptionsEditor } from '~/features/captions/use-captions-editor'
 import { useCaptionsPosition$ } from '~/features/captions/use-captions-position'
+import { useCaptionsScrollableHeight$ } from '~/features/captions/use-captions-scrollable-height'
 import {
   PlaybackProgressProvider,
   usePlaybackProgress$,
@@ -66,7 +67,10 @@ function PostScrollingContentCaptions({
 }: { editor: Editor; scrollableRef: MutableRefObject<HTMLDivElement | null> }) {
   const playbackProgress$ = usePlaybackProgress$()
   const position$ = useCaptionsPosition$(editor, playbackProgress$)
-  const cursorOffset$ = useCaptionsCursorOffset$(editor, position$)
+  const contentOffset$ = useCaptionsCursorOffset$(editor, position$)
+
+  const contentRef = useRef<HTMLDivElement | null>(null)
+  const scrollableHeight$ = useCaptionsScrollableHeight$({ contentRef })
 
   return (
     <div className="typography max-w-prose w-full">
