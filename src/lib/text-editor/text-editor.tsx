@@ -1,10 +1,10 @@
-import { generateHTML } from '@tiptap/html'
 import {
   type Editor,
   EditorContent,
   type Extensions,
   type JSONContent,
 } from '@tiptap/react'
+import { StaticTextEditor } from '~/lib/text-editor/static-text-editor'
 
 export type TextEditorProps = {
   editor: Editor | null
@@ -14,22 +14,9 @@ export type TextEditorProps = {
 
 export function TextEditor({ editor, content, extensions }: TextEditorProps) {
   if (!editor) {
-    if (!content) {
-      return null
-    }
-
-    return (
-      // Emulating TipTap layout
-      <div>
-        <div
-          className="tiptap ProseMirror"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: It's okay here
-          dangerouslySetInnerHTML={{
-            __html: generateHTML(content, extensions),
-          }}
-        />
-      </div>
-    )
+    return content ? (
+      <StaticTextEditor content={content} extensions={extensions} />
+    ) : null
   }
 
   return <EditorContent editor={editor} />
