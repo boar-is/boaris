@@ -7,10 +7,10 @@ export const useCaptionsCursorOffset$ = (
   editor: Editor,
   position$: Observable<number>,
 ) =>
-  useObservable<number | undefined>(() => {
+  useObservable<number>(() => {
     const nodeAtPos = editor.view.domAtPos(position$.get()).node
 
     const ancestor = firstNonInlineAncestor(nodeAtPos)
 
-    return ancestor?.offsetTop
+    return (ancestor?.offsetTop ?? 0) * -1
   })

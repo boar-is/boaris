@@ -21,7 +21,6 @@ import {
 } from '~/features/playback/playback-progress-provider'
 import { usePlaybackProgressScrollSync } from '~/features/playback/use-playback-progress-scroll-sync'
 import { usePostPageContext } from '~/features/post/post-page-provider'
-import { headerOffset } from '~/lib/constants'
 import { motion } from '~/lib/framer-motion/motion'
 import { extensions } from '~/lib/text-editor/extensions'
 import { StaticEditorContent } from '~/lib/text-editor/static-editor-content'
@@ -76,10 +75,6 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
   const playbackProgress$ = usePlaybackProgress$()
   const position$ = useCaptionsPosition$(editor, playbackProgress$)
   const contentOffset$ = useCaptionsCursorOffset$(editor, position$)
-  const contentY$ = useObservable<number>(() => {
-    const offset = contentOffset$.get()
-    return offset ? offset * -1 + headerOffset : 0
-  })
 
   const [scrollableRef] = usePlaybackProgressScrollSync()
   const contentRef = useRef<HTMLDivElement | null>(null)
@@ -100,10 +95,10 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
       <div className="fixed bottom-4 left-4">
         <Memo>{position$}</Memo>
       </div>
-      <div className="sticky top-0 inset-x-0 h-0">
+      <div className="sticky top-32 inset-x-0 h-0">
         <ReactiveMotionDiv
           $animate={() => ({
-            y: contentY$.get(),
+            y: contentOffset$.get(),
           })}
           transition={{ duration: 0.8 }}
           ref={contentRef}
@@ -115,8 +110,8 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
                 key={index}
                 position$={position$}
                 positionOffset={index}
-                contentY$={contentY$}
-                offsetLeft={scrollableRef.current?.offsetLeft ?? 0}
+                contentOffset$={contentOffset$}
+                offsetLeft={() => scrollableRef.current?.offsetLeft ?? 0}
                 coordsAtPos={(pos) => editor.view.coordsAtPos(pos)}
               />
             ))}
@@ -131,14 +126,14 @@ function PostScrollingContentCaptions({ editor }: { editor: Editor }) {
 function PostScrollingContentCursorItem({
   position$,
   positionOffset,
-  contentY$,
+  contentOffset$,
   offsetLeft,
   coordsAtPos,
 }: {
   position$: Observable<number>
   positionOffset: number
-  contentY$: Observable<number>
-  offsetLeft: number
+  contentOffset$: Observable<number>
+  offsetLeft: () => number
   coordsAtPos: (pos: number) => {
     left: number
     right: number
@@ -158,11 +153,11 @@ function PostScrollingContentCursorItem({
     const coords = coordsAtPos(computedPosition)
     const nextCoords = coordsAtPos(computedPosition + 1)
 
-    const contentY = contentY$.get()
+    const contentY = contentOffset$.get()
 
     return {
-      top: coords.top - contentY,
-      left: coords.left - offsetLeft,
+      top: coords.top + contentY,
+      left: coords.left - offsetLeft(),
       height: coords.bottom - coords.top,
       width: nextCoords.left - coords.left + 1, // +1px to avoid gaps
     }
