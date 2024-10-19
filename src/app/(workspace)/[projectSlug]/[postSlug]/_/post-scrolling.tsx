@@ -40,18 +40,20 @@ function PostScrollingContent() {
   const editor = useCaptionsEditor(layoutCaptions.content, extensions)
 
   return (
-    <div className="typography max-w-prose w-full">
-      {editor ? (
-        <PostScrollingCaptions
-          editor={editor}
-          interpolation={layoutCaptions.interpolation}
-        />
-      ) : (
-        <StaticEditorContent
-          content={layoutCaptions.content}
-          extensions={extensions}
-        />
-      )}
+    <div>
+      <div className="mx-auto typography max-w-prose w-full">
+        {editor ? (
+          <PostScrollingCaptions
+            editor={editor}
+            interpolation={layoutCaptions.interpolation}
+          />
+        ) : (
+          <StaticEditorContent
+            content={layoutCaptions.content}
+            extensions={extensions}
+          />
+        )}
+      </div>
       <PostScrollingLayout />
     </div>
   )
