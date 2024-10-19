@@ -3,7 +3,7 @@ import { type RefObject, useState } from 'react'
 
 export const useCaptionsScrollableHeight = ({
   contentRef,
-  factor = 1 / 15,
+  factor = 1 / 30,
 }: {
   contentRef: RefObject<HTMLDivElement | null>
   factor?: number | undefined

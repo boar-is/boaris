@@ -189,5 +189,5 @@ function PostScrollingContentCursorItem({
 }
 
 function PostScrollingContentLayout() {
-  return <div>layout</div>
+  return <div className="h-[300dvh]">layout</div>
 }
