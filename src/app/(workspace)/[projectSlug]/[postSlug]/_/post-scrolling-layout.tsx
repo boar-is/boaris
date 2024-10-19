@@ -151,14 +151,14 @@ const matchLayoutTrackPanel = Match.type<
 )
 
 const panelEdgeClassName = cx(
-  'bg-gray-1/60 py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1 z-10',
+  'bg-gray-1/75 py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1 z-10',
 )
 
 function LayoutPanelHeader({ name }: { name: string }) {
   const FileTypeIcon = matchFileTypeIcon(name)
 
   return (
-    <header className={cx(panelEdgeClassName, 'rounded-t-xl')}>
+    <header className={panelEdgeClassName}>
       <FileTypeIcon className="size-4 text-gray-9" />
       {name.split('/').pop()}
     </header>
@@ -166,9 +166,5 @@ function LayoutPanelHeader({ name }: { name: string }) {
 }
 
 function LayoutPanelFooter({ children }: PropsWithChildren) {
-  return (
-    <footer className={cx(panelEdgeClassName, 'rounded-b-xl')}>
-      {children}
-    </footer>
-  )
+  return <footer className={panelEdgeClassName}>{children}</footer>
 }
