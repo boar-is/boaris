@@ -1,4 +1,4 @@
-import type { Editor } from '@tiptap/react'
+import type { EditorView } from '@tiptap/pm/view'
 import {
   type MotionValue,
   animate,
@@ -9,12 +9,12 @@ import {
 import { useRef } from 'react'
 import { firstNonInlineAncestor } from '~/features/captions/first-non-inline-ancestor'
 
-export const useCaptionsOffset = (
-  editor: Editor,
+export const useCaptionsOffsetTop = (
+  view: EditorView,
   position: MotionValue<number>,
 ) => {
-  const offsetTop = useTransform(() => {
-    const { node, offset } = editor.view.domAtPos(position.get())
+  const ancestorTop = useTransform(() => {
+    const { node, offset } = view.domAtPos(position.get())
 
     if (!offset) {
       return undefined
@@ -35,7 +35,7 @@ export const useCaptionsOffset = (
   const offset = useMotionValue(0)
 
   const animationFrameId = useRef<number>()
-  useMotionValueEvent(offsetTop, 'change', (offsetTopValue) => {
+  useMotionValueEvent(ancestorTop, 'change', (offsetTopValue) => {
     animationFrameId.current && cancelAnimationFrame(animationFrameId.current)
     animationFrameId.current = requestAnimationFrame(() => {
       if (offsetTopValue !== undefined) {

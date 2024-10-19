@@ -1,11 +1,11 @@
-import type { Editor } from '@tiptap/react'
+import type { EditorState } from '@tiptap/pm/state'
 import { type MotionValue, useTransform } from 'framer-motion'
 
 export const useCaptionsPosition = (
-  editor: Editor,
+  state: EditorState,
   progress: MotionValue<number>,
 ) =>
   useTransform(() => {
-    const size = editor.state.doc.content.size - 1
+    const size = state.doc.content.size - 1
     return Math.floor(size * progress.get())
   })

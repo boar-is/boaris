@@ -1,17 +1,20 @@
 import { type Editor, EditorContent } from '@tiptap/react'
 import { type MotionStyle, type MotionValue, useTransform } from 'framer-motion'
 import { useMemo, useRef } from 'react'
-import { useCaptionsOffset } from '~/features/captions/use-captions-offset'
+import { useCaptionsOffsetTop } from '~/features/captions/use-captions-offset-top'
 import { useCaptionsPosition } from '~/features/captions/use-captions-position'
 import { useCaptionsScrollableHeight } from '~/features/captions/use-captions-scrollable-height'
+import { useCaptionsWordRange } from '~/features/captions/use-captions-word-range'
 import { usePlaybackProgress } from '~/features/playback/playback-progress-provider'
 import { usePlaybackProgressScrollSync } from '~/features/playback/use-playback-progress-scroll-sync'
+import { type Coords, mergeCoords } from '~/lib/framer-motion/merge-coords'
 import { motion } from '~/lib/framer-motion/motion'
 
 export function PostScrollingCaptions({ editor }: { editor: Editor }) {
   const playbackProgress = usePlaybackProgress()
-  const position = useCaptionsPosition(editor, playbackProgress)
-  const offset = useCaptionsOffset(editor, position)
+  const position = useCaptionsPosition(editor.state, playbackProgress)
+  const offsetTop = useCaptionsOffsetTop(editor.view, position)
+  const wordRange = useCaptionsWordRange(editor.state, position)
 
   const contentRef = useRef<HTMLDivElement | null>(null)
 
@@ -58,24 +61,31 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
         <motion.div
           className="relative"
           style={{
-            y: offset,
+            y: offsetTop,
           }}
           ref={contentRef}
         >
-          <div className="pointer-events-none absolute top-0 left-0 *:pointer-events-none *:absolute *:bg-gray-6">
-            {emptyArrayOfLength.map((_, index) => (
-              <PostScrollingCaptionsCursorItem
-                // biome-ignore lint/suspicious/noArrayIndexKey: I know what I'm doing
-                key={index}
-                position={position}
-                positionOffset={index}
-                containerOffset={containerOffset}
-                offset={offset}
-                offsetLeft={() => scrollableRef.current?.offsetLeft ?? 0}
-                coordsAtPos={(pos) => editor.view.coordsAtPos(pos)}
-              />
-            ))}
-          </div>
+          <PostScrollingCaptionsCursor
+            coordsAtPos={(pos) => editor.view.coordsAtPos(pos)}
+            range={wordRange}
+            containerOffset={containerOffset}
+            offsetTop={offsetTop}
+            offsetLeft={() => scrollableRef.current?.offsetLeft ?? 0}
+          />
+          {/*<div className="pointer-events-none absolute top-0 left-0 *:pointer-events-none *:absolute *:bg-gray-6">*/}
+          {/*  {emptyArrayOfLength.map((_, index) => (*/}
+          {/*    <PostScrollingCaptionsCursorItem*/}
+          {/*      // biome-ignore lint/suspicious/noArrayIndexKey: I know what I'm doing*/}
+          {/*      key={index}*/}
+          {/*      position={position}*/}
+          {/*      positionOffset={index}*/}
+          {/*      containerOffset={containerOffset}*/}
+          {/*      offsetTop={offsetTop}*/}
+          {/*      offsetLeft={() => scrollableRef.current?.offsetLeft ?? 0}*/}
+          {/*      coordsAtPos={(pos) => editor.view.coordsAtPos(pos)}*/}
+          {/*    />*/}
+          {/*  ))}*/}
+          {/*</div>*/}
           <EditorContent editor={editor} />
         </motion.div>
       </div>
@@ -83,18 +93,58 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
   )
 }
 
+function PostScrollingCaptionsCursor({
+  coordsAtPos,
+  range,
+  containerOffset,
+  offsetTop,
+  offsetLeft,
+}: {
+  coordsAtPos: (pos: number) => Coords
+  range: MotionValue<{ start: number; end: number }>
+  containerOffset: number
+  offsetTop: MotionValue<number>
+  offsetLeft: () => number
+}) {
+  const style = useTransform(range, ({ start, end }): MotionStyle => {
+    const startCoords = coordsAtPos(start)
+    const endCoords = coordsAtPos(end)
+
+    const coords = mergeCoords(startCoords, endCoords)
+
+    return {
+      y: coords.top - offsetTop.get() - containerOffset,
+      x: coords.left - offsetLeft(),
+      height: coords.bottom - coords.top,
+      width: coords.right - coords.left,
+    }
+  })
+
+  const y = useTransform(() => style.get().y)
+  const x = useTransform(() => style.get().x)
+  const height = useTransform(() => style.get().height)
+  const width = useTransform(() => style.get().width)
+
+  return (
+    <motion.div
+      className="top-0 left-0 pointer-events-none absolute bg-gray-6"
+      style={{ y, x, height, width }}
+    />
+  )
+}
+
 function PostScrollingCaptionsCursorItem({
   position,
   positionOffset,
   containerOffset,
-  offset,
+  offsetTop,
   offsetLeft,
   coordsAtPos,
 }: {
   position: MotionValue<number>
   positionOffset: number
   containerOffset: number
-  offset: MotionValue<number>
+  offsetTop: MotionValue<number>
   offsetLeft: () => number
   coordsAtPos: (pos: number) => {
     left: number
@@ -115,10 +165,8 @@ function PostScrollingCaptionsCursorItem({
     const coords = coordsAtPos(computedPosition)
     const nextCoords = coordsAtPos(computedPosition + 1)
 
-    const contentY = offset.get()
-
     return {
-      y: coords.top - contentY - containerOffset,
+      y: coords.top - offsetTop.get() - containerOffset,
       x: coords.left - offsetLeft(),
       height: coords.bottom - coords.top,
       width: nextCoords.left - coords.left + 1, // +1px to avoid gaps
