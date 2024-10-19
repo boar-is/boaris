@@ -120,9 +120,9 @@ const matchLayoutTrackPanel = Match.type<
   Match.when({ type: 'dynamic-image' }, (track) => (
     <>
       <LayoutPanelHeader name={track.name} />
-      <section className="flex-1 relative overflow-hidden">
+      <section className="flex-1 relative overflow-hidden flex items-center">
         <video
-          className="absolute inset-0 size-full -z-[2] object-cover blur-md"
+          className="absolute inset-0 size-full -z-[2] object-cover blur-lg"
           src={track.url}
           autoPlay
           playsInline
@@ -137,10 +137,8 @@ const matchLayoutTrackPanel = Match.type<
           muted
           loop
         />
-        {track.caption && (
-          <LayoutPanelFooter>{track.caption}</LayoutPanelFooter>
-        )}
       </section>
+      {track.caption && <LayoutPanelFooter>{track.caption}</LayoutPanelFooter>}
     </>
   )),
   Match.when({ type: 'text' }, (track) => (
