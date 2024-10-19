@@ -1,4 +1,4 @@
-import { Computed, Reactive, useObservable } from '@legendapp/state/react'
+import { Reactive, reactive, useObservable } from '@legendapp/state/react'
 import { AnimatePresence } from 'framer-motion'
 import type { CSSProperties, PropsWithChildren } from 'react'
 import { useLayoutChanges$ } from '~/features/layout/layout-changes-provider'
@@ -7,9 +7,13 @@ import { useLayoutChangesIndex$ } from '~/features/layout/use-layout-changes-ind
 import { useLayoutProgress$ } from '~/features/layout/use-layout-progress'
 import { useLayoutProgressInterpolation$ } from '~/features/layout/use-layout-progress-interpolation'
 import { usePlaybackProgress } from '~/features/playback/playback-progress-provider'
-import { usePostPage } from '~/features/post/post-page-provider'
+import {
+  type PostPageContextValue,
+  usePostPage,
+} from '~/features/post/post-page-provider'
 import { matchFileTypeIcon } from '~/features/track/match-file-type-icon'
 import { motion } from '~/lib/framer-motion/motion'
+import { cx } from '~/lib/utils/cx'
 
 export function PostScrollingLayout() {
   const playbackProgress = usePlaybackProgress()
@@ -48,46 +52,60 @@ export function PostScrollingLayout() {
   })
 
   return (
-    <Reactive.ul
-      className="grid sticky bottom-4 inset-x-0 h-[65dvh] w-screen container gap-2 *:*:h-full"
+    <Reactive.div
+      className="grid sticky bottom-4 inset-x-0 h-[60dvh] w-screen container gap-2 *:h-full"
       $style={style$}
     >
-      <Computed>
-        {() => (
-          <AnimatePresence mode="popLayout">
-            {tracks$.get(true).map((track) => (
-              <motion.li
-                key={track.id}
-                style={{ gridArea: track.id }}
-                initial={{ opacity: 0, filter: 'blur(15px)' }}
-                animate={{ opacity: 1, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, filter: 'blur(15px)' }}
-              >
-                <LayoutStaticPanel name={track.name}>
-                  {track.name}
-                </LayoutStaticPanel>
-              </motion.li>
-            ))}
-          </AnimatePresence>
-        )}
-      </Computed>
-    </Reactive.ul>
+      <LayoutStaticGrid $tracks={tracks$} />
+    </Reactive.div>
   )
 }
 
-function LayoutStaticPanel({
-  name,
-  children,
-}: PropsWithChildren & { name: string }) {
+const LayoutStaticGrid = reactive(function LayoutStaticGrid({
+  tracks,
+}: { tracks: PostPageContextValue['tracks'] }) {
+  if (!tracks?.length) {
+    return null
+  }
+
+  return (
+    <AnimatePresence mode="popLayout">
+      {tracks.map((track) => (
+        <motion.article
+          className="bg-gray-2/90 backdrop-blur-sm border border-gray-4 rounded-xl flex flex-col justify-between"
+          key={track.id}
+          style={{ gridArea: track.id }}
+          initial={{ opacity: 0, filter: 'blur(16px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, filter: 'blur(16px)' }}
+        >
+          <LayoutPanelHeader name={track.name} />
+          <div className="flex-1">222222</div>
+        </motion.article>
+      ))}
+    </AnimatePresence>
+  )
+})
+
+const panelEdgeClassName = cx(
+  'bg-gray-1 py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1',
+)
+
+function LayoutPanelHeader({ name }: { name: string }) {
   const FileTypeIcon = matchFileTypeIcon(name)
 
   return (
-    <article className="bg-gray-2 border border-gray-4 rounded-xl flex flex-col">
-      <header className="bg-gray-1 rounded-t-xl py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1">
-        <FileTypeIcon className="size-4 text-gray-9" />
-        {name.split('/').pop()}
-      </header>
+    <header className={cx(panelEdgeClassName, 'rounded-t-xl')}>
+      <FileTypeIcon className="size-4 text-gray-7" />
+      {name.split('/').pop()}
+    </header>
+  )
+}
+
+function LayoutPanelFooter({ children }: PropsWithChildren) {
+  return (
+    <footer className={cx(panelEdgeClassName, 'rounded-b-xl')}>
       {children}
-    </article>
+    </footer>
   )
 }
