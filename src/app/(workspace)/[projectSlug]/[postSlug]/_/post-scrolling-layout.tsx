@@ -1,7 +1,13 @@
 import { Reactive, reactive, useObservable } from '@legendapp/state/react'
+import ReactCodeMirror, { type ReactCodeMirrorRef } from '@uiw/react-codemirror'
 import { Match } from 'effect'
 import { AnimatePresence } from 'framer-motion'
-import type { CSSProperties, PropsWithChildren } from 'react'
+import {
+  type CSSProperties,
+  type PropsWithChildren,
+  useMemo,
+  useRef,
+} from 'react'
 import { useLayoutChanges$ } from '~/features/layout/layout-changes-provider'
 import { useLayout$ } from '~/features/layout/use-layout'
 import { useLayoutChangesIndex$ } from '~/features/layout/use-layout-changes-index'
@@ -13,6 +19,8 @@ import {
   usePostPage,
 } from '~/features/post/post-page-provider'
 import { matchFileTypeIcon } from '~/features/track/match-file-type-icon'
+import { codemirrorTheme } from '~/lib/code-editor/codemirror-theme'
+import { matchCodemirrorExtensions } from '~/lib/code-editor/match-codemirror-extensions'
 import { motion } from '~/lib/framer-motion/motion'
 import { Image } from '~/lib/media/image'
 import { cx } from '~/lib/utils/cx'
@@ -169,10 +177,31 @@ function LayoutDynamicImagePanel({
 }
 
 function LayoutTextPanel({ track }: { track: LayoutTypedTrack<'text'> }) {
+  const cmRef = useRef<ReactCodeMirrorRef | null>(null)
+
+  const extensions = useMemo(
+    () => matchCodemirrorExtensions(track.name),
+    [track.name],
+  )
+
   return (
     <LayoutPanel>
       <LayoutPanelHeader name={track.name} />
-      <section className="flex-1">{track.value}</section>
+      <section className="flex-1 overflow-hidden">
+        <ReactCodeMirror
+          className="h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!text-xs md:[&_.cm-scroller]:!text-sm [&_.cm-line]:px-4"
+          value={track.value + track.value + track.value}
+          extensions={extensions}
+          editable={true}
+          theme={codemirrorTheme}
+          basicSetup={{
+            lineNumbers: false,
+            foldGutter: false,
+            highlightActiveLine: false,
+          }}
+          ref={cmRef}
+        />
+      </section>
     </LayoutPanel>
   )
 }
