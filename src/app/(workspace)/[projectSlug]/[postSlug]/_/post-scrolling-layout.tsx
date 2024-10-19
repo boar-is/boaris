@@ -76,7 +76,7 @@ const LayoutStaticGrid = reactive(function LayoutStaticGrid({
     <AnimatePresence mode="popLayout">
       {tracks.map((track) => (
         <motion.article
-          className="bg-gray-2/90 backdrop-blur-sm border border-gray-4 rounded-xl flex flex-col justify-between overflow-hidden"
+          className="bg-gray-2/90 backdrop-blur-sm border border-gray-4 rounded-xl flex flex-col justify-between relative overflow-hidden"
           key={track.id}
           style={{ gridArea: track.id }}
           initial={{ opacity: 0, filter: 'blur(16px)' }}
@@ -96,13 +96,13 @@ const matchLayoutTrackPanel = Match.type<
   Match.when({ type: 'static-image' }, (track) => (
     <>
       <LayoutPanelHeader name={track.name} />
+      <Image
+        src={track.url}
+        className="object-cover blur-md"
+        alt="Image's backdrop"
+        fill
+      />
       <section className="flex-1 relative">
-        <Image
-          src={track.url}
-          className="object-cover blur-md"
-          alt="Image's backdrop"
-          fill
-        />
         <Image
           src={track.url}
           className="object-contain"
@@ -120,15 +120,15 @@ const matchLayoutTrackPanel = Match.type<
   Match.when({ type: 'dynamic-image' }, (track) => (
     <>
       <LayoutPanelHeader name={track.name} />
+      <video
+        className="absolute inset-0 size-full -z-[2] object-cover blur-lg"
+        src={track.url}
+        autoPlay
+        playsInline
+        muted
+        loop
+      />
       <section className="flex-1 relative flex items-center">
-        <video
-          className="absolute inset-0 size-full -z-[2] object-cover blur-lg"
-          src={track.url}
-          autoPlay
-          playsInline
-          muted
-          loop
-        />
         <video
           className="max-h-full mx-auto"
           src={track.url}
@@ -151,7 +151,7 @@ const matchLayoutTrackPanel = Match.type<
 )
 
 const panelEdgeClassName = cx(
-  'bg-gray-1 py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1',
+  'bg-gray-1/60 py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1 z-10',
 )
 
 function LayoutPanelHeader({ name }: { name: string }) {
@@ -159,7 +159,7 @@ function LayoutPanelHeader({ name }: { name: string }) {
 
   return (
     <header className={cx(panelEdgeClassName, 'rounded-t-xl')}>
-      <FileTypeIcon className="size-4 text-gray-7" />
+      <FileTypeIcon className="size-4 text-gray-9" />
       {name.split('/').pop()}
     </header>
   )
