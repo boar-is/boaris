@@ -15,8 +15,6 @@ export const useLayoutProgress$ = ({
   useMotionValueEvent(playbackProgress, 'change', (it) => {
     const interpolation = interpolation$.peek()
 
-    console.log(interpolation)
-
     layoutProgress$.set(
       transform(it, interpolation.input, interpolation.output),
     )
