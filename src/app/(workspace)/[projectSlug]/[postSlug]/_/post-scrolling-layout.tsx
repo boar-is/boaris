@@ -1,4 +1,5 @@
 import { Reactive, reactive, useObservable } from '@legendapp/state/react'
+import { Match } from 'effect'
 import { AnimatePresence } from 'framer-motion'
 import type { CSSProperties, PropsWithChildren } from 'react'
 import { useLayoutChanges$ } from '~/features/layout/layout-changes-provider'
@@ -13,6 +14,7 @@ import {
 } from '~/features/post/post-page-provider'
 import { matchFileTypeIcon } from '~/features/track/match-file-type-icon'
 import { motion } from '~/lib/framer-motion/motion'
+import { Image } from '~/lib/media/image'
 import { cx } from '~/lib/utils/cx'
 
 export function PostScrollingLayout() {
@@ -61,9 +63,11 @@ export function PostScrollingLayout() {
   )
 }
 
+type LayoutTracks = PostPageContextValue['tracks']
+
 const LayoutStaticGrid = reactive(function LayoutStaticGrid({
   tracks,
-}: { tracks: PostPageContextValue['tracks'] }) {
+}: { tracks: LayoutTracks }) {
   if (!tracks?.length) {
     return null
   }
@@ -79,13 +83,74 @@ const LayoutStaticGrid = reactive(function LayoutStaticGrid({
           animate={{ opacity: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, filter: 'blur(16px)' }}
         >
-          <LayoutPanelHeader name={track.name} />
-          <div className="flex-1">222222</div>
+          {matchLayoutTrackPanel(track)}
         </motion.article>
       ))}
     </AnimatePresence>
   )
 })
+
+const matchLayoutTrackPanel = Match.type<
+  NonNullable<LayoutTracks>[number]
+>().pipe(
+  Match.when({ type: 'static-image' }, (track) => (
+    <>
+      <LayoutPanelHeader name={track.name} />
+      <section className="flex-1 relative overflow-hidden">
+        <Image
+          src={track.url}
+          className="object-cover blur-md"
+          alt="Image's backdrop"
+          fill
+        />
+        <Image
+          src={track.url}
+          className="object-contain"
+          alt={
+            track.alt ??
+            track.caption ??
+            'The author did not provide any alt to this image'
+          }
+          fill
+        />
+      </section>
+      {track.caption && <LayoutPanelFooter>{track.caption}</LayoutPanelFooter>}
+    </>
+  )),
+  Match.when({ type: 'dynamic-image' }, (track) => (
+    <>
+      <LayoutPanelHeader name={track.name} />
+      <section className="flex-1 relative overflow-hidden">
+        <video
+          className="absolute inset-0 size-full -z-[2] object-cover blur-md"
+          src={track.url}
+          autoPlay
+          playsInline
+          muted
+          loop
+        />
+        <video
+          className="max-h-full mx-auto"
+          src={track.url}
+          autoPlay
+          playsInline
+          muted
+          loop
+        />
+        {track.caption && (
+          <LayoutPanelFooter>{track.caption}</LayoutPanelFooter>
+        )}
+      </section>
+    </>
+  )),
+  Match.when({ type: 'text' }, (track) => (
+    <>
+      <LayoutPanelHeader name={track.name} />
+      <section className="flex-1">{track.value}</section>
+    </>
+  )),
+  Match.exhaustive,
+)
 
 const panelEdgeClassName = cx(
   'bg-gray-1 py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1',
