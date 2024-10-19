@@ -76,7 +76,7 @@ const LayoutStaticGrid = reactive(function LayoutStaticGrid({
     <AnimatePresence mode="popLayout">
       {tracks.map((track) => (
         <motion.article
-          className="bg-gray-2/90 backdrop-blur-sm border border-gray-4 rounded-xl flex flex-col justify-between"
+          className="bg-gray-2/90 backdrop-blur-sm border border-gray-4 rounded-xl flex flex-col justify-between overflow-hidden"
           key={track.id}
           style={{ gridArea: track.id }}
           initial={{ opacity: 0, filter: 'blur(16px)' }}
@@ -96,7 +96,7 @@ const matchLayoutTrackPanel = Match.type<
   Match.when({ type: 'static-image' }, (track) => (
     <>
       <LayoutPanelHeader name={track.name} />
-      <section className="flex-1 relative overflow-hidden">
+      <section className="flex-1 relative">
         <Image
           src={track.url}
           className="object-cover blur-md"
@@ -120,7 +120,7 @@ const matchLayoutTrackPanel = Match.type<
   Match.when({ type: 'dynamic-image' }, (track) => (
     <>
       <LayoutPanelHeader name={track.name} />
-      <section className="flex-1 relative overflow-hidden flex items-center">
+      <section className="flex-1 relative flex items-center">
         <video
           className="absolute inset-0 size-full -z-[2] object-cover blur-lg"
           src={track.url}
@@ -138,7 +138,7 @@ const matchLayoutTrackPanel = Match.type<
           loop
         />
       </section>
-      {track.caption && <LayoutPanelFooter>{track.caption}</LayoutPanelFooter>}
+      {!track.caption && <LayoutPanelFooter>{track.caption}</LayoutPanelFooter>}
     </>
   )),
   Match.when({ type: 'text' }, (track) => (
