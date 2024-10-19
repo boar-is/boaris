@@ -86,7 +86,7 @@ const LayoutStaticGrid = reactive(function LayoutStaticGrid({
     <AnimatePresence mode="popLayout">
       {tracks.map((track) => (
         <motion.li
-          className="bg-gray-2/90 backdrop-blur-sm border border-gray-4 rounded-xl overflow-hidden"
+          className="bg-gray-2/90 backdrop-blur-md border border-gray-4 rounded-xl overflow-hidden"
           key={track.id}
           style={{ gridArea: track.id }}
           initial={{ opacity: 0, filter: 'blur(16px)' }}

@@ -33,7 +33,7 @@
 }
 
 .cm-scroller {
-  @apply bg-gray-2 font-mono text-sm z-10 !important;
+  @apply font-mono;
 }
 
 @layer components {
