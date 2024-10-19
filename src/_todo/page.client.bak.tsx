@@ -23,21 +23,9 @@ import {
   useState,
 } from 'react'
 import { useWindowSize } from 'usehooks-ts'
-import { diffpatcher } from '~/src/lib/delta/diffpatcher'
-import { JetBrainsMono } from '~/src/lib/fonts'
-import { cx } from '~/src/lib/react/cx'
 
 import { firstNonInlineAncestor } from '~/features/captions/first-non-inline-ancestor'
 import { Image } from '~/lib/media/image'
-import { matchFileTypeIcon } from '~/src/lib/matchers/match-file-type-icon'
-import { extensions } from '~/src/lib/tiptap/extensions'
-import { TextEditor } from '~/src/primitives/text-editor'
-import { ensureDefined } from '~/utils/ensure-defined'
-import { ensureNonNull } from '~/utils/ensure-non-null'
-import { findClosestIndex } from '~/utils/find-closest-index'
-import { mapSkippedPair } from '~/utils/map-skipped-pair'
-
-const inlineTags = new Set(['code', 'span', 'strong', 'em', 'u', 's', 'a'])
 
 export function BlogPostClient({
   post,

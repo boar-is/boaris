@@ -134,7 +134,7 @@ export default async function WorkspaceLayout({
                     } as CSSProperties
                   }
                 >
-                  Subscribe
+                  Like the Format?
                 </Button>
                 <ModalOverlay
                   isDismissable

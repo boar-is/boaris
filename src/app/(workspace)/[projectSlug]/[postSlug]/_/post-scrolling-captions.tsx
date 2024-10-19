@@ -33,28 +33,6 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
       style={{ height: scrollableHeight }}
       ref={scrollableRef}
     >
-      <div className="fixed bottom-4 left-4">
-        <div>
-          playbackProgress <motion.span>{playbackProgress}</motion.span>
-        </div>
-        <div>
-          position: <motion.span>{position}</motion.span>
-        </div>
-        <div>
-          <button
-            type="button"
-            onClick={() => position.set(position.get() - 1)}
-          >
-            dec
-          </button>
-          <button
-            type="button"
-            onClick={() => position.set(position.get() + 1)}
-          >
-            inc
-          </button>
-        </div>
-      </div>
       <div className="sticky inset-x-0 h-0" style={{ top: containerOffset }}>
         <motion.div
           className="relative"
