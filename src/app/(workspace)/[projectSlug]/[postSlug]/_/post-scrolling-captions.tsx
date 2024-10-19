@@ -94,6 +94,9 @@ function PostScrollingCaptionsCursor({
 
   useMotionValueEvent(range, 'change', (range) => {
     if (!range) {
+      animate(scope.current, {
+        opacity: [1, 0],
+      })
       return
     }
 
@@ -110,6 +113,7 @@ function PostScrollingCaptionsCursor({
         height: coords.bottom - coords.top,
         width: coords.right - coords.left,
         scale: [0.75, 1.1],
+        opacity: 1,
       },
       {
         duration: 0.1,
@@ -119,7 +123,7 @@ function PostScrollingCaptionsCursor({
 
   return (
     <div
-      className="top-0 left-0 pointer-events-none absolute bg-[#1e3a8a]/50 rounded-[0.33rem] border border-[#1d4ed8] z-10"
+      className="top-0 left-0 pointer-events-none absolute bg-[#1e3a8a]/50 rounded-[0.33rem] border border-[#1d4ed8] z-10 opacity-0"
       ref={scope}
     />
   )
