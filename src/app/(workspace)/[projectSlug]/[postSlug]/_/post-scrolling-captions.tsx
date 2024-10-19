@@ -113,17 +113,18 @@ function PostScrollingCaptionsCursor({
         height: coords.bottom - coords.top,
         width: coords.right - coords.left,
         scale: [0.75, 1.1],
+        filter: ['blur(8px)', 'blur(0px)'],
         opacity: 1,
       },
       {
-        duration: 0.1,
+        duration: 0.1666,
       },
     )
   })
 
   return (
     <div
-      className="top-0 left-0 pointer-events-none absolute bg-[#1e3a8a]/50 rounded-[0.33rem] border border-[#1d4ed8] z-10 opacity-0"
+      className="top-0 left-0 pointer-events-none absolute bg-[#1e3a8a]/50 backdrop-brightness-150 rounded-[0.33rem] border border-[#1d4ed8]/75 z-10 opacity-0"
       ref={scope}
     />
   )
