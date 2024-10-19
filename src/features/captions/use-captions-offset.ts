@@ -20,16 +20,16 @@ export const useCaptionsOffset = (
       return undefined
     }
 
-    const ancestor = firstNonInlineAncestor(node)
+    const ancestor = firstNonInlineAncestor(node)!
 
     if (
       (node as HTMLElement).classList?.contains('ProseMirror') ||
-      ancestor!.classList?.contains('ProseMirror')
+      ancestor.classList?.contains('ProseMirror')
     ) {
       return undefined
     }
 
-    return ancestor!.offsetTop
+    return ancestor.offsetTop
   })
 
   const offset = useMotionValue(0)
