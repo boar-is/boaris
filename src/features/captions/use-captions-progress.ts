@@ -7,7 +7,7 @@ export const useCaptionsProgress = ({
   interpolation,
 }: {
   playbackProgress: MotionValue<number>
-  interpolation?: Interpolation | undefined
+  interpolation: Interpolation | undefined
 }) => {
   return playbackProgress
 }

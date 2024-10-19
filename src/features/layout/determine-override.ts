@@ -11,9 +11,9 @@ export const determineOverride = <
   includeDisabled,
 }: {
   currentLayoutMode: LayoutMode
-  primaryLayoutModes?: Array<LayoutMode> | undefined
-  overrides?: Array<OverrideT> | undefined
-  width?: number | undefined
+  primaryLayoutModes: Array<LayoutMode> | undefined
+  overrides: Array<OverrideT> | undefined
+  width: number | undefined
   includeDisabled?: boolean | undefined
 }): OverrideT | undefined => {
   // TODO implement

@@ -4,8 +4,8 @@ import {
 } from 'react'
 
 export interface CreateContextOptions {
-  errorMessage?: string
-  name?: string
+  errorMessage?: string | undefined
+  name?: string | undefined
 }
 
 export function createStrictContext<ContextType>({

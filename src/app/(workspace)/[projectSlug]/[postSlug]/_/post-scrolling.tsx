@@ -5,7 +5,7 @@ import { PostScrollingLayout } from '~/app/(workspace)/[projectSlug]/[postSlug]/
 import { useCaptions } from '~/features/captions/use-captions'
 import { useCaptionsEditor } from '~/features/captions/use-captions-editor'
 import { PlaybackProgressProvider } from '~/features/playback/playback-progress-provider'
-import { usePostPageContext } from '~/features/post/post-page-provider'
+import { usePostPage } from '~/features/post/post-page-provider'
 import { extensions } from '~/lib/text-editor/extensions'
 import { StaticEditorContent } from '~/lib/text-editor/static-editor-content'
 import {
@@ -28,7 +28,7 @@ export function PostScrolling() {
 }
 
 function PostScrollingContent() {
-  const result$ = usePostPageContext()
+  const result$ = usePostPage()
   const captions = useSelector(result$.captions)
   const layoutCaptions = useCaptions({ captions })
 

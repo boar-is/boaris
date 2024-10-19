@@ -21,7 +21,7 @@ export function PostScrollingLayout() {
 
   return (
     <div className="fixed bottom-0 inset-x-0 h-1/2 bg-gray-4 container">
-      layout <Memo>{changesIndex$}</Memo>
+      layout !<Memo>{progress$}</Memo>@ !<Memo>{changesIndex$}</Memo>@
     </div>
   )
 }

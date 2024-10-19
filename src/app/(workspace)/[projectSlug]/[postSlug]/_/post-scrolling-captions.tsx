@@ -19,7 +19,7 @@ import { motion } from '~/lib/framer-motion/motion'
 export function PostScrollingCaptions({
   editor,
   interpolation,
-}: { editor: Editor; interpolation?: Interpolation | undefined }) {
+}: { editor: Editor; interpolation: Interpolation | undefined }) {
   const playbackProgress = usePlaybackProgress()
   const progress = useCaptionsProgress({ playbackProgress, interpolation })
   const position = useCaptionsPosition(editor.state, progress)

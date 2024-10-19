@@ -8,7 +8,7 @@ import { createStrictContext } from '~/lib/react/create-strict-context'
 
 export type PostPageContextValue = NonNullable<PostPageQueryResult>
 
-export const [PostPageContext, usePostPageContext] = createStrictContext<
+export const [PostPageContext, usePostPage] = createStrictContext<
   Observable<PostPageContextValue>
 >({
   name: 'PostPageContext',

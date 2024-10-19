@@ -5,11 +5,10 @@ import { useObservable } from '@legendapp/state/react'
 import { type PropsWithChildren, useEffect } from 'react'
 import { useWindowSize } from 'usehooks-ts'
 import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
-import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
-import type { LayoutOverride } from '~/convex/values/revisions/layouts/layoutOverride'
 import { applyOverride } from '~/features/layout/apply-override'
 import { determineOverride } from '~/features/layout/determine-override'
 import { useLayoutMode$ } from '~/features/layout/layout-mode-provider'
+import { usePostPage } from '~/features/post/post-page-provider'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 
 export const [LayoutChangesContext, useLayoutChanges$] = createStrictContext<
@@ -20,16 +19,12 @@ export const [LayoutChangesContext, useLayoutChanges$] = createStrictContext<
 
 export function LayoutChangesProvider({
   children,
-  primaryLayoutChanges,
-  primaryLayoutModes,
-  overrides,
   includeDisabledOverrides = false,
 }: PropsWithChildren & {
-  primaryLayoutChanges?: Array<LayoutChange> | undefined
-  primaryLayoutModes?: Array<LayoutMode> | undefined
-  overrides?: Array<LayoutOverride> | undefined
   includeDisabledOverrides?: boolean | undefined
 }) {
+  const { layouts } = usePostPage()
+
   const layoutMode$ = useLayoutMode$()
 
   const { width } = useWindowSize({
@@ -39,14 +34,16 @@ export function LayoutChangesProvider({
   useEffect(() => windowWidth$.set(width), [windowWidth$, width])
 
   const layoutChanges$ = useObservable(() => {
+    const primaryLayoutChanges = layouts.primary.changes.get()
+
     if (!primaryLayoutChanges) {
       return []
     }
 
     const override = determineOverride({
       currentLayoutMode: layoutMode$.get(),
-      primaryLayoutModes,
-      overrides,
+      primaryLayoutModes: layouts.primary.modes.get(),
+      overrides: layouts.overrides.get(),
       width: windowWidth$.get(),
       includeDisabled: includeDisabledOverrides,
     })

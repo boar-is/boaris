@@ -10,17 +10,17 @@ import {
 
 interface PropsIf<T> {
   if: Selector<T>
-  ifReady?: never
+  ifReady?: never | undefined
 }
 interface PropsIfReady<T> {
-  if?: never
+  if?: never | undefined
   ifReady: Selector<T>
 }
 
 interface PropsBase<T> {
-  else?: ReactNode | (() => ReactNode)
-  $value?: Observable<T>
-  wrap?: FC
+  else?: ReactNode | (() => ReactNode) | undefined
+  $value?: Observable<T> | undefined
+  wrap?: FC | undefined
   children: ReactNode | ((value: NonNullable<T>) => ReactNode)
 }
 
