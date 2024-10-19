@@ -189,10 +189,13 @@ function LayoutTextPanel({ track }: { track: LayoutTypedTrack<'text'> }) {
       <LayoutPanelHeader name={track.name} />
       <section className="flex-1 overflow-hidden">
         <ReactCodeMirror
-          className="h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!text-xs md:[&_.cm-scroller]:!text-sm [&_.cm-line]:px-4"
+          className={cx(
+            'h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!text-xs md:[&_.cm-scroller]:!text-sm [&_.cm-line]:px-4',
+            '[&_.cm-scroller]:overflow-hidden',
+          )}
           value={track.value + track.value + track.value}
           extensions={extensions}
-          editable={true}
+          editable={false}
           theme={codemirrorTheme}
           basicSetup={{
             lineNumbers: false,
