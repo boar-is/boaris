@@ -42,6 +42,8 @@ export function PostScrollingLayout() {
       gridTemplateAreas: layout?.static?.areas,
       gridTemplateColumns: layout?.static?.columns,
       gridTemplateRows: layout?.static?.rows,
+      gridAutoColumns: 'minmax(0, 1fr)',
+      gridAutoRows: 'minmax(0, 1fr)',
     }
   })
 
@@ -130,7 +132,7 @@ const matchLayoutTrackPanel = Match.type<
       />
       <section className="flex-1 relative flex items-center">
         <video
-          className="max-h-full mx-auto"
+          className="absolute inset-0 size-full object-contain object-center"
           src={track.url}
           autoPlay
           playsInline
@@ -138,7 +140,7 @@ const matchLayoutTrackPanel = Match.type<
           loop
         />
       </section>
-      {!track.caption && <LayoutPanelFooter>{track.caption}</LayoutPanelFooter>}
+      {track.caption && <LayoutPanelFooter>{track.caption}</LayoutPanelFooter>}
     </>
   )),
   Match.when({ type: 'text' }, (track) => (
