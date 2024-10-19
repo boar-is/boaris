@@ -1,5 +1,11 @@
 import { type Editor, EditorContent } from '@tiptap/react'
-import { type MotionStyle, type MotionValue, useTransform } from 'framer-motion'
+import {
+  type MotionStyle,
+  type MotionValue,
+  useAnimate,
+  useMotionValueEvent,
+  useTransform,
+} from 'framer-motion'
 import { useMemo, useRef } from 'react'
 import { useCaptionsOffsetTop } from '~/features/captions/use-captions-offset-top'
 import { useCaptionsPosition } from '~/features/captions/use-captions-position'
@@ -106,29 +112,33 @@ function PostScrollingCaptionsCursor({
   offsetTop: MotionValue<number>
   offsetLeft: () => number
 }) {
-  const style = useTransform(range, ({ start, end }): MotionStyle => {
+  const [scope, animate] = useAnimate()
+
+  useMotionValueEvent(range, 'change', ({ start, end }) => {
     const startCoords = coordsAtPos(start)
     const endCoords = coordsAtPos(end)
 
     const coords = mergeCoords(startCoords, endCoords)
 
-    return {
-      y: coords.top - offsetTop.get() - containerOffset,
-      x: coords.left - offsetLeft(),
-      height: coords.bottom - coords.top,
-      width: coords.right - coords.left,
-    }
+    animate(
+      scope.current,
+      {
+        y: coords.top - offsetTop.get() - containerOffset,
+        x: coords.left - offsetLeft(),
+        height: coords.bottom - coords.top,
+        width: coords.right - coords.left,
+        scaleY: [0.5, 1],
+      },
+      {
+        duration: 0.1,
+      },
+    )
   })
 
-  const y = useTransform(() => style.get().y)
-  const x = useTransform(() => style.get().x)
-  const height = useTransform(() => style.get().height)
-  const width = useTransform(() => style.get().width)
-
   return (
-    <motion.div
-      className="top-0 left-0 pointer-events-none absolute bg-gray-6"
-      style={{ y, x, height, width }}
+    <div
+      className="top-0 left-0 pointer-events-none absolute bg-[#1e3a8a] rounded-[0.5rem] border border-[#1d4ed8]"
+      ref={scope}
     />
   )
 }
