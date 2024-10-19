@@ -1,6 +1,8 @@
 import type { Interpolation } from '~/convex/values/_shared/interpolation'
 import { toFixed } from '../../lib/utils/to-fixed'
 
+const defaultInterpolation = [0, 1]
+
 export const layoutProgressInterpolationFromChanges = (
   changes: Array<{ at: number; value?: unknown }>,
   digits = 5,
@@ -41,5 +43,8 @@ export const layoutProgressInterpolationFromChanges = (
     startingRatio = mappedInputEnd
   }
 
-  return { input, output }
+  return {
+    input: input.length ? input : defaultInterpolation,
+    output: output.length ? output : defaultInterpolation,
+  }
 }

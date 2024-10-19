@@ -1,6 +1,7 @@
 'use client'
 
 import { useSelector } from '@legendapp/state/react'
+import { PostScrollingLayout } from '~/app/(workspace)/[projectSlug]/[postSlug]/_/post-scrolling-layout'
 import { useCaptions } from '~/features/captions/use-captions'
 import { useCaptionsEditor } from '~/features/captions/use-captions-editor'
 import { PlaybackProgressProvider } from '~/features/playback/playback-progress-provider'
@@ -41,13 +42,17 @@ function PostScrollingContent() {
   return (
     <div className="typography max-w-prose w-full">
       {editor ? (
-        <PostScrollingCaptions editor={editor} />
+        <PostScrollingCaptions
+          editor={editor}
+          interpolation={layoutCaptions.interpolation}
+        />
       ) : (
         <StaticEditorContent
           content={layoutCaptions.content}
           extensions={extensions}
         />
       )}
+      <PostScrollingLayout />
     </div>
   )
 }

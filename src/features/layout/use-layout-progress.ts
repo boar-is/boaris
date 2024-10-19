@@ -1,16 +1,26 @@
 import type { Observable } from '@legendapp/state'
 import { useObservable } from '@legendapp/state/react'
-import { transform } from 'framer-motion'
+import { type MotionValue, transform, useMotionValueEvent } from 'framer-motion'
 import type { Interpolation } from '~/convex/values/_shared/interpolation'
 
 export const useLayoutProgress$ = ({
-  progress$,
+  playbackProgress,
   interpolation$,
 }: {
-  progress$: Observable<number>
+  playbackProgress: MotionValue<number>
   interpolation$: Observable<Interpolation>
-}) =>
-  useObservable<number>(() => {
-    const interpolation = interpolation$.get()
-    return transform(progress$.get(), interpolation.input, interpolation.output)
+}) => {
+  const layoutProgress$ = useObservable(0)
+
+  useMotionValueEvent(playbackProgress, 'change', (it) => {
+    const interpolation = interpolation$.peek()
+
+    console.log(interpolation)
+
+    layoutProgress$.set(
+      transform(it, interpolation.input, interpolation.output),
+    )
   })
+
+  return layoutProgress$
+}

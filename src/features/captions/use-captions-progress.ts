@@ -1,10 +1,13 @@
+import type { MotionValue } from 'framer-motion'
 import type { Interpolation } from '~/convex/values/_shared/interpolation'
-import { usePlaybackProgress } from '~/features/playback/playback-progress-provider'
 
 // TODO Implement interpolation
 export const useCaptionsProgress = ({
+  playbackProgress,
   interpolation,
-}: { interpolation: Interpolation }) => {
-  const playbackProgress = usePlaybackProgress()
+}: {
+  playbackProgress: MotionValue<number>
+  interpolation?: Interpolation | undefined
+}) => {
   return playbackProgress
 }

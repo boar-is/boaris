@@ -5,8 +5,10 @@ import {
   useMotionValueEvent,
 } from 'framer-motion'
 import { useRef } from 'react'
+import type { Interpolation } from '~/convex/values/_shared/interpolation'
 import { useCaptionsOffsetTop } from '~/features/captions/use-captions-offset-top'
 import { useCaptionsPosition } from '~/features/captions/use-captions-position'
+import { useCaptionsProgress } from '~/features/captions/use-captions-progress'
 import { useCaptionsScrollableHeight } from '~/features/captions/use-captions-scrollable-height'
 import { useCaptionsWordRange } from '~/features/captions/use-captions-word-range'
 import { usePlaybackProgress } from '~/features/playback/playback-progress-provider'
@@ -14,9 +16,13 @@ import { usePlaybackProgressScrollSync } from '~/features/playback/use-playback-
 import { type Coords, mergeCoords } from '~/lib/framer-motion/merge-coords'
 import { motion } from '~/lib/framer-motion/motion'
 
-export function PostScrollingCaptions({ editor }: { editor: Editor }) {
+export function PostScrollingCaptions({
+  editor,
+  interpolation,
+}: { editor: Editor; interpolation?: Interpolation | undefined }) {
   const playbackProgress = usePlaybackProgress()
-  const position = useCaptionsPosition(editor.state, playbackProgress)
+  const progress = useCaptionsProgress({ playbackProgress, interpolation })
+  const position = useCaptionsPosition(editor.state, progress)
   const offsetTop = useCaptionsOffsetTop(editor.view, position)
   const wordRange = useCaptionsWordRange(editor.state, position)
 
@@ -28,7 +34,7 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
   const containerOffset = 128
 
   return (
-    <motion.div
+    <div
       className="relative w-full"
       style={{ height: scrollableHeight }}
       ref={scrollableRef}
@@ -51,7 +57,7 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
           <EditorContent editor={editor} />
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 

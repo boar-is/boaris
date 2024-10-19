@@ -12,12 +12,11 @@ import { determineOverride } from '~/features/layout/determine-override'
 import { useLayoutMode$ } from '~/features/layout/layout-mode-provider'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 
-export type LayoutChangesContextValue = Observable<Array<LayoutChange>>
-
-export const [LayoutChangesContext, useLayoutChanges$] =
-  createStrictContext<LayoutChangesContextValue>({
-    name: 'LayoutChangesContext',
-  })
+export const [LayoutChangesContext, useLayoutChanges$] = createStrictContext<
+  Observable<Array<LayoutChange>>
+>({
+  name: 'LayoutChangesContext',
+})
 
 export function LayoutChangesProvider({
   children,

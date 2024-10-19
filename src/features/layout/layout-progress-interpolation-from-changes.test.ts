@@ -12,7 +12,7 @@ describe.concurrent('layoutProgressInterpolationFromChanges', () => {
   }>([
     {
       changes: [],
-      returns: { input: [], output: [] },
+      returns: { input: [0, 1], output: [0, 1] },
     },
     {
       changes: [
