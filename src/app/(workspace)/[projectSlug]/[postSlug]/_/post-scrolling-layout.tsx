@@ -56,12 +56,12 @@ export function PostScrollingLayout() {
   })
 
   return (
-    <Reactive.div
+    <Reactive.ul
       className="grid sticky bottom-4 inset-x-0 h-[60dvh] w-screen container gap-2 *:h-full"
       $style={style$}
     >
       <LayoutStaticGrid $tracks={tracks$} />
-    </Reactive.div>
+    </Reactive.ul>
   )
 }
 
@@ -77,8 +77,8 @@ const LayoutStaticGrid = reactive(function LayoutStaticGrid({
   return (
     <AnimatePresence mode="popLayout">
       {tracks.map((track) => (
-        <motion.article
-          className="bg-gray-2/90 backdrop-blur-sm border border-gray-4 rounded-xl flex flex-col justify-between relative overflow-hidden"
+        <motion.li
+          className="bg-gray-2/90 backdrop-blur-sm border border-gray-4 rounded-xl overflow-hidden"
           key={track.id}
           style={{ gridArea: track.id }}
           initial={{ opacity: 0, filter: 'blur(16px)' }}
@@ -86,17 +86,35 @@ const LayoutStaticGrid = reactive(function LayoutStaticGrid({
           exit={{ opacity: 0, filter: 'blur(16px)' }}
         >
           {matchLayoutTrackPanel(track)}
-        </motion.article>
+        </motion.li>
       ))}
     </AnimatePresence>
   )
 })
 
-const matchLayoutTrackPanel = Match.type<
-  NonNullable<LayoutTracks>[number]
->().pipe(
+type LayoutTrack = NonNullable<LayoutTracks>[number]
+
+const matchLayoutTrackPanel = Match.type<LayoutTrack>().pipe(
   Match.when({ type: 'static-image' }, (track) => (
-    <>
+    <LayoutStaticImagePanel track={track} />
+  )),
+  Match.when({ type: 'dynamic-image' }, (track) => (
+    <LayoutDynamicImagePanel track={track} />
+  )),
+  Match.when({ type: 'text' }, (track) => <LayoutTextPanel track={track} />),
+  Match.exhaustive,
+)
+
+type LayoutTypedTrack<T extends LayoutTrack['type']> = Extract<
+  LayoutTrack,
+  { type: T }
+>
+
+function LayoutStaticImagePanel({
+  track,
+}: { track: LayoutTypedTrack<'static-image'> }) {
+  return (
+    <LayoutPanel>
       <LayoutPanelHeader name={track.name} />
       <Image
         src={track.url}
@@ -117,10 +135,15 @@ const matchLayoutTrackPanel = Match.type<
         />
       </section>
       {track.caption && <LayoutPanelFooter>{track.caption}</LayoutPanelFooter>}
-    </>
-  )),
-  Match.when({ type: 'dynamic-image' }, (track) => (
-    <>
+    </LayoutPanel>
+  )
+}
+
+function LayoutDynamicImagePanel({
+  track,
+}: { track: LayoutTypedTrack<'dynamic-image'> }) {
+  return (
+    <LayoutPanel>
       <LayoutPanelHeader name={track.name} />
       <video
         className="absolute inset-0 size-full -z-[2] object-cover blur-lg"
@@ -141,20 +164,30 @@ const matchLayoutTrackPanel = Match.type<
         />
       </section>
       {track.caption && <LayoutPanelFooter>{track.caption}</LayoutPanelFooter>}
-    </>
-  )),
-  Match.when({ type: 'text' }, (track) => (
-    <>
+    </LayoutPanel>
+  )
+}
+
+function LayoutTextPanel({ track }: { track: LayoutTypedTrack<'text'> }) {
+  return (
+    <LayoutPanel>
       <LayoutPanelHeader name={track.name} />
       <section className="flex-1">{track.value}</section>
-    </>
-  )),
-  Match.exhaustive,
-)
+    </LayoutPanel>
+  )
+}
 
 const panelEdgeClassName = cx(
   'bg-gray-1/75 py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1 z-10',
 )
+
+function LayoutPanel({ children }: PropsWithChildren) {
+  return (
+    <article className="flex flex-col justify-between relative h-full">
+      {children}
+    </article>
+  )
+}
 
 function LayoutPanelHeader({ name }: { name: string }) {
   const FileTypeIcon = matchFileTypeIcon(name)
