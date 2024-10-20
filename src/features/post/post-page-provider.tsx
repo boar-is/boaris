@@ -16,7 +16,7 @@ export const [PostPageContext, usePostPage] = createStrictContext<
 
 export function PostPageProvider({
   children,
-  result: { captions, layouts, post, authors, tags, tracks },
+  result: { captions, layouts, post, authors, tags, tracks, chunks },
 }: PropsWithChildren & { result: PostPageContextValue }) {
   const value$ = useObservable<PostPageContextValue>({
     captions: captions && {
@@ -34,6 +34,7 @@ export function PostPageProvider({
     authors,
     tags,
     tracks,
+    chunks,
   })
 
   return (

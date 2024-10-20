@@ -73,6 +73,10 @@ export type PostPageQueryResult = {
           }
       >
     | undefined
+  chunks: Array<{
+    offset: number
+    actions: Record<string, Array<{ offset: number }>>
+  }>
 } | null
 
 const postPage = query({
@@ -122,7 +126,7 @@ const postPage = query({
       return null
     }
 
-    const [postTags, postAuthors] = await Promise.all([
+    const [postTags, postAuthors, chunks] = await Promise.all([
       db
         .query('postTags')
         .withIndex('by_postId', (q) => q.eq('postId', post._id))
@@ -130,6 +134,10 @@ const postPage = query({
       db
         .query('postAuthors')
         .withIndex('by_postId', (q) => q.eq('postId', post._id))
+        .collect(),
+      db
+        .query('chunks')
+        .withIndex('by_revisionId', (q) => q.eq('revisionId', revision._id))
         .collect(),
     ])
 
@@ -218,6 +226,10 @@ const postPage = query({
       captions,
       layouts,
       tracks,
+      chunks: chunks.map((it) => ({
+        offset: it.offset,
+        actions: it.actions,
+      })),
     }
   },
 })

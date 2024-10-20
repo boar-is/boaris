@@ -11,7 +11,7 @@ import { workspace } from './values/workspaces/workspace'
 import { workspaceMember } from './values/workspaces/workspaceMember'
 
 const schema = defineSchema({
-  chunks: defineTable(chunk),
+  chunks: defineTable(chunk).index('by_revisionId', ['revisionId']),
   postAuthors: defineTable(postAuthor)
     .index('by_postId', ['postId'])
     .index('by_authorId', ['authorId']),
