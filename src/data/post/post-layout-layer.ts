@@ -1,9 +1,9 @@
-import { Schema } from '@effect/schema'
+import * as S from '@effect/schema/Schema'
 
-export class PostLayoutLayer extends Schema.Class<PostLayoutLayer>(
+export class PostLayoutLayer extends S.Class<PostLayoutLayer>(
   'PostLayoutLayer',
 )({
-  areas: Schema.NonEmptyString,
-  columns: Schema.OptionFromUndefinedOr(Schema.NonEmptyString),
-  rows: Schema.OptionFromUndefinedOr(Schema.NonEmptyString),
+  areas: S.NonEmptyString,
+  columns: S.OptionFromUndefinedOr(S.NonEmptyString),
+  rows: S.OptionFromUndefinedOr(S.NonEmptyString),
 }) {}

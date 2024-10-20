@@ -1,6 +1,6 @@
-import { Schema } from '@effect/schema'
+import * as S from '@effect/schema/Schema'
 
-export class PostTag extends Schema.Class<PostTag>('PostTag')({
-  slug: Schema.NonEmptyString,
-  name: Schema.NonEmptyString,
+export class PostTag extends S.Class<PostTag>('PostTag')({
+  slug: S.NonEmptyString,
+  name: S.NonEmptyString,
 }) {}

@@ -1,8 +1,10 @@
-import { Schema } from '@effect/schema'
+import * as S from '@effect/schema/Schema'
 import { PostLayoutChange } from './post-layout-change'
 import { PostLayoutMode } from './post-layout-mode'
+import { PostLayoutOverride } from './post-layout-override'
 
-export class PostLayout extends Schema.Class<PostLayout>('PostLayout')({
-  modes: Schema.NonEmptyArray(PostLayoutMode),
-  changes: Schema.Array(PostLayoutChange),
+export class PostLayout extends S.Class<PostLayout>('PostLayout')({
+  modes: S.NonEmptyArray(PostLayoutMode),
+  changes: S.Array(PostLayoutChange),
+  overrides: S.Array(PostLayoutOverride),
 }) {}

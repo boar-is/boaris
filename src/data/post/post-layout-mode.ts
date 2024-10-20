@@ -1,6 +1,6 @@
-import { Schema } from '@effect/schema'
+import * as S from '@effect/schema/Schema'
 
-export const PostLayoutMode = Schema.Literal(
+export const PostLayoutMode = S.Literal(
   'static',
   'scrolling',
   'watching',

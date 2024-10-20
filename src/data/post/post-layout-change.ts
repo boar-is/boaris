@@ -1,10 +1,10 @@
-import { Schema } from '@effect/schema'
-import { PostLayout } from '~/data/post/post-layout'
+import * as S from '@effect/schema/Schema'
+import { PostLayout } from './post-layout'
 
-export class PostLayoutChange extends Schema.Class<PostLayoutChange>(
+export class PostLayoutChange extends S.Class<PostLayoutChange>(
   'PostLayoutChange',
 )({
-  id: Schema.NonEmptyString,
-  at: Schema.Number,
-  value: Schema.OptionFromUndefinedOr(PostLayout),
+  id: S.NonEmptyString,
+  at: S.Number,
+  value: S.OptionFromUndefinedOr(PostLayout),
 }) {}

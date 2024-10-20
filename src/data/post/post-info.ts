@@ -1,9 +1,9 @@
-import { Schema } from '@effect/schema'
+import * as S from '@effect/schema/Schema'
 
-export class PostInfo extends Schema.Class<PostInfo>('PostInfo')({
-  title: Schema.NonEmptyString,
-  lead: Schema.Option(Schema.NonEmptyString),
-  description: Schema.NonEmptyString,
-  date: Schema.DateFromNumber,
-  thumbnailUrl: Schema.Option(Schema.NonEmptyString),
+export class PostInfo extends S.Class<PostInfo>('PostInfo')({
+  title: S.NonEmptyString,
+  lead: S.Option(S.NonEmptyString),
+  description: S.NonEmptyString,
+  date: S.DateFromNumber,
+  thumbnailUrl: S.Option(S.NonEmptyString),
 }) {}

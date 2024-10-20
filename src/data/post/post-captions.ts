@@ -1,7 +1,7 @@
-import { Schema } from '@effect/schema'
+import * as S from '@effect/schema/Schema'
 import { Interpolation } from '~/data/_shared/interpolation'
 
-export class PostCaptions extends Schema.Class<PostCaptions>('PostCaptions')({
-  content: Schema.Any,
-  interpolation: Schema.OptionFromUndefinedOr(Interpolation),
+export class PostCaptions extends S.Class<PostCaptions>('PostCaptions')({
+  content: S.Any,
+  interpolation: S.OptionFromUndefinedOr(Interpolation),
 }) {}

@@ -1,7 +1,7 @@
-import { Schema } from '@effect/schema'
+import * as S from '@effect/schema/Schema'
 
-export class PostAuthor extends Schema.Class<PostAuthor>('PostAuthor')({
-  slug: Schema.NonEmptyString,
-  name: Schema.NonEmptyString,
-  avatarUrl: Schema.Option(Schema.NonEmptyString),
+export class PostAuthor extends S.Class<PostAuthor>('PostAuthor')({
+  slug: S.NonEmptyString,
+  name: S.NonEmptyString,
+  avatarUrl: S.Option(S.NonEmptyString),
 }) {}
