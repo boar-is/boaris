@@ -2,6 +2,7 @@ import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
 import type { Delta } from '~/convex/values/_shared/delta'
 import type { Interpolation } from '~/convex/values/_shared/interpolation'
+import type { Action } from '~/convex/values/chunks/action'
 import type { CaptionsContent } from '~/convex/values/revisions/captions/captionsContent'
 import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
 import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
@@ -75,7 +76,7 @@ export type PostPageQueryResult = {
     | undefined
   chunks: Array<{
     offset: number
-    actions: Record<string, Array<{ offset: number }>>
+    actions: Record<string, Array<Action>>
   }>
 } | null
 
