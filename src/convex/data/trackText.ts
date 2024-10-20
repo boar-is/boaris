@@ -6,7 +6,7 @@ import { trackBase } from './trackBase'
  * @example plain text files
  * @example unknown file formats that would open with CodeMirror
  */
-export const textTrack = v.object({
+export const trackText = v.object({
   ...trackBase.fields,
   type: v.literal('text'),
   value: v.string(),
