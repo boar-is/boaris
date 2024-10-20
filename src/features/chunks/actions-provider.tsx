@@ -21,7 +21,7 @@ export function ActionsProvider({
   children,
   chunks$,
 }: PropsWithChildren & {
-  chunks$: Observable<Array<Chunk>>
+  chunks$: Observable<Array<Pick<Chunk, 'offset' | 'actions'>>>
 }) {
   const actions$ = useObservable((): ActionsContextValue => {
     const chunks = chunks$.get(true)

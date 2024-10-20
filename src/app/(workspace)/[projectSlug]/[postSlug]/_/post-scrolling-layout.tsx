@@ -8,6 +8,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
+import { ActionsProvider } from '~/features/chunks/actions-provider'
 import { useLayoutChanges$ } from '~/features/layout/layout-changes-provider'
 import { useLayout$ } from '~/features/layout/use-layout'
 import { useLayoutChangesIndex$ } from '~/features/layout/use-layout-changes-index'
@@ -68,7 +69,9 @@ export function PostScrollingLayout() {
       className="grid sticky bottom-4 inset-x-0 h-[60dvh] w-screen container gap-2 *:h-full"
       $style={style$}
     >
-      <LayoutStaticGrid $tracks={tracks$} />
+      <ActionsProvider chunks$={result$.chunks}>
+        <LayoutStaticGrid $tracks={tracks$} />
+      </ActionsProvider>
     </Reactive.ul>
   )
 }
