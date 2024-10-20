@@ -1,3 +1,4 @@
+import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
 
 export const tag = v.object({
@@ -8,3 +9,8 @@ export const tag = v.object({
    */
   projectId: v.optional(v.id('projects')),
 })
+
+export class Tag extends S.Class<Tag>('Tag')({
+  slug: S.NonEmptyTrimmedString,
+  name: S.NonEmptyTrimmedString,
+}) {}

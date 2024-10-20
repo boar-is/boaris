@@ -1,5 +1,6 @@
+import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
-import { trackBase } from './trackBase'
+import { TrackBase, trackBase } from './trackBase'
 
 export const trackImageDynamic = v.object({
   ...trackBase.fields,
@@ -7,3 +8,11 @@ export const trackImageDynamic = v.object({
   storageId: v.id('_storage'),
   caption: v.optional(v.string()),
 })
+
+export class TrackImageDynamic extends TrackBase.extend<TrackImageDynamic>(
+  'TrackImageDynamic',
+)({
+  type: S.Literal('image-dynamic'),
+  url: S.NonEmptyTrimmedString,
+  caption: S.Option(S.NonEmptyTrimmedString),
+}) {}

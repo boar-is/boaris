@@ -1,5 +1,6 @@
+import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
-import { actionBase } from './actionBase'
+import { ActionBase, actionBase } from './actionBase'
 
 export const actionInsert = v.object({
   ...actionBase.fields,
@@ -9,3 +10,13 @@ export const actionInsert = v.object({
   length: v.number(),
   value: v.optional(v.string()),
 })
+
+export class ActionInsert extends ActionBase.extend<ActionInsert>(
+  'ActionInsert',
+)({
+  type: S.Literal('insert'),
+  from: S.Number,
+  to: S.OptionFromUndefinedOr(S.Number),
+  length: S.Number,
+  value: S.OptionFromUndefinedOr(S.String),
+}) {}

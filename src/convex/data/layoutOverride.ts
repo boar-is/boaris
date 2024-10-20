@@ -1,6 +1,7 @@
+import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
-import { delta } from './_shared/delta'
-import { layoutMode } from './layoutMode'
+import { Delta, delta } from './_shared/delta'
+import { LayoutMode, layoutMode } from './layoutMode'
 
 export const layoutOverride = v.object({
   name: v.optional(v.string()),
@@ -9,3 +10,10 @@ export const layoutOverride = v.object({
   disabled: v.boolean(),
   changesDelta: delta,
 })
+
+export class LayoutOverride extends S.Class<LayoutOverride>('LayoutOverride')({
+  name: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
+  modes: S.NonEmptyArray(LayoutMode),
+  minWidth: S.OptionFromUndefinedOr(S.Number),
+  changesDelta: Delta,
+}) {}

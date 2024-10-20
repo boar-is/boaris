@@ -1,6 +1,9 @@
+import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
-import { trackImageDynamic } from './trackImageDynamic'
-import { trackImageStatic } from './trackImageStatic'
-import { trackText } from './trackText'
+import { TrackImageDynamic, trackImageDynamic } from './trackImageDynamic'
+import { TrackImageStatic, trackImageStatic } from './trackImageStatic'
+import { TrackText, trackText } from './trackText'
 
 export const track = v.union(trackImageDynamic, trackImageStatic, trackText)
+
+export const Track = S.Union(TrackImageDynamic, TrackImageStatic, TrackText)

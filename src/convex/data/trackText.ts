@@ -1,5 +1,6 @@
+import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
-import { trackBase } from './trackBase'
+import { TrackBase, trackBase } from './trackBase'
 
 /**
  * @example coding files like .ts, .tsx, .etc.
@@ -11,3 +12,8 @@ export const trackText = v.object({
   type: v.literal('text'),
   value: v.string(),
 })
+
+export class TrackText extends TrackBase.extend<TrackText>('TrackText')({
+  type: S.Literal('text'),
+  value: S.NonEmptyTrimmedString,
+}) {}
