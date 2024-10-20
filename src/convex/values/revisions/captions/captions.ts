@@ -1,4 +1,4 @@
-import { type Infer, v } from 'convex/values'
+import { v } from 'convex/values'
 import { interpolation } from '~/convex/values/_shared/interpolation'
 import { captionsContent } from './captionsContent'
 
@@ -9,5 +9,3 @@ export const captions = v.object({
   content: captionsContent,
   interpolation: v.optional(interpolation),
 })
-
-export type Captions = Infer<typeof captions>

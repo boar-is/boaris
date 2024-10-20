@@ -1,4 +1,4 @@
-import { type Infer, v } from 'convex/values'
+import { v } from 'convex/values'
 import { actionBase } from '~/convex/values/chunks/actionBase'
 
 export const insertAction = v.object({
@@ -9,5 +9,3 @@ export const insertAction = v.object({
   length: v.number(),
   value: v.optional(v.string()),
 })
-
-export type InsertAction = Infer<typeof insertAction>
