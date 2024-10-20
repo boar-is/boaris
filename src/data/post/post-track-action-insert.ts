@@ -1,12 +1,12 @@
 import * as S from '@effect/schema/Schema'
+import { PostTrackActionBase } from '~/data/post/post-track-action-base'
 
-export class PostTrackActionInsert extends S.TaggedClass<PostTrackActionInsert>()(
+export class PostTrackActionInsert extends PostTrackActionBase.extend<PostTrackActionInsert>(
   'PostTrackActionInsert',
-  {
-    offset: S.Number,
-    from: S.Number,
-    to: S.OptionFromUndefinedOr(S.Number),
-    length: S.Number,
-    value: S.OptionFromUndefinedOr(S.String),
-  },
-) {}
+)({
+  type: S.Literal('insert'),
+  from: S.Number,
+  to: S.OptionFromUndefinedOr(S.Number),
+  length: S.Number,
+  value: S.OptionFromUndefinedOr(S.String),
+}) {}
