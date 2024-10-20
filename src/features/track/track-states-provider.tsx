@@ -32,11 +32,7 @@ export function TrackStatesProvider({
 }: PropsWithChildren & { tracks$: PostPageContextValue['tracks'] }) {
   const actions$ = useActions$()
 
-  const trackStates$ = useObservable((): TrackStatesContextValue => {
-    return {
-      states: {},
-    }
-  })
+  const trackStates$ = useObservable<TrackStatesContextValue>({ states: {} })
 
   return (
     <TrackStatesContext.Provider value={trackStates$}>
