@@ -1,5 +1,6 @@
+import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
-import { layoutLayers } from './layoutLayers'
+import { LayoutLayers, layoutLayers } from './layoutLayers'
 
 export const layoutChange = v.object({
   /**
@@ -15,3 +16,9 @@ export const layoutChange = v.object({
    */
   layers: v.optional(layoutLayers),
 })
+
+export class LayoutChange extends S.Class<LayoutChange>('LayoutChange')({
+  id: S.NonEmptyTrimmedString,
+  at: S.Number,
+  value: S.OptionFromUndefinedOr(LayoutLayers),
+}) {}

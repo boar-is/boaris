@@ -1,3 +1,4 @@
+import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
 
 export const post = v.object({
@@ -11,3 +12,12 @@ export const post = v.object({
   publishedRevisionId: v.optional(v.id('revisions')),
   revisionStorageIds: v.array(v.id('_storage')),
 })
+
+export class Post extends S.Class<Post>('Post')({
+  slug: S.NonEmptyTrimmedString,
+  title: S.NonEmptyTrimmedString,
+  lead: S.Option(S.NonEmptyTrimmedString),
+  description: S.NonEmptyTrimmedString,
+  thumbnailUrl: S.Option(S.NonEmptyTrimmedString),
+  date: S.DateFromNumber,
+}) {}
