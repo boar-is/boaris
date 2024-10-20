@@ -1,5 +1,5 @@
 import { defineSchema, defineTable } from 'convex/server'
-import { chunk } from './values/chunks/chunk'
+import { chunk } from './values/chunks/trackChunk'
 import { post } from './values/posts/post'
 import { postAuthor } from './values/posts/postAuthor'
 import { postTag } from './values/posts/postTag'

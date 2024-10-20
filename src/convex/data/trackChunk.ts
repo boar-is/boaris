@@ -1,7 +1,7 @@
 import { v } from 'convex/values'
 import { action } from './action'
 
-export const chunk = v.object({
+export const trackChunk = v.object({
   revisionId: v.id('revisions'),
   offset: v.number(),
   /**

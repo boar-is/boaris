@@ -4,7 +4,7 @@ import type { Observable } from '@legendapp/state'
 import { useObservable } from '@legendapp/state/react'
 import type { PropsWithChildren } from 'react'
 import type { Action } from '~/convex/values/chunks/action'
-import type { Chunk } from '~/convex/values/chunks/chunk'
+import type { Chunk } from '~/convex/values/chunks/trackChunk'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 
 export type ActionsContextValue = {
