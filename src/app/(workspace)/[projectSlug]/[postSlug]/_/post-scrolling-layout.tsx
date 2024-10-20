@@ -8,7 +8,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { ActionsProvider } from '~/features/chunks/actions-provider'
+import { ActionsProvider } from '~/features/chunk/actions-provider'
 import { useLayoutChanges$ } from '~/features/layout/layout-changes-provider'
 import { useLayout$ } from '~/features/layout/use-layout'
 import { useLayoutChangesIndex$ } from '~/features/layout/use-layout-changes-index'
