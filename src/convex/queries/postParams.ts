@@ -1,9 +1,9 @@
 import { query } from '~/convex/_generated/server'
 
-export type PostParamsQueryResult = Array<{
-  workspaceSlug: string
-  projectSlug: string
-  postSlug: string
+export type PostParamsQueryResult = ReadonlyArray<{
+  readonly workspaceSlug: string
+  readonly projectSlug: string
+  readonly postSlug: string
 }>
 
 const postParams = query({

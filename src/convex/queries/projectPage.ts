@@ -1,29 +1,16 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
+import type { Post } from '~/convex/data/post'
+import type { Project } from '~/convex/data/project'
+import type { Tag } from '~/convex/data/tag'
+import type { User } from '~/convex/data/user'
 import { readableFromTimestamp } from '~/lib/utils/readable-from-timestamp'
 
 export type ProjectPageQueryResult = {
-  project: {
-    name: string
-    slug: string
-  }
-  posts: Array<{
-    slug: string
-    title: string
-    lead: string | undefined
-    description: string
-    thumbnailUrl: string | undefined
-    date: string
-    tags: Array<{
-      slug: string
-      name: string
-    }>
-    authors: Array<{
-      slug: string
-      name: string
-      avatarUrl: string | undefined
-    }>
-  }>
+  readonly project: typeof Project.Encoded
+  readonly posts: ReadonlyArray<typeof Post.Encoded>
+  readonly tagsByPostId: Record<string, typeof Tag.Encoded>
+  readonly authorsByPostId: Record<string, typeof User.Encoded>
 } | null
 
 const projectPage = query({

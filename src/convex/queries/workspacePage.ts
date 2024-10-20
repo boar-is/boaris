@@ -1,16 +1,16 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
+import { Workspace } from '~/convex/data/workspace'
+import { getUrlProps } from '~/convex/utils/props-with-get-url'
 
 export type WorkspacePageQueryResult = {
-  workspace: {
-    name: string
-  }
+  readonly workspace: typeof Workspace.Encoded
 } | null
 
 const workspacePage = query({
   args: { workspaceSlug: v.string() },
   handler: async (
-    { db },
+    { db, storage },
     { workspaceSlug },
   ): Promise<WorkspacePageQueryResult> => {
     const workspace = await db
@@ -23,9 +23,10 @@ const workspacePage = query({
     }
 
     return {
-      workspace: {
-        name: workspace.name,
-      },
+      workspace: await Workspace.encodedFromEntity(
+        workspace,
+        getUrlProps(storage),
+      ),
     }
   },
 })

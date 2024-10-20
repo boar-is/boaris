@@ -1,8 +1,8 @@
 import { query } from '~/convex/_generated/server'
 
-export type ProjectParamsQueryResult = Array<{
-  workspaceSlug: string
-  projectSlug: string
+export type ProjectParamsQueryResult = ReadonlyArray<{
+  readonly workspaceSlug: string
+  readonly projectSlug: string
 }>
 
 const projectParams = query({

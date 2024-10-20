@@ -9,7 +9,7 @@ import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
 import { readableFromTimestamp } from '~/lib/utils/readable-from-timestamp'
 
 export type PostPageQueryResult = {
-  post: {
+  readonly post: {
     title: string
     lead: string | undefined
     description: string

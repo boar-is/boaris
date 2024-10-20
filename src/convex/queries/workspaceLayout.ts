@@ -1,15 +1,10 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
+import { Workspace } from '~/convex/data/workspace'
+import { getUrlProps } from '~/convex/utils/props-with-get-url'
 
 export type WorkspaceLayoutQueryResult = {
-  workspace: {
-    name: string
-    logoUrl: string | undefined
-    socialLinks: Array<{
-      href: string
-      label: string | undefined
-    }>
-  }
+  readonly workspace: typeof Workspace.Encoded
 } | null
 
 const workspaceLayout = query({
@@ -27,19 +22,11 @@ const workspaceLayout = query({
       return null
     }
 
-    const logoUrl =
-      (workspace.logoId && (await storage.getUrl(workspace.logoId))) ??
-      undefined
-
     return {
-      workspace: {
-        name: workspace.name,
-        logoUrl,
-        socialLinks: workspace.socialLinks.map((it) => ({
-          href: it.href,
-          label: it.label,
-        })),
-      },
+      workspace: await Workspace.encodedFromEntity(
+        workspace,
+        getUrlProps(storage),
+      ),
     }
   },
 })
