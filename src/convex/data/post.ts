@@ -9,5 +9,5 @@ export const post = v.object({
   projectId: v.id('projects'),
   draftRevisionId: v.id('revisions'),
   publishedRevisionId: v.optional(v.id('revisions')),
-  revisionStorageIds: v.optional(v.array(v.id('_storage'))),
+  revisionStorageIds: v.array(v.id('_storage')),
 })

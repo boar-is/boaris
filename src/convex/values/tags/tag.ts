@@ -1,4 +1,4 @@
-import { type Infer, v } from 'convex/values'
+import { v } from 'convex/values'
 
 export const tag = v.object({
   slug: v.string(),
@@ -8,5 +8,3 @@ export const tag = v.object({
    */
   projectId: v.optional(v.id('projects')),
 })
-
-export type Tag = Infer<typeof tag>

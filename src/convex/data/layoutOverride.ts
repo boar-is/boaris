@@ -1,11 +1,11 @@
 import { v } from 'convex/values'
-import { delta } from '~/convex/values/_shared/delta'
+import { delta } from './_shared/delta'
 import { layoutMode } from './layoutMode'
 
 export const layoutOverride = v.object({
   name: v.optional(v.string()),
   modes: v.array(layoutMode),
   minWidth: v.optional(v.number()),
-  disabled: v.optional(v.boolean()),
+  disabled: v.boolean(),
   changesDelta: delta,
 })

@@ -1,5 +1,5 @@
 import { v } from 'convex/values'
-import { layout } from './layout'
+import { layoutLayers } from './layoutLayers'
 
 export const layoutChange = v.object({
   /**
@@ -13,5 +13,5 @@ export const layoutChange = v.object({
   /**
    * undefined is for skip
    */
-  value: v.optional(layout),
+  layers: v.optional(layoutLayers),
 })
