@@ -174,7 +174,7 @@ const postPage = query({
       (await Promise.all(
         revision.tracks.map(async (track) => {
           switch (track.type) {
-            case 'dynamic-image': {
+            case 'image-dynamic': {
               return {
                 id: track.id,
                 name: track.name,
@@ -183,7 +183,7 @@ const postPage = query({
                 caption: track.caption,
               }
             }
-            case 'static-image': {
+            case 'image-static': {
               return {
                 id: track.id,
                 name: track.name,
