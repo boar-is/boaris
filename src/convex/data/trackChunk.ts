@@ -1,5 +1,6 @@
+import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
-import { action } from './action'
+import { Action, action } from './action'
 
 export const trackChunk = v.object({
   revisionId: v.id('revisions'),
@@ -9,3 +10,11 @@ export const trackChunk = v.object({
    */
   actions: v.record(v.string(), v.array(action)),
 })
+
+export class TrackChunk extends S.Class<TrackChunk>('TrackChunk')({
+  offset: S.Number,
+  actions: S.ReadonlyMapFromRecord({
+    key: S.NonEmptyTrimmedString,
+    value: S.NonEmptyArray(Action),
+  }),
+}) {}

@@ -12,6 +12,6 @@ export const user = v.object({
 export class User extends S.Class<User>('User')({
   slug: S.NonEmptyTrimmedString,
   name: S.NonEmptyTrimmedString,
-  avatarUrl: S.Option(S.NonEmptyTrimmedString),
+  avatarUrl: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
   socialLinks: S.Array(SocialLink),
 }) {}

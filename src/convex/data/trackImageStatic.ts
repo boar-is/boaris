@@ -15,6 +15,6 @@ export class TrackImageStatic extends TrackBase.extend<TrackImageStatic>(
 )({
   type: S.Literal('image-static'),
   url: S.NonEmptyTrimmedString,
-  caption: S.Option(S.NonEmptyTrimmedString),
-  alt: S.Option(S.NonEmptyTrimmedString),
+  caption: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
+  alt: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
 }) {}

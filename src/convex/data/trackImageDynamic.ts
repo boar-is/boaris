@@ -14,5 +14,5 @@ export class TrackImageDynamic extends TrackBase.extend<TrackImageDynamic>(
 )({
   type: S.Literal('image-dynamic'),
   url: S.NonEmptyTrimmedString,
-  caption: S.Option(S.NonEmptyTrimmedString),
+  caption: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
 }) {}

@@ -16,8 +16,8 @@ export const post = v.object({
 export class Post extends S.Class<Post>('Post')({
   slug: S.NonEmptyTrimmedString,
   title: S.NonEmptyTrimmedString,
-  lead: S.Option(S.NonEmptyTrimmedString),
+  lead: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
   description: S.NonEmptyTrimmedString,
-  thumbnailUrl: S.Option(S.NonEmptyTrimmedString),
+  thumbnailUrl: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
   date: S.DateFromNumber,
 }) {}
