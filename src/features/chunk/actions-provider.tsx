@@ -24,23 +24,30 @@ export function ActionsProvider({
   chunks$: Observable<Array<Pick<Chunk, 'offset' | 'actions'>>>
 }) {
   const actions$ = useObservable((): ActionsContextValue => {
-    const chunks = chunks$.get(true)
-    return {
-      actions: chunks.reduce(
-        (actions: ActionsContextValue['actions'], chunk) => {
-          for (const [trackId, trackActions] of Object.entries(chunk.actions)) {
-            const offsetTrackActions = trackActions.map((it) => ({
-              ...it,
-              offset: it.offset + chunk.offset,
-            }))
-            actions[trackId] =
-              actions[trackId]?.concat(offsetTrackActions) ?? offsetTrackActions
-          }
+    const unsortedActions = chunks$
+      .get(true)
+      .reduce((actions: ActionsContextValue['actions'], chunk) => {
+        for (const [trackId, trackActions] of Object.entries(chunk.actions)) {
+          const offsetTrackActions = trackActions.map((it) => ({
+            ...it,
+            offset: it.offset + chunk.offset,
+          }))
+          actions[trackId] =
+            actions[trackId]?.concat(offsetTrackActions) ?? offsetTrackActions
+        }
 
-          return actions
-        },
-        {},
+        return actions
+      }, {})
+
+    const actions = Object.fromEntries(
+      Object.entries(unsortedActions).map(
+        ([key, value]) =>
+          [key, value.toSorted((a, b) => a.offset - b.offset)] as const,
       ),
+    )
+
+    return {
+      actions,
     }
   })
 
