@@ -15,6 +15,6 @@ export class TrackChunk extends S.Class<TrackChunk>('TrackChunk')({
   offset: S.Number,
   actions: S.ReadonlyMapFromRecord({
     key: S.NonEmptyTrimmedString,
-    value: S.NonEmptyArray(Action),
+    value: S.Array(Action),
   }),
 }) {}

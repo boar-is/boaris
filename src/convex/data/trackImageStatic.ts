@@ -1,5 +1,7 @@
 import * as S from '@effect/schema/Schema'
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
+import type { action } from '~/convex/data/action'
+import type { PropsWithGetUrl } from '~/convex/utils/props-with-get-url'
 import { TrackBase, trackBase } from './trackBase'
 
 export const trackImageStatic = v.object({
@@ -17,4 +19,18 @@ export class TrackImageStatic extends TrackBase.extend<TrackImageStatic>(
   url: S.NonEmptyTrimmedString,
   caption: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
   alt: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
-}) {}
+}) {
+  static async encodedFromEntity(
+    { type, storageId, caption, alt, ...base }: Infer<typeof trackImageStatic>,
+    actions: Array<Infer<typeof action>>,
+    { getUrl }: PropsWithGetUrl,
+  ): Promise<typeof TrackImageStatic.Encoded> {
+    return {
+      ...TrackBase.encodedFromEntity(base, actions),
+      type,
+      url: (await getUrl(storageId))!,
+      caption,
+      alt,
+    }
+  }
+}

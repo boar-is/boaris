@@ -1,5 +1,5 @@
 import * as S from '@effect/schema/Schema'
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 
 export const layoutLayer = v.object({
   /**
@@ -14,4 +14,16 @@ export class LayoutLayer extends S.Class<LayoutLayer>('LayoutLayer')({
   areas: S.NonEmptyTrimmedString,
   columns: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
   rows: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
-}) {}
+}) {
+  static encodedFromEntity({
+    areas,
+    columns,
+    rows,
+  }: Infer<typeof layoutLayer>): typeof LayoutLayer.Encoded {
+    return {
+      areas,
+      columns,
+      rows,
+    }
+  }
+}

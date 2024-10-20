@@ -1,5 +1,5 @@
 import * as S from '@effect/schema/Schema'
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 
 export const tag = v.object({
   slug: v.string(),
@@ -13,4 +13,14 @@ export const tag = v.object({
 export class Tag extends S.Class<Tag>('Tag')({
   slug: S.NonEmptyTrimmedString,
   name: S.NonEmptyTrimmedString,
-}) {}
+}) {
+  static encodedFromEntity({
+    slug,
+    name,
+  }: Infer<typeof tag>): typeof Tag.Encoded {
+    return {
+      slug,
+      name,
+    }
+  }
+}

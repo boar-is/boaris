@@ -1,5 +1,6 @@
 import * as S from '@effect/schema/Schema'
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
+import type { action } from '~/convex/data/action'
 import { TrackBase, trackBase } from './trackBase'
 
 /**
@@ -16,4 +17,15 @@ export const trackText = v.object({
 export class TrackText extends TrackBase.extend<TrackText>('TrackText')({
   type: S.Literal('text'),
   value: S.NonEmptyTrimmedString,
-}) {}
+}) {
+  static encodedFromEntity(
+    { type, value, ...base }: Infer<typeof trackText>,
+    actions: Array<Infer<typeof action>>,
+  ): typeof TrackText.Encoded {
+    return {
+      ...TrackBase.encodedFromEntity(base, actions),
+      type,
+      value,
+    }
+  }
+}

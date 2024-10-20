@@ -1,5 +1,6 @@
 import * as S from '@effect/schema/Schema'
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
+import type { PropsWithGetUrl } from '~/convex/utils/props-with-get-url'
 import { SocialLink, socialLink } from './_shared/socialLink'
 
 export const workspace = v.object({
@@ -14,4 +15,16 @@ export class Workspace extends S.Class<Workspace>('Workspace')({
   name: S.NonEmptyTrimmedString,
   logoUrl: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
   socialLinks: S.Array(SocialLink),
-}) {}
+}) {
+  static async encodedFromEntity(
+    { slug, name, logoId, socialLinks }: Infer<typeof workspace>,
+    { getUrl }: PropsWithGetUrl,
+  ): Promise<typeof Workspace.Encoded> {
+    return {
+      slug,
+      name,
+      logoUrl: logoId && (await getUrl(logoId)),
+      socialLinks: socialLinks.map(SocialLink.encodedFromEntity),
+    }
+  }
+}

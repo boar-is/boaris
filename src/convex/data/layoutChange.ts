@@ -1,5 +1,5 @@
 import * as S from '@effect/schema/Schema'
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 import { LayoutLayers, layoutLayers } from './layoutLayers'
 
 export const layoutChange = v.object({
@@ -20,5 +20,17 @@ export const layoutChange = v.object({
 export class LayoutChange extends S.Class<LayoutChange>('LayoutChange')({
   id: S.NonEmptyTrimmedString,
   at: S.Number,
-  value: S.OptionFromUndefinedOr(LayoutLayers),
-}) {}
+  layers: S.OptionFromUndefinedOr(LayoutLayers),
+}) {
+  static encodedFromEntity({
+    id,
+    at,
+    layers,
+  }: Infer<typeof layoutChange>): typeof LayoutChange.Encoded {
+    return {
+      id,
+      at,
+      layers: layers && LayoutLayers.encodedFromEntity(layers),
+    }
+  }
+}

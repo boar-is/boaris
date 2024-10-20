@@ -1,5 +1,5 @@
 import * as S from '@effect/schema/Schema'
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 
 export const actionBase = v.object({
   offset: v.number(),
@@ -7,4 +7,12 @@ export const actionBase = v.object({
 
 export class ActionBase extends S.Class<ActionBase>('ActionBase')({
   offset: S.Number,
-}) {}
+}) {
+  static encodedFromEntity({
+    offset,
+  }: Infer<typeof actionBase>): typeof ActionBase.Encoded {
+    return {
+      offset,
+    }
+  }
+}

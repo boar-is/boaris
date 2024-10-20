@@ -1,5 +1,5 @@
 import * as S from '@effect/schema/Schema'
-import { v } from 'convex/values'
+import { type Infer, v } from 'convex/values'
 import { Delta, delta } from './_shared/delta'
 import { LayoutMode, layoutMode } from './layoutMode'
 
@@ -13,7 +13,21 @@ export const layoutOverride = v.object({
 
 export class LayoutOverride extends S.Class<LayoutOverride>('LayoutOverride')({
   name: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
-  modes: S.NonEmptyArray(LayoutMode),
+  modes: S.Array(LayoutMode),
   minWidth: S.OptionFromUndefinedOr(S.Number),
   changesDelta: Delta,
-}) {}
+}) {
+  static encodedFromEntity({
+    name,
+    modes,
+    minWidth,
+    changesDelta,
+  }: Infer<typeof layoutOverride>): typeof LayoutOverride.Encoded {
+    return {
+      name,
+      modes,
+      minWidth,
+      changesDelta,
+    }
+  }
+}
