@@ -8,7 +8,7 @@ import { Track, track, trackEncodedFromEntity } from './track'
 
 export const revision = v.object({
   captions: v.optional(captions),
-  layout: layout,
+  layout,
   tracks: v.array(track),
 })
 
