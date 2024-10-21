@@ -9,8 +9,8 @@ import { getUrlProps } from '~/convex/utils/propsWithGetUrl'
 export type ProjectPageQueryResult = {
   readonly project: typeof Project.Encoded
   readonly posts: ReadonlyArray<typeof Post.Encoded>
-  readonly tagsByPostId: Record<string, typeof Tag.Encoded>
-  readonly authorsByPostId: Record<string, typeof User.Encoded>
+  readonly tagsByPostSlug: Record<string, Array<typeof Tag.Encoded>>
+  readonly authorsByPostSlug: Record<string, Array<typeof User.Encoded>>
 } | null
 
 const projectPage = query({
@@ -51,7 +51,7 @@ const projectPage = query({
 
     const getUrl = getUrlProps(storage)
 
-    const [posts, tagsByPostIdEntries, authorsByPostIdEntries] =
+    const [posts, tagsByPostSlugEntries, authorsByPostSlugEntries] =
       await Promise.all([
         Promise.all(
           latestPosts.map((post) => Post.encodedFromEntity(post, getUrl)),
@@ -66,7 +66,7 @@ const projectPage = query({
               postTags.map(
                 async (it) =>
                   [
-                    post._id,
+                    post.slug,
                     Tag.encodedFromEntity(
                       await db.get(it.tagId).then((it) => it!),
                     ),
@@ -85,7 +85,7 @@ const projectPage = query({
               postAuthors.map(
                 async (it) =>
                   [
-                    post._id,
+                    post.slug,
                     User.encodedFromEntity(
                       await db.get(it.authorId).then((it) => it!),
                     ),
@@ -99,8 +99,8 @@ const projectPage = query({
     return {
       project: Project.encodedFromEntity(project),
       posts,
-      tagsByPostId: Object.fromEntries(tagsByPostIdEntries),
-      authorsByPostId: Object.fromEntries(authorsByPostIdEntries),
+      tagsByPostSlug: Object.fromEntries(tagsByPostSlugEntries),
+      authorsByPostSlug: Object.fromEntries(authorsByPostSlugEntries),
     }
   },
 })

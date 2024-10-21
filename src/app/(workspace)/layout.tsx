@@ -81,7 +81,7 @@ export default async function WorkspaceLayout({
                     className="rounded-[inherit] shadow-inner size-9"
                   />
                 )}
-                Boar.is
+                {workspace.name}
               </Link>
             </li>
             <li className="hidden md:block mr-auto">

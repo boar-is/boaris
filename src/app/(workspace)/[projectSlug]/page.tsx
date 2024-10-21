@@ -22,7 +22,7 @@ export default async function WorkspaceProjectPage({
     notFound()
   }
 
-  const { project, posts } = data
+  const { project, posts, tagsByPostSlug, authorsByPostSlug } = data
 
   return (
     <article className="container flex flex-col gap-6 lg:gap-10 items-stretch">
@@ -52,9 +52,9 @@ export default async function WorkspaceProjectPage({
                     </h3>
                   </header>
 
-                  {post.tags.length && (
+                  {tagsByPostSlug[post.slug]!.length && (
                     <ul className="flex flex-wrap gap-1 lg:gap-1.5 text-xs lg:text-sm font-medium tracking-wide text-gray-8 *:my-0.5">
-                      {post.tags.map((tag) => (
+                      {tagsByPostSlug[post.slug]!.map((tag) => (
                         <li key={tag.slug}>
                           <span className="border border-gray-7 rounded-full px-3 py-0.5">
                             {tag.name}
@@ -71,9 +71,9 @@ export default async function WorkspaceProjectPage({
                   )}
 
                   <footer className="flex justify-between gap-8 items-center">
-                    {post.authors.length && (
+                    {authorsByPostSlug[post.slug]!.length && (
                       <ul className="space-y-1 lg:space-y-2 text-gray-8 text-sm lg:text-base font-medium tracking-tight">
-                        {post.authors.map((author) => (
+                        {authorsByPostSlug[post.slug]!.map((author) => (
                           <li
                             key={author.slug}
                             className="flex items-center gap-1.5 lg:gap-2"
