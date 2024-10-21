@@ -6,8 +6,8 @@ import { useCaptions } from '~/features/captions/use-captions'
 import { useCaptionsEditor } from '~/features/captions/use-captions-editor'
 import { PlaybackProgressProvider } from '~/features/playback/playback-progress-provider'
 import { usePostPage } from '~/features/post/post-page-provider'
-import { extensions } from '~/lib/text-editor/extensions'
-import { StaticEditorContent } from '~/lib/text-editor/static-editor-content'
+import { defaultEditorExtensions } from '~/lib/prosemirror/defaultEditorExtensions'
+import { StaticEditorContent } from '~/lib/prosemirror/static-editor-content'
 import {
   PostReading,
   PostReadingHeader,
@@ -30,6 +30,7 @@ export function PostScrolling() {
 function PostScrollingContent() {
   const result$ = usePostPage()
   const captions = useSelector(result$.captions)
+  // remappedCaptions
   const layoutCaptions = useCaptions({ captions })
 
   if (!layoutCaptions) {
@@ -37,7 +38,11 @@ function PostScrollingContent() {
     throw new Error('post without captions is not implemented')
   }
 
-  const editor = useCaptionsEditor(layoutCaptions.content, extensions)
+  // just use ordinary useEditor, maybe with default props
+  const editor = useCaptionsEditor(
+    layoutCaptions.content,
+    defaultEditorExtensions,
+  )
 
   return (
     <div>
@@ -50,7 +55,7 @@ function PostScrollingContent() {
         ) : (
           <StaticEditorContent
             content={layoutCaptions.content}
-            extensions={extensions}
+            extensions={defaultEditorExtensions}
           />
         )}
       </div>

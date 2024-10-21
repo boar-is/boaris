@@ -6,45 +6,23 @@ import {
   useMotionValueEvent,
   useTransform,
 } from 'framer-motion'
-import { useRef } from 'react'
-import { firstNonInlineAncestor } from '~/features/captions/first-non-inline-ancestor'
+import { offsetTopAtPos } from '~/lib/prosemirror/offset-top-at-pos'
 
 export const useCaptionsOffsetTop = (
   view: EditorView,
   position: MotionValue<number>,
 ) => {
   const ancestorTop = useTransform(() => {
-    const { node, offset } = view.domAtPos(position.get())
-
-    if (!offset) {
-      return undefined
-    }
-
-    const ancestor = firstNonInlineAncestor(node)!
-
-    if (
-      (node as HTMLElement).classList?.contains('ProseMirror') ||
-      ancestor.classList?.contains('ProseMirror')
-    ) {
-      return undefined
-    }
-
-    return ancestor.offsetTop
+    offsetTopAtPos(view, position.get())
   })
 
   const offset = useMotionValue(0)
-
-  const animationFrameId = useRef<number>()
   useMotionValueEvent(ancestorTop, 'change', (offsetTopValue) => {
-    animationFrameId.current && cancelAnimationFrame(animationFrameId.current)
-    animationFrameId.current = requestAnimationFrame(() => {
-      if (offsetTopValue !== undefined) {
-        animate(offset, offsetTopValue * -1, {
-          duration: 0.8,
-        })
-      }
-    })
+    if (offsetTopValue !== undefined) {
+      animate(offset, offsetTopValue * -1, {
+        duration: 0.8,
+      })
+    }
   })
-
   return offset
 }

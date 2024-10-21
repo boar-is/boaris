@@ -5,7 +5,7 @@ import {
   useMotionValueEvent,
   useTransform,
 } from 'framer-motion'
-import { getWordRangeAtPos } from '~/lib/text-editor/get-word-range-at-post'
+import { getWordRangeAtPos } from '~/lib/prosemirror/get-word-range-at-post'
 
 const initialRange = { start: 0, end: 0 }
 

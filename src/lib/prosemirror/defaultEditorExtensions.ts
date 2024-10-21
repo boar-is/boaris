@@ -18,7 +18,7 @@ import { Typography } from '@tiptap/extension-typography'
 import type { Extensions } from '@tiptap/react'
 import { Heading } from './heading'
 
-export const extensions = [
+export const defaultEditorExtensions: Extensions = [
   Bold,
   BulletList,
   CharacterCount,
@@ -52,4 +52,4 @@ export const extensions = [
   // TODO occasional textStyle on copy
   TextStyle,
   Typography,
-] satisfies Extensions
+]

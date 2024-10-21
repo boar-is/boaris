@@ -20,8 +20,8 @@ import {
   usePostPage,
 } from '~/features/post/post-page-provider'
 import { matchFileTypeIcon } from '~/features/track/match-file-type-icon'
-import { codemirrorTheme } from '~/lib/code-editor/codemirror-theme'
-import { matchCodemirrorExtensions } from '~/lib/code-editor/match-codemirror-extensions'
+import { codemirrorTheme } from '~/lib/codemirror/codemirror-theme'
+import { matchCodemirrorExtensions } from '~/lib/codemirror/match-codemirror-extensions'
 import { motion } from '~/lib/framer-motion/motion'
 import { Image } from '~/lib/media/image'
 import { cx } from '~/lib/utils/cx'
