@@ -1,12 +1,9 @@
-'use client'
-
-import * as S from '@effect/schema/Schema'
 import { type Atom, atom } from 'jotai'
 import type { PropsWithChildren } from 'react'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 import { useConstant } from '~/lib/react/use-constant'
 import { useWindowWidthAtom } from '~/lib/react/use-window-width-atom'
-import { Layout } from '~/model/layout'
+import type { Layout } from '~/model/layout'
 import {
   type LayoutChange,
   determinedLayoutChanges,
@@ -20,14 +17,12 @@ export const [LayoutChangesAtomContext, useLayoutChangesAtom] =
 
 export function LayoutChangesAtomProvider({
   children,
-  layoutEncoded,
+  layout: { changes, modes, overrides },
   includeDisabledOverrides = false,
 }: PropsWithChildren & {
-  layoutEncoded: typeof Layout.Encoded
+  layout: typeof Layout.Type
   includeDisabledOverrides?: boolean | undefined
 }) {
-  const { changes, modes, overrides } = S.decodeSync(Layout)(layoutEncoded)
-
   const modeAtom = useLayoutModeAtom()
 
   const widthAtom = useWindowWidthAtom()

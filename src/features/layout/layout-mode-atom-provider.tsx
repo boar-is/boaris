@@ -1,5 +1,3 @@
-'use client'
-
 import type * as HS from 'effect/HashSet'
 import { type Atom, atom } from 'jotai'
 import type { PropsWithChildren } from 'react'
