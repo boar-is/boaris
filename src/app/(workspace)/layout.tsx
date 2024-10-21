@@ -73,18 +73,16 @@ export default async function WorkspaceLayout({
                 )}
               >
                 {workspace.logoUrl.pipe(
-                  O.match({
-                    onSome: (logoUrl) => (
-                      <Image
-                        src={logoUrl}
-                        alt={`${workspace.name}'s logo`}
-                        width={36}
-                        height={36}
-                        className="rounded-[inherit] shadow-inner size-9"
-                      />
-                    ),
-                    onNone: () => null,
-                  }),
+                  O.andThen((url) => (
+                    <Image
+                      src={url}
+                      alt={`${workspace.name}'s logo`}
+                      width={36}
+                      height={36}
+                      className="rounded-[inherit] shadow-inner size-9"
+                    />
+                  )),
+                  O.getOrNull,
                 )}
                 {workspace.name}
               </Link>
