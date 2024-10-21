@@ -11,6 +11,7 @@ import {
   type LayoutChange,
   determinedLayoutChanges,
 } from '~/model/layoutChange'
+import { useLayoutModeAtom } from './layout-mode-atom-provider'
 
 export const [LayoutChangesAtomContext, useLayoutChangesAtom] =
   createStrictContext<Atom<ReadonlyArray<typeof LayoutChange.Type>>>({
@@ -27,6 +28,8 @@ export function LayoutChangesAtomProvider({
 }) {
   const { changes, modes, overrides } = S.decodeSync(Layout)(layoutEncoded)
 
+  const modeAtom = useLayoutModeAtom()
+
   const widthAtom = useWindowWidthAtom()
 
   return (
@@ -35,7 +38,7 @@ export function LayoutChangesAtomProvider({
         atom((get) =>
           determinedLayoutChanges({
             changes,
-            mode: 'scrolling',
+            mode: get(modeAtom),
             modes: modes,
             overrides: overrides,
             width: get(widthAtom),
