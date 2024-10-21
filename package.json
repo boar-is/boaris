@@ -19,7 +19,6 @@
     "@codemirror/lang-javascript": "6.2.2",
     "@codemirror/lang-json": "6.0.1",
     "@effect/schema": "0.75.5",
-    "@legendapp/state": "3.0.0-beta.12",
     "@lezer/highlight": "1.2.1",
     "@next/bundle-analyzer": "14.2.15",
     "@react-aria/interactions": "3.22.4",
