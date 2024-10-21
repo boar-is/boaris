@@ -40,6 +40,7 @@ export function PostScrollingLayout() {
 
   const index$ = useLayoutChangesAtomIndex({ changes$, progress$ })
 
+  // changes$.get()[index$.get()]?.value!
   const layout$ = useLayout({
     changes$,
     index$,
