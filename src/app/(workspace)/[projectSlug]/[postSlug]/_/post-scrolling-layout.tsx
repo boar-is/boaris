@@ -9,11 +9,11 @@ import {
   useRef,
 } from 'react'
 import { ActionsProvider } from '~/features/chunk/actions-provider'
-import { useLayoutChangesAtom$ } from '~/features/layout/layout-changes-atom-provider'
-import { useLayout$ } from '~/features/layout/use-layout'
-import { useLayoutChangesAtomIndex$ } from '~/features/layout/use-layout-changes-index'
-import { useLayoutProgress$ } from '~/features/layout/use-layout-progress'
-import { useLayoutProgressInterpolation$ } from '~/features/layout/use-layout-progress-interpolation'
+import { useLayoutChangesAtom } from '~/features/layout/layout-changes-atom-provider'
+import { useLayout } from '~/features/layout/use-layout'
+import { useLayoutChangesAtomIndex } from '~/features/layout/use-layout-changes-index'
+import { useLayoutProgress } from '~/features/layout/use-layout-progress'
+import { useLayoutProgressInterpolation } from '~/features/layout/use-layout-progress-interpolation'
 import { usePlaybackProgress } from '~/features/playback/playback-progress-provider'
 import {
   type PostPageContextValue,
@@ -29,18 +29,18 @@ import { cx } from '~/lib/utils/cx'
 export function PostScrollingLayout() {
   const playbackProgress = usePlaybackProgress()
 
-  const changes$ = useLayoutChangesAtom$()
+  const changes$ = useLayoutChangesAtom()
 
-  const interpolation$ = useLayoutProgressInterpolation$(changes$)
+  const interpolation$ = useLayoutProgressInterpolation(changes$)
 
-  const progress$ = useLayoutProgress$({
+  const progress$ = useLayoutProgress({
     playbackProgress,
     interpolation$,
   })
 
-  const index$ = useLayoutChangesAtomIndex$({ changes$, progress$ })
+  const index$ = useLayoutChangesAtomIndex({ changes$, progress$ })
 
-  const layout$ = useLayout$({
+  const layout$ = useLayout({
     changes$,
     index$,
   })

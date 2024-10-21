@@ -21,9 +21,9 @@ export function PostReading({ children }: PropsWithChildren) {
 }
 
 export function PostReadingHeader() {
-  const result$ = usePostPage()
+  const result = usePostPage()
 
-  const { post, tags, authors } = useSelector(result$)
+  const { post, tags, authors } = useSelector(result)
 
   return (
     <header className="w-full max-w-prose">

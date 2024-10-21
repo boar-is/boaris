@@ -8,7 +8,7 @@ import { PostScrolling } from './post-scrolling'
 export const PostContent = observer(function PostContent() {
   const layoutModeAtom = useLayoutModeAtom()
 
-  return Match.value(layoutMode$.get()).pipe(
+  return Match.value(layoutModeAtom.get()).pipe(
     Match.when('scrolling', () => <PostScrolling />),
     Match.orElseAbsurd,
   )

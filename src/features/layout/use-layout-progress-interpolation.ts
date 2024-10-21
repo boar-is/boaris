@@ -4,7 +4,7 @@ import type { Interpolation } from '~/convex/values/_shared/interpolation'
 import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
 import { layoutProgressInterpolationFromChanges } from './layout-progress-interpolation-from-changes'
 
-export const useLayoutProgressInterpolation$ = (
+export const useLayoutProgressInterpolation = (
   layoutChanges$: Observable<Array<LayoutChange>>,
 ) =>
   useObservable<Interpolation>(() =>

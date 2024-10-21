@@ -3,7 +3,7 @@ import { useObservable } from '@legendapp/state/react'
 import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 
-export const useLayoutChangesAtomIndex$ = ({
+export const useLayoutChangesAtomIndex = ({
   changes$,
   progress$,
 }: {

@@ -3,7 +3,7 @@ import { useObservable } from '@legendapp/state/react'
 import { type MotionValue, transform, useMotionValueEvent } from 'framer-motion'
 import type { Interpolation } from '~/convex/values/_shared/interpolation'
 
-export const useLayoutProgress$ = ({
+export const useLayoutProgress = ({
   playbackProgress,
   interpolation$,
 }: {
