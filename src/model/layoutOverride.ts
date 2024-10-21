@@ -1,6 +1,8 @@
 import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
 import type * as HS from 'effect/HashSet'
+import { diffpatcher } from '~/lib/diffpatcher'
+import type { LayoutChange } from '~/model/layoutChange'
 import { Delta, delta } from './_shared/delta'
 import { LayoutMode, layoutMode } from './layoutMode'
 
@@ -48,4 +50,13 @@ export const determinedOverride = ({
 }) => {
   // TODO Implement
   return undefined
+}
+
+export const applyOverrideDelta = (
+  changes: ReadonlyArray<typeof LayoutChange.Type>,
+  delta: (typeof LayoutOverride.Type)['changesDelta'],
+) => {
+  return diffpatcher.patch(changes, delta) as ReadonlyArray<
+    typeof LayoutChange.Type
+  >
 }

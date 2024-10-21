@@ -1,10 +1,9 @@
 import type * as HS from 'effect/HashSet'
 import { type Atom, atom } from 'jotai'
 import type { PropsWithChildren } from 'react'
-import { determineLayoutMode } from '~/features/determine-layout-mode'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 import { useConstant } from '~/lib/react/use-constant'
-import type { LayoutMode } from '~/model/layoutMode'
+import { type LayoutMode, determineLayoutMode } from '~/model/layoutMode'
 
 export const [LayoutModeAtomContext, useLayoutModeAtom] = createStrictContext<
   Atom<typeof LayoutMode.Type>
