@@ -1,17 +1,22 @@
+import { atom, useSetAtom } from 'jotai/index'
 import { useEffect } from 'react'
 import { useWindowSize } from 'usehooks-ts'
-import { useHookAtom } from '~/lib/jotai/use-hook-atom'
+import { useConstant } from '~/lib/react/use-constant'
 
 export const useWindowWidthAtom = (
   options: Partial<Parameters<typeof useWindowSize>[number]> = {
     debounceDelay: 250,
   },
-) =>
-  useHookAtom(0, (setAtomValue) => {
-    const { width } = useWindowSize({
-      ...options,
-      initializeWithValue: false,
-    })
+) => {
+  const width$ = useConstant(() => atom(0))
+  const setWidth = useSetAtom(width$)
 
-    useEffect(() => setAtomValue(width ?? 0), [setAtomValue, width])
+  const { width } = useWindowSize({
+    ...options,
+    initializeWithValue: false,
   })
+
+  useEffect(() => setWidth(width ?? 0), [setWidth, width])
+
+  return width$
+}

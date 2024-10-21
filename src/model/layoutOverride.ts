@@ -33,7 +33,7 @@ export class LayoutOverride extends S.Class<LayoutOverride>('LayoutOverride')({
   }
 }
 
-export const determineOverride = ({
+export const determinedOverride = ({
   layoutMode,
   layoutModes,
   overrides,

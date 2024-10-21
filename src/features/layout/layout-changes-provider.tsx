@@ -1,15 +1,12 @@
 'use client'
 
 import type { Observable } from '@legendapp/state'
-import { useObservable } from '@legendapp/state/react'
-import { type PropsWithChildren, useEffect } from 'react'
-import { useWindowSize } from 'usehooks-ts'
+import type { PropsWithChildren } from 'react'
 import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
-import { applyOverride } from '~/features/layout/apply-override'
-import { determineOverride } from '~/features/layout/determine-override'
 import { useLayoutMode$ } from '~/features/layout/layout-mode-provider'
 import { usePostPage } from '~/features/post/post-page-provider'
 import { createStrictContext } from '~/lib/react/create-strict-context'
+import { useWindowWidthAtom } from '~/lib/react/use-window-width-atom'
 
 export const [LayoutChangesContext, useLayoutChanges$] = createStrictContext<
   Observable<Array<LayoutChange>>
@@ -27,30 +24,27 @@ export function LayoutChangesProvider({
 
   const layoutMode$ = useLayoutMode$()
 
-  const { width } = useWindowSize({
-    debounceDelay: 250,
-  })
-  const windowWidth$ = useObservable(0)
-  useEffect(() => windowWidth$.set(width), [windowWidth$, width])
+  const width$ = useWindowWidthAtom()
 
-  const layoutChanges$ = useObservable(() => {
-    const primaryLayoutChanges = layouts.primary.changes.get()
-
-    if (!primaryLayoutChanges) {
-      return []
-    }
-
-    // reimport
-    const override = determineOverride({
-      currentLayoutMode: layoutMode$.get(),
-      primaryLayoutModes: layouts.primary.modes.get(),
-      overrides: layouts.overrides.get(),
-      width: windowWidth$.get(),
-      includeDisabled: includeDisabledOverrides,
-    })
-
-    return applyOverride({ changes: primaryLayoutChanges, override })
-  })
+  // determinedLayoutChanges
+  // const layoutChanges$ = useObservable(() => {
+  //   const primaryLayoutChanges = layouts.primary.changes.get()
+  //
+  //   if (!primaryLayoutChanges) {
+  //     return []
+  //   }
+  //
+  //   // reimport
+  //   const override = determinedOverride({
+  //     currentLayoutMode: layoutMode$.get(),
+  //     primaryLayoutModes: layouts.primary.modes.get(),
+  //     overrides: layouts.overrides.get(),
+  //     width: windowWidth$.get(),
+  //     includeDisabled: includeDisabledOverrides,
+  //   })
+  //
+  //   return applyOverride({ changes: primaryLayoutChanges, override })
+  // })
 
   return (
     <LayoutChangesContext.Provider value={layoutChanges$}>
