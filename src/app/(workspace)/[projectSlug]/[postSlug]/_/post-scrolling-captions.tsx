@@ -21,13 +21,18 @@ export function PostScrollingCaptions({
   interpolation,
 }: { editor: Editor; interpolation: Interpolation | undefined }) {
   const playbackProgress = usePlaybackProgress()
+  // getCaptionsProgress
   const progress = useCaptionsProgress({ playbackProgress, interpolation })
+  // getPositionByProgress
   const position = useCaptionsPosition(editor.state, progress)
+  // useAtomAnimatedMotionValue, but * -1, check for undefined if so, duration 0.8
   const offsetTop = useCaptionsOffsetTop(editor.view, position)
+  // useComputedMotionValue + get-sequential-word-range
   const wordRange = useCaptionsWordRange(editor.state, position)
 
   const contentRef = useRef<HTMLDivElement | null>(null)
 
+  // useFactoredHeight
   const scrollableHeight = useCaptionsScrollableHeight({ contentRef })
   const [scrollableRef] = usePlaybackProgressScrollSync({ scrollableHeight })
 

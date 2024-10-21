@@ -32,3 +32,11 @@ export const remappedCaptions = (
   // TODO Implement compound interpolation
   return captions
 }
+
+// TODO Implement interpolation
+export const getCaptionsProgress = (
+  playbackProgress: number,
+  interpolation: (typeof Captions.Type)['interpolation'],
+) => {
+  return playbackProgress
+}
