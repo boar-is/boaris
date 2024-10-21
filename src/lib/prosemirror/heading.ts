@@ -1,5 +1,5 @@
 import { Node, mergeAttributes, textblockTypeInputRule } from '@tiptap/react'
-import { Match } from 'effect'
+import * as M from 'effect/Match'
 
 type Level = (typeof levels)[number]
 export type Offset = 0 | 1 | 2
@@ -23,10 +23,10 @@ const levels = [0, 1] as const
 const isLevel = (level: number): level is Level => levels.includes(level)
 
 const matchLevelToSlot = (level: Level) =>
-  Match.value(level).pipe(
-    Match.when(0, () => 'heading'),
-    Match.when(1, () => 'subheading'),
-    Match.exhaustive,
+  M.value(level).pipe(
+    M.when(0, () => 'heading'),
+    M.when(1, () => 'subheading'),
+    M.exhaustive,
   )
 
 export const Heading = Node.create<HeadingOptions>({

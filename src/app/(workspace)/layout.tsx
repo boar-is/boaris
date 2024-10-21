@@ -1,7 +1,10 @@
+import * as S from '@effect/schema/Schema'
 import { fetchQuery } from 'convex/nextjs'
+import * as O from 'effect/Option'
 import { notFound } from 'next/navigation'
 import type { CSSProperties, PropsWithChildren } from 'react'
 import { api } from '~/convex/_generated/api'
+import { WorkspaceLayoutQueryResult } from '~/convex/queries/workspaceLayout'
 import { matchSocialNetworkIcon } from '~/features/match-social-network-icon'
 import { matchSocialNetworkName } from '~/features/match-social-network-name'
 import { NewsletterSubscriptionFormProvider } from '~/features/newsletter-subscription-form-provider'
@@ -40,18 +43,21 @@ export default async function WorkspaceLayout({
     workspaceSlug: string
   }
 }) {
-  const data = await fetchQuery(api.queries.workspaceLayout.default, {
+  const result = await fetchQuery(api.queries.workspaceLayout.default, {
     workspaceSlug,
   })
 
-  if (!data) {
+  if (!result) {
     notFound()
   }
 
-  const { workspace } = data
+  const { workspace } = S.decodeSync(WorkspaceLayoutQueryResult)(result)
 
-  const getComputedLabel = (label: string | undefined, href: string) =>
-    label ?? matchSocialNetworkName(href) ?? 'Link'
+  const getComputedLabel = (label: O.Option<string>, href: string) =>
+    label.pipe(
+      O.orElse(() => matchSocialNetworkName(href)),
+      O.getOrElse(() => 'Link'),
+    )
 
   return (
     <div className="flex flex-col gap-4 md:gap-10 items-stretch min-h-dvh">
@@ -72,14 +78,19 @@ export default async function WorkspaceLayout({
                   'gap-2 select-none text-gray-12 text-lg leading-tight break-all',
                 )}
               >
-                {workspace.logoUrl && (
-                  <Image
-                    src={workspace.logoUrl}
-                    alt={`${workspace.name}'s logo`}
-                    width={36}
-                    height={36}
-                    className="rounded-[inherit] shadow-inner size-9"
-                  />
+                {workspace.logoUrl.pipe(
+                  O.match({
+                    onSome: (logoUrl) => (
+                      <Image
+                        src={logoUrl}
+                        alt={`${workspace.name}'s logo`}
+                        width={36}
+                        height={36}
+                        className="rounded-[inherit] shadow-inner size-9"
+                      />
+                    ),
+                    onNone: () => null,
+                  }),
                 )}
                 {workspace.name}
               </Link>

@@ -1,6 +1,6 @@
 import { Reactive, reactive, useObservable } from '@legendapp/state/react'
 import ReactCodeMirror, { type ReactCodeMirrorRef } from '@uiw/react-codemirror'
-import { Match } from 'effect'
+import * as M from 'effect/Match'
 import { AnimatePresence } from 'framer-motion'
 import {
   type CSSProperties,
@@ -109,15 +109,15 @@ const LayoutStaticGrid = reactive(function LayoutStaticGrid({
 
 type LayoutTrack = NonNullable<LayoutTracks>[number]
 
-const matchLayoutTrackPanel = Match.type<LayoutTrack>().pipe(
-  Match.when({ type: 'static-image' }, (track) => (
+const matchLayoutTrackPanel = M.type<LayoutTrack>().pipe(
+  M.when({ type: 'static-image' }, (track) => (
     <LayoutStaticImagePanel track={track} />
   )),
-  Match.when({ type: 'dynamic-image' }, (track) => (
+  M.when({ type: 'dynamic-image' }, (track) => (
     <LayoutDynamicImagePanel track={track} />
   )),
-  Match.when({ type: 'text' }, (track) => <LayoutTextPanel track={track} />),
-  Match.exhaustive,
+  M.when({ type: 'text' }, (track) => <LayoutTextPanel track={track} />),
+  M.exhaustive,
 )
 
 type LayoutTypedTrack<T extends LayoutTrack['type']> = Extract<

@@ -1,22 +1,22 @@
 import { javascript } from '@codemirror/lang-javascript'
-import { Match } from 'effect'
+import * as M from 'effect/Match'
 
-export const matchCodemirrorExtensions = Match.type<string>().pipe(
-  Match.when(
+export const matchCodemirrorExtensions = M.type<string>().pipe(
+  M.when(
     (it) => /\.(js|cjs|mjs)$/i.test(it),
     () => [javascript()],
   ),
-  Match.when(
+  M.when(
     (it) => /\.(jsx)$/i.test(it),
     () => [javascript({ jsx: true })],
   ),
-  Match.when(
+  M.when(
     (it) => /\.(ts|cts|mts)$/i.test(it),
     () => [javascript({ typescript: true })],
   ),
-  Match.when(
+  M.when(
     (it) => /\.(tsx)$/i.test(it),
     () => [javascript({ typescript: true, jsx: true })],
   ),
-  Match.orElse(() => []),
+  M.orElse(() => []),
 )

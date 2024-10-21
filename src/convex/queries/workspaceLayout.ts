@@ -1,18 +1,21 @@
+import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
 import { getUrlProps } from '~/convex/utils/getUrlProps'
 import { Workspace } from '~/model/workspace'
 
-export type WorkspaceLayoutQueryResult = {
-  readonly workspace: typeof Workspace.Encoded
-} | null
+export class WorkspaceLayoutQueryResult extends S.Class<WorkspaceLayoutQueryResult>(
+  'WorkspaceLayoutQueryResult',
+)({
+  workspace: Workspace,
+}) {}
 
 const workspaceLayout = query({
   args: { workspaceSlug: v.string() },
   handler: async (
     { db, storage },
     { workspaceSlug },
-  ): Promise<WorkspaceLayoutQueryResult> => {
+  ): Promise<typeof WorkspaceLayoutQueryResult.Encoded | null> => {
     const workspace = await db
       .query('workspaces')
       .withIndex('by_slug', (q) => q.eq('slug', workspaceSlug))

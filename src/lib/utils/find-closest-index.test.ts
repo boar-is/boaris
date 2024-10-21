@@ -1,4 +1,4 @@
-import { identity } from 'effect'
+import * as F from 'effect/Function'
 import { describe, expect, it } from 'vitest'
 import { findClosestIndex } from './find-closest-index'
 
@@ -37,7 +37,7 @@ describe.concurrent('findClosestIndex', () => {
       targetValue: number,
       expectedIndex: number | undefined,
     ) => {
-      expect(findClosestIndex(sortedArr, targetValue, identity)).toBe(
+      expect(findClosestIndex(sortedArr, targetValue, F.identity)).toBe(
         expectedIndex,
       )
     },

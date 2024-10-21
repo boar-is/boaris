@@ -1,38 +1,38 @@
-import { Match } from 'effect'
+import * as M from 'effect/Match'
 import { socialNetworkRegexes } from './social-network-regexes'
 
-export const matchSocialNetworkName = Match.type<string>().pipe(
-  Match.when(
+export const matchSocialNetworkName = M.type<string>().pipe(
+  M.when(
     (it) => socialNetworkRegexes.github.test(it),
     () => 'GitHub',
   ),
-  Match.when(
+  M.when(
     (it) => socialNetworkRegexes.twitter.test(it),
     () => 'X',
   ),
-  Match.when(
+  M.when(
     (it) => socialNetworkRegexes.linkedin.test(it),
     () => 'LinkedIn',
   ),
-  Match.when(
+  M.when(
     (it) => socialNetworkRegexes.stackoverflow.test(it),
     () => 'Stack Overflow',
   ),
-  Match.when(
+  M.when(
     (it) => socialNetworkRegexes.discord.test(it),
     () => 'Discord',
   ),
-  Match.when(
+  M.when(
     (it) => socialNetworkRegexes.youtube.test(it),
     () => 'YouTube',
   ),
-  Match.when(
+  M.when(
     (it) => socialNetworkRegexes.reddit.test(it),
     () => 'Reddit',
   ),
-  Match.when(
+  M.when(
     (it) => socialNetworkRegexes.telegram.test(it),
     () => 'Telegram',
   ),
-  Match.orElse(() => undefined),
+  M.option,
 )
