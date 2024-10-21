@@ -4,21 +4,28 @@ import * as S from '@effect/schema/Schema'
 import * as M from 'effect/Match'
 import * as O from 'effect/Option'
 import { atom, useAtomValue } from 'jotai'
+import { useMemo } from 'react'
 import { CaptionsAtomContext } from '~/features/captions-atom-context'
 import { LayoutModeAtomContext } from '~/features/layout-mode-atom-context'
 import { useConstant } from '~/lib/react/use-constant'
 import { remappedCaptions } from '~/model/captions'
 import { determinedLayoutMode } from '~/model/layoutMode'
+import type { Post } from '~/model/post'
 import { Revision } from '~/model/revision'
-import { PostScrolling } from './post-scrolling'
+import type { Tag } from '~/model/tag'
+import type { User } from '~/model/user'
 
-export function PostContent({
+export function WorkspaceProjectPostPageClient({
   revisionEncoded,
 }: {
+  postEncoded: typeof Post.Encoded
+  tagsEncoded: ReadonlyArray<typeof Tag.Encoded>
+  authorsEncoded: ReadonlyArray<typeof User.Encoded>
   revisionEncoded: typeof Revision.Encoded
 }) {
-  const revisionAtom = useConstant(() =>
-    atom(S.decodeSync(Revision)(revisionEncoded)),
+  const revision = useMemo(
+    () => S.decodeSync(Revision)(revisionEncoded),
+    [revisionEncoded],
   )
 
   const captionsAtom = useConstant(() =>
@@ -32,12 +39,10 @@ export function PostContent({
     atom((get) => determinedLayoutMode(get(revisionAtom).layout.modes)),
   )
 
-  const layoutMode = useAtomValue(layoutModeAtom)
-
   return (
     <CaptionsAtomContext.Provider value={captionsAtom}>
       <LayoutModeAtomContext.Provider value={layoutModeAtom}>
-        {M.value(layoutMode).pipe(
+        {M.value(useAtomValue(layoutModeAtom)).pipe(
           M.when('scrolling', () => <PostScrolling />),
           M.orElseAbsurd,
         )}

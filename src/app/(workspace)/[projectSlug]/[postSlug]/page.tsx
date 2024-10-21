@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
 import { currentWorkspaceSlug } from '~/lib/constants'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
-import { PostContent } from './_/post-content'
+import { WorkspaceProjectPostPageClient } from './page.client'
 
 export async function generateStaticParams() {
   return fetchQuery(api.queries.postParams.default)
@@ -22,5 +22,12 @@ export default async function WorkspaceProjectPostPage({
     notFound()
   }
 
-  return <PostContent revisionEncoded={result.revision} />
+  return (
+    <WorkspaceProjectPostPageClient
+      postEncoded={result.post}
+      tagsEncoded={result.tags}
+      authorsEncoded={result.authors}
+      revisionEncoded={result.revision}
+    />
+  )
 }

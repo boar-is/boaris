@@ -1,8 +1,6 @@
 'use client'
 
-import { useSelector } from '@legendapp/state/react'
 import type { PropsWithChildren } from 'react'
-import { usePostPage } from '~/features/post/post-page-provider'
 import { getMonoFontClassName } from '~/lib/media/fonts/get-mono-font-class-name'
 import { Image } from '~/lib/media/image'
 import { cx } from '~/lib/utils/cx'
@@ -21,8 +19,6 @@ export function PostReading({ children }: PropsWithChildren) {
 }
 
 export function PostReadingHeader() {
-  const result = usePostPage()
-
   const { post, tags, authors } = useSelector(result)
 
   return (
