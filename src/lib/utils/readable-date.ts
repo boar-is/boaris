@@ -4,5 +4,4 @@ const readableDateFormat = new Intl.DateTimeFormat('en-US', {
   day: 'numeric',
 })
 
-export const readableFromTimestamp = (timestamp: number) =>
-  readableDateFormat.format(new Date(timestamp))
+export const readableDate = (date: Date) => readableDateFormat.format(date)
