@@ -1,28 +1,23 @@
-import type { EditorView } from '@tiptap/pm/view'
-import {
-  type MotionValue,
-  animate,
-  useMotionValue,
-  useMotionValueEvent,
-  useTransform,
-} from 'framer-motion'
-import { offsetTopAtPos } from '~/lib/prosemirror/offset-top-at-pos'
+import { animate, useMotionValue } from 'framer-motion'
+import type { Atom } from 'jotai'
+import { atomEffect } from 'jotai-effect'
+import { useConstant } from '~/lib/react/use-constant'
 
-export const useCaptionsOffsetTop = (
-  view: EditorView,
-  position: MotionValue<number>,
-) => {
-  const ancestorTop = useTransform(() => {
-    offsetTopAtPos(view, position.get())
-  })
+export const useCaptionsOffsetTop = (editorOffsetTop$: Atom<number>) => {
+  const offsetTop = useMotionValue(0)
 
-  const offset = useMotionValue(0)
-  useMotionValueEvent(ancestorTop, 'change', (offsetTopValue) => {
-    if (offsetTopValue !== undefined) {
-      animate(offset, offsetTopValue * -1, {
-        duration: 0.8,
-      })
-    }
-  })
-  return offset
+  useMotionValue(
+    useConstant(() =>
+      atomEffect((get) => {
+        const offset = get(editorOffsetTop$)
+        if (offset !== undefined) {
+          animate(offsetTop, offset * -1, {
+            duration: 0.8,
+          })
+        }
+      }),
+    ),
+  )
+
+  return offsetTop
 }
