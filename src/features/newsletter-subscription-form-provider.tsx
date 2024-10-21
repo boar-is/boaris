@@ -5,10 +5,12 @@ import { useFormState } from 'react-dom'
 import { FormContext } from '~/lib/forms/form'
 import { OverlayTriggerStateContext } from '~/lib/overlays/dialog'
 import { toast } from '~/lib/toast/toast'
-import { subscribe } from './subscribe'
+import { subscribeToNewsletter } from './subscribe-to-newsletter'
 
-export function SubscriptionFormProvider({ children }: PropsWithChildren) {
-  const [state, action] = useFormState(subscribe, {
+export function NewsletterSubscriptionFormProvider({
+  children,
+}: PropsWithChildren) {
+  const [state, action] = useFormState(subscribeToNewsletter, {
     status: 'initial',
   })
 

@@ -14,12 +14,12 @@ import { useLayout } from '~/features/layout/use-layout'
 import { useLayoutChangesAtomIndex } from '~/features/layout/use-layout-changes-index'
 import { useLayoutProgress } from '~/features/layout/use-layout-progress'
 import { useLayoutProgressInterpolation } from '~/features/layout/use-layout-progress-interpolation'
+import { matchFileTypeIcon } from '~/features/match-file-type-icon'
 import { usePlaybackProgress } from '~/features/playback-progress-atom-provider'
 import {
   type PostPageContextValue,
   usePostPage,
 } from '~/features/post/post-page-provider'
-import { matchFileTypeIcon } from '~/features/track/match-file-type-icon'
 import { codemirrorTheme } from '~/lib/codemirror/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/codemirror/match-codemirror-extensions'
 import { motion } from '~/lib/framer-motion/motion'

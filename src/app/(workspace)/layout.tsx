@@ -4,7 +4,7 @@ import type { CSSProperties, PropsWithChildren } from 'react'
 import { api } from '~/convex/_generated/api'
 import { matchSocialNetworkIcon } from '~/features/match-social-network-icon'
 import { matchSocialNetworkName } from '~/features/match-social-network-name'
-import { SubscriptionFormProvider } from '~/features/subscription/subscription-form-provider'
+import { NewsletterSubscriptionFormProvider } from '~/features/newsletter-subscription-form-provider'
 import { Button } from '~/lib/buttons/button'
 import { Menu, MenuItem, MenuTrigger } from '~/lib/collections/menu'
 import { currentWorkspaceSlug } from '~/lib/constants'
@@ -174,7 +174,7 @@ export default async function WorkspaceLayout({
                           💨
                         </p>
                       </section>
-                      <SubscriptionFormProvider>
+                      <NewsletterSubscriptionFormProvider>
                         <Form className="flex flex-col gap-4">
                           <TextField
                             name="email"
@@ -201,7 +201,7 @@ export default async function WorkspaceLayout({
                             </Button>
                           </PendingFormDisabledButtonProvider>
                         </Form>
-                      </SubscriptionFormProvider>
+                      </NewsletterSubscriptionFormProvider>
                     </Dialog>
                   </Modal>
                 </ModalOverlay>
