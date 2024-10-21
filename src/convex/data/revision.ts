@@ -1,6 +1,6 @@
 import * as S from '@effect/schema/Schema'
-import type { StorageId } from 'convex/server'
 import { type Infer, v } from 'convex/values'
+import type { PropsWithGetUrl } from '~/convex/utils/props-with-get-url'
 import type { action } from './action'
 import { Captions, captions } from './captions'
 import { Layout, layout } from './layout'
@@ -20,7 +20,7 @@ export class Revision extends S.Class<Revision>('Revision')({
   static async encodedFromEntity(
     { captions, layout, tracks }: Infer<typeof revision>,
     actions: Array<Infer<typeof action>>,
-    { getUrl }: { getUrl: (id: StorageId) => Promise<string | null> },
+    { getUrl }: PropsWithGetUrl,
   ): Promise<typeof Revision.Encoded> {
     return {
       captions: captions && Captions.encodedFromEntity(captions),

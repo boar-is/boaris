@@ -17,4 +17,6 @@ export class TrackChunk extends S.Class<TrackChunk>('TrackChunk')({
     key: S.NonEmptyTrimmedString,
     value: S.Array(Action),
   }),
-}) {}
+}) {
+  static encodedActionsFromEntities(chunks: Array<string>): TrackChunk {}
+}
