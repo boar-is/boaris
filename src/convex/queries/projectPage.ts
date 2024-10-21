@@ -1,10 +1,10 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
-import { Post } from '~/convex/data/post'
-import { Project } from '~/convex/data/project'
-import { Tag } from '~/convex/data/tag'
-import { User } from '~/convex/data/user'
-import { getUrlProps } from '~/convex/utils/propsWithGetUrl'
+import { getUrlProps } from '~/convex/utils/getUrlProps'
+import { Post } from '~/model/post'
+import { Project } from '~/model/project'
+import { Tag } from '~/model/tag'
+import { User } from '~/model/user'
 
 export type ProjectPageQueryResult = {
   readonly project: typeof Project.Encoded

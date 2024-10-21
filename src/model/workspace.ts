@@ -1,6 +1,6 @@
 import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
-import type { PropsWithGetUrl } from '~/convex/utils/propsWithGetUrl'
+import type { PropsWithGetUrl } from '~/lib/utils/props-with-get-url'
 import { SocialLink, socialLink } from './_shared/socialLink'
 
 export const workspace = v.object({

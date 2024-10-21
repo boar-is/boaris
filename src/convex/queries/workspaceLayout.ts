@@ -1,7 +1,7 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
-import { Workspace } from '~/convex/data/workspace'
-import { getUrlProps } from '~/convex/utils/propsWithGetUrl'
+import { getUrlProps } from '~/convex/utils/getUrlProps'
+import { Workspace } from '~/model/workspace'
 
 export type WorkspaceLayoutQueryResult = {
   readonly workspace: typeof Workspace.Encoded

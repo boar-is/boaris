@@ -1,11 +1,11 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
-import { Post } from '~/convex/data/post'
-import { Revision } from '~/convex/data/revision'
-import { Tag } from '~/convex/data/tag'
-import { toActionsByTrackId } from '~/convex/data/trackChunk'
-import { User } from '~/convex/data/user'
-import { getUrlProps } from '~/convex/utils/propsWithGetUrl'
+import { getUrlProps } from '~/convex/utils/getUrlProps'
+import { Post } from '~/model/post'
+import { Revision } from '~/model/revision'
+import { Tag } from '~/model/tag'
+import { toActionsByTrackId } from '~/model/trackChunk'
+import { User } from '~/model/user'
 
 export type PostPageQueryResult = {
   readonly post: typeof Post.Encoded
