@@ -38,7 +38,7 @@ export const toActionsByTrackId = (
 
 export class TrackChunk extends S.Class<TrackChunk>('TrackChunk')({
   offset: S.Number,
-  actions: S.ReadonlyMapFromRecord({
+  actions: S.HashMap({
     key: S.NonEmptyTrimmedString,
     value: S.Array(Action),
   }),

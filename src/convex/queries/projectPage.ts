@@ -12,11 +12,11 @@ export class ProjectPageQueryResult extends S.Class<ProjectPageQueryResult>(
 )({
   project: Project,
   posts: S.Array(Post),
-  tagsByPostSlug: S.ReadonlyMapFromRecord({
+  tagsByPostSlug: S.HashMap({
     key: Post.fields.slug,
     value: S.Array(Tag),
   }),
-  authorsByPostSlug: S.ReadonlyMapFromRecord({
+  authorsByPostSlug: S.HashMap({
     key: Post.fields.slug,
     value: S.Array(User),
   }),
