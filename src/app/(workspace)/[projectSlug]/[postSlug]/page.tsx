@@ -1,6 +1,5 @@
 import { fetchQuery } from 'convex/nextjs'
 import { notFound } from 'next/navigation'
-import { WorkspaceProjectPostPageProvider } from '~/app/(workspace)/[projectSlug]/[postSlug]/page-context'
 import { api } from '~/convex/_generated/api'
 import { currentWorkspaceSlug } from '~/lib/constants'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
@@ -23,9 +22,5 @@ export default async function WorkspaceProjectPostPage({
     notFound()
   }
 
-  return (
-    <WorkspaceProjectPostPageProvider revisionEncoded={result.revision}>
-      <PostContent />
-    </WorkspaceProjectPostPageProvider>
-  )
+  return <PostContent revisionEncoded={result.revision} />
 }
