@@ -1,3 +1,4 @@
+import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
 import { getUrlProps } from '~/convex/utils/getUrlProps'
@@ -7,12 +8,14 @@ import { Tag } from '~/model/tag'
 import { toActionsByTrackId } from '~/model/trackChunk'
 import { User } from '~/model/user'
 
-export type PostPageQueryResult = {
-  readonly post: typeof Post.Encoded
-  readonly tags: ReadonlyArray<typeof Tag.Encoded>
-  readonly authors: ReadonlyArray<typeof User.Encoded>
-  readonly revision: typeof Revision.Encoded
-} | null
+export class PostPageQueryResult extends S.Class<PostPageQueryResult>(
+  'PostPageQueryResult',
+)({
+  post: Post,
+  tags: S.Array(Tag),
+  authors: S.Array(User),
+  revision: Revision,
+}) {}
 
 const postPage = query({
   args: {
@@ -23,7 +26,7 @@ const postPage = query({
   handler: async (
     { db, storage },
     { workspaceSlug, projectSlug, postSlug },
-  ): Promise<PostPageQueryResult> => {
+  ): Promise<typeof PostPageQueryResult.Encoded | null> => {
     const workspace = await db
       .query('workspaces')
       .withIndex('by_slug', (q) => q.eq('slug', workspaceSlug))

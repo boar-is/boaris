@@ -4,30 +4,31 @@ import * as S from '@effect/schema/Schema'
 import * as M from 'effect/Match'
 import * as O from 'effect/Option'
 import { atom, useAtomValue } from 'jotai'
+import { PostPageQueryResult } from '~/convex/queries/postPage'
+import { AuthorsAtomContext } from '~/features/authors-atom-context'
 import { CaptionsAtomContext } from '~/features/captions-atom-context'
 import { LayoutModeAtomContext } from '~/features/layout-mode-atom-context'
+import { PostAtomContext } from '~/features/post-atom-context'
+import { TagsAtomContext } from '~/features/tags-atom-context'
 import { useConstant } from '~/lib/react/use-constant'
 import { useWindowWidthAtom } from '~/lib/react/use-window-width-atom'
 import { remappedCaptions } from '~/model/captions'
 import { determinedLayoutChanges } from '~/model/layoutChange'
 import { determinedLayoutMode } from '~/model/layoutMode'
-import type { Post } from '~/model/post'
-import { Revision } from '~/model/revision'
-import type { Tag } from '~/model/tag'
-import type { User } from '~/model/user'
 import { PostScrolling } from './_/post-scrolling'
 
 export function WorkspaceProjectPostPageClient({
-  revisionEncoded,
+  postPageQueryResult,
 }: {
-  postEncoded: typeof Post.Encoded
-  tagsEncoded: ReadonlyArray<typeof Tag.Encoded>
-  authorsEncoded: ReadonlyArray<typeof User.Encoded>
-  revisionEncoded: typeof Revision.Encoded
+  postPageQueryResult: typeof PostPageQueryResult.Encoded
 }) {
-  const revisionAtom = useConstant(() =>
-    atom(S.decodeSync(Revision)(revisionEncoded)),
-  )
+  const { post, tags, authors, revision } =
+    S.decodeSync(PostPageQueryResult)(postPageQueryResult)
+
+  const postAtom = useConstant(() => atom(post))
+  const tagsAtom = useConstant(() => atom(tags))
+  const authorsAtom = useConstant(() => atom(authors))
+  const revisionAtom = useConstant(() => atom(revision))
 
   const layoutModeAtom = useConstant(() =>
     atom((get) => determinedLayoutMode(get(revisionAtom).layout.modes)),
@@ -62,13 +63,19 @@ export function WorkspaceProjectPostPageClient({
   )
 
   return (
-    <CaptionsAtomContext.Provider value={captionsAtom}>
-      <LayoutModeAtomContext.Provider value={layoutModeAtom}>
-        {M.value(useAtomValue(layoutModeAtom)).pipe(
-          M.when('scrolling', () => <PostScrolling />),
-          M.orElseAbsurd,
-        )}
-      </LayoutModeAtomContext.Provider>
-    </CaptionsAtomContext.Provider>
+    <PostAtomContext.Provider value={postAtom}>
+      <TagsAtomContext.Provider value={tagsAtom}>
+        <AuthorsAtomContext.Provider value={authorsAtom}>
+          <CaptionsAtomContext.Provider value={captionsAtom}>
+            <LayoutModeAtomContext.Provider value={layoutModeAtom}>
+              {M.value(useAtomValue(layoutModeAtom)).pipe(
+                M.when('scrolling', () => <PostScrolling />),
+                M.orElseAbsurd,
+              )}
+            </LayoutModeAtomContext.Provider>
+          </CaptionsAtomContext.Provider>
+        </AuthorsAtomContext.Provider>
+      </TagsAtomContext.Provider>
+    </PostAtomContext.Provider>
   )
 }
