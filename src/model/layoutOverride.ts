@@ -1,5 +1,6 @@
 import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
+import type * as HS from 'effect/HashSet'
 import { Delta, delta } from './_shared/delta'
 import { LayoutMode, layoutMode } from './layoutMode'
 
@@ -30,4 +31,21 @@ export class LayoutOverride extends S.Class<LayoutOverride>('LayoutOverride')({
       changesDelta,
     }
   }
+}
+
+export const determineOverride = ({
+  layoutMode,
+  layoutModes,
+  overrides,
+  width,
+  includeDisabled = false,
+}: {
+  layoutMode: typeof LayoutMode.Type
+  layoutModes: HS.HashSet<typeof LayoutMode.Type>
+  overrides: Array<typeof LayoutOverride.Type>
+  width: number
+  includeDisabled?: boolean | undefined
+}) => {
+  // TODO Implement
+  return undefined
 }
