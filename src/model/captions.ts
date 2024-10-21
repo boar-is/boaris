@@ -26,7 +26,7 @@ export class Captions extends S.Class<Captions>('Captions')({
 
 export const remappedCaptions = (
   captions: typeof Captions.Type,
-  layoutChanges: Array<typeof LayoutChange.Type>,
+  layoutChanges: ReadonlyArray<typeof LayoutChange.Type>,
 ) => {
   // TODO Implement cutting skipped parts
   // TODO Implement compound interpolation
