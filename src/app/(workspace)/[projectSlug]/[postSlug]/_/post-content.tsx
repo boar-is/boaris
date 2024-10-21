@@ -1,15 +1,11 @@
 'use client'
 
-import { observer } from '@legendapp/state/react'
 import { Match } from 'effect'
-import { useLayoutModeAtom } from '~/features/layout-mode-atom-provider'
 import { PostScrolling } from './post-scrolling'
 
-export const PostContent = observer(function PostContent() {
-  const layoutModeAtom = useLayoutModeAtom()
-
-  return Match.value(layoutModeAtom.get()).pipe(
+export const PostContent = function PostContent() {
+  return Match.value(layoutMode).pipe(
     Match.when('scrolling', () => <PostScrolling />),
     Match.orElseAbsurd,
   )
-})
+}
