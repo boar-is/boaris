@@ -22,12 +22,5 @@ export default async function WorkspaceProjectPostPage({
     notFound()
   }
 
-  return (
-    <WorkspaceProjectPostPageClient
-      postEncoded={result.post}
-      tagsEncoded={result.tags}
-      authorsEncoded={result.authors}
-      revisionEncoded={result.revision}
-    />
-  )
+  return <WorkspaceProjectPostPageClient postPageQueryResult={result} />
 }
