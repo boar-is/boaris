@@ -55,11 +55,13 @@ export function WorkspaceProjectPostPageClient({
   )
 
   const captionsAtom = useConstant(() =>
-    atom((get) => {
-      return get(revisionAtom).captions.pipe(
-        O.map((captions) => remappedCaptions(captions, get(layoutChangesAtom))),
-      )
-    }),
+    atom((get) =>
+      get(revisionAtom).captions.pipe(
+        O.andThen((captions) =>
+          remappedCaptions(captions, get(layoutChangesAtom)),
+        ),
+      ),
+    ),
   )
 
   return (

@@ -42,20 +42,18 @@ export default async function WorkspaceProjectPage({
             <Link key={post.slug} href={`/${project.slug}/${post.slug}`}>
               <article className="group rounded-xl lg:rounded-3xl flex flex-col lg:flex-row gap-4 lg:gap-8 p-4 lg:p-6 justify-between items-center border border-gray-3 overflow-hidden transition-colors bg-gradient-to-tr from-gray-1/90 to-gray-2/90">
                 {post.thumbnailUrl.pipe(
-                  O.match({
-                    onSome: (url) => (
-                      <aside className="relative lg:basis-1/2 xl:basis-1/3">
-                        <Image
-                          src={url}
-                          alt={`${post.title}'s thumbnail`}
-                          width={1024}
-                          height={768}
-                          className="object-cover sizes-full rounded-xl lg:rounded-2xl"
-                        />
-                      </aside>
-                    ),
-                    onNone: () => null,
-                  }),
+                  O.andThen((url) => (
+                    <aside className="relative lg:basis-1/2 xl:basis-1/3">
+                      <Image
+                        src={url}
+                        alt={`${post.title}'s thumbnail`}
+                        width={1024}
+                        height={768}
+                        className="object-cover sizes-full rounded-xl lg:rounded-2xl"
+                      />
+                    </aside>
+                  )),
+                  O.getOrNull,
                 )}
                 <section className="flex-1 flex flex-col gap-2 lg:gap-3">
                   <header>
@@ -66,11 +64,8 @@ export default async function WorkspaceProjectPage({
                   {tagsByPostSlug.pipe(
                     HM.get(post.slug),
                     O.filter((it) => it.length > 0),
-                    O.map((tags) => (
-                      <ul
-                        key="0"
-                        className="flex flex-wrap gap-1 lg:gap-1.5 text-xs lg:text-sm font-medium tracking-wide text-gray-8 *:my-0.5"
-                      >
+                    O.andThen((tags) => (
+                      <ul className="flex flex-wrap gap-1 lg:gap-1.5 text-xs lg:text-sm font-medium tracking-wide text-gray-8 *:my-0.5">
                         {tags.map((tag) => (
                           <li key={tag.slug}>
                             <span className="border border-gray-7 rounded-full px-3 py-0.5">
@@ -84,45 +79,38 @@ export default async function WorkspaceProjectPage({
                   )}
 
                   {post.lead.pipe(
-                    O.match({
-                      onSome: (lead) => (
-                        <p className="text-gray-10 text-pretty !leading-relaxed max-w-prose">
-                          {lead}
-                        </p>
-                      ),
-                      onNone: () => null,
-                    }),
+                    O.andThen((lead) => (
+                      <p className="text-gray-10 text-pretty !leading-relaxed max-w-prose">
+                        {lead}
+                      </p>
+                    )),
+                    O.getOrNull,
                   )}
 
                   <footer className="flex justify-between gap-8 items-center">
                     {authorsByPostSlug.pipe(
                       HM.get(post.slug),
                       O.filter((it) => it.length > 0),
-                      O.map((authors) => (
-                        <ul
-                          key="0"
-                          className="space-y-1 lg:space-y-2 text-gray-8 text-sm lg:text-base font-medium tracking-tight"
-                        >
+                      O.andThen((authors) => (
+                        <ul className="space-y-1 lg:space-y-2 text-gray-8 text-sm lg:text-base font-medium tracking-tight">
                           {authors.map((author) => (
                             <li
                               key={author.slug}
                               className="flex items-center gap-1.5 lg:gap-2"
                             >
                               {author.avatarUrl.pipe(
-                                O.match({
-                                  onSome: (url) => (
-                                    <aside className="relative size-6 lg:size-8 rounded-full overflow-hidden border shadow-inner">
-                                      <Image
-                                        src={url}
-                                        alt={`${author.name}'s avatar`}
-                                        width={32}
-                                        height={32}
-                                        className="size-full object-cover shadow-inner"
-                                      />
-                                    </aside>
-                                  ),
-                                  onNone: () => null,
-                                }),
+                                O.andThen((url) => (
+                                  <aside className="relative size-6 lg:size-8 rounded-full overflow-hidden border shadow-inner">
+                                    <Image
+                                      src={url}
+                                      alt={`${author.name}'s avatar`}
+                                      width={32}
+                                      height={32}
+                                      className="size-full object-cover shadow-inner"
+                                    />
+                                  </aside>
+                                )),
+                                O.getOrNull,
                               )}
                               {author.name}
                             </li>
