@@ -9,7 +9,7 @@ import {
   useRef,
 } from 'react'
 import { ActionsProvider } from '~/features/chunk/actions-provider'
-import { useLayoutChangesAtom } from '~/features/layout/layout-changes-atom-provider'
+import { useLayoutChangesAtom } from '~/features/layout-changes-atom-provider'
 import { useLayout } from '~/features/layout/use-layout'
 import { useLayoutChangesAtomIndex } from '~/features/layout/use-layout-changes-index'
 import { useLayoutProgress } from '~/features/layout/use-layout-progress'
@@ -31,13 +31,16 @@ export function PostScrollingLayout() {
 
   const changes$ = useLayoutChangesAtom()
 
+  // use transformer function in atom, not interpolation
   const interpolation$ = useLayoutProgressInterpolation(changes$)
 
+  // use transformer function in atom, not interpolation
   const progress$ = useLayoutProgress({
     playbackProgress,
     interpolation$,
   })
 
+  // findClosestIndex(changes$.get(), progress$.get(), (it) => it.at)!
   const index$ = useLayoutChangesAtomIndex({ changes$, progress$ })
 
   // changes$.get()[index$.get()]?.value!

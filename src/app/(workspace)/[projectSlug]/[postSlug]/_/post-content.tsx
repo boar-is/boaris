@@ -2,7 +2,7 @@
 
 import { observer } from '@legendapp/state/react'
 import { Match } from 'effect'
-import { useLayoutModeAtom } from '~/features/layout/layout-mode-atom-provider'
+import { useLayoutModeAtom } from '~/features/layout-mode-atom-provider'
 import { PostScrolling } from './post-scrolling'
 
 export const PostContent = observer(function PostContent() {
