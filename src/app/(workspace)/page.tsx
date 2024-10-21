@@ -1,5 +1,6 @@
 import * as S from '@effect/schema/Schema'
 import { fetchQuery } from 'convex/nextjs'
+import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
 import { WorkspacePageQueryResult } from '~/convex/queries/workspacePage'
 import { currentWorkspaceSlug } from '~/lib/constants'
@@ -17,7 +18,7 @@ export default async function WorkspacePage({
   })
 
   if (!result) {
-    return null
+    notFound()
   }
 
   const { workspace } = S.decodeSync(WorkspacePageQueryResult)(result)
