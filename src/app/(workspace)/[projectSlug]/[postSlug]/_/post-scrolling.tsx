@@ -1,7 +1,12 @@
 'use client'
 
+import { useEditor } from '@tiptap/react'
+import * as O from 'effect/Option'
+import { useAtomValue } from 'jotai'
 import { PostScrollingLayout } from '~/app/(workspace)/[projectSlug]/[postSlug]/_/post-scrolling-layout'
+import { useCaptionsAtom } from '~/features/captions-atom-context'
 import { PlaybackProgressAtomProvider } from '~/features/playback-progress-atom-provider'
+import { defaultEditorOptions } from '~/lib/prosemirror/default-editor-options'
 import { defaultEditorExtensions } from '~/lib/prosemirror/defaultEditorExtensions'
 import { StaticEditorContent } from '~/lib/prosemirror/static-editor-content'
 import {
@@ -24,19 +29,20 @@ export function PostScrolling() {
 }
 
 function PostScrollingContent() {
-  const captions = useSelector(result$.captions)
-  // remappedCaptions
-  const layoutCaptions = useCaptions({ captions })
-
-  if (!layoutCaptions) {
+  const { content, interpolation } = useAtomValue(useCaptionsAtom()).pipe(
     // TODO implement post without captions
-    throw new Error('post without captions is not implemented')
-  }
+    O.getOrThrow,
+  )
 
-  // just use ordinary useEditor, maybe with default props
-  const editor = useCaptionsEditor(
-    layoutCaptions.content,
-    defaultEditorExtensions,
+  const extensions = defaultEditorExtensions
+
+  const editor = useEditor(
+    {
+      ...defaultEditorOptions,
+      content,
+      extensions,
+    },
+    [content],
   )
 
   return (
@@ -45,13 +51,10 @@ function PostScrollingContent() {
         {editor ? (
           <PostScrollingCaptions
             editor={editor}
-            interpolation={layoutCaptions.interpolation}
+            interpolation={interpolation}
           />
         ) : (
-          <StaticEditorContent
-            content={layoutCaptions.content}
-            extensions={defaultEditorExtensions}
-          />
+          <StaticEditorContent content={content} extensions={extensions} />
         )}
       </div>
       <PostScrollingLayout />
