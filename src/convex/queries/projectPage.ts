@@ -1,10 +1,10 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
-import type { Post } from '~/convex/data/post'
-import type { Project } from '~/convex/data/project'
-import type { Tag } from '~/convex/data/tag'
-import type { User } from '~/convex/data/user'
-import { readableFromTimestamp } from '~/lib/utils/readable-from-timestamp'
+import { Post } from '~/convex/data/post'
+import { Project } from '~/convex/data/project'
+import { Tag } from '~/convex/data/tag'
+import { User } from '~/convex/data/user'
+import { getUrlProps } from '~/convex/utils/props-with-get-url'
 
 export type ProjectPageQueryResult = {
   readonly project: typeof Project.Encoded
@@ -49,53 +49,58 @@ const projectPage = query({
       .order('desc')
       .take(25)
 
-    const posts = await Promise.all(
-      latestPosts.map(async (post) => {
-        const [postTags, postAuthors] = await Promise.all([
-          db
-            .query('postTags')
-            .withIndex('by_postId', (q) => q.eq('postId', post._id))
-            .collect(),
-          db
-            .query('postAuthors')
-            .withIndex('by_postId', (q) => q.eq('postId', post._id))
-            .collect(),
-        ])
+    const getUrl = getUrlProps(storage)
 
-        const [tags, authors, thumbnailUrl] = await Promise.all([
-          Promise.all(postTags.map((it) => db.get(it.tagId).then((it) => it!))),
-          Promise.all(
-            postAuthors.map((it) => db.get(it.authorId).then((it) => it!)),
-          ),
-          post.thumbnailId && storage.getUrl(post.thumbnailId),
-        ])
-
-        return {
-          slug: post.slug,
-          title: post.title,
-          lead: post.lead,
-          description: post.description,
-          thumbnailUrl: thumbnailUrl ?? undefined,
-          date: readableFromTimestamp(post._creationTime),
-          tags: tags.map((it) => ({
-            slug: it.slug,
-            name: it.name,
-          })),
-          authors: authors.map((it) => ({
-            slug: it.slug,
-            name: it.name,
-            avatarUrl: it.avatarUrl,
-          })),
-        }
-      }),
-    )
+    const [posts, tagsByPostIdEntries, authorsByPostIdEntries] =
+      await Promise.all([
+        Promise.all(
+          latestPosts.map((post) => Post.encodedFromEntity(post, getUrl)),
+        ),
+        Promise.all(
+          latestPosts.map(async (post) => {
+            const postTags = await db
+              .query('postTags')
+              .withIndex('by_postId', (q) => q.eq('postId', post._id))
+              .collect()
+            return Promise.all(
+              postTags.map(
+                async (it) =>
+                  [
+                    post._id,
+                    Tag.encodedFromEntity(
+                      await db.get(it.tagId).then((it) => it!),
+                    ),
+                  ] as const,
+              ),
+            )
+          }),
+        ),
+        Promise.all(
+          latestPosts.map(async (post) => {
+            const postAuthors = await db
+              .query('postAuthors')
+              .withIndex('by_postId', (q) => q.eq('postId', post._id))
+              .collect()
+            return Promise.all(
+              postAuthors.map(
+                async (it) =>
+                  [
+                    post._id,
+                    User.encodedFromEntity(
+                      await db.get(it.authorId).then((it) => it!),
+                    ),
+                  ] as const,
+              ),
+            )
+          }),
+        ),
+      ])
 
     return {
-      project: {
-        name: project.name,
-        slug: project.slug,
-      },
+      project: Project.encodedFromEntity(project),
       posts,
+      tagsByPostId: Object.fromEntries(tagsByPostIdEntries),
+      authorsByPostId: Object.fromEntries(authorsByPostIdEntries),
     }
   },
 })
