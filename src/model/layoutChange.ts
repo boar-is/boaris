@@ -1,6 +1,8 @@
 import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
 import { applyOverrideDelta } from '~/features/apply-override-delta'
+import { toFixed } from '~/lib/utils/to-fixed'
+import { Interpolation } from '~/model/_shared/interpolation'
 import { determinedOverride } from '~/model/layoutOverride'
 import { LayoutLayers, layoutLayers } from './layoutLayers'
 
@@ -45,4 +47,52 @@ export const determinedLayoutChanges = ({
 }) => {
   const override = determinedOverride(determineOverrideProps)
   return applyOverrideDelta(changes, override)
+}
+
+const defaultInterpolation = [0, 1]
+
+export const layoutProgressInterpolationFromChanges = (
+  changes: Array<{ at: number; value?: unknown }>,
+  digits = 5,
+): typeof Interpolation.Type => {
+  let trueRatio = 0
+  for (let i = 0; i < changes.length; i++) {
+    if (!changes[i]!.value) {
+      continue
+    }
+
+    const start = changes[i]?.at!
+    const end = changes[i + 1]?.at
+
+    trueRatio += (end ?? 1) - start
+  }
+
+  const multiplier = 1 / trueRatio
+
+  const toFixedDigits = toFixed(digits)
+
+  const input: Array<number> = []
+  const output: Array<number> = []
+
+  let startingRatio = 0
+  for (let i = 0; i < changes.length; i++) {
+    if (!changes[i]!.value) {
+      continue
+    }
+
+    const start = changes[i]?.at!
+    const end = changes[i + 1]?.at ?? 1
+
+    const mappedInputEnd = startingRatio + (end - start) * multiplier
+
+    input.push(toFixedDigits(startingRatio), toFixedDigits(mappedInputEnd))
+    output.push(toFixedDigits(start), toFixedDigits(end))
+
+    startingRatio = mappedInputEnd
+  }
+
+  return new Interpolation({
+    input: input.length ? input : defaultInterpolation,
+    output: output.length ? output : defaultInterpolation,
+  })
 }
