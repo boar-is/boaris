@@ -1,10 +1,12 @@
-import type { LayoutChange } from '~/convex/data/layoutChange'
-import type { LayoutOverride } from '~/convex/data/layoutOverride'
 import { diffpatcher } from '~/lib/diffpatcher'
+import type { LayoutChange } from '~/model/layoutChange'
+import type { LayoutOverride } from '~/model/layoutOverride'
 
 export const applyOverrideDelta = (
-  changes: Array<typeof LayoutChange.Type>,
+  changes: ReadonlyArray<typeof LayoutChange.Type>,
   delta: (typeof LayoutOverride.Type)['changesDelta'],
 ) => {
-  return diffpatcher.patch(changes, delta) as Array<typeof LayoutChange.Type>
+  return diffpatcher.patch(changes, delta) as ReadonlyArray<
+    typeof LayoutChange.Type
+  >
 }

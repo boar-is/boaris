@@ -34,17 +34,17 @@ export class LayoutOverride extends S.Class<LayoutOverride>('LayoutOverride')({
 }
 
 export const determinedOverride = ({
-  layoutMode,
-  layoutModes,
+  mode,
+  modes,
   overrides,
   width,
   includeDisabled = false,
 }: {
-  layoutMode: typeof LayoutMode.Type
-  layoutModes: HS.HashSet<typeof LayoutMode.Type>
-  overrides: Array<typeof LayoutOverride.Type>
-  width: number
-  includeDisabled?: boolean | undefined
+  readonly mode: typeof LayoutMode.Type
+  readonly modes: HS.HashSet<typeof LayoutMode.Type>
+  readonly overrides: ReadonlyArray<typeof LayoutOverride.Type>
+  readonly width: number
+  readonly includeDisabled?: boolean | undefined
 }) => {
   // TODO Implement
   return undefined

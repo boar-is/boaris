@@ -8,8 +8,8 @@ export const useWindowWidthAtom = (
     debounceDelay: 250,
   },
 ) => {
-  const width$ = useConstant(() => atom(0))
-  const setWidth = useSetAtom(width$)
+  const widthAtom = useConstant(() => atom(0))
+  const setWidth = useSetAtom(widthAtom)
 
   const { width } = useWindowSize({
     ...options,
@@ -18,5 +18,5 @@ export const useWindowWidthAtom = (
 
   useEffect(() => setWidth(width ?? 0), [setWidth, width])
 
-  return width$
+  return widthAtom
 }

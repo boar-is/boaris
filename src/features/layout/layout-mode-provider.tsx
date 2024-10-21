@@ -1,36 +1,29 @@
 'use client'
 
-import type { Observable } from '@legendapp/state'
-import { useObservable } from '@legendapp/state/react'
+import type * as HS from 'effect/HashSet'
+import { type Atom, atom } from 'jotai'
 import type { PropsWithChildren } from 'react'
-import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
+import { determineLayoutMode } from '~/features/determine-layout-mode'
 import { createStrictContext } from '~/lib/react/create-strict-context'
+import { useConstant } from '~/lib/react/use-constant'
+import type { LayoutMode } from '~/model/layoutMode'
 
-export const [LayoutModeContext, useLayoutMode$] = createStrictContext<
-  Observable<LayoutMode>
+export const [LayoutModeContext, useLayoutMode] = createStrictContext<
+  Atom<typeof LayoutMode.Type>
 >({
   name: 'LayoutModeContext',
 })
 
 export function LayoutModeProvider({
   children,
-  primaryLayoutModes = [],
+  modes,
 }: PropsWithChildren & {
-  primaryLayoutModes?: Array<LayoutMode> | undefined
+  modes: HS.HashSet<typeof LayoutMode.Type>
 }) {
-  const initialLayoutMode: LayoutMode =
-    !primaryLayoutModes?.length || primaryLayoutModes.includes('static')
-      ? 'static'
-      : primaryLayoutModes.includes('scrolling')
-        ? 'scrolling'
-        : primaryLayoutModes.includes('sliding')
-          ? 'sliding'
-          : 'watching'
-
-  const layoutMode$ = useObservable(initialLayoutMode)
-
   return (
-    <LayoutModeContext.Provider value={layoutMode$}>
+    <LayoutModeContext.Provider
+      value={useConstant(() => atom(determineLayoutMode(modes)))}
+    >
       {children}
     </LayoutModeContext.Provider>
   )
