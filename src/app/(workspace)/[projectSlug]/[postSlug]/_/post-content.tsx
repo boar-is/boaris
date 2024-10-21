@@ -1,11 +1,15 @@
 'use client'
 
-import { Match } from 'effect'
+import * as M from 'effect/Match'
+import { useAtomValue } from 'jotai'
+import { useLayoutModeAtom } from '~/features/layout-mode-atom-context'
 import { PostScrolling } from './post-scrolling'
 
-export const PostContent = function PostContent() {
-  return Match.value(layoutMode).pipe(
-    Match.when('scrolling', () => <PostScrolling />),
-    Match.orElseAbsurd,
+export function PostContent() {
+  const layoutMode = useAtomValue(useLayoutModeAtom())
+
+  return M.value(layoutMode).pipe(
+    M.when('scrolling', () => <PostScrolling />),
+    M.orElseAbsurd,
   )
 }

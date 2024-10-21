@@ -8,7 +8,7 @@ import {
   type LayoutChange,
   determinedLayoutChanges,
 } from '~/model/layoutChange'
-import { useLayoutModeAtom } from './layout-mode-atom-provider'
+import { useLayoutModeAtom } from './layout-mode-atom-context'
 
 export const [LayoutChangesAtomContext, useLayoutChangesAtom] =
   createStrictContext<Atom<ReadonlyArray<typeof LayoutChange.Type>>>({

@@ -16,7 +16,7 @@ export const LayoutMode = S.Literal(
   'sliding',
 )
 
-export const determineLayoutMode = (
+export const determinedLayoutMode = (
   modes: HS.HashSet<typeof LayoutMode.Type>,
 ) => {
   if (HS.has(modes, 'static')) {
