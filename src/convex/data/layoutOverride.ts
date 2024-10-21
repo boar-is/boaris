@@ -13,7 +13,7 @@ export const layoutOverride = v.object({
 
 export class LayoutOverride extends S.Class<LayoutOverride>('LayoutOverride')({
   name: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
-  modes: S.Array(LayoutMode),
+  modes: S.HashSet(LayoutMode),
   minWidth: S.OptionFromUndefinedOr(S.Number),
   changesDelta: Delta,
 }) {

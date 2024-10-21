@@ -11,7 +11,7 @@ export const layout = v.object({
 })
 
 export class Layout extends S.Class<Layout>('Layout')({
-  modes: S.Array(LayoutMode),
+  modes: S.HashSet(LayoutMode),
   changes: S.Array(LayoutChange),
   overrides: S.Array(LayoutOverride),
 }) {
