@@ -19,14 +19,16 @@ export class Revision extends S.Class<Revision>('Revision')({
 }) {
   static async encodedFromEntity(
     { captions, layout, tracks }: Infer<typeof revision>,
-    actions: Array<Infer<typeof action>>,
+    actionsByTrackId: Record<string, Array<Infer<typeof action>>>,
     { getUrl }: PropsWithGetUrl,
   ): Promise<typeof Revision.Encoded> {
     return {
       captions: captions && Captions.encodedFromEntity(captions),
       layout: Layout.encodedFromEntity(layout),
       tracks: await Promise.all(
-        tracks.map((it) => trackEncodedFromEntity(it, actions, { getUrl })),
+        tracks.map((it) =>
+          trackEncodedFromEntity(it, actionsByTrackId[it.id]!, { getUrl }),
+        ),
       ),
     }
   }

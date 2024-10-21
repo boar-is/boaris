@@ -1,83 +1,17 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
-import type { Delta } from '~/convex/values/_shared/delta'
-import type { Interpolation } from '~/convex/values/_shared/interpolation'
-import type { Action } from '~/convex/values/chunks/action'
-import type { CaptionsContent } from '~/convex/values/revisions/captions/captionsContent'
-import type { LayoutChange } from '~/convex/values/revisions/layouts/layoutChange'
-import type { LayoutMode } from '~/convex/values/revisions/layouts/layoutMode'
-import { readableFromTimestamp } from '~/lib/utils/readable-from-timestamp'
+import { Post } from '~/convex/data/post'
+import { Revision } from '~/convex/data/revision'
+import { Tag } from '~/convex/data/tag'
+import { toActionsByTrackId } from '~/convex/data/trackChunk'
+import { User } from '~/convex/data/user'
+import { getUrlProps } from '~/convex/utils/props-with-get-url'
 
 export type PostPageQueryResult = {
-  readonly post: {
-    title: string
-    lead: string | undefined
-    description: string
-    date: string
-    thumbnailUrl: string | undefined
-  }
-  tags: Array<{
-    slug: string
-    name: string
-  }>
-  authors: Array<{
-    slug: string
-    name: string
-    avatarUrl: string | undefined
-  }>
-  captions:
-    | {
-        content: CaptionsContent
-        interpolation: Interpolation | undefined
-      }
-    | undefined
-  layouts:
-    | {
-        primary: {
-          modes: Array<LayoutMode>
-          /**
-           * this field should be mapped as-is due to the patching logic, see changesDelta from overrides
-           */
-          changes: Array<LayoutChange> | undefined
-        }
-        overrides:
-          | Array<{
-              modes: Array<LayoutMode>
-              minWidth: number | undefined
-              changesDelta: Delta
-            }>
-          | undefined
-      }
-    | undefined
-  tracks:
-    | Array<
-        | {
-            id: string
-            name: string
-            type: 'dynamic-image'
-            url: string
-            caption: string | undefined
-          }
-        | {
-            id: string
-            name: string
-            type: 'static-image'
-            url: string
-            caption: string | undefined
-            alt: string | undefined
-          }
-        | {
-            id: string
-            name: string
-            type: 'text'
-            value: string
-          }
-      >
-    | undefined
-  chunks: Array<{
-    offset: number
-    actions: Record<string, Array<Action>>
-  }>
+  readonly post: typeof Post.Encoded
+  readonly tags: ReadonlyArray<typeof Tag.Encoded>
+  readonly authors: ReadonlyArray<typeof User.Encoded>
+  readonly revision: typeof Revision.Encoded
 } | null
 
 const postPage = query({
@@ -110,127 +44,66 @@ const postPage = query({
       return project
     }
 
-    const post = await db
+    const postEntity = await db
       .query('posts')
       .withIndex('by_projectId_slug', (q) =>
         q.eq('projectId', project._id).eq('slug', postSlug),
       )
       .unique()
 
-    if (!post?.publishedRevisionId) {
+    if (!postEntity?.publishedRevisionId) {
       return null
     }
 
-    const revision = await db.get(post.publishedRevisionId)
+    const revisionEntity = await db.get(postEntity.publishedRevisionId)
 
-    if (!revision) {
+    if (!revisionEntity) {
       return null
     }
 
-    const [postTags, postAuthors, chunks] = await Promise.all([
+    const getUrl = getUrlProps(storage)
+
+    const [post, postTags, postAuthors, trackChunks] = await Promise.all([
+      Post.encodedFromEntity(postEntity, getUrl),
       db
         .query('postTags')
-        .withIndex('by_postId', (q) => q.eq('postId', post._id))
+        .withIndex('by_postId', (q) => q.eq('postId', postEntity._id))
         .collect(),
       db
         .query('postAuthors')
-        .withIndex('by_postId', (q) => q.eq('postId', post._id))
+        .withIndex('by_postId', (q) => q.eq('postId', postEntity._id))
         .collect(),
       db
-        .query('chunks')
-        .withIndex('by_revisionId', (q) => q.eq('revisionId', revision._id))
+        .query('trackChunks')
+        .withIndex('by_revisionId', (q) =>
+          q.eq('revisionId', revisionEntity._id),
+        )
         .collect(),
     ])
 
-    const [tags, authors, thumbnailUrl] = await Promise.all([
-      Promise.all(postTags.map((it) => db.get(it.tagId).then((it) => it!))),
+    const [tags, authors, revision] = await Promise.all([
       Promise.all(
-        postAuthors.map((it) => db.get(it.authorId).then((it) => it!)),
+        postTags.map((it) =>
+          db.get(it.tagId).then((it) => Tag.encodedFromEntity(it!)),
+        ),
       ),
-      post.thumbnailId && storage.getUrl(post.thumbnailId),
+      Promise.all(
+        postAuthors.map((it) =>
+          db.get(it.authorId).then((it) => User.encodedFromEntity(it!)),
+        ),
+      ),
+      Revision.encodedFromEntity(
+        revisionEntity,
+        toActionsByTrackId(trackChunks),
+        getUrl,
+      ),
     ])
 
-    const captions = revision.captions && {
-      content: revision.captions.content,
-      interpolation: revision.captions.interpolation,
-    }
-
-    const layouts = revision.layouts && {
-      primary: {
-        modes: revision.layouts.primary.modes,
-        changes: revision.layouts.primary.changes,
-      },
-      overrides: revision.layouts.overrides
-        ?.filter((it) => !it.disabled)
-        .map((it) => ({
-          modes: it.modes,
-          minWidth: it.minWidth,
-          changesDelta: it.changesDelta,
-        })),
-    }
-
-    const tracks =
-      revision.tracks &&
-      (await Promise.all(
-        revision.tracks.map(async (track) => {
-          switch (track.type) {
-            case 'image-dynamic': {
-              return {
-                id: track.id,
-                name: track.name,
-                type: track.type,
-                url: (await storage.getUrl(track.storageId))!,
-                caption: track.caption,
-              }
-            }
-            case 'image-static': {
-              return {
-                id: track.id,
-                name: track.name,
-                type: track.type,
-                url: (await storage.getUrl(track.storageId))!,
-                caption: track.caption,
-                alt: track.alt,
-              }
-            }
-            case 'text': {
-              return {
-                id: track.id,
-                name: track.name,
-                type: track.type,
-                value: track.value,
-              }
-            }
-            default:
-              throw new Error(`Unknown track type '${track['type']}'`)
-          }
-        }),
-      ))
-
     return {
-      post: {
-        title: post.title,
-        lead: post.lead,
-        description: post.description,
-        date: readableFromTimestamp(post._creationTime),
-        thumbnailUrl: thumbnailUrl ?? undefined,
-      },
-      tags: tags.map((it) => ({
-        slug: it.slug,
-        name: it.name,
-      })),
-      authors: authors.map((it) => ({
-        slug: it.slug,
-        name: it.name,
-        avatarUrl: it.avatarUrl,
-      })),
-      captions,
-      layouts,
-      tracks,
-      chunks: chunks.map((it) => ({
-        offset: it.offset,
-        actions: it.actions,
-      })),
+      post,
+      tags,
+      authors,
+      revision,
     }
   },
 })
