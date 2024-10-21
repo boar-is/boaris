@@ -1,8 +1,8 @@
 import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
 import type { LayoutChange } from '~/model/layoutChange'
-import { Interpolation, interpolation } from './_shared/interpolation'
-import { JsonContent, jsonContent } from './_shared/jsonContent'
+import { Interpolation, interpolation } from './interpolation'
+import { JsonContent, jsonContent } from './jsonContent'
 
 export const captions = v.object({
   content: jsonContent,

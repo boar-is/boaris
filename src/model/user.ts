@@ -1,6 +1,6 @@
 import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
-import { SocialLink, socialLink } from './_shared/socialLink'
+import { SocialLink, socialLink } from './socialLink'
 
 export const user = v.object({
   slug: v.string(),

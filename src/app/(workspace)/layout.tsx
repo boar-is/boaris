@@ -6,7 +6,6 @@ import type { CSSProperties, PropsWithChildren } from 'react'
 import { api } from '~/convex/_generated/api'
 import { WorkspaceLayoutQueryResult } from '~/convex/queries/workspaceLayout'
 import { matchSocialNetworkIcon } from '~/features/match-social-network-icon'
-import { matchSocialNetworkName } from '~/features/match-social-network-name'
 import { NewsletterSubscriptionFormProvider } from '~/features/newsletter-subscription-form-provider'
 import { Button } from '~/lib/buttons/button'
 import { Menu, MenuItem, MenuTrigger } from '~/lib/collections/menu'
@@ -25,6 +24,7 @@ import { Dialog, DialogTrigger } from '~/lib/overlays/dialog'
 import { Modal, ModalOverlay } from '~/lib/overlays/modal'
 import { Popover } from '~/lib/overlays/popover'
 import { cx } from '~/lib/utils/cx'
+import { getComputedLabel } from '~/model/socialLink'
 
 const layerCx = cx('border border-gray-4 rounded-2xl p-4')
 const mutedCx = cx('transition-colors text-gray-10 hover:text-gray-12')
@@ -52,12 +52,6 @@ export default async function WorkspaceLayout({
   }
 
   const { workspace } = S.decodeSync(WorkspaceLayoutQueryResult)(result)
-
-  const getComputedLabel = (label: O.Option<string>, href: string) =>
-    label.pipe(
-      O.orElse(() => matchSocialNetworkName(href)),
-      O.getOrElse(() => 'Link'),
-    )
 
   return (
     <div className="flex flex-col gap-4 md:gap-10 items-stretch min-h-dvh">
@@ -100,8 +94,9 @@ export default async function WorkspaceLayout({
                 Blog
               </Link>
             </li>
-            {workspace.socialLinks?.map(({ label, href }, index) => {
-              const computedLabel = getComputedLabel(label, href)
+            {workspace.socialLinks.map((socialLink, index) => {
+              const computedLabel = getComputedLabel(socialLink)
+              const { href } = socialLink
               const Icon = matchSocialNetworkIcon(href)
 
               return (
@@ -252,7 +247,7 @@ export default async function WorkspaceLayout({
                     </Section>
                     <Section className={sectionMobileCx}>
                       <Header className={headerMobileCx}>Social</Header>
-                      {workspace.socialLinks?.map((socialLink) => (
+                      {workspace.socialLinks.map((socialLink) => (
                         <MenuItem
                           key={socialLink.href}
                           href={socialLink.href}
@@ -260,7 +255,7 @@ export default async function WorkspaceLayout({
                           rel="noopener noreferrer"
                           className={itemMobileCx}
                         >
-                          {getComputedLabel(socialLink.label, socialLink.href)}
+                          {getComputedLabel(socialLink)}
                         </MenuItem>
                       ))}
                     </Section>
@@ -280,15 +275,18 @@ export default async function WorkspaceLayout({
                 {workspace.name}
               </Link>
             </li>
-            {workspace.socialLinks?.map(({ label, href }, index) => (
-              <li key={href} className={cx({ 'ml-auto': index === 0 })}>
+            {workspace.socialLinks.map((socialLink, index) => (
+              <li
+                key={socialLink.href}
+                className={cx({ 'ml-auto': index === 0 })}
+              >
                 <a
-                  href={href}
+                  href={socialLink.href}
                   target="_blank"
                   rel="noreferrer"
                   className="rounded-sm px-2"
                 >
-                  {getComputedLabel(label, href)}
+                  {getComputedLabel(socialLink)}
                 </a>
               </li>
             ))}

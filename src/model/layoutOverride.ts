@@ -3,7 +3,7 @@ import { type Infer, v } from 'convex/values'
 import type * as HS from 'effect/HashSet'
 import { diffpatcher } from '~/lib/diffpatcher'
 import type { LayoutChange } from '~/model/layoutChange'
-import { Delta, delta } from './_shared/delta'
+import { Delta, delta } from './delta'
 import { LayoutMode, layoutMode } from './layoutMode'
 
 export const layoutOverride = v.object({
