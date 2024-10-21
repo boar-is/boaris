@@ -1,7 +1,7 @@
 import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
 import type { action } from '~/convex/data/action'
-import type { PropsWithGetUrl } from '~/convex/utils/props-with-get-url'
+import type { PropsWithGetUrl } from '~/convex/utils/propsWithGetUrl'
 import { TrackBase, trackBase } from './trackBase'
 
 export const trackImageStatic = v.object({

@@ -1,6 +1,9 @@
 {
   "functions": "src/convex/",
   "node": {
-    "externalPackages": ["effect", "@effect/schema"]
+    "externalPackages": [
+      "effect",
+      "@effect/schema"
+    ]
   }
 }

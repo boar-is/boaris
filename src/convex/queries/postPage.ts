@@ -5,7 +5,7 @@ import { Revision } from '~/convex/data/revision'
 import { Tag } from '~/convex/data/tag'
 import { toActionsByTrackId } from '~/convex/data/trackChunk'
 import { User } from '~/convex/data/user'
-import { getUrlProps } from '~/convex/utils/props-with-get-url'
+import { getUrlProps } from '~/convex/utils/propsWithGetUrl'
 
 export type PostPageQueryResult = {
   readonly post: typeof Post.Encoded

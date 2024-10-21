@@ -4,7 +4,7 @@ import { Post } from '~/convex/data/post'
 import { Project } from '~/convex/data/project'
 import { Tag } from '~/convex/data/tag'
 import { User } from '~/convex/data/user'
-import { getUrlProps } from '~/convex/utils/props-with-get-url'
+import { getUrlProps } from '~/convex/utils/propsWithGetUrl'
 
 export type ProjectPageQueryResult = {
   readonly project: typeof Project.Encoded
