@@ -14,7 +14,7 @@ import { useLayout } from '~/features/layout/use-layout'
 import { useLayoutChangesAtomIndex } from '~/features/layout/use-layout-changes-index'
 import { useLayoutProgress } from '~/features/layout/use-layout-progress'
 import { useLayoutProgressInterpolation } from '~/features/layout/use-layout-progress-interpolation'
-import { usePlaybackProgress } from '~/features/playback/playback-progress-provider'
+import { usePlaybackProgress } from '~/features/playback-progress-atom-provider'
 import {
   type PostPageContextValue,
   usePostPage,

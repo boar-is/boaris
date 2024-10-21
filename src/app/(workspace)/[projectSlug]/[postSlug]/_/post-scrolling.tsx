@@ -4,7 +4,7 @@ import { useSelector } from '@legendapp/state/react'
 import { PostScrollingLayout } from '~/app/(workspace)/[projectSlug]/[postSlug]/_/post-scrolling-layout'
 import { useCaptions } from '~/features/captions/use-captions'
 import { useCaptionsEditor } from '~/features/captions/use-captions-editor'
-import { PlaybackProgressProvider } from '~/features/playback/playback-progress-provider'
+import { PlaybackProgressAtomProvider } from '~/features/playback-progress-atom-provider'
 import { usePostPage } from '~/features/post/post-page-provider'
 import { defaultEditorExtensions } from '~/lib/prosemirror/defaultEditorExtensions'
 import { StaticEditorContent } from '~/lib/prosemirror/static-editor-content'
@@ -20,9 +20,9 @@ export function PostScrolling() {
     <PostReading>
       <PostReadingHeader />
       <PostReadingSeparator />
-      <PlaybackProgressProvider>
+      <PlaybackProgressAtomProvider>
         <PostScrollingContent />
-      </PlaybackProgressProvider>
+      </PlaybackProgressAtomProvider>
     </PostReading>
   )
 }
