@@ -1,7 +1,7 @@
 import type { EditorView } from '@tiptap/pm/view'
 import { firstNonInlineAncestor } from '~/lib/dom/first-non-inline-ancestor'
 
-export const offsetTopAtPos = (view: EditorView, pos: number) => {
+export const offsetTopAtPos = (view: EditorView) => (pos: number) => {
   const { node, offset } = view.domAtPos(pos)
 
   if (!offset) {

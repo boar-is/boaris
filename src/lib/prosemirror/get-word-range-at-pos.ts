@@ -1,6 +1,6 @@
 import type { EditorState } from '@tiptap/pm/state'
 
-export function getWordRangeAtPos(state: EditorState, position: number) {
+export const getWordRangeAtPos = (state: EditorState) => (position: number) => {
   const resolvedPos = state.doc.resolve(position)
   const node = resolvedPos.node(resolvedPos.depth)
 
