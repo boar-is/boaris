@@ -4,7 +4,7 @@ import * as O from 'effect/Option'
 import { notFound } from 'next/navigation'
 import type { CSSProperties, PropsWithChildren } from 'react'
 import { api } from '~/convex/_generated/api'
-import { WorkspaceLayoutQueryResult } from '~/convex/queries/workspaceLayout'
+import { WorkspaceLayoutQueryResult } from '~/convex/workspaceLayout'
 import { matchSocialNetworkIcon } from '~/features/match-social-network-icon'
 import { NewsletterSubscriptionFormProvider } from '~/features/newsletter-subscription-form-provider'
 import { Button } from '~/lib/buttons/button'
@@ -43,7 +43,7 @@ export default async function WorkspaceLayout({
     workspaceSlug: string
   }
 }) {
-  const result = await fetchQuery(api.queries.workspaceLayout.default, {
+  const result = await fetchQuery(api.workspaceLayout.default, {
     workspaceSlug,
   })
 

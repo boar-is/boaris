@@ -4,7 +4,7 @@ import * as HM from 'effect/HashMap'
 import * as O from 'effect/Option'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
-import { ProjectPageQueryResult } from '~/convex/queries/projectPage'
+import { ProjectPageQueryResult } from '~/convex/projectPage'
 import { currentWorkspaceSlug } from '~/lib/constants'
 import { Image } from '~/lib/media/image'
 import { Link } from '~/lib/navigation/link'
@@ -12,13 +12,13 @@ import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params
 import { readableDate } from '~/lib/utils/readable-date'
 
 export async function generateStaticParams() {
-  return fetchQuery(api.queries.projectParams.default)
+  return fetchQuery(api.projectParams.default)
 }
 
 export default async function WorkspaceProjectPage({
   params: { workspaceSlug = currentWorkspaceSlug, projectSlug },
 }: PropsWithStaticParams<typeof generateStaticParams>) {
-  const result = await fetchQuery(api.queries.projectPage.default, {
+  const result = await fetchQuery(api.projectPage.default, {
     workspaceSlug,
     projectSlug,
   })

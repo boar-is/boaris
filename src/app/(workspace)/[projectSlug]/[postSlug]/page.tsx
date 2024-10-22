@@ -6,13 +6,13 @@ import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params
 import { WorkspaceProjectPostPageClient } from './page.client'
 
 export async function generateStaticParams() {
-  return fetchQuery(api.queries.postParams.default)
+  return fetchQuery(api.postParams.default)
 }
 
 export default async function WorkspaceProjectPostPage({
   params: { workspaceSlug = currentWorkspaceSlug, projectSlug, postSlug },
 }: PropsWithStaticParams<typeof generateStaticParams>) {
-  const result = await fetchQuery(api.queries.postPage.default, {
+  const result = await fetchQuery(api.postPage.default, {
     workspaceSlug,
     projectSlug,
     postSlug,
