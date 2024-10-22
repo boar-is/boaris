@@ -4,36 +4,62 @@ import {
   useAnimate,
   useMotionValueEvent,
 } from 'framer-motion'
+import { type Atom, atom } from 'jotai'
 import { useRef } from 'react'
-import type { Interpolation } from '~/convex/values/_shared/interpolation'
-import { useCaptionsOffsetTop } from '~/features/captions/use-captions-offset-top'
-import { useCaptionsPosition } from '~/features/captions/use-captions-position'
-import { useCaptionsProgress } from '~/features/captions/use-captions-progress'
-import { useCaptionsScrollableHeight } from '~/features/captions/use-captions-scrollable-height'
-import { useCaptionsWordRange } from '~/features/captions/use-captions-word-range'
-import { usePlaybackProgress } from '~/features/playback-progress-atom-provider'
+import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-provider'
 import { usePlaybackProgressScrollSync } from '~/features/use-playback-progress-scroll-sync'
 import { type Coords, mergeCoords } from '~/lib/framer-motion/merge-coords'
 import { motion } from '~/lib/framer-motion/motion'
+import { useAtomAnimatedMotionValue } from '~/lib/framer-motion/use-atom-animated-motion-value'
+import { useAtomMotionValue } from '~/lib/framer-motion/use-atom-motion-value'
+import { getPositionByProgress } from '~/lib/prosemirror/get-position-by-progress'
+import { getWordRangeReducer } from '~/lib/prosemirror/get-word-range-reducer'
+import { offsetTopAtPos } from '~/lib/prosemirror/offset-top-at-pos'
+import { useConstant } from '~/lib/react/use-constant'
+import { useFactoredHeight } from '~/lib/react/use-factored-height'
+import { getCaptionsProgress } from '~/model/captions'
+import type { Interpolation } from '~/model/interpolation'
 
 export function PostScrollingCaptions({
   editor,
   interpolation,
-}: { editor: Editor; interpolation: Interpolation | undefined }) {
-  const playbackProgress = usePlaybackProgress()
-  // getCaptionsProgress
-  const progress = useCaptionsProgress({ playbackProgress, interpolation })
-  // getPositionByProgress
-  const position = useCaptionsPosition(editor.state, progress)
-  // useAtomAnimatedMotionValue, but * -1, check for undefined if so, duration 0.8
-  const offsetTop = useCaptionsOffsetTop(editor.view, position)
-  // useComputedMotionValue + get-sequential-word-range
-  const wordRange = useCaptionsWordRange(editor.state, position)
+}: { editor: Editor; interpolation: Interpolation }) {
+  const playbackProgressAtom = usePlaybackProgressAtom()
+
+  const progressAtom = useConstant(() => {
+    const getCaptionsProgressByInterpolation =
+      getCaptionsProgress(interpolation)
+    return atom((get) =>
+      getCaptionsProgressByInterpolation(get(playbackProgressAtom)),
+    )
+  })
+
+  const positionAtom = useConstant(() => {
+    const getPositionByStateProgress = getPositionByProgress(editor.state)
+    return atom((get) => getPositionByStateProgress(get(progressAtom)))
+  })
+
+  const offsetTopAtViewPos = offsetTopAtPos(editor.view)
+  const offsetTopMv = useAtomAnimatedMotionValue(positionAtom, {
+    duration: 0.8,
+    initial: 0,
+    mapFn: (position) => {
+      const offset = offsetTopAtViewPos(position)
+      return offset && offset * -1
+    },
+  })
+
+  const wordRangeAtom = useConstant(() => {
+    const getStateWordRangeReducer = getWordRangeReducer(editor.state)
+    const rangeAtom = atom<{ start: number; end: number } | undefined>()
+    return atom((get) =>
+      getStateWordRangeReducer(get(rangeAtom), get(positionAtom)),
+    )
+  })
 
   const contentRef = useRef<HTMLDivElement | null>(null)
 
-  // useFactoredHeight
-  const scrollableHeight = useCaptionsScrollableHeight({ contentRef })
+  const scrollableHeight = useFactoredHeight(contentRef, 1 / 30)
   const [scrollableRef] = usePlaybackProgressScrollSync({ scrollableHeight })
 
   const containerOffset = 128
@@ -48,15 +74,15 @@ export function PostScrollingCaptions({
         <motion.div
           className="relative"
           style={{
-            y: offsetTop,
+            y: offsetTopMv,
           }}
           ref={contentRef}
         >
           <PostScrollingCaptionsCursor
             coordsAtPos={(pos) => editor.view.coordsAtPos(pos)}
-            range={wordRange}
+            wordRangeAtom={wordRangeAtom}
             containerOffset={containerOffset}
-            offsetTop={offsetTop}
+            offsetTopMv={offsetTopMv}
             offsetLeft={() => scrollableRef.current?.offsetLeft ?? 0}
           />
           <EditorContent editor={editor} />
@@ -68,18 +94,20 @@ export function PostScrollingCaptions({
 
 function PostScrollingCaptionsCursor({
   coordsAtPos,
-  range,
+  wordRangeAtom,
   containerOffset,
-  offsetTop,
+  offsetTopMv,
   offsetLeft,
 }: {
   coordsAtPos: (pos: number) => Coords
-  range: MotionValue<{ start: number; end: number } | undefined>
+  wordRangeAtom: Atom<{ start: number; end: number } | undefined>
   containerOffset: number
-  offsetTop: MotionValue<number>
+  offsetTopMv: MotionValue<number>
   offsetLeft: () => number
 }) {
   const [scope, animate] = useAnimate()
+
+  const range = useAtomMotionValue(wordRangeAtom, undefined)
 
   useMotionValueEvent(range, 'change', (range) => {
     if (!range) {
@@ -97,7 +125,7 @@ function PostScrollingCaptionsCursor({
     animate(
       scope.current,
       {
-        y: coords.top - offsetTop.get() - containerOffset,
+        y: coords.top - offsetTopMv.get() - containerOffset,
         x: coords.left - offsetLeft(),
         height: coords.bottom - coords.top,
         width: coords.right - coords.left,

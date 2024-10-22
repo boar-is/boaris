@@ -1,3 +1,4 @@
+import * as F from 'effect/Function'
 import {
   type ValueAnimationTransition,
   animate,
@@ -8,16 +9,25 @@ import { atomEffect } from 'jotai-effect'
 import { useConstant } from '~/lib/react/use-constant'
 
 export const useAtomAnimatedMotionValue = <T>(
-  value$: Atom<T>,
-  initial: T,
-  options: ValueAnimationTransition<T>,
+  valueAtom: Atom<T>,
+  {
+    initial,
+    mapFn = F.identity,
+    ...animateOptions
+  }: ValueAnimationTransition<T> & {
+    initial: T
+    mapFn?: (value: T) => T | undefined
+  },
 ) => {
   const motionValue = useMotionValue(initial)
 
   useAtomValue(
     useConstant(() =>
       atomEffect((get) => {
-        animate(motionValue, get(value$), options)
+        const value = mapFn(get(valueAtom))
+        if (value) {
+          value && animate(motionValue, value, animateOptions)
+        }
       }),
     ),
   )

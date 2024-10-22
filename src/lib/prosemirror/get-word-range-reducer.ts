@@ -1,10 +1,12 @@
 import type { EditorState } from '@tiptap/pm/state'
 import { getWordRangeAtPos } from '~/lib/prosemirror/get-word-range-at-pos'
 
-export const getSequentialWordRange =
+export const getWordRangeReducer =
   (state: EditorState) =>
-  (prevRange: { start: number; end: number }) =>
-  (position: number) => {
+  (
+    accumulator: { start: number; end: number } | undefined,
+    position: number,
+  ) => {
     if (position === 0) {
       return undefined
     }
@@ -12,10 +14,10 @@ export const getSequentialWordRange =
     const nextRange = getWordRangeAtPos(state)(position)
 
     if (
-      nextRange.start === prevRange?.start &&
-      nextRange.end === prevRange?.end
+      nextRange.start === accumulator?.start &&
+      nextRange.end === accumulator?.end
     ) {
-      return prevRange
+      return accumulator
     }
     return nextRange
   }

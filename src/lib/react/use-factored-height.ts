@@ -3,7 +3,7 @@ import { type RefObject, useState } from 'react'
 
 export const useFactoredHeight = (
   contentRef: RefObject<HTMLDivElement | null>,
-  factor = 1 / 30,
+  factor: number,
 ) => {
   const [height, setHeight] = useState<number | undefined>()
 

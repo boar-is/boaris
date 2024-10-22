@@ -42,7 +42,7 @@ function PostScrollingContent() {
       content,
       extensions,
     },
-    [content],
+    [content, extensions],
   )
 
   return (
