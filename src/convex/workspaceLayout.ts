@@ -26,9 +26,8 @@ const workspaceLayout = query({
     }
 
     return {
-      workspace: await Workspace.encodedFromEntity(
+      workspace: await Workspace.encodedFromEntity(getUrlProps(storage))(
         workspace,
-        getUrlProps(storage),
       ),
     }
   },

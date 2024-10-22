@@ -16,12 +16,14 @@ export const trackEncodedFromEntity = async (
   withGetUrl: PropsWithGetUrl,
 ): Promise<typeof Track.Encoded> =>
   M.value(t).pipe(
-    M.when({ type: 'image-dynamic' }, (it) =>
-      TrackImageDynamic.encodedFromEntity(it, actions, withGetUrl),
+    M.when(
+      { type: 'image-dynamic' },
+      TrackImageDynamic.encodedFromEntity(withGetUrl)(actions),
     ),
-    M.when({ type: 'image-static' }, (it) =>
-      TrackImageStatic.encodedFromEntity(it, actions, withGetUrl),
+    M.when(
+      { type: 'image-static' },
+      TrackImageStatic.encodedFromEntity(withGetUrl)(actions),
     ),
-    M.when({ type: 'text' }, (it) => TrackText.encodedFromEntity(it, actions)),
+    M.when({ type: 'text' }, TrackText.encodedFromEntity(actions)),
     M.exhaustive,
   )

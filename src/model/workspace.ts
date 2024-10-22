@@ -16,15 +16,17 @@ export class Workspace extends S.Class<Workspace>('Workspace')({
   logoUrl: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
   socialLinks: S.Array(SocialLink),
 }) {
-  static async encodedFromEntity(
-    { slug, name, logoId, socialLinks }: Infer<typeof workspace>,
-    { getUrl }: PropsWithGetUrl,
-  ): Promise<typeof Workspace.Encoded> {
-    return {
+  static encodedFromEntity({ getUrl }: PropsWithGetUrl) {
+    return async ({
+      slug,
+      name,
+      logoId,
+      socialLinks,
+    }: Infer<typeof workspace>): Promise<typeof Workspace.Encoded> => ({
       slug,
       name,
       logoUrl: logoId && (await getUrl(logoId)),
       socialLinks: socialLinks.map(SocialLink.encodedFromEntity),
-    }
+    })
   }
 }

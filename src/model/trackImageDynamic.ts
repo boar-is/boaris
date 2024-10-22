@@ -18,16 +18,20 @@ export class TrackImageDynamic extends TrackBase.extend<TrackImageDynamic>(
   url: S.NonEmptyTrimmedString,
   caption: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
 }) {
-  static async encodedFromEntity(
-    { type, storageId, caption, ...base }: Infer<typeof trackImageDynamic>,
-    actions: Array<Infer<typeof action>>,
-    { getUrl }: PropsWithGetUrl,
-  ): Promise<typeof TrackImageDynamic.Encoded> {
-    return {
-      ...TrackBase.encodedFromEntity(base, actions),
-      type,
-      url: (await getUrl(storageId))!,
-      caption,
-    }
+  static encodedFromEntity({ getUrl }: PropsWithGetUrl) {
+    return (actions: Array<Infer<typeof action>>) =>
+      async ({
+        type,
+        storageId,
+        caption,
+        ...base
+      }: Infer<typeof trackImageDynamic>): Promise<
+        typeof TrackImageDynamic.Encoded
+      > => ({
+        ...TrackBase.encodedFromEntity(base, actions),
+        type,
+        url: (await getUrl(storageId))!,
+        caption,
+      })
   }
 }
