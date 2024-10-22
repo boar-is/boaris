@@ -24,19 +24,15 @@ export class Captions extends S.Class<Captions>('Captions')({
   }
 }
 
-export const remappedCaptions = (
-  captions: typeof Captions.Type,
-  layoutChanges: ReadonlyArray<typeof LayoutChange.Type>,
-) => {
-  // TODO Implement cutting skipped parts
-  // TODO Implement compound interpolation
-  return captions
-}
+export const remappedCaptions =
+  (layoutChanges: ReadonlyArray<typeof LayoutChange.Type>) =>
+  (captions: typeof Captions.Type) =>
+    // TODO Implement cutting skipped parts
+    // TODO Implement compound interpolation
+    captions
 
 // TODO Implement interpolation
-export const getCaptionsProgress = (
-  playbackProgress: number,
-  interpolation: (typeof Captions.Type)['interpolation'],
-) => {
-  return playbackProgress
-}
+export const getCaptionsProgress =
+  (interpolation: (typeof Captions.Type)['interpolation']) =>
+  (playbackProgress: number) =>
+    playbackProgress
