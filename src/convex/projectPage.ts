@@ -62,9 +62,7 @@ const projectPage = query({
 
     const [posts, tagsByPostSlugEntries, authorsByPostSlugEntries] =
       await Promise.all([
-        Promise.all(
-          latestPosts.map((post) => Post.encodedFromEntity(post, getUrl)),
-        ),
+        Promise.all(latestPosts.map(Post.encodedFromEntity(getUrl))),
         Promise.all(
           latestPosts.map(async (post) => {
             const postTags = await db

@@ -67,7 +67,7 @@ const postPage = query({
     const getUrl = getUrlProps(storage)
 
     const [post, postTags, postAuthors, trackChunks] = await Promise.all([
-      Post.encodedFromEntity(postEntity, getUrl),
+      Post.encodedFromEntity(getUrl)(postEntity),
       db
         .query('postTags')
         .withIndex('by_postId', (q) => q.eq('postId', postEntity._id))

@@ -22,8 +22,8 @@ export class Post extends S.Class<Post>('Post')({
   thumbnailUrl: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
   date: S.DateFromNumber,
 }) {
-  static async encodedFromEntity(
-    {
+  static encodedFromEntity({ getUrl }: PropsWithGetUrl) {
+    return async ({
       slug,
       title,
       lead,
@@ -32,16 +32,13 @@ export class Post extends S.Class<Post>('Post')({
       _creationTime,
     }: Infer<typeof post> & {
       _creationTime: number
-    },
-    { getUrl }: PropsWithGetUrl,
-  ): Promise<typeof Post.Encoded> {
-    return {
+    }): Promise<typeof Post.Encoded> => ({
       slug,
       title,
       lead,
       description,
       thumbnailUrl: thumbnailId && (await getUrl(thumbnailId)),
       date: _creationTime,
-    }
+    })
   }
 }
