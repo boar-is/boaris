@@ -1,7 +1,7 @@
 import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
-import { getUrlProps } from '~/convex/utils/getUrlProps'
+import { getUrlProps } from '~/lib/convex/get-url-props'
 import { Workspace } from '~/model/workspace'
 
 export class WorkspacePageQueryResult extends S.Class<WorkspacePageQueryResult>(
