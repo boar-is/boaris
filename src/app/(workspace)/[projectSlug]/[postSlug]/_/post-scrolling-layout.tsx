@@ -1,93 +1,116 @@
-import { Reactive, reactive, useObservable } from '@legendapp/state/react'
 import ReactCodeMirror, { type ReactCodeMirrorRef } from '@uiw/react-codemirror'
+import * as A from 'effect/Array'
 import * as M from 'effect/Match'
-import { AnimatePresence } from 'framer-motion'
+import * as O from 'effect/Option'
+import { AnimatePresence, transform } from 'framer-motion'
+import { atom, useAtomValue } from 'jotai'
+import { splitAtom } from 'jotai/utils'
+import { type PropsWithChildren, useMemo, useRef } from 'react'
+import { useLayoutChangesAtom } from '~/features/layout-changes-atom-context'
 import {
-  type CSSProperties,
-  type PropsWithChildren,
-  useMemo,
-  useRef,
-} from 'react'
-import { ActionsProvider } from '~/features/chunk/actions-provider'
-import { useLayoutChangesAtom } from '~/features/layout-changes-atom-provider'
-import { useLayout } from '~/features/layout/use-layout'
-import { useLayoutChangesAtomIndex } from '~/features/layout/use-layout-changes-index'
-import { useLayoutProgress } from '~/features/layout/use-layout-progress'
-import { useLayoutProgressInterpolation } from '~/features/layout/use-layout-progress-interpolation'
+  LayoutLayerAtomContext,
+  useLayoutLayerAtom,
+} from '~/features/layout-layer-atom-context'
 import { matchFileTypeIcon } from '~/features/match-file-type-icon'
-import { usePlaybackProgress } from '~/features/playback-progress-atom-provider'
-import {
-  type PostPageContextValue,
-  usePostPage,
-} from '~/features/post/post-page-provider'
+import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
+import { useTracksAtom } from '~/features/tracks-atom-context'
 import { codemirrorTheme } from '~/lib/codemirror/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/codemirror/match-codemirror-extensions'
 import { motion } from '~/lib/framer-motion/motion'
 import { Image } from '~/lib/media/image'
+import { useConstant } from '~/lib/react/use-constant'
 import { cx } from '~/lib/utils/cx'
+import { findClosestIndex } from '~/lib/utils/find-closest-index'
+import { layoutProgressInterpolationFromChanges } from '~/model/layoutChange'
+import type { Track } from '~/model/track'
 
 export function PostScrollingLayout() {
-  const playbackProgress = usePlaybackProgress()
+  const playbackProgressAtom = usePlaybackProgressAtom()
+  const changesAtom = useLayoutChangesAtom()
 
-  const changes$ = useLayoutChangesAtom()
+  const transformInterpolationAtom = useConstant(() =>
+    atom((get) => {
+      const { input, output } = layoutProgressInterpolationFromChanges(
+        get(changesAtom),
+      )
+      return transform(input as Array<number>, output as Array<number>)
+    }),
+  )
 
-  // use transformer function in atom, not interpolation
-  const interpolation$ = useLayoutProgressInterpolation(changes$)
+  const progressAtom = useConstant(() =>
+    atom((get) => get(transformInterpolationAtom)(get(playbackProgressAtom))),
+  )
 
-  // use transformer function in atom, not interpolation
-  const progress$ = useLayoutProgress({
-    playbackProgress,
-    interpolation$,
-  })
+  const indexAtom = useConstant(() =>
+    atom(
+      (get) =>
+        findClosestIndex(get(changesAtom), get(progressAtom), (it) => it.at)!,
+    ),
+  )
 
-  // findClosestIndex(changes$.get(), progress$.get(), (it) => it.at)!
-  const index$ = useLayoutChangesAtomIndex({ changes$, progress$ })
+  const layersAtom = useConstant(() =>
+    atom((get) =>
+      A.get(get(changesAtom), get(indexAtom)).pipe(
+        O.andThen((it) => it.layers),
+        O.getOrThrow,
+      ),
+    ),
+  )
 
-  // changes$.get()[index$.get()]?.value!
-  const layout$ = useLayout({
-    changes$,
-    index$,
-  })
-
-  const style$ = useObservable((): CSSProperties => {
-    const layout = layout$.get()
-    return {
-      gridTemplateAreas: layout?.static?.areas,
-      gridTemplateColumns: layout?.static?.columns,
-      gridTemplateRows: layout?.static?.rows,
-      gridAutoColumns: 'minmax(0, 1fr)',
-      gridAutoRows: 'minmax(0, 1fr)',
-    }
-  })
-
-  const result$ = usePostPage()
-
-  const tracks$ = useObservable(() => {
-    const areas = layout$.get()?.static?.areas
-    const tracks = result$.tracks.get(true)
-    return tracks?.filter((it) => areas?.includes(it.id)) ?? []
-  })
+  const mainLayerAtom = useConstant(() => atom((get) => get(layersAtom).main))
 
   return (
-    <Reactive.ul
-      className="grid sticky bottom-4 inset-x-0 h-[60dvh] w-screen container gap-2 *:h-full"
-      $style={style$}
-    >
-      <ActionsProvider chunks$={result$.chunks}>
-        <LayoutStaticGrid $tracks={tracks$} />
-      </ActionsProvider>
-    </Reactive.ul>
+    <LayoutLayerAtomContext.Provider value={mainLayerAtom}>
+      <MainLayerGrid>
+        <MainLayerGridItems />
+      </MainLayerGrid>
+    </LayoutLayerAtomContext.Provider>
   )
 }
 
-type LayoutTracks = PostPageContextValue['tracks']
+function MainLayerGrid({ children }: PropsWithChildren) {
+  const layer = useAtomValue(useLayoutLayerAtom())
 
-const LayoutStaticGrid = reactive(function LayoutStaticGrid({
-  tracks,
-}: { tracks: LayoutTracks }) {
-  if (!tracks?.length) {
-    return null
-  }
+  return layer.pipe(
+    O.andThen(({ areas, rows, columns }) => (
+      <ul
+        className="grid sticky bottom-4 inset-x-0 h-[60dvh] w-screen container gap-2 *:h-full"
+        style={{
+          gridTemplateAreas: areas,
+          gridTemplateColumns: O.getOrUndefined(columns),
+          gridTemplateRows: O.getOrUndefined(rows),
+          gridAutoColumns: 'minmax(0, 1fr)',
+          gridAutoRows: 'minmax(0, 1fr)',
+        }}
+      >
+        {children}
+      </ul>
+    )),
+    O.getOrNull,
+  )
+}
+
+function MainLayerGridItems() {
+  const layerAtom = useLayoutLayerAtom()
+
+  const areasAtom = useConstant(() =>
+    atom((get) => get(layerAtom).pipe(O.map((it) => it.areas))),
+  )
+
+  const tracksAtom = useTracksAtom()
+
+  const currentTracksAtomsAtom = useConstant(() =>
+    splitAtom(
+      atom((get) =>
+        get(areasAtom).pipe(
+          O.map((areas) =>
+            get(tracksAtom).filter((it) => areas.includes(it.id)),
+          ),
+          O.filter((arr) => arr.length > 0),
+        ),
+      ),
+    ),
+  )
 
   return (
     <AnimatePresence mode="popLayout">
@@ -105,15 +128,13 @@ const LayoutStaticGrid = reactive(function LayoutStaticGrid({
       ))}
     </AnimatePresence>
   )
-})
+}
 
-type LayoutTrack = NonNullable<LayoutTracks>[number]
-
-const matchLayoutTrackPanel = M.type<LayoutTrack>().pipe(
-  M.when({ type: 'static-image' }, (track) => (
+const matchLayoutTrackPanel = M.type<typeof Track.Type>().pipe(
+  M.when({ type: 'image-static' }, (track) => (
     <LayoutStaticImagePanel track={track} />
   )),
-  M.when({ type: 'dynamic-image' }, (track) => (
+  M.when({ type: 'image-dynamic' }, (track) => (
     <LayoutDynamicImagePanel track={track} />
   )),
   M.when({ type: 'text' }, (track) => <LayoutTextPanel track={track} />),

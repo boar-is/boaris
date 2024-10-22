@@ -51,7 +51,7 @@ export const determinedLayoutChanges = ({
 const defaultInterpolation = [0, 1]
 
 export const layoutProgressInterpolationFromChanges = (
-  changes: Array<{ at: number; value?: unknown }>,
+  changes: ReadonlyArray<{ readonly at: number; readonly value?: unknown }>,
   digits = 5,
 ): typeof Interpolation.Type => {
   let trueRatio = 0

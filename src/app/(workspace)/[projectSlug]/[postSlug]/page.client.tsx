@@ -7,9 +7,11 @@ import { atom, useAtomValue } from 'jotai'
 import { PostPageQueryResult } from '~/convex/postPage'
 import { AuthorsAtomContext } from '~/features/authors-atom-context'
 import { CaptionsAtomContext } from '~/features/captions-atom-context'
+import { LayoutChangesAtomContext } from '~/features/layout-changes-atom-context'
 import { LayoutModeAtomContext } from '~/features/layout-mode-atom-context'
 import { PostAtomContext } from '~/features/post-atom-context'
 import { TagsAtomContext } from '~/features/tags-atom-context'
+import { TracksAtomContext } from '~/features/tracks-atom-context'
 import { useConstant } from '~/lib/react/use-constant'
 import { useWindowWidthAtom } from '~/lib/react/use-window-width-atom'
 import { remappedCaptions } from '~/model/captions'
@@ -62,16 +64,22 @@ export function WorkspaceProjectPostPageClient({
     ),
   )
 
+  const tracksAtom = useConstant(() => atom((get) => get(revisionAtom).tracks))
+
   return (
     <PostAtomContext.Provider value={postAtom}>
       <TagsAtomContext.Provider value={tagsAtom}>
         <AuthorsAtomContext.Provider value={authorsAtom}>
           <CaptionsAtomContext.Provider value={captionsAtom}>
             <LayoutModeAtomContext.Provider value={layoutModeAtom}>
-              {M.value(useAtomValue(layoutModeAtom)).pipe(
-                M.when('scrolling', () => <PostScrolling />),
-                M.orElseAbsurd,
-              )}
+              <LayoutChangesAtomContext.Provider value={layoutChangesAtom}>
+                <TracksAtomContext.Provider value={tracksAtom}>
+                  {M.value(useAtomValue(layoutModeAtom)).pipe(
+                    M.when('scrolling', () => <PostScrolling />),
+                    M.orElseAbsurd,
+                  )}
+                </TracksAtomContext.Provider>
+              </LayoutChangesAtomContext.Provider>
             </LayoutModeAtomContext.Provider>
           </CaptionsAtomContext.Provider>
         </AuthorsAtomContext.Provider>

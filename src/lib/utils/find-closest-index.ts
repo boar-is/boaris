@@ -1,5 +1,5 @@
 export const findClosestIndex = <T>(
-  sortedArr: Array<T>,
+  sortedArr: ReadonlyArray<T>,
   target: number,
   propFn: (t: T) => number,
 ) => {
