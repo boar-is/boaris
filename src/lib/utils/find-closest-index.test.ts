@@ -2,7 +2,7 @@ import * as F from 'effect/Function'
 import { describe, expect, it } from 'vitest'
 import { findClosestIndex } from './find-closest-index'
 
-describe.concurrent('findClosestIndex', () => {
+describe.concurrent('match inputs to outputs', () => {
   it.concurrent.each([
     [[], 33, undefined],
     [
