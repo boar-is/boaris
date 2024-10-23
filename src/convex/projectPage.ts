@@ -60,54 +60,51 @@ const projectPage = query({
 
     const getUrl = getUrlProps(storage)
 
-    const [posts, tagsByPostSlugEntries, authorsByPostSlugEntries] =
-      await Promise.all([
-        Promise.all(latestPosts.map(Post.encodedFromEntity(getUrl))),
-        Promise.all(
-          latestPosts.map(async (post) => {
-            const postTags = await db
-              .query('postTags')
-              .withIndex('by_postId', (q) => q.eq('postId', post._id))
-              .collect()
-            return Promise.all(
-              postTags.map(
-                async (it) =>
-                  [
-                    post.slug,
-                    Tag.encodedFromEntity(
-                      await db.get(it.tagId).then((it) => it!),
-                    ),
-                  ] as const,
+    const [posts, tagsByPostSlug, authorsByPostSlug] = await Promise.all([
+      Promise.all(latestPosts.map(Post.encodedFromEntity(getUrl))),
+      Promise.all(
+        latestPosts.map(async (post) => {
+          const postTags = await db
+            .query('postTags')
+            .withIndex('by_postId', (q) => q.eq('postId', post._id))
+            .collect()
+
+          return [
+            post.slug,
+            await Promise.all(
+              postTags.map(async (it) =>
+                Tag.encodedFromEntity(await db.get(it.tagId).then((it) => it!)),
               ),
-            )
-          }),
-        ),
-        Promise.all(
-          latestPosts.map(async (post) => {
-            const postAuthors = await db
-              .query('postAuthors')
-              .withIndex('by_postId', (q) => q.eq('postId', post._id))
-              .collect()
-            return Promise.all(
-              postAuthors.map(
-                async (it) =>
-                  [
-                    post.slug,
-                    User.encodedFromEntity(
-                      await db.get(it.authorId).then((it) => it!),
-                    ),
-                  ] as const,
+            ),
+          ] as const
+        }),
+      ),
+      Promise.all(
+        latestPosts.map(async (post) => {
+          const postAuthors = await db
+            .query('postAuthors')
+            .withIndex('by_postId', (q) => q.eq('postId', post._id))
+            .collect()
+
+          return [
+            post.slug,
+            await Promise.all(
+              postAuthors.map(async (it) =>
+                User.encodedFromEntity(
+                  await db.get(it.authorId).then((it) => it!),
+                ),
               ),
-            )
-          }),
-        ),
-      ])
+            ),
+          ] as const
+        }),
+      ),
+    ])
 
     return {
       project: Project.encodedFromEntity(project),
       posts,
-      tagsByPostSlug: Object.fromEntries(tagsByPostSlugEntries),
-      authorsByPostSlug: Object.fromEntries(authorsByPostSlugEntries),
+      tagsByPostSlug,
+      authorsByPostSlug,
     }
   },
 })
