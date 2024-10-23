@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-export function useConstant<T>(fn: () => T): T {
+export const useConstant = <T>(fn: () => T): T => {
   const ref = useRef<{ v: T }>()
 
   if (!ref.current) {
