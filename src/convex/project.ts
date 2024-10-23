@@ -1,28 +1,13 @@
 import { v } from 'convex/values'
-import * as S from 'effect/Schema'
 import { query } from '~/convex/_generated/server'
 import { getUrlProps } from '~/lib/convex/get-url-props'
 import { Post } from '~/model/post'
 import { Project } from '~/model/project'
 import { Tag } from '~/model/tag'
 import { User } from '~/model/user'
+import type { ProjectRequest } from '~/rpc/project-request'
 
-export class ProjectPageQueryResult extends S.Class<ProjectPageQueryResult>(
-  'ProjectPageQueryResult',
-)({
-  project: Project,
-  posts: S.Array(Post),
-  tagsByPostSlug: S.HashMap({
-    key: Post.fields.slug,
-    value: S.Array(Tag),
-  }),
-  authorsByPostSlug: S.HashMap({
-    key: Post.fields.slug,
-    value: S.Array(User),
-  }),
-}) {}
-
-const projectPage = query({
+const project = query({
   args: {
     workspaceSlug: v.string(),
     projectSlug: v.string(),
@@ -30,7 +15,7 @@ const projectPage = query({
   handler: async (
     { db, storage },
     { workspaceSlug, projectSlug },
-  ): Promise<typeof ProjectPageQueryResult.Encoded | null> => {
+  ): Promise<(typeof ProjectRequest)['success']['Encoded']> => {
     const workspace = await db
       .query('workspaces')
       .withIndex('by_slug', (q) => q.eq('slug', workspaceSlug))
@@ -109,4 +94,4 @@ const projectPage = query({
   },
 })
 
-export default projectPage
+export default project

@@ -1,5 +1,4 @@
 import { v } from 'convex/values'
-import * as S from 'effect/Schema'
 import { query } from '~/convex/_generated/server'
 import { getUrlProps } from '~/lib/convex/get-url-props'
 import { Post } from '~/model/post'
@@ -7,17 +6,9 @@ import { Revision } from '~/model/revision'
 import { Tag } from '~/model/tag'
 import { toActionsByTrackId } from '~/model/trackChunk'
 import { User } from '~/model/user'
+import type { PostRequest } from '~/rpc/post-request'
 
-export class PostPageQueryResult extends S.Class<PostPageQueryResult>(
-  'PostPageQueryResult',
-)({
-  post: Post,
-  tags: S.Array(Tag),
-  authors: S.Array(User),
-  revision: Revision,
-}) {}
-
-const postPage = query({
+const post = query({
   args: {
     workspaceSlug: v.string(),
     projectSlug: v.string(),
@@ -26,7 +17,7 @@ const postPage = query({
   handler: async (
     { db, storage },
     { workspaceSlug, projectSlug, postSlug },
-  ): Promise<typeof PostPageQueryResult.Encoded | null> => {
+  ): Promise<(typeof PostRequest)['success']['Encoded']> => {
     const workspace = await db
       .query('workspaces')
       .withIndex('by_slug', (q) => q.eq('slug', workspaceSlug))
@@ -111,4 +102,4 @@ const postPage = query({
   },
 })
 
-export default postPage
+export default post

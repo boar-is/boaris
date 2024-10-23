@@ -1,12 +1,10 @@
 import { query } from '~/convex/_generated/server'
+import type { ProjectSlugsRequest } from '~/rpc/project-slugs-request'
 
-export type ProjectParamsQueryResult = ReadonlyArray<{
-  readonly workspaceSlug: string
-  readonly projectSlug: string
-}>
-
-const projectParams = query({
-  handler: async ({ db }): Promise<ProjectParamsQueryResult> => {
+const projectSlugs = query({
+  handler: async ({
+    db,
+  }): Promise<(typeof ProjectSlugsRequest)['success']['Encoded']> => {
     const projects = await db.query('projects').order('desc').take(100)
 
     const workspaces = await Promise.all(
@@ -20,4 +18,4 @@ const projectParams = query({
   },
 })
 
-export default projectParams
+export default projectSlugs

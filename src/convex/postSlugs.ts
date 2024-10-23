@@ -1,13 +1,10 @@
 import { query } from '~/convex/_generated/server'
+import type { PostSlugsRequest } from '~/rpc/post-slugs-request'
 
-export type PostParamsQueryResult = ReadonlyArray<{
-  readonly workspaceSlug: string
-  readonly projectSlug: string
-  readonly postSlug: string
-}>
-
-const postParams = query({
-  handler: async ({ db }): Promise<PostParamsQueryResult> => {
+const postSlugs = query({
+  handler: async ({
+    db,
+  }): Promise<(typeof PostSlugsRequest)['success']['Encoded']> => {
     const posts = await db.query('posts').order('desc').take(100)
 
     const projects = await Promise.all(posts.map((it) => db.get(it.projectId)))
@@ -24,4 +21,4 @@ const postParams = query({
   },
 })
 
-export default postParams
+export default postSlugs
