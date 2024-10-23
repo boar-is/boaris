@@ -55,12 +55,13 @@ export function PostScrollingLayout() {
     atom((get) =>
       A.get(get(changesAtom), get(indexAtom)).pipe(
         O.andThen((it) => it.layers),
-        O.getOrThrow,
       ),
     ),
   )
 
-  const mainLayerAtom = useConstant(() => atom((get) => get(layersAtom).main))
+  const mainLayerAtom = useConstant(() =>
+    atom((get) => get(layersAtom).pipe(O.andThen((it) => it.main))),
+  )
 
   return (
     <LayoutLayerAtomContext.Provider value={mainLayerAtom}>
