@@ -3,9 +3,9 @@ import * as A from 'effect/Array'
 import * as M from 'effect/Match'
 import * as O from 'effect/Option'
 import { AnimatePresence, transform } from 'framer-motion'
-import { atom, useAtomValue } from 'jotai'
+import { type Atom, atom, useAtomValue } from 'jotai'
 import { splitAtom } from 'jotai/utils'
-import { type PropsWithChildren, useMemo, useRef } from 'react'
+import { type PropsWithChildren, forwardRef, useMemo, useRef } from 'react'
 import { useLayoutChangesAtom } from '~/features/layout-changes-atom-context'
 import {
   LayoutLayerAtomContext,
@@ -23,6 +23,9 @@ import { cx } from '~/lib/utils/cx'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 import { layoutProgressInterpolationFromChanges } from '~/model/layoutChange'
 import type { Track } from '~/model/track'
+import type { TrackImageDynamic } from '~/model/trackImageDynamic'
+import type { TrackImageStatic } from '~/model/trackImageStatic'
+import type { TrackText } from '~/model/trackText'
 
 export function PostScrollingLayout() {
   const playbackProgressAtom = usePlaybackProgressAtom()
@@ -99,14 +102,16 @@ function MainLayerGridItems() {
 
   const tracksAtom = useTracksAtom()
 
-  const currentTracksAtomsAtom = useConstant(() =>
-    splitAtom(
-      atom((get) =>
-        get(areasAtom).pipe(
-          O.map((areas) =>
-            get(tracksAtom).filter((it) => areas.includes(it.id)),
+  const currentTrackAtoms = useAtomValue(
+    useConstant(() =>
+      splitAtom(
+        atom((get) =>
+          get(areasAtom).pipe(
+            O.andThen((areas) =>
+              get(tracksAtom).filter((it) => areas.includes(it.id)),
+            ),
+            O.getOrElse(() => []),
           ),
-          O.filter((arr) => arr.length > 0),
         ),
       ),
     ),
@@ -114,41 +119,47 @@ function MainLayerGridItems() {
 
   return (
     <AnimatePresence mode="popLayout">
-      {tracks.map((track) => (
-        <motion.li
-          className="bg-gray-2/90 backdrop-blur-md border border-gray-4 rounded-xl overflow-hidden"
-          key={track.id}
-          style={{ gridArea: track.id }}
-          initial={{ opacity: 0, filter: 'blur(16px)' }}
-          animate={{ opacity: 1, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, filter: 'blur(16px)' }}
-        >
-          {matchLayoutTrackPanel(track)}
-        </motion.li>
+      {currentTrackAtoms.map((trackAtom) => (
+        <MainLayerGridItem key={`${trackAtom}`} trackAtom={trackAtom} />
       ))}
     </AnimatePresence>
   )
 }
 
+const MainLayerGridItem = forwardRef<
+  HTMLLIElement,
+  { trackAtom: Atom<typeof Track.Type> }
+>(function MainLayerGridItem({ trackAtom }, ref) {
+  const track = useAtomValue(trackAtom)
+
+  return (
+    <motion.li
+      ref={ref}
+      className="bg-gray-2/90 backdrop-blur-md border border-gray-4 rounded-xl overflow-hidden"
+      style={{ gridArea: track.id }}
+      initial={{ opacity: 0, filter: 'blur(16px)' }}
+      animate={{ opacity: 1, filter: 'blur(0px)' }}
+      exit={{ opacity: 0, filter: 'blur(16px)' }}
+    >
+      {matchLayoutTrackPanel(track)}
+    </motion.li>
+  )
+})
+
 const matchLayoutTrackPanel = M.type<typeof Track.Type>().pipe(
   M.when({ type: 'image-static' }, (track) => (
-    <LayoutStaticImagePanel track={track} />
+    <LayoutTrackImageStatic track={track} />
   )),
   M.when({ type: 'image-dynamic' }, (track) => (
-    <LayoutDynamicImagePanel track={track} />
+    <LayoutTrackImageDynamic track={track} />
   )),
-  M.when({ type: 'text' }, (track) => <LayoutTextPanel track={track} />),
+  M.when({ type: 'text' }, (track) => <LayoutTrackText track={track} />),
   M.exhaustive,
 )
 
-type LayoutTypedTrack<T extends LayoutTrack['type']> = Extract<
-  LayoutTrack,
-  { type: T }
->
-
-function LayoutStaticImagePanel({
+function LayoutTrackImageStatic({
   track,
-}: { track: LayoutTypedTrack<'static-image'> }) {
+}: { track: typeof TrackImageStatic.Type }) {
   return (
     <LayoutPanel>
       <LayoutPanelHeader name={track.name} />
@@ -162,22 +173,28 @@ function LayoutStaticImagePanel({
         <Image
           src={track.url}
           className="object-contain"
-          alt={
-            track.alt ??
-            track.caption ??
-            'The author did not provide any alt to this image'
-          }
+          alt={track.alt.pipe(
+            O.orElse(() => track.caption),
+            O.getOrElse(
+              () => 'The author did not provide any alt to this image',
+            ),
+          )}
           fill
         />
       </section>
-      {track.caption && <LayoutPanelFooter>{track.caption}</LayoutPanelFooter>}
+      {track.caption.pipe(
+        O.andThen((caption) => (
+          <LayoutPanelFooter>{caption}</LayoutPanelFooter>
+        )),
+        O.getOrNull,
+      )}
     </LayoutPanel>
   )
 }
 
-function LayoutDynamicImagePanel({
+function LayoutTrackImageDynamic({
   track,
-}: { track: LayoutTypedTrack<'dynamic-image'> }) {
+}: { track: typeof TrackImageDynamic.Type }) {
   return (
     <LayoutPanel>
       <LayoutPanelHeader name={track.name} />
@@ -199,12 +216,17 @@ function LayoutDynamicImagePanel({
           loop
         />
       </section>
-      {track.caption && <LayoutPanelFooter>{track.caption}</LayoutPanelFooter>}
+      {track.caption.pipe(
+        O.andThen((caption) => (
+          <LayoutPanelFooter>{caption}</LayoutPanelFooter>
+        )),
+        O.getOrNull,
+      )}
     </LayoutPanel>
   )
 }
 
-function LayoutTextPanel({ track }: { track: LayoutTypedTrack<'text'> }) {
+function LayoutTrackText({ track }: { track: typeof TrackText.Type }) {
   const cmRef = useRef<ReactCodeMirrorRef | null>(null)
 
   const extensions = useMemo(
