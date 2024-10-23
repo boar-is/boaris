@@ -4,8 +4,8 @@ import { currentWorkspaceSlug } from '~/lib/constants'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
 import { WorkspaceRequest } from '~/rpc/workspace-request'
 import { WorkspaceSlugsRequest } from '~/rpc/workspace-slugs-request'
-import { AppServerRuntime } from '~/runtime/app-server-runtime'
-import { AppRpcClient } from '~/service/app-rpc-client'
+import { AppServerRuntime } from '~/runtimes/app-server-runtime'
+import { AppRpcClient } from '~/services/app-rpc-client'
 
 export async function generateStaticParams() {
   return AppServerRuntime.runPromise(

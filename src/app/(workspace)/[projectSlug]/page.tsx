@@ -7,8 +7,8 @@ import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params
 import { readableDate } from '~/lib/utils/readable-date'
 import { ProjectRequest } from '~/rpc/project-request'
 import { ProjectSlugsRequest } from '~/rpc/project-slugs-request'
-import { AppServerRuntime } from '~/runtime/app-server-runtime'
-import { AppRpcClient } from '~/service/app-rpc-client'
+import { AppServerRuntime } from '~/runtimes/app-server-runtime'
+import { AppRpcClient } from '~/services/app-rpc-client'
 
 export async function generateStaticParams() {
   return AppServerRuntime.runPromise(

@@ -22,8 +22,8 @@ import { Popover } from '~/lib/overlays/popover'
 import { cx } from '~/lib/utils/cx'
 import { getComputedLabel } from '~/model/socialLink'
 import { WorkspaceRequest } from '~/rpc/workspace-request'
-import { AppServerRuntime } from '~/runtime/app-server-runtime'
-import { AppRpcClient } from '~/service/app-rpc-client'
+import { AppServerRuntime } from '~/runtimes/app-server-runtime'
+import { AppRpcClient } from '~/services/app-rpc-client'
 
 const layerCx = cx('border border-gray-4 rounded-2xl p-4')
 const mutedCx = cx('transition-colors text-gray-10 hover:text-gray-12')

@@ -1,6 +1,6 @@
 import { RpcResolver, RpcRouter } from '@effect/rpc'
 import { Effect } from 'effect'
-import { AppRpcRouter } from '~/service/app-rpc-router'
+import { AppRpcRouter } from '~/services/app-rpc-router'
 
 export class AppRpcClient extends Effect.Service<AppRpcClient>()(
   'AppRpcClient',

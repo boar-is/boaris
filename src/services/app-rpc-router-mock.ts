@@ -6,7 +6,7 @@ import { ProjectRequest } from '~/rpc/project-request'
 import { ProjectSlugsRequest } from '~/rpc/project-slugs-request'
 import { WorkspaceRequest } from '~/rpc/workspace-request'
 import { WorkspaceSlugsRequest } from '~/rpc/workspace-slugs-request'
-import { AppRpcRouter } from '~/service/app-rpc-router'
+import { AppRpcRouter } from '~/services/app-rpc-router'
 
 export const AppRpcRouterMock = Layer.succeed(
   AppRpcRouter,
