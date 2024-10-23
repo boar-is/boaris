@@ -6,7 +6,7 @@ import {
 } from 'framer-motion'
 import { type Atom, atom } from 'jotai'
 import { useRef } from 'react'
-import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-provider'
+import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
 import { usePlaybackProgressScrollSync } from '~/features/use-playback-progress-scroll-sync'
 import { type Coords, mergeCoords } from '~/lib/framer-motion/merge-coords'
 import { motion } from '~/lib/framer-motion/motion'
