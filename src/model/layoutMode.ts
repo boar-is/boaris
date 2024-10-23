@@ -1,6 +1,6 @@
-import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
 import * as HS from 'effect/HashSet'
+import * as S from 'effect/Schema'
 
 export const layoutMode = v.union(
   v.literal('static'),

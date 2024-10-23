@@ -1,8 +1,8 @@
 'use client'
 
-import * as S from '@effect/schema/Schema'
 import * as M from 'effect/Match'
 import * as O from 'effect/Option'
+import * as S from 'effect/Schema'
 import { atom, useAtomValue } from 'jotai'
 import { PostPageQueryResult } from '~/convex/postPage'
 import { AuthorsAtomContext } from '~/features/authors-atom-context'

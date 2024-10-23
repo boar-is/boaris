@@ -1,5 +1,5 @@
-import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
+import * as S from 'effect/Schema'
 import { toFixed } from '~/lib/utils/to-fixed'
 import { Interpolation } from '~/model/interpolation'
 import { applyOverrideDelta, determinedOverride } from '~/model/layoutOverride'

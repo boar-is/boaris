@@ -1,6 +1,6 @@
-import * as S from '@effect/schema/Schema'
 import { fetchQuery } from 'convex/nextjs'
 import * as O from 'effect/Option'
+import * as S from 'effect/Schema'
 import { notFound } from 'next/navigation'
 import type { CSSProperties, PropsWithChildren } from 'react'
 import { api } from '~/convex/_generated/api'

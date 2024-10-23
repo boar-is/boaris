@@ -1,6 +1,6 @@
-import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
 import * as O from 'effect/Option'
+import * as S from 'effect/Schema'
 import { matchSocialNetworkName } from '~/features/match-social-network-name'
 
 export const socialLink = v.object({

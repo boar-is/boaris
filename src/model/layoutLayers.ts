@@ -1,5 +1,5 @@
-import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
+import * as S from 'effect/Schema'
 import { LayoutLayer, layoutLayer } from './layoutLayer'
 
 export const layoutLayers = v.object({

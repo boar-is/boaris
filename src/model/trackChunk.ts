@@ -1,5 +1,5 @@
-import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
+import * as S from 'effect/Schema'
 import { Action, action } from './action'
 
 export const trackChunk = v.object({

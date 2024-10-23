@@ -1,5 +1,5 @@
-import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
+import * as S from 'effect/Schema'
 import { LayoutChange, layoutChange } from './layoutChange'
 import { LayoutMode, layoutMode } from './layoutMode'
 import { LayoutOverride, layoutOverride } from './layoutOverride'

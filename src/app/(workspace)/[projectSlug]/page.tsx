@@ -1,7 +1,7 @@
-import * as S from '@effect/schema/Schema'
 import { fetchQuery } from 'convex/nextjs'
 import * as HM from 'effect/HashMap'
 import * as O from 'effect/Option'
+import * as S from 'effect/Schema'
 import { notFound } from 'next/navigation'
 import { api } from '~/convex/_generated/api'
 import { ProjectPageQueryResult } from '~/convex/projectPage'

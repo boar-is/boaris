@@ -1,5 +1,5 @@
-import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
+import * as S from 'effect/Schema'
 
 export const delta = v.any()
 

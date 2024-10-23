@@ -1,6 +1,6 @@
-import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
 import type * as HS from 'effect/HashSet'
+import * as S from 'effect/Schema'
 import { diffpatcher } from '~/lib/diffpatcher'
 import type { LayoutChange } from '~/model/layoutChange'
 import { Delta, delta } from './delta'

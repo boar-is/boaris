@@ -1,5 +1,5 @@
-import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
+import * as S from 'effect/Schema'
 import type { LayoutChange } from '~/model/layoutChange'
 import { Interpolation, interpolation } from './interpolation'
 import { JsonContent, jsonContent } from './jsonContent'

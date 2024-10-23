@@ -1,6 +1,6 @@
-import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
 import * as M from 'effect/Match'
+import * as S from 'effect/Schema'
 import { ActionInsert, actionInsert } from './actionInsert'
 
 export const action = v.union(actionInsert)

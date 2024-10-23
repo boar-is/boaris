@@ -1,5 +1,5 @@
-import * as S from '@effect/schema/Schema'
 import { v } from 'convex/values'
+import * as S from 'effect/Schema'
 import { query } from '~/convex/_generated/server'
 import { getUrlProps } from '~/lib/convex/get-url-props'
 import { Workspace } from '~/model/workspace'

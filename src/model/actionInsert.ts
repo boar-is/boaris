@@ -1,5 +1,5 @@
-import * as S from '@effect/schema/Schema'
 import { type Infer, v } from 'convex/values'
+import * as S from 'effect/Schema'
 import { ActionBase, actionBase } from './actionBase'
 
 export const actionInsert = v.object({
