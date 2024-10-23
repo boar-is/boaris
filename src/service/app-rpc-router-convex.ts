@@ -8,9 +8,9 @@ import { ProjectRequest } from '~/rpc/project-request'
 import { ProjectSlugsRequest } from '~/rpc/project-slugs-request'
 import { WorkspaceRequest } from '~/rpc/workspace-request'
 import { WorkspaceSlugsRequest } from '~/rpc/workspace-slugs-request'
-import type { ApiRpcRouter } from '~/service/api-rpc-router'
+import type { AppRpcRouter } from '~/service/app-rpc-router'
 
-export const ApiRpcRouterConvex: (typeof ApiRpcRouter)['Service'] =
+export const AppRpcRouterConvex: (typeof AppRpcRouter)['Service'] =
   RpcRouter.make(
     Rpc.effect(PostRequest, (payload) =>
       Effect.tryPromise(() => fetchQuery(api.post.default, payload)).pipe(

@@ -7,8 +7,8 @@ import type { ProjectSlugsRequest } from '~/rpc/project-slugs-request'
 import type { WorkspaceRequest } from '~/rpc/workspace-request'
 import type { WorkspaceSlugsRequest } from '~/rpc/workspace-slugs-request'
 
-export class ApiRpcRouter extends Context.Tag('ApiRpcRouter')<
-  ApiRpcRouter,
+export class AppRpcRouter extends Context.Tag('AppRpcRouter')<
+  AppRpcRouter,
   RpcRouter.RpcRouter<
     | PostRequest
     | PostSlugsRequest
