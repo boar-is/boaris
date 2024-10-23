@@ -1,6 +1,6 @@
 import { Rpc, RpcRouter } from '@effect/rpc'
 import { fetchQuery } from 'convex/nextjs'
-import { Effect, Schema } from 'effect'
+import { Effect, Layer, Schema } from 'effect'
 import { api } from '~/convex/_generated/api'
 import { PostRequest } from '~/rpc/post-request'
 import { PostSlugsRequest } from '~/rpc/post-slugs-request'
@@ -8,9 +8,10 @@ import { ProjectRequest } from '~/rpc/project-request'
 import { ProjectSlugsRequest } from '~/rpc/project-slugs-request'
 import { WorkspaceRequest } from '~/rpc/workspace-request'
 import { WorkspaceSlugsRequest } from '~/rpc/workspace-slugs-request'
-import type { AppRpcRouter } from '~/service/app-rpc-router'
+import { AppRpcRouter } from '~/service/app-rpc-router'
 
-export const AppRpcRouterConvex: (typeof AppRpcRouter)['Service'] =
+export const AppRpcRouterConvex = Layer.succeed(
+  AppRpcRouter,
   RpcRouter.make(
     Rpc.effect(PostRequest, (payload) =>
       Effect.tryPromise(() => fetchQuery(api.post.default, payload)).pipe(
@@ -48,4 +49,5 @@ export const AppRpcRouterConvex: (typeof AppRpcRouter)['Service'] =
         Effect.catchAll(() => Effect.succeed([])),
       ),
     ),
-  )
+  ),
+)

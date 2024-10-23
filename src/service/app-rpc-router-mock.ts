@@ -1,14 +1,15 @@
 import { Rpc, RpcRouter } from '@effect/rpc'
-import { Effect, HashMap, HashSet, Option } from 'effect'
+import { Effect, HashMap, HashSet, Layer, Option } from 'effect'
 import { PostRequest } from '~/rpc/post-request'
 import { PostSlugsRequest } from '~/rpc/post-slugs-request'
 import { ProjectRequest } from '~/rpc/project-request'
 import { ProjectSlugsRequest } from '~/rpc/project-slugs-request'
 import { WorkspaceRequest } from '~/rpc/workspace-request'
 import { WorkspaceSlugsRequest } from '~/rpc/workspace-slugs-request'
-import type { AppRpcRouter } from '~/service/app-rpc-router'
+import { AppRpcRouter } from '~/service/app-rpc-router'
 
-export const AppRpcRouterMock: (typeof AppRpcRouter)['Service'] =
+export const AppRpcRouterMock = Layer.succeed(
+  AppRpcRouter,
   RpcRouter.make(
     Rpc.effect(PostRequest, () =>
       Effect.succeed<(typeof PostRequest)['success']['Type']>({
@@ -79,4 +80,5 @@ export const AppRpcRouterMock: (typeof AppRpcRouter)['Service'] =
         },
       ]),
     ),
-  )
+  ),
+)
