@@ -4,7 +4,6 @@ import * as M from 'effect/Match'
 import * as O from 'effect/Option'
 import * as S from 'effect/Schema'
 import { atom, useAtomValue } from 'jotai'
-import { PostPageQueryResult } from '~/convex/post'
 import { AuthorsAtomContext } from '~/features/authors-atom-context'
 import { CaptionsAtomContext } from '~/features/captions-atom-context'
 import { LayoutChangesAtomContext } from '~/features/layout-changes-atom-context'
@@ -17,15 +16,17 @@ import { useWindowWidthAtom } from '~/lib/react/use-window-width-atom'
 import { remappedCaptions } from '~/model/captions'
 import { determinedLayoutChanges } from '~/model/layoutChange'
 import { determinedLayoutMode } from '~/model/layoutMode'
+import { PostRequest } from '~/rpc/post-request'
 import { PostScrolling } from './_/post-scrolling'
 
 export function WorkspaceProjectPostPageClient({
-  postPageQueryResult,
+  result,
 }: {
-  postPageQueryResult: typeof PostPageQueryResult.Encoded
+  result: (typeof PostRequest)['success']['Encoded']
 }) {
-  const { post, tags, authors, revision } =
-    S.decodeSync(PostPageQueryResult)(postPageQueryResult)
+  const { post, tags, authors, revision } = S.decodeSync(PostRequest.success)(
+    result,
+  )!
 
   const postAtom = useConstant(() => atom(post))
   const tagsAtom = useConstant(() => atom(tags))

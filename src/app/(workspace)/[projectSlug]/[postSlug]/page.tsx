@@ -1,4 +1,4 @@
-import { Effect } from 'effect'
+import { Effect, Schema } from 'effect'
 import { notFound } from 'next/navigation'
 import { currentWorkspaceSlug } from '~/lib/constants'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
@@ -33,7 +33,11 @@ export default async function WorkspaceProjectPostPage({
         notFound()
       }
 
-      return <WorkspaceProjectPostPageClient postPageQueryResult={result} />
+      return (
+        <WorkspaceProjectPostPageClient
+          result={Schema.encodeSync(PostRequest.success)(result)}
+        />
+      )
     }),
   )
 }
