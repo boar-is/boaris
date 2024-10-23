@@ -13,7 +13,7 @@ import { motion } from '~/lib/framer-motion/motion'
 import { useAtomAnimatedMotionValue } from '~/lib/framer-motion/use-atom-animated-motion-value'
 import { useAtomMotionValue } from '~/lib/framer-motion/use-atom-motion-value'
 import { getPositionByProgress } from '~/lib/prosemirror/get-position-by-progress'
-import { getWordRangeReducer } from '~/lib/prosemirror/get-word-range-reducer'
+import { getWordRangeAtPos } from '~/lib/prosemirror/get-word-range-at-pos'
 import { offsetTopAtPos } from '~/lib/prosemirror/offset-top-at-pos'
 import { useConstant } from '~/lib/react/use-constant'
 import { useFactoredHeight } from '~/lib/react/use-factored-height'
@@ -50,11 +50,8 @@ export function PostScrollingCaptions({
   })
 
   const wordRangeAtom = useConstant(() => {
-    const getStateWordRangeReducer = getWordRangeReducer(editor.state)
-    const rangeAtom = atom<{ start: number; end: number } | undefined>()
-    return atom((get) =>
-      getStateWordRangeReducer(get(rangeAtom), get(positionAtom)),
-    )
+    const getStateWordRangeAtPos = getWordRangeAtPos(editor.state)
+    return atom((get) => getStateWordRangeAtPos(get(positionAtom)))
   })
 
   const contentRef = useRef<HTMLDivElement | null>(null)
@@ -107,7 +104,23 @@ function PostScrollingCaptionsCursor({
 }) {
   const [scope, animate] = useAnimate()
 
-  const range = useAtomMotionValue(wordRangeAtom, undefined)
+  const [startAtom, endAtom] = useConstant(
+    () =>
+      [
+        atom((get) => get(wordRangeAtom)?.start),
+        atom((get) => get(wordRangeAtom)?.end),
+      ] as const,
+  )
+
+  const rangeAtom = useConstant(() =>
+    atom((get) => {
+      const start = get(startAtom)
+      const end = get(endAtom)
+      return start && end && { start, end }
+    }),
+  )
+
+  const range = useAtomMotionValue(rangeAtom, undefined)
 
   useMotionValueEvent(range, 'change', (range) => {
     if (!range) {
