@@ -25,8 +25,8 @@ export const useAtomAnimatedMotionValue = <T>(
     useConstant(() =>
       atomEffect((get) => {
         const value = mapFn(get(valueAtom))
-        if (value) {
-          value && animate(motionValue, value, animateOptions)
+        if (value !== undefined) {
+          animate(motionValue, value, animateOptions)
         }
       }),
     ),

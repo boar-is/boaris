@@ -45,7 +45,7 @@ export function PostScrollingCaptions({
     initial: 0,
     mapFn: (position) => {
       const offset = offsetTopAtViewPos(position)
-      return offset && offset * -1
+      return offset ? offset * -1 : 0
     },
   })
 
