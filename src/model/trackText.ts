@@ -16,7 +16,7 @@ export const trackText = v.object({
 
 export class TrackText extends TrackBase.extend<TrackText>('TrackText')({
   type: S.Literal('text'),
-  value: S.NonEmptyTrimmedString,
+  value: S.String,
 }) {
   static encodedFromEntity(actions: Array<Infer<typeof action>>) {
     return ({

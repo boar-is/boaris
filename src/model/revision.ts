@@ -27,7 +27,9 @@ export class Revision extends S.Class<Revision>('Revision')({
       layout: Layout.encodedFromEntity(layout),
       tracks: await Promise.all(
         tracks.map((it) =>
-          trackEncodedFromEntity(it, actionsByTrackId[it.id]!, { getUrl }),
+          trackEncodedFromEntity(it, actionsByTrackId[it.id] ?? [], {
+            getUrl,
+          }),
         ),
       ),
     }
