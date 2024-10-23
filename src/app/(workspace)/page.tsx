@@ -1,27 +1,40 @@
-import { fetchQuery } from 'convex/nextjs'
-import * as S from 'effect/Schema'
+import { RpcRouter } from '@effect/rpc'
+import { Effect } from 'effect'
 import { notFound } from 'next/navigation'
-import { api } from '~/convex/_generated/api'
-import { WorkspacePageQueryResult } from '~/convex/workspacePage'
 import { currentWorkspaceSlug } from '~/lib/constants'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
+import { WorkspaceRequest } from '~/rpc/workspace-request'
+import { WorkspaceSlugsRequest } from '~/rpc/workspace-slugs-request'
+import { AppServerRuntime } from '~/runtime/app-server-runtime'
+import { AppRpcRouter } from '~/service/app-rpc-router'
 
 export async function generateStaticParams() {
-  return fetchQuery(api.workspaceParams.default)
+  return AppServerRuntime.runPromise(
+    Effect.gen(function* () {
+      const routerHandler = (yield* AppRpcRouter).pipe(RpcRouter.toHandlerRaw)
+      return yield* routerHandler(new WorkspaceSlugsRequest())
+    }),
+  )
 }
 
 export default async function WorkspacePage({
   params: { workspaceSlug = currentWorkspaceSlug },
 }: PropsWithStaticParams<typeof generateStaticParams>) {
-  const result = await fetchQuery(api.workspacePage.default, {
-    workspaceSlug,
-  })
+  return AppServerRuntime.runPromise(
+    Effect.gen(function* () {
+      const routerHandler = (yield* AppRpcRouter).pipe(RpcRouter.toHandlerRaw)
 
-  if (!result) {
-    notFound()
-  }
+      const result = yield* routerHandler(
+        new WorkspaceRequest({ workspaceSlug }),
+      )
 
-  const { workspace } = S.decodeSync(WorkspacePageQueryResult)(result)
+      if (!result) {
+        return notFound()
+      }
 
-  return <div>{workspace.name}</div>
+      const { workspace } = result
+
+      return <div>{workspace.name}</div>
+    }),
+  )
 }
