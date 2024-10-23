@@ -1,26 +1,39 @@
-import { fetchQuery } from 'convex/nextjs'
+import { Effect } from 'effect'
 import { notFound } from 'next/navigation'
-import { api } from '~/convex/_generated/api'
 import { currentWorkspaceSlug } from '~/lib/constants'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
+import { PostRequest } from '~/rpc/post-request'
+import { PostSlugsRequest } from '~/rpc/post-slugs-request'
+import { AppServerRuntime } from '~/runtime/app-server-runtime'
+import { AppRpcClient } from '~/service/app-rpc-client'
 import { WorkspaceProjectPostPageClient } from './page.client'
 
 export async function generateStaticParams() {
-  return fetchQuery(api.postParams.default)
+  return AppServerRuntime.runPromise(
+    Effect.gen(function* () {
+      return yield* (yield* AppRpcClient)(new PostSlugsRequest())
+    }),
+  )
 }
 
 export default async function WorkspaceProjectPostPage({
   params: { workspaceSlug = currentWorkspaceSlug, projectSlug, postSlug },
 }: PropsWithStaticParams<typeof generateStaticParams>) {
-  const result = await fetchQuery(api.postPage.default, {
-    workspaceSlug,
-    projectSlug,
-    postSlug,
-  })
+  return AppServerRuntime.runPromise(
+    Effect.gen(function* () {
+      const result = yield* (yield* AppRpcClient)(
+        new PostRequest({
+          workspaceSlug,
+          projectSlug,
+          postSlug,
+        }),
+      )
 
-  if (!result) {
-    notFound()
-  }
+      if (!result) {
+        notFound()
+      }
 
-  return <WorkspaceProjectPostPageClient postPageQueryResult={result} />
+      return <WorkspaceProjectPostPageClient postPageQueryResult={result} />
+    }),
+  )
 }

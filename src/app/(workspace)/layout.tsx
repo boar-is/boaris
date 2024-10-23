@@ -1,4 +1,3 @@
-import { RpcRouter } from '@effect/rpc'
 import { Effect, Option } from 'effect'
 import { notFound } from 'next/navigation'
 import type { CSSProperties, PropsWithChildren } from 'react'
@@ -24,7 +23,7 @@ import { cx } from '~/lib/utils/cx'
 import { getComputedLabel } from '~/model/socialLink'
 import { WorkspaceRequest } from '~/rpc/workspace-request'
 import { AppServerRuntime } from '~/runtime/app-server-runtime'
-import { AppRpcRouter } from '~/service/app-rpc-router'
+import { AppRpcClient } from '~/service/app-rpc-client'
 
 const layerCx = cx('border border-gray-4 rounded-2xl p-4')
 const mutedCx = cx('transition-colors text-gray-10 hover:text-gray-12')
@@ -45,9 +44,7 @@ export default async function WorkspaceLayout({
 }) {
   return AppServerRuntime.runPromise(
     Effect.gen(function* () {
-      const routerHandler = (yield* AppRpcRouter).pipe(RpcRouter.toHandlerRaw)
-
-      const result = yield* routerHandler(
+      const result = yield* (yield* AppRpcClient)(
         new WorkspaceRequest({ workspaceSlug }),
       )
 
