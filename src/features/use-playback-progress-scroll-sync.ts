@@ -2,7 +2,7 @@ import { useResizeObserver } from '@react-aria/utils'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { useSetAtom } from 'jotai/index'
 import { useRef } from 'react'
-import { usePlaybackProgressAtom } from './playback-progress-atom-provider'
+import { usePlaybackProgressAtom } from './playback-progress-atom-context'
 
 export const usePlaybackProgressScrollSync = ({
   scrollableHeight,
