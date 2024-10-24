@@ -77,22 +77,26 @@ export function PostScrollingLayout() {
 function MainLayerGrid({ children }: PropsWithChildren) {
   const layer = useAtomValue(useLayoutLayerAtom())
 
-  return layer.pipe(
-    O.andThen(({ areas, rows, columns }) => (
-      <ul
-        className="grid sticky bottom-4 inset-x-0 h-[60dvh] w-screen container gap-2 *:h-full"
-        style={{
-          gridTemplateAreas: areas,
-          gridTemplateColumns: O.getOrUndefined(columns),
-          gridTemplateRows: O.getOrUndefined(rows),
-          gridAutoColumns: 'minmax(0, 1fr)',
-          gridAutoRows: 'minmax(0, 1fr)',
-        }}
-      >
-        {children}
-      </ul>
-    )),
-    O.getOrNull,
+  return (
+    <AnimatePresence mode="wait">
+      {layer.pipe(
+        O.andThen(({ areas, rows, columns }) => (
+          <motion.ul
+            className="grid sticky bottom-4 inset-x-0 h-[60dvh] w-screen container gap-2 *:h-full"
+            style={{
+              gridTemplateAreas: areas,
+              gridTemplateColumns: O.getOrUndefined(columns),
+              gridTemplateRows: O.getOrUndefined(rows),
+              gridAutoColumns: 'minmax(0, 1fr)',
+              gridAutoRows: 'minmax(0, 1fr)',
+            }}
+          >
+            {children}
+          </motion.ul>
+        )),
+        O.getOrNull,
+      )}
+    </AnimatePresence>
   )
 }
 
@@ -138,7 +142,7 @@ const MainLayerGridItem = forwardRef<
   return (
     <motion.li
       ref={ref}
-      className="bg-gray-2/90 backdrop-blur-md border border-gray-4 rounded-xl overflow-hidden"
+      className="bg-gray-1/80 backdrop-blur-md border border-gray-4/80 rounded-xl overflow-hidden"
       style={{ gridArea: track.id }}
       initial={{ opacity: 0, filter: 'blur(16px)' }}
       animate={{ opacity: 1, filter: 'blur(0px)' }}
@@ -263,7 +267,7 @@ function LayoutTrackText({ track }: { track: typeof TrackText.Type }) {
 }
 
 const panelEdgeClassName = cx(
-  'bg-gray-1/75 py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1 z-10',
+  'bg-gray-2/75 py-2 px-3.5 text-sm text-gray-10 flex items-center gap-1.5 z-10',
 )
 
 function LayoutPanel({ children }: PropsWithChildren) {
