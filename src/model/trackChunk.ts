@@ -31,7 +31,7 @@ export const toActionsByTrackId = (
   return Object.fromEntries(
     Object.entries(unsortedActions).map(
       ([key, value]) =>
-        [key, value.toSorted((a, b) => a.offset - b.offset)] as const,
+        [key, value.slice().sort((a, b) => a.offset - b.offset)] as const,
     ),
   )
 }
