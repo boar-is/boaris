@@ -56,7 +56,7 @@ export function PostReadingHeader() {
         <h1 className="text-4xl text-gray-12 font-semibold tracking-tight text-balance">
           {post.title}
         </h1>
-        {tags.length && (
+        {tags.length > 0 && (
           <ul className="flex flex-wrap gap-1.5 lg:gap-2 text-sm lg:text-base font-medium tracking-wide text-gray-10 *:my-0.5">
             {tags.map((tag) => (
               <li key={tag.slug}>
@@ -76,7 +76,7 @@ export function PostReadingHeader() {
           O.getOrNull,
         )}
         <div className="flex justify-between gap-8 items-center">
-          {authors.length && (
+          {authors.length > 0 && (
             <ul className="space-y-1 lg:space-y-2 text-gray-10 lg:text-lg font-medium tracking-tight">
               {authors.map((author) => (
                 <li
