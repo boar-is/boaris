@@ -77,26 +77,22 @@ export function PostScrollingLayout() {
 function MainLayerGrid({ children }: PropsWithChildren) {
   const layer = useAtomValue(useLayoutLayerAtom())
 
-  return (
-    <AnimatePresence mode="wait">
-      {layer.pipe(
-        O.andThen(({ areas, rows, columns }) => (
-          <motion.ul
-            className="grid sticky bottom-4 inset-x-0 h-[60dvh] w-screen container gap-2 *:h-full"
-            style={{
-              gridTemplateAreas: areas,
-              gridTemplateColumns: O.getOrUndefined(columns),
-              gridTemplateRows: O.getOrUndefined(rows),
-              gridAutoColumns: 'minmax(0, 1fr)',
-              gridAutoRows: 'minmax(0, 1fr)',
-            }}
-          >
-            {children}
-          </motion.ul>
-        )),
-        O.getOrNull,
-      )}
-    </AnimatePresence>
+  return layer.pipe(
+    O.andThen(({ areas, rows, columns }) => (
+      <motion.ul
+        className="grid sticky bottom-4 inset-x-0 h-[60dvh] w-screen container gap-2 *:h-full"
+        style={{
+          gridTemplateAreas: areas,
+          gridTemplateColumns: O.getOrUndefined(columns),
+          gridTemplateRows: O.getOrUndefined(rows),
+          gridAutoColumns: 'minmax(0, 1fr)',
+          gridAutoRows: 'minmax(0, 1fr)',
+        }}
+      >
+        {children}
+      </motion.ul>
+    )),
+    O.getOrNull,
   )
 }
 
