@@ -45,15 +45,17 @@ export function PostScrollingLayout() {
   )
 
   const indexAtom = useConstant(() =>
-    atom(
-      (get) =>
-        findClosestIndex(get(changesAtom), get(progressAtom), (it) => it.at)!,
+    atom((get) =>
+      O.fromNullable(
+        findClosestIndex(get(changesAtom), get(progressAtom), (it) => it.at),
+      ),
     ),
   )
 
   const layersAtom = useConstant(() =>
     atom((get) =>
-      A.get(get(changesAtom), get(indexAtom)).pipe(
+      get(indexAtom).pipe(
+        O.andThen((index) => A.get(get(changesAtom), index)),
         O.andThen((it) => it.layers),
       ),
     ),
@@ -244,7 +246,7 @@ function LayoutTrackText({ track }: { track: typeof TrackText.Type }) {
             'h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!text-xs md:[&_.cm-scroller]:!text-sm [&_.cm-line]:px-4',
             '[&_.cm-scroller]:overflow-hidden',
           )}
-          value={track.value + track.value + track.value}
+          value={track.value}
           extensions={extensions}
           editable={false}
           theme={codemirrorTheme}
