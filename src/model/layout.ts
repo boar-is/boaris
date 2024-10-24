@@ -1,5 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 import { LayoutChange, layoutChange } from './layoutChange'
 import { LayoutMode, layoutMode } from './layoutMode'
 import { LayoutOverride, layoutOverride } from './layoutOverride'
@@ -10,10 +10,10 @@ export const layout = v.object({
   overrides: v.array(layoutOverride),
 })
 
-export class Layout extends S.Class<Layout>('Layout')({
-  modes: S.HashSet(LayoutMode),
-  changes: S.Array(LayoutChange),
-  overrides: S.Array(LayoutOverride),
+export class Layout extends Schema.Class<Layout>('Layout')({
+  modes: Schema.HashSet(LayoutMode),
+  changes: Schema.Array(LayoutChange),
+  overrides: Schema.Array(LayoutOverride),
 }) {
   static encodedFromEntity({
     modes,

@@ -1,5 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 import { Action, action } from './action'
 
 export const trackChunk = v.object({
@@ -36,10 +36,10 @@ export const toActionsByTrackId = (
   )
 }
 
-export class TrackChunk extends S.Class<TrackChunk>('TrackChunk')({
-  offset: S.Number,
-  actions: S.HashMap({
-    key: S.NonEmptyTrimmedString,
-    value: S.Array(Action),
+export class TrackChunk extends Schema.Class<TrackChunk>('TrackChunk')({
+  offset: Schema.Number,
+  actions: Schema.HashMap({
+    key: Schema.NonEmptyTrimmedString,
+    value: Schema.Array(Action),
   }),
 }) {}

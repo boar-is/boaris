@@ -1,5 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 import { ActionBase, actionBase } from './actionBase'
 
 export const actionInsert = v.object({
@@ -14,11 +14,11 @@ export const actionInsert = v.object({
 export class ActionInsert extends ActionBase.extend<ActionInsert>(
   'ActionInsert',
 )({
-  type: S.Literal('insert'),
-  from: S.Number,
-  to: S.OptionFromUndefinedOr(S.Number),
-  length: S.Number,
-  value: S.OptionFromUndefinedOr(S.String),
+  type: Schema.Literal('insert'),
+  from: Schema.Number,
+  to: Schema.OptionFromUndefinedOr(Schema.Number),
+  length: Schema.Number,
+  value: Schema.OptionFromUndefinedOr(Schema.String),
 }) {
   static encodedFromEntity({
     type,

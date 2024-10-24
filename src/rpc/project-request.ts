@@ -1,31 +1,31 @@
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 import { Post } from '~/model/post'
 import { Project } from '~/model/project'
 import { Tag } from '~/model/tag'
 import { User } from '~/model/user'
 
-export class ProjectRequest extends S.TaggedRequest<ProjectRequest>()(
+export class ProjectRequest extends Schema.TaggedRequest<ProjectRequest>()(
   'ProjectRequest',
   {
-    failure: S.Never,
-    success: S.Union(
-      S.Null,
-      S.Struct({
+    failure: Schema.Never,
+    success: Schema.Union(
+      Schema.Null,
+      Schema.Struct({
         project: Project,
-        posts: S.Array(Post),
-        tagsByPostSlug: S.HashMap({
+        posts: Schema.Array(Post),
+        tagsByPostSlug: Schema.HashMap({
           key: Post.fields.slug,
-          value: S.Array(Tag),
+          value: Schema.Array(Tag),
         }),
-        authorsByPostSlug: S.HashMap({
+        authorsByPostSlug: Schema.HashMap({
           key: Post.fields.slug,
-          value: S.Array(User),
+          value: Schema.Array(User),
         }),
       }),
     ),
     payload: {
-      workspaceSlug: S.NonEmptyTrimmedString,
-      projectSlug: S.NonEmptyTrimmedString,
+      workspaceSlug: Schema.NonEmptyTrimmedString,
+      projectSlug: Schema.NonEmptyTrimmedString,
     },
   },
 ) {}

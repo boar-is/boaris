@@ -1,5 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 
 export const layoutLayer = v.object({
   /**
@@ -10,10 +10,10 @@ export const layoutLayer = v.object({
   rows: v.optional(v.string()),
 })
 
-export class LayoutLayer extends S.Class<LayoutLayer>('LayoutLayer')({
-  areas: S.NonEmptyTrimmedString,
-  columns: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
-  rows: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
+export class LayoutLayer extends Schema.Class<LayoutLayer>('LayoutLayer')({
+  areas: Schema.NonEmptyTrimmedString,
+  columns: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
+  rows: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
 }) {
   static encodedFromEntity({
     areas,

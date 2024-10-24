@@ -1,5 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 import type { LayoutChange } from '~/model/layoutChange'
 import { Interpolation, interpolation } from './interpolation'
 import { JsonContent, jsonContent } from './jsonContent'
@@ -9,7 +9,7 @@ export const captions = v.object({
   interpolation: interpolation,
 })
 
-export class Captions extends S.Class<Captions>('Captions')({
+export class Captions extends Schema.Class<Captions>('Captions')({
   content: JsonContent,
   interpolation: Interpolation,
 }) {

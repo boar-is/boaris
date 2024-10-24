@@ -1,7 +1,5 @@
 import ReactCodeMirror, { type ReactCodeMirrorRef } from '@uiw/react-codemirror'
-import * as A from 'effect/Array'
-import * as M from 'effect/Match'
-import * as O from 'effect/Option'
+import { Array, Match, Option } from 'effect'
 import { AnimatePresence, transform } from 'framer-motion'
 import { type Atom, atom, useAtomValue } from 'jotai'
 import { splitAtom } from 'jotai/utils'
@@ -46,7 +44,7 @@ export function PostScrollingLayout() {
 
   const indexAtom = useConstant(() =>
     atom((get) =>
-      O.fromNullable(
+      Option.fromNullable(
         findClosestIndex(get(changesAtom), get(progressAtom), (it) => it.at),
       ),
     ),
@@ -55,14 +53,14 @@ export function PostScrollingLayout() {
   const layersAtom = useConstant(() =>
     atom((get) =>
       get(indexAtom).pipe(
-        O.andThen((index) => A.get(get(changesAtom), index)),
-        O.andThen((it) => it.layers),
+        Option.andThen((index) => Array.get(get(changesAtom), index)),
+        Option.andThen((it) => it.layers),
       ),
     ),
   )
 
   const mainLayerAtom = useConstant(() =>
-    atom((get) => get(layersAtom).pipe(O.andThen((it) => it.main))),
+    atom((get) => get(layersAtom).pipe(Option.andThen((it) => it.main))),
   )
 
   return (
@@ -78,13 +76,13 @@ function MainLayerGrid({ children }: PropsWithChildren) {
   const layer = useAtomValue(useLayoutLayerAtom())
 
   return layer.pipe(
-    O.andThen(({ areas, rows, columns }) => (
+    Option.andThen(({ areas, rows, columns }) => (
       <motion.ul
         className="grid sticky bottom-4 inset-x-0 h-[60dvh] w-screen container gap-2 *:h-full"
         style={{
           gridTemplateAreas: areas,
-          gridTemplateColumns: O.getOrUndefined(columns),
-          gridTemplateRows: O.getOrUndefined(rows),
+          gridTemplateColumns: Option.getOrUndefined(columns),
+          gridTemplateRows: Option.getOrUndefined(rows),
           gridAutoColumns: 'minmax(0, 1fr)',
           gridAutoRows: 'minmax(0, 1fr)',
         }}
@@ -92,7 +90,7 @@ function MainLayerGrid({ children }: PropsWithChildren) {
         {children}
       </motion.ul>
     )),
-    O.getOrNull,
+    Option.getOrNull,
   )
 }
 
@@ -100,7 +98,7 @@ function MainLayerGridItems() {
   const layerAtom = useLayoutLayerAtom()
 
   const areasAtom = useConstant(() =>
-    atom((get) => get(layerAtom).pipe(O.map((it) => it.areas))),
+    atom((get) => get(layerAtom).pipe(Option.map((it) => it.areas))),
   )
 
   const tracksAtom = useTracksAtom()
@@ -110,10 +108,10 @@ function MainLayerGridItems() {
       splitAtom(
         atom((get) =>
           get(areasAtom).pipe(
-            O.andThen((areas) =>
+            Option.andThen((areas) =>
               get(tracksAtom).filter((it) => areas.includes(it.id)),
             ),
-            O.getOrElse(() => []),
+            Option.getOrElse(() => []),
           ),
         ),
       ),
@@ -149,15 +147,15 @@ const MainLayerGridItem = forwardRef<
   )
 })
 
-const matchLayoutTrackPanel = M.type<typeof Track.Type>().pipe(
-  M.when({ type: 'image-static' }, (track) => (
+const matchLayoutTrackPanel = Match.type<typeof Track.Type>().pipe(
+  Match.when({ type: 'image-static' }, (track) => (
     <LayoutTrackImageStatic track={track} />
   )),
-  M.when({ type: 'image-dynamic' }, (track) => (
+  Match.when({ type: 'image-dynamic' }, (track) => (
     <LayoutTrackImageDynamic track={track} />
   )),
-  M.when({ type: 'text' }, (track) => <LayoutTrackText track={track} />),
-  M.exhaustive,
+  Match.when({ type: 'text' }, (track) => <LayoutTrackText track={track} />),
+  Match.exhaustive,
 )
 
 function LayoutTrackImageStatic({
@@ -177,8 +175,8 @@ function LayoutTrackImageStatic({
           src={track.url}
           className="object-contain"
           alt={track.alt.pipe(
-            O.orElse(() => track.caption),
-            O.getOrElse(
+            Option.orElse(() => track.caption),
+            Option.getOrElse(
               () => 'The author did not provide any alt to this image',
             ),
           )}
@@ -186,10 +184,10 @@ function LayoutTrackImageStatic({
         />
       </section>
       {track.caption.pipe(
-        O.andThen((caption) => (
+        Option.andThen((caption) => (
           <LayoutPanelFooter>{caption}</LayoutPanelFooter>
         )),
-        O.getOrNull,
+        Option.getOrNull,
       )}
     </LayoutPanel>
   )
@@ -220,10 +218,10 @@ function LayoutTrackImageDynamic({
         />
       </section>
       {track.caption.pipe(
-        O.andThen((caption) => (
+        Option.andThen((caption) => (
           <LayoutPanelFooter>{caption}</LayoutPanelFooter>
         )),
-        O.getOrNull,
+        Option.getOrNull,
       )}
     </LayoutPanel>
   )

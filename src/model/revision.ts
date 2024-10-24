@@ -1,5 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 import type { PropsWithGetUrl } from '~/lib/utils/props-with-get-url'
 import type { action } from './action'
 import { Captions, captions } from './captions'
@@ -12,10 +12,10 @@ export const revision = v.object({
   tracks: v.array(track),
 })
 
-export class Revision extends S.Class<Revision>('Revision')({
-  captions: S.OptionFromUndefinedOr(Captions),
+export class Revision extends Schema.Class<Revision>('Revision')({
+  captions: Schema.OptionFromUndefinedOr(Captions),
   layout: Layout,
-  tracks: S.Array(Track),
+  tracks: Schema.Array(Track),
 }) {
   static async encodedFromEntity(
     { captions, layout, tracks }: Infer<typeof revision>,

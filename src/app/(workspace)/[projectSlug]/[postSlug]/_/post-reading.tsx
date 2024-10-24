@@ -1,6 +1,6 @@
 'use client'
 
-import * as O from 'effect/Option'
+import { Option } from 'effect'
 import { useAtomValue } from 'jotai'
 import type { PropsWithChildren } from 'react'
 import { useAuthorsAtom } from '~/features/authors-atom-context'
@@ -33,7 +33,7 @@ export function PostReadingHeader() {
     <header className="w-full max-w-prose">
       <hgroup className="flex flex-col gap-6">
         {post.thumbnailUrl.pipe(
-          O.andThen((url) => (
+          Option.andThen((url) => (
             <figure className="relative">
               <Image
                 src={url}
@@ -51,7 +51,7 @@ export function PostReadingHeader() {
               />
             </figure>
           )),
-          O.getOrNull,
+          Option.getOrNull,
         )}
         <h1 className="text-4xl text-gray-12 font-semibold tracking-tight text-balance">
           {post.title}
@@ -68,12 +68,12 @@ export function PostReadingHeader() {
           </ul>
         )}
         {post.lead.pipe(
-          O.andThen((lead) => (
+          Option.andThen((lead) => (
             <p className="text-gray-11 text-pretty text-lg font-medium">
               {lead}
             </p>
           )),
-          O.getOrNull,
+          Option.getOrNull,
         )}
         <div className="flex justify-between gap-8 items-center">
           {authors.length > 0 && (
@@ -84,7 +84,7 @@ export function PostReadingHeader() {
                   className="flex items-center gap-1.5 lg:gap-2"
                 >
                   {author.avatarUrl.pipe(
-                    O.andThen((url) => (
+                    Option.andThen((url) => (
                       <aside className="relative size-8 lg:size-10 rounded-full overflow-hidden border shadow-inner">
                         <Image
                           src={url}
@@ -95,7 +95,7 @@ export function PostReadingHeader() {
                         />
                       </aside>
                     )),
-                    O.getOrNull,
+                    Option.getOrNull,
                   )}
                   {author.name}
                 </li>

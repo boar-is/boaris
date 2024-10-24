@@ -1,6 +1,6 @@
 import { v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 
 export const jsonContent = v.any()
 
-export const JsonContent = S.Any
+export const JsonContent = Schema.Any

@@ -1,5 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 import { toFixed } from '~/lib/utils/to-fixed'
 import { Interpolation } from '~/model/interpolation'
 import { applyOverrideDelta, determinedOverride } from '~/model/layoutOverride'
@@ -20,10 +20,10 @@ export const layoutChange = v.object({
   layers: v.optional(layoutLayers),
 })
 
-export class LayoutChange extends S.Class<LayoutChange>('LayoutChange')({
-  id: S.NonEmptyTrimmedString,
-  at: S.Number,
-  layers: S.OptionFromUndefinedOr(LayoutLayers),
+export class LayoutChange extends Schema.Class<LayoutChange>('LayoutChange')({
+  id: Schema.NonEmptyTrimmedString,
+  at: Schema.Number,
+  layers: Schema.OptionFromUndefinedOr(LayoutLayers),
 }) {
   static encodedFromEntity({
     id,

@@ -1,6 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import type * as HS from 'effect/HashSet'
-import * as S from 'effect/Schema'
+import { type HashSet, Schema } from 'effect'
 import { diffpatcher } from '~/lib/diffpatcher'
 import type { LayoutChange } from '~/model/layoutChange'
 import { Delta, delta } from './delta'
@@ -14,10 +13,12 @@ export const layoutOverride = v.object({
   changesDelta: delta,
 })
 
-export class LayoutOverride extends S.Class<LayoutOverride>('LayoutOverride')({
-  name: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
-  modes: S.HashSet(LayoutMode),
-  minWidth: S.OptionFromUndefinedOr(S.Number),
+export class LayoutOverride extends Schema.Class<LayoutOverride>(
+  'LayoutOverride',
+)({
+  name: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
+  modes: Schema.HashSet(LayoutMode),
+  minWidth: Schema.OptionFromUndefinedOr(Schema.Number),
   changesDelta: Delta,
 }) {
   static encodedFromEntity({
@@ -43,7 +44,7 @@ export const determinedOverride = ({
   includeDisabled = false,
 }: {
   readonly mode: typeof LayoutMode.Type
-  readonly modes: HS.HashSet<typeof LayoutMode.Type>
+  readonly modes: HashSet.HashSet<typeof LayoutMode.Type>
   readonly overrides: ReadonlyArray<typeof LayoutOverride.Type>
   readonly width: number
   readonly includeDisabled?: boolean | undefined

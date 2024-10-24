@@ -1,18 +1,18 @@
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 import { Workspace } from '~/model/workspace'
 
-export class WorkspaceRequest extends S.TaggedRequest<WorkspaceRequest>()(
+export class WorkspaceRequest extends Schema.TaggedRequest<WorkspaceRequest>()(
   'WorkspaceRequest',
   {
-    failure: S.Never,
-    success: S.Union(
-      S.Null,
-      S.Struct({
+    failure: Schema.Never,
+    success: Schema.Union(
+      Schema.Null,
+      Schema.Struct({
         workspace: Workspace,
       }),
     ),
     payload: {
-      workspaceSlug: S.NonEmptyTrimmedString,
+      workspaceSlug: Schema.NonEmptyTrimmedString,
     },
   },
 ) {}

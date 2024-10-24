@@ -1,4 +1,4 @@
-import * as M from 'effect/Match'
+import { Match } from 'effect'
 import {
   DiscordIcon,
   GitHubIcon,
@@ -12,38 +12,38 @@ import {
 } from '~/lib/media/icons'
 import { socialNetworkRegexes } from './social-network-regexes'
 
-export const matchSocialNetworkIcon = M.type<string>().pipe(
-  M.when(
+export const matchSocialNetworkIcon = Match.type<string>().pipe(
+  Match.when(
     (it) => socialNetworkRegexes.github.test(it),
     () => GitHubIcon,
   ),
-  M.when(
+  Match.when(
     (it) => socialNetworkRegexes.twitter.test(it),
     () => XIcon,
   ),
-  M.when(
+  Match.when(
     (it) => socialNetworkRegexes.linkedin.test(it),
     () => LinkedInIcon,
   ),
-  M.when(
+  Match.when(
     (it) => socialNetworkRegexes.stackoverflow.test(it),
     () => StackOverflowIcon,
   ),
-  M.when(
+  Match.when(
     (it) => socialNetworkRegexes.discord.test(it),
     () => DiscordIcon,
   ),
-  M.when(
+  Match.when(
     (it) => socialNetworkRegexes.youtube.test(it),
     () => YouTubeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => socialNetworkRegexes.reddit.test(it),
     () => RedditIcon,
   ),
-  M.when(
+  Match.when(
     (it) => socialNetworkRegexes.telegram.test(it),
     () => TelegramIcon,
   ),
-  M.orElse(() => LinkIcon),
+  Match.orElse(() => LinkIcon),
 )

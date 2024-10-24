@@ -1,4 +1,4 @@
-import * as M from 'effect/Match'
+import { Match } from 'effect'
 import {
   CssFileTypeIcon,
   DefaultFileTypeIcon,
@@ -16,58 +16,58 @@ import {
   YamlFileTypeIcon,
 } from '~/lib/media/icons'
 
-export const matchFileTypeIcon = M.type<string>().pipe(
-  M.when(
+export const matchFileTypeIcon = Match.type<string>().pipe(
+  Match.when(
     (it) => /\.(css)$/i.test(it),
     () => CssFileTypeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => /\.(html)$/i.test(it),
     () => HtmlFileTypeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => /\.(gif|jpeg|jpg|png|webp|svg)$/i.test(it),
     () => ImageFileTypeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => /\.(js|cjs|mjs)$/i.test(it),
     () => JavaScriptFileTypeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => /\.(json|jsonc|jsonl|.babelrc|.eslintrc|.prettierrc)$/i.test(it),
     () => JsonFileTypeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => /\.(jsx)$/i.test(it),
     () => JsxFileTypeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => /\.(markdown|md)$/i.test(it),
     () => MarkdownFileTypeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => /\.(sass|scss)$/i.test(it),
     () => SassFileTypeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => /\.(bash|sh|zsh)$/i.test(it),
     () => ShellFileTypeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => /\.(tsx)$/i.test(it),
     () => TsxFileTypeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => /\.(ts|cts|mts)$/i.test(it),
     () => TypeScriptFileTypeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => /\.(yaml|yml)$/i.test(it),
     () => YamlFileTypeIcon,
   ),
-  M.when(
+  Match.when(
     (it) => /\.(mp4)$/i.test(it),
     () => VideoFileTypeIcon,
   ),
-  M.orElse(() => DefaultFileTypeIcon),
+  Match.orElse(() => DefaultFileTypeIcon),
 )

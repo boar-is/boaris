@@ -1,6 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as O from 'effect/Option'
-import * as S from 'effect/Schema'
+import { Option, Schema } from 'effect'
 import { matchSocialNetworkName } from '~/features/match-social-network-name'
 
 export const socialLink = v.object({
@@ -8,9 +7,9 @@ export const socialLink = v.object({
   label: v.optional(v.string()),
 })
 
-export class SocialLink extends S.Class<SocialLink>('SocialLink')({
-  href: S.NonEmptyTrimmedString,
-  label: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
+export class SocialLink extends Schema.Class<SocialLink>('SocialLink')({
+  href: Schema.NonEmptyTrimmedString,
+  label: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
 }) {
   static encodedFromEntity({
     href,
@@ -25,6 +24,6 @@ export class SocialLink extends S.Class<SocialLink>('SocialLink')({
 
 export const getComputedLabel = ({ label, href }: typeof SocialLink.Type) =>
   label.pipe(
-    O.orElse(() => matchSocialNetworkName(href)),
-    O.getOrElse(() => 'Link'),
+    Option.orElse(() => matchSocialNetworkName(href)),
+    Option.getOrElse(() => 'Link'),
   )

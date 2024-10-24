@@ -1,7 +1,7 @@
 'use client'
 
 import { useEditor } from '@tiptap/react'
-import * as O from 'effect/Option'
+import { Option } from 'effect'
 import { useAtomValue } from 'jotai'
 import { atom } from 'jotai/index'
 import { PostScrollingLayout } from '~/app/(workspace)/[projectSlug]/[postSlug]/_/post-scrolling-layout'
@@ -35,7 +35,7 @@ export function PostScrolling() {
 function PostScrollingContent() {
   const { content, interpolation } = useAtomValue(useCaptionsAtom()).pipe(
     // TODO implement post without captions
-    O.getOrThrow,
+    Option.getOrThrow,
   )
 
   const extensions = defaultEditorExtensions

@@ -1,13 +1,13 @@
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 
-export class ProjectSlugsRequest extends S.TaggedRequest<ProjectSlugsRequest>()(
+export class ProjectSlugsRequest extends Schema.TaggedRequest<ProjectSlugsRequest>()(
   'ProjectSlugsRequest',
   {
-    failure: S.Never,
-    success: S.Array(
-      S.Struct({
-        workspaceSlug: S.NonEmptyTrimmedString,
-        projectSlug: S.NonEmptyTrimmedString,
+    failure: Schema.Never,
+    success: Schema.Array(
+      Schema.Struct({
+        workspaceSlug: Schema.NonEmptyTrimmedString,
+        projectSlug: Schema.NonEmptyTrimmedString,
       }),
     ),
     payload: {},

@@ -1,5 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 import { Action, type action } from './action'
 
 export const trackBase = v.object({
@@ -7,10 +7,10 @@ export const trackBase = v.object({
   name: v.string(),
 })
 
-export class TrackBase extends S.Class<TrackBase>('TrackBase')({
-  id: S.NonEmptyTrimmedString,
-  name: S.NonEmptyTrimmedString,
-  actions: S.Array(Action),
+export class TrackBase extends Schema.Class<TrackBase>('TrackBase')({
+  id: Schema.NonEmptyTrimmedString,
+  name: Schema.NonEmptyTrimmedString,
+  actions: Schema.Array(Action),
 }) {
   static encodedFromEntity(
     { id, name }: Infer<typeof trackBase>,

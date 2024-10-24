@@ -1,6 +1,6 @@
 import { type Infer, v } from 'convex/values'
-import * as M from 'effect/Match'
-import * as S from 'effect/Schema'
+import { Match, Schema } from 'effect'
+
 import type { PropsWithGetUrl } from '~/lib/utils/props-with-get-url'
 import type { action } from './action'
 import { TrackImageDynamic, trackImageDynamic } from './trackImageDynamic'
@@ -9,21 +9,25 @@ import { TrackText, trackText } from './trackText'
 
 export const track = v.union(trackImageDynamic, trackImageStatic, trackText)
 
-export const Track = S.Union(TrackImageDynamic, TrackImageStatic, TrackText)
+export const Track = Schema.Union(
+  TrackImageDynamic,
+  TrackImageStatic,
+  TrackText,
+)
 export const trackEncodedFromEntity = async (
   t: Infer<typeof track>,
   actions: Array<Infer<typeof action>>,
   withGetUrl: PropsWithGetUrl,
 ): Promise<typeof Track.Encoded> =>
-  M.value(t).pipe(
-    M.when(
+  Match.value(t).pipe(
+    Match.when(
       { type: 'image-dynamic' },
       TrackImageDynamic.encodedFromEntity(withGetUrl)(actions),
     ),
-    M.when(
+    Match.when(
       { type: 'image-static' },
       TrackImageStatic.encodedFromEntity(withGetUrl)(actions),
     ),
-    M.when({ type: 'text' }, TrackText.encodedFromEntity(actions)),
-    M.exhaustive,
+    Match.when({ type: 'text' }, TrackText.encodedFromEntity(actions)),
+    Match.exhaustive,
   )

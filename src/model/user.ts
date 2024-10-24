@@ -1,5 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 import { SocialLink, socialLink } from './socialLink'
 
 export const user = v.object({
@@ -9,11 +9,11 @@ export const user = v.object({
   socialLinks: v.array(socialLink),
 })
 
-export class User extends S.Class<User>('User')({
-  slug: S.NonEmptyTrimmedString,
-  name: S.NonEmptyTrimmedString,
-  avatarUrl: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
-  socialLinks: S.Array(SocialLink),
+export class User extends Schema.Class<User>('User')({
+  slug: Schema.NonEmptyTrimmedString,
+  name: Schema.NonEmptyTrimmedString,
+  avatarUrl: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
+  socialLinks: Schema.Array(SocialLink),
 }) {
   static encodedFromEntity({
     slug,

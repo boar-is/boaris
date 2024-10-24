@@ -1,5 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 import type { PropsWithGetUrl } from '~/lib/utils/props-with-get-url'
 
 export const post = v.object({
@@ -14,13 +14,13 @@ export const post = v.object({
   revisionStorageIds: v.array(v.id('_storage')),
 })
 
-export class Post extends S.Class<Post>('Post')({
-  slug: S.NonEmptyTrimmedString,
-  title: S.NonEmptyTrimmedString,
-  lead: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
-  description: S.NonEmptyTrimmedString,
-  thumbnailUrl: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
-  date: S.DateFromNumber,
+export class Post extends Schema.Class<Post>('Post')({
+  slug: Schema.NonEmptyTrimmedString,
+  title: Schema.NonEmptyTrimmedString,
+  lead: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
+  description: Schema.NonEmptyTrimmedString,
+  thumbnailUrl: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
+  date: Schema.DateFromNumber,
 }) {
   static encodedFromEntity({ getUrl }: PropsWithGetUrl) {
     return async ({

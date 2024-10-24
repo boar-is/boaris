@@ -1,5 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 import type { PropsWithGetUrl } from '~/lib/utils/props-with-get-url'
 import type { action } from './action'
 import { TrackBase, trackBase } from './trackBase'
@@ -14,9 +14,9 @@ export const trackImageDynamic = v.object({
 export class TrackImageDynamic extends TrackBase.extend<TrackImageDynamic>(
   'TrackImageDynamic',
 )({
-  type: S.Literal('image-dynamic'),
-  url: S.NonEmptyTrimmedString,
-  caption: S.OptionFromUndefinedOr(S.NonEmptyTrimmedString),
+  type: Schema.Literal('image-dynamic'),
+  url: Schema.NonEmptyTrimmedString,
+  caption: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
 }) {
   static encodedFromEntity({ getUrl }: PropsWithGetUrl) {
     return (actions: Array<Infer<typeof action>>) =>

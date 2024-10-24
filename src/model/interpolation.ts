@@ -1,15 +1,17 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 
 export const interpolation = v.object({
   input: v.array(v.number()),
   output: v.array(v.number()),
 })
 
-export class Interpolation extends S.Class<Interpolation>('Interpolation')({
-  input: S.Array(S.Number),
-  output: S.Array(S.Number),
-}) {
+export class Interpolation extends Schema.Class<Interpolation>('Interpolation')(
+  {
+    input: Schema.Array(Schema.Number),
+    output: Schema.Array(Schema.Number),
+  },
+) {
   static encodedFromEntity({
     input,
     output,

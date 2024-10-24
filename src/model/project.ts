@@ -1,5 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import * as S from 'effect/Schema'
+import { Schema } from 'effect'
 
 export const project = v.object({
   slug: v.string(),
@@ -7,9 +7,9 @@ export const project = v.object({
   workspaceId: v.id('workspaces'),
 })
 
-export class Project extends S.Class<Project>('Project')({
-  slug: S.NonEmptyTrimmedString,
-  name: S.NonEmptyTrimmedString,
+export class Project extends Schema.Class<Project>('Project')({
+  slug: Schema.NonEmptyTrimmedString,
+  name: Schema.NonEmptyTrimmedString,
 }) {
   static encodedFromEntity({
     slug,

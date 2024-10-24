@@ -1,8 +1,6 @@
 'use client'
 
-import * as M from 'effect/Match'
-import * as O from 'effect/Option'
-import * as S from 'effect/Schema'
+import { Match, Option, Schema } from 'effect'
 import { atom, useAtomValue } from 'jotai'
 import { AuthorsAtomContext } from '~/features/authors-atom-context'
 import { CaptionsAtomContext } from '~/features/captions-atom-context'
@@ -24,9 +22,9 @@ export function WorkspaceProjectPostPageClient({
 }: {
   result: (typeof PostRequest)['success']['Encoded']
 }) {
-  const { post, tags, authors, revision } = S.decodeSync(PostRequest.success)(
-    result,
-  )!
+  const { post, tags, authors, revision } = Schema.decodeSync(
+    PostRequest.success,
+  )(result)!
 
   const postAtom = useConstant(() => atom(post))
   const tagsAtom = useConstant(() => atom(tags))
@@ -60,7 +58,7 @@ export function WorkspaceProjectPostPageClient({
   const captionsAtom = useConstant(() =>
     atom((get) =>
       get(revisionAtom).captions.pipe(
-        O.andThen(remappedCaptions(get(layoutChangesAtom))),
+        Option.andThen(remappedCaptions(get(layoutChangesAtom))),
       ),
     ),
   )
@@ -75,9 +73,9 @@ export function WorkspaceProjectPostPageClient({
             <LayoutModeAtomContext.Provider value={layoutModeAtom}>
               <LayoutChangesAtomContext.Provider value={layoutChangesAtom}>
                 <TracksAtomContext.Provider value={tracksAtom}>
-                  {M.value(useAtomValue(layoutModeAtom)).pipe(
-                    M.when('scrolling', () => <PostScrolling />),
-                    M.orElseAbsurd,
+                  {Match.value(useAtomValue(layoutModeAtom)).pipe(
+                    Match.when('scrolling', () => <PostScrolling />),
+                    Match.orElseAbsurd,
                   )}
                 </TracksAtomContext.Provider>
               </LayoutChangesAtomContext.Provider>

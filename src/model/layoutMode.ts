@@ -1,6 +1,5 @@
 import { v } from 'convex/values'
-import * as HS from 'effect/HashSet'
-import * as S from 'effect/Schema'
+import { HashSet, Schema } from 'effect'
 
 export const layoutMode = v.union(
   v.literal('static'),
@@ -9,7 +8,7 @@ export const layoutMode = v.union(
   v.literal('sliding'),
 )
 
-export const LayoutMode = S.Literal(
+export const LayoutMode = Schema.Literal(
   'static',
   'scrolling',
   'watching',
@@ -17,17 +16,17 @@ export const LayoutMode = S.Literal(
 )
 
 export const determinedLayoutMode = (
-  modes: HS.HashSet<typeof LayoutMode.Type>,
+  modes: HashSet.HashSet<typeof LayoutMode.Type>,
 ) => {
-  if (HS.has(modes, 'static')) {
+  if (HashSet.has(modes, 'static')) {
     return 'static'
   }
 
-  if (HS.has(modes, 'scrolling')) {
+  if (HashSet.has(modes, 'scrolling')) {
     return 'scrolling'
   }
 
-  if (HS.has(modes, 'sliding')) {
+  if (HashSet.has(modes, 'sliding')) {
     return 'sliding'
   }
 
