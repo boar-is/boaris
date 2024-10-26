@@ -261,7 +261,7 @@ function LayoutTrackText({ track }: { track: typeof TrackText.Type }) {
 }
 
 const panelEdgeClassName = cx(
-  'bg-gray-2/75 py-2 px-3.5 text-sm text-gray-10 flex items-center gap-1.5 z-10',
+  'bg-gray-2/75 py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1.5 z-10 tracking-wide',
 )
 
 function LayoutPanel({ children }: PropsWithChildren) {
