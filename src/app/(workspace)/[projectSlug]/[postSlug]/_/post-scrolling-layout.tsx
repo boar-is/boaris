@@ -242,25 +242,33 @@ function LayoutTrackText({ track }: { track: typeof TrackText.Type }) {
   const cmRef = useRef<ReactCodeMirrorRef | null>(null)
 
   const progressAtom = useLayoutProgressAtom()
-  const progressIndexAtom = useConstant(() =>
+  const headIndexAtom = useConstant(() =>
     atom((get) =>
       findClosestIndex(track.actions, get(progressAtom), (it) => it.offset),
     ),
   )
 
-  const currentIndexAtom = useConstant(() =>
-    atom<number | undefined>(undefined),
-  )
+  const anchorIndexAtom = useConstant(() => atom<number | undefined>(undefined))
 
   useAtomValue(
     useConstant(() =>
       atomEffect((get, set) => {
-        const currentIndex = get(currentIndexAtom)
-        const progressIndex = get(progressIndexAtom)
+        const anchor = get(anchorIndexAtom)
+        const head = get(headIndexAtom)
 
-        //
+        if (!head) {
+          // reset to the initial
+        } else if (!anchor || anchor < head) {
+          for (let i = anchor ? anchor + 1 : 0; i <= head; i++) {
+            // up to head
+          }
+        } else if (anchor > head) {
+          for (let i = anchor; i > head; i--) {
+            // down to the head
+          }
+        }
 
-        set(currentIndexAtom, progressIndex)
+        set(anchorIndexAtom, head)
       }),
     ),
   )
