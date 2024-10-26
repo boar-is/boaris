@@ -2,6 +2,7 @@ import ReactCodeMirror, { type ReactCodeMirrorRef } from '@uiw/react-codemirror'
 import { Array, Match, Option } from 'effect'
 import { AnimatePresence, transform } from 'framer-motion'
 import { type Atom, atom, useAtomValue } from 'jotai'
+import { jotai } from 'jotai-components'
 import { splitAtom } from 'jotai/utils'
 import { type PropsWithChildren, forwardRef, useMemo, useRef } from 'react'
 import { useLayoutChangesAtom } from '~/features/layout-changes-atom-context'
@@ -127,23 +128,27 @@ function MainLayerGridItems() {
   )
 }
 
+const JotaiMotionLi = jotai.create(motion.li)
+
 const MainLayerGridItem = forwardRef<
   HTMLLIElement,
   { trackAtom: Atom<typeof Track.Type> }
 >(function MainLayerGridItem({ trackAtom }, ref) {
-  const track = useAtomValue(trackAtom)
+  const styleAtom = useConstant(() =>
+    atom((get) => ({ gridArea: get(trackAtom).id })),
+  )
 
   return (
-    <motion.li
+    <JotaiMotionLi
       ref={ref}
       className="bg-gray-1/80 backdrop-blur-md border border-gray-4/80 rounded-xl overflow-hidden"
-      style={{ gridArea: track.id }}
+      $style={styleAtom}
       initial={{ opacity: 0, filter: 'blur(16px)' }}
       animate={{ opacity: 1, filter: 'blur(0px)' }}
       exit={{ opacity: 0, filter: 'blur(16px)' }}
     >
       {matchLayoutTrackPanel(track)}
-    </motion.li>
+    </JotaiMotionLi>
   )
 })
 

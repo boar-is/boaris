@@ -199,7 +199,16 @@ export const AppRpcRouterMock = Layer.succeed(
               type: 'text',
               name: 'index.ts',
               value: `const hello = 'world'`,
-              actions: [],
+              actions: [
+                {
+                  type: 'insert',
+                  offset: 0.1,
+                  from: 5,
+                  to: Option.none(),
+                  value: Option.some('// '),
+                  length: `const hello = 'world'`.length,
+                },
+              ],
             },
           ],
         },
