@@ -24,6 +24,7 @@ import { Image } from '~/lib/media/image'
 import { useConstant } from '~/lib/react/use-constant'
 import { cx } from '~/lib/utils/cx'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
+import { getCmChangesFromActions } from '~/model/action'
 import { layoutProgressInterpolationFromChanges } from '~/model/layoutChange'
 import type { Track } from '~/model/track'
 import type { TrackImageDynamic } from '~/model/trackImageDynamic'
@@ -253,20 +254,22 @@ function LayoutTrackText({ track }: { track: typeof TrackText.Type }) {
   useAtomValue(
     useConstant(() =>
       atomEffect((get, set) => {
+        const state = cmRef.current?.state
+        const view = cmRef.current?.view
+
+        if (!(state && view)) {
+          return
+        }
+
         const anchor = get(anchorIndexAtom)
         const head = get(headIndexAtom)
 
-        if (!head) {
-          // reset to the initial
-        } else if (!anchor || anchor < head) {
-          for (let i = anchor ? anchor + 1 : 0; i <= head; i++) {
-            // up to head
-          }
-        } else if (anchor > head) {
-          for (let i = anchor; i > head; i--) {
-            // down to the head
-          }
-        }
+        const changes = getCmChangesFromActions(state)(track.actions)(
+          anchor,
+          head,
+        )
+
+        view.dispatch({ changes })
 
         set(anchorIndexAtom, head)
       }),
