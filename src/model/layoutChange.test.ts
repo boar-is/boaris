@@ -16,9 +16,9 @@ describe.concurrent('layoutProgressInterpolationFromChanges', () => {
     },
     {
       changes: [
-        { at: 0, value: true },
-        { at: 0.25 },
-        { at: 0.75, value: true },
+        { offset: 0, value: true },
+        { offset: 0.25 },
+        { offset: 0.75, value: true },
       ],
       returns: {
         input: [0, 0.5, 0.5, 1],
@@ -27,9 +27,9 @@ describe.concurrent('layoutProgressInterpolationFromChanges', () => {
     },
     {
       changes: [
-        { at: 0 },
-        { at: 0.25, value: true },
-        { at: 0.75, value: true },
+        { offset: 0 },
+        { offset: 0.25, value: true },
+        { offset: 0.75, value: true },
       ],
       returns: {
         input: [0, 2 / 3, 2 / 3, 1],
@@ -38,14 +38,14 @@ describe.concurrent('layoutProgressInterpolationFromChanges', () => {
     },
     {
       changes: [
-        { at: 0 },
-        { at: 0.1, value: true },
-        { at: 0.3 },
-        { at: 0.4, value: true },
-        { at: 0.5 },
-        { at: 0.6 },
-        { at: 0.7, value: true },
-        { at: 0.9 },
+        { offset: 0 },
+        { offset: 0.1, value: true },
+        { offset: 0.3 },
+        { offset: 0.4, value: true },
+        { offset: 0.5 },
+        { offset: 0.6 },
+        { offset: 0.7, value: true },
+        { offset: 0.9 },
       ],
       returns: {
         input: [0, 0.4, 0.4, 0.6, 0.6, 1],
@@ -54,14 +54,14 @@ describe.concurrent('layoutProgressInterpolationFromChanges', () => {
     },
     {
       changes: [
-        { at: 0, value: true },
-        { at: 0.1 },
-        { at: 0.3 },
-        { at: 0.4, value: true },
-        { at: 0.5, value: true },
-        { at: 0.6 },
-        { at: 0.7 },
-        { at: 0.9 },
+        { offset: 0, value: true },
+        { offset: 0.1 },
+        { offset: 0.3 },
+        { offset: 0.4, value: true },
+        { offset: 0.5, value: true },
+        { offset: 0.6 },
+        { offset: 0.7 },
+        { offset: 0.9 },
       ],
       returns: {
         input: [0, 1 / 3, 1 / 3, 2 / 3, 2 / 3, 1],

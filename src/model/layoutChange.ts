@@ -13,7 +13,7 @@ export const layoutChange = v.object({
   /**
    * a number from 0 to 1
    */
-  at: v.number(),
+  offset: v.number(),
   /**
    * undefined is for skip
    */
@@ -22,17 +22,17 @@ export const layoutChange = v.object({
 
 export class LayoutChange extends Schema.Class<LayoutChange>('LayoutChange')({
   id: Schema.NonEmptyTrimmedString,
-  at: Schema.Number,
+  offset: Schema.Number,
   layers: Schema.OptionFromUndefinedOr(LayoutLayers),
 }) {
   static encodedFromEntity({
     id,
-    at,
+    offset,
     layers,
   }: Infer<typeof layoutChange>): typeof LayoutChange.Encoded {
     return {
       id,
-      at,
+      offset,
       layers: layers && LayoutLayers.encodedFromEntity(layers),
     }
   }
@@ -51,7 +51,7 @@ export const determinedLayoutChanges = ({
 const defaultInterpolation = [0, 1]
 
 export const layoutProgressInterpolationFromChanges = (
-  changes: ReadonlyArray<{ readonly at: number; readonly value?: unknown }>,
+  changes: ReadonlyArray<{ readonly offset: number; readonly value?: unknown }>,
   digits = 5,
 ): typeof Interpolation.Type => {
   let trueRatio = 0
@@ -60,8 +60,8 @@ export const layoutProgressInterpolationFromChanges = (
       continue
     }
 
-    const start = changes[i]?.at!
-    const end = changes[i + 1]?.at
+    const start = changes[i]?.offset!
+    const end = changes[i + 1]?.offset
 
     trueRatio += (end ?? 1) - start
   }
@@ -79,8 +79,8 @@ export const layoutProgressInterpolationFromChanges = (
       continue
     }
 
-    const start = changes[i]?.at!
-    const end = changes[i + 1]?.at ?? 1
+    const start = changes[i]?.offset!
+    const end = changes[i + 1]?.offset ?? 1
 
     const mappedInputEnd = startingRatio + (end - start) * multiplier
 

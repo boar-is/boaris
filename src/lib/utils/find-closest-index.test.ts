@@ -44,28 +44,28 @@ describe.concurrent('match inputs to outputs', () => {
   )
 
   it('propFn', () => {
-    const arr: Array<{ at: number; value: string }> = [
+    const arr: Array<{ offset: number; value: string }> = [
       {
-        at: 0,
+        offset: 0,
         value: 'h',
       },
       {
-        at: 0.2,
+        offset: 0.2,
         value: 'he',
       },
       {
-        at: 0.4,
+        offset: 0.4,
         value: 'hel',
       },
       {
-        at: 0.6,
+        offset: 0.6,
         value: 'hell',
       },
       {
-        at: 0.8,
+        offset: 0.8,
         value: 'hello',
       },
     ]
-    expect(findClosestIndex(arr, 0.3, (it) => it.at)).toBe(1)
+    expect(findClosestIndex(arr, 0.3, (it) => it.offset)).toBe(1)
   })
 })

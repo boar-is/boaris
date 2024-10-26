@@ -2,6 +2,7 @@ import ReactCodeMirror, { type ReactCodeMirrorRef } from '@uiw/react-codemirror'
 import { Array, Match, Option } from 'effect'
 import { AnimatePresence, transform } from 'framer-motion'
 import { type Atom, atom, useAtomValue } from 'jotai'
+import { atomEffect } from 'jotai-effect'
 import { splitAtom } from 'jotai/utils'
 import { type PropsWithChildren, forwardRef, useMemo, useRef } from 'react'
 import { useLayoutChangesAtom } from '~/features/layout-changes-atom-context'
@@ -9,6 +10,10 @@ import {
   LayoutLayerAtomContext,
   useLayoutLayerAtom,
 } from '~/features/layout-layer-atom-context'
+import {
+  LayoutProgressAtomContext,
+  useLayoutProgressAtom,
+} from '~/features/layout-progress-atom.context'
 import { matchFileTypeIcon } from '~/features/match-file-type-icon'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
 import { useTracksAtom } from '~/features/tracks-atom-context'
@@ -45,7 +50,11 @@ export function PostScrollingLayout() {
   const indexAtom = useConstant(() =>
     atom((get) =>
       Option.fromNullable(
-        findClosestIndex(get(changesAtom), get(progressAtom), (it) => it.at),
+        findClosestIndex(
+          get(changesAtom),
+          get(progressAtom),
+          (it) => it.offset,
+        ),
       ),
     ),
   )
@@ -64,11 +73,13 @@ export function PostScrollingLayout() {
   )
 
   return (
-    <LayoutLayerAtomContext.Provider value={mainLayerAtom}>
-      <MainLayerGrid>
-        <MainLayerGridItems />
-      </MainLayerGrid>
-    </LayoutLayerAtomContext.Provider>
+    <LayoutProgressAtomContext.Provider value={progressAtom}>
+      <LayoutLayerAtomContext.Provider value={mainLayerAtom}>
+        <MainLayerGrid>
+          <MainLayerGridItems />
+        </MainLayerGrid>
+      </LayoutLayerAtomContext.Provider>
+    </LayoutProgressAtomContext.Provider>
   )
 }
 
@@ -228,11 +239,26 @@ function LayoutTrackImageDynamic({
 }
 
 function LayoutTrackText({ track }: { track: typeof TrackText.Type }) {
+  const progressAtom = useLayoutProgressAtom()
+  const actionsIndex = useConstant(() =>
+    atom((get) =>
+      findClosestIndex(track.actions, get(progressAtom), (it) => it.offset),
+    ),
+  )
+
   const cmRef = useRef<ReactCodeMirrorRef | null>(null)
 
   const extensions = useMemo(
     () => matchCodemirrorExtensions(track.name),
     [track.name],
+  )
+
+  useAtomValue(
+    useConstant(() =>
+      atomEffect((get) => {
+        console.log(get(actionsIndex))
+      }),
+    ),
   )
 
   return (
