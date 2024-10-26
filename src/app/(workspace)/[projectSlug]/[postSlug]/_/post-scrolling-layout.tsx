@@ -239,26 +239,35 @@ function LayoutTrackImageDynamic({
 }
 
 function LayoutTrackText({ track }: { track: typeof TrackText.Type }) {
+  const cmRef = useRef<ReactCodeMirrorRef | null>(null)
+
   const progressAtom = useLayoutProgressAtom()
-  const actionsIndex = useConstant(() =>
+  const progressIndexAtom = useConstant(() =>
     atom((get) =>
       findClosestIndex(track.actions, get(progressAtom), (it) => it.offset),
     ),
   )
 
-  const cmRef = useRef<ReactCodeMirrorRef | null>(null)
-
-  const extensions = useMemo(
-    () => matchCodemirrorExtensions(track.name),
-    [track.name],
+  const currentIndexAtom = useConstant(() =>
+    atom<number | undefined>(undefined),
   )
 
   useAtomValue(
     useConstant(() =>
-      atomEffect((get) => {
-        console.log(get(actionsIndex))
+      atomEffect((get, set) => {
+        const currentIndex = get(currentIndexAtom)
+        const progressIndex = get(progressIndexAtom)
+
+        //
+
+        set(currentIndexAtom, progressIndex)
       }),
     ),
+  )
+
+  const extensions = useMemo(
+    () => matchCodemirrorExtensions(track.name),
+    [track.name],
   )
 
   return (
