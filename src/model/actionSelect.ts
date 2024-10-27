@@ -1,3 +1,4 @@
+import { EditorSelection } from '@uiw/react-codemirror'
 import { type Infer, v } from 'convex/values'
 import { Schema } from 'effect'
 import { ActionBase, actionBase } from './actionBase'
@@ -40,3 +41,11 @@ export class ActionSelect extends ActionBase.extend<ActionSelect>(
     }
   }
 }
+
+export const editorSelectionFromActionSelect = (
+  action: typeof ActionSelect.Type,
+) =>
+  EditorSelection.create(
+    action.ranges.map((it) => EditorSelection.range(it.anchor, it.head)),
+    action.mainIndex,
+  )
