@@ -18,7 +18,7 @@ export class ActionInsert extends ActionBase.extend<ActionInsert>(
   from: Schema.Number,
   to: Schema.OptionFromUndefinedOr(Schema.Number),
   length: Schema.Number,
-  value: Schema.OptionFromUndefinedOr(Schema.String),
+  value: Schema.UndefinedOr(Schema.String),
 }) {
   static encodedFromEntity({
     type,

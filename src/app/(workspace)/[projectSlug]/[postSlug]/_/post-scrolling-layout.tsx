@@ -24,7 +24,7 @@ import { Image } from '~/lib/media/image'
 import { useConstant } from '~/lib/react/use-constant'
 import { cx } from '~/lib/utils/cx'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
-import { getCmChangesFromActions } from '~/model/action'
+import { getCmTransactionSpecFromActions } from '~/model/action'
 import { layoutProgressInterpolationFromChanges } from '~/model/layoutChange'
 import type { Track } from '~/model/track'
 import type { TrackImageDynamic } from '~/model/trackImageDynamic'
@@ -264,7 +264,7 @@ function LayoutTrackText({ track }: { track: typeof TrackText.Type }) {
         const anchor = get(anchorIndexAtom)
         const head = get(headIndexAtom)
 
-        const changes = getCmChangesFromActions(state)(track.actions)(
+        const changes = getCmTransactionSpecFromActions(state)(track.actions)(
           anchor,
           head,
         )
