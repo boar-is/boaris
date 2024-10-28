@@ -1,5 +1,6 @@
 import { type Infer, v } from 'convex/values'
 import { Schema } from 'effect'
+import type { NonEmptyReadonlyArray } from 'effect/Array'
 import { ChangeSetSchema } from '~/lib/codemirror/change-set-schema'
 import { EditorSelectionSchema } from '~/lib/codemirror/editor-selection-schema'
 import { TrackBase, trackBase } from './trackBase'
@@ -37,6 +38,20 @@ export class TrackTextChanges extends Schema.Class<TrackTextChanges>(
     ),
   ),
 }) {
+  static combineManyEncoded(
+    array: NonEmptyReadonlyArray<typeof TrackTextChanges.Encoded>,
+  ): typeof TrackTextChanges.Encoded {
+    const changes: Array<(typeof TrackTextChanges.Encoded)['changes'][number]> =
+      []
+
+    for (const item of array) {
+    }
+
+    return {
+      ...TrackBase.encodedFromEntity({}),
+    }
+  }
+
   static encodedFromEntity({
     assetType,
     type,
