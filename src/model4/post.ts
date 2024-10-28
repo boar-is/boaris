@@ -11,7 +11,6 @@ export const post = v.object({
   projectId: v.id('projects'),
   draftRevisionId: v.id('revisions'),
   publishedRevisionId: v.optional(v.id('revisions')),
-  revisionStorageIds: v.array(v.id('_storage')),
 })
 
 export class Post extends Schema.Class<Post>('Post')({
