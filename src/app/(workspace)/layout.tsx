@@ -37,6 +37,7 @@ const itemMobileCx = cx('rounded-md')
 export default async function WorkspaceLayout({
   children,
   params: { workspaceSlug = currentWorkspaceSlug },
+  // TODO it's generic
 }: PropsWithChildren & {
   params: {
     workspaceSlug: string
