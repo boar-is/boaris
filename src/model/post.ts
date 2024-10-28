@@ -7,7 +7,7 @@ export const post = v.object({
   title: v.string(),
   lead: v.optional(v.string()),
   description: v.string(),
-  thumbnailId: v.optional(v.id('_storage')),
+  posterId: v.optional(v.id('_storage')),
   projectId: v.id('projects'),
   draftRevisionId: v.id('revisions'),
   publishedRevisionId: v.optional(v.id('revisions')),
@@ -19,7 +19,7 @@ export class Post extends Schema.Class<Post>('Post')({
   title: Schema.NonEmptyTrimmedString,
   lead: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
   description: Schema.NonEmptyTrimmedString,
-  thumbnailUrl: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
+  posterUrl: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
   date: Schema.DateFromNumber,
 }) {
   static encodedFromEntity({ getUrl }: PropsWithGetUrl) {
@@ -28,7 +28,7 @@ export class Post extends Schema.Class<Post>('Post')({
       title,
       lead,
       description,
-      thumbnailId,
+      posterId,
       _creationTime,
     }: Infer<typeof post> & {
       _creationTime: number
@@ -37,7 +37,7 @@ export class Post extends Schema.Class<Post>('Post')({
       title,
       lead,
       description,
-      thumbnailUrl: thumbnailId && (await getUrl(thumbnailId)),
+      posterUrl: posterId && (await getUrl(posterId)),
       date: _creationTime,
     })
   }

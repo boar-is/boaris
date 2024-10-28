@@ -43,12 +43,12 @@ export default async function WorkspaceProjectPage({
               {posts.map((post) => (
                 <Link key={post.slug} href={`/${project.slug}/${post.slug}`}>
                   <article className="group rounded-xl lg:rounded-3xl flex flex-col lg:flex-row gap-4 lg:gap-8 p-4 lg:p-6 justify-between items-center border border-gray-3 overflow-hidden transition-colors bg-gradient-to-tr from-gray-1/90 to-gray-2/90">
-                    {post.thumbnailUrl.pipe(
+                    {post.posterUrl.pipe(
                       Option.andThen((url) => (
                         <aside className="relative lg:basis-1/2 xl:basis-1/3">
                           <Image
                             src={url}
-                            alt={`${post.title}'s thumbnail`}
+                            alt={`${post.title}'s poster`}
                             width={1024}
                             height={768}
                             className="object-cover sizes-full rounded-xl lg:rounded-2xl"

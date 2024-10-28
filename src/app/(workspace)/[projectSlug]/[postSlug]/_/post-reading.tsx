@@ -32,19 +32,19 @@ export function PostReadingHeader() {
   return (
     <header className="w-full max-w-prose">
       <hgroup className="flex flex-col gap-6">
-        {post.thumbnailUrl.pipe(
+        {post.posterUrl.pipe(
           Option.andThen((url) => (
             <figure className="relative">
               <Image
                 src={url}
-                alt={`${post.title}'s thumbnail's blur`}
+                alt={`${post.title}'s poster's blur`}
                 width={1024}
                 height={768}
                 className="absolute rounded-2xl blur-2xl opacity-35 pointer-events-none"
               />
               <Image
                 src={url}
-                alt={`${post.title}'s thumbnail`}
+                alt={`${post.title}'s poster`}
                 width={1024}
                 height={768}
                 className="rounded-2xl drop-shadow-xl"
