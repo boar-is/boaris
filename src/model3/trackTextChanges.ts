@@ -1,6 +1,7 @@
 import { type Infer, v } from 'convex/values'
 import { Schema } from 'effect'
-import { TrackTextChange } from './trackTextChange'
+import { ChangeSetSchema } from '~/lib/codemirror/change-set-schema'
+import { EditorSelectionSchema } from '~/lib/codemirror/editor-selection-schema'
 
 export const trackTextChanges = v.object({
   assetId: v.id('assets'),
@@ -21,7 +22,17 @@ export class TrackTextChanges extends Schema.Class<TrackTextChanges>(
        * The offset
        */
       Schema.Number,
-      TrackTextChange,
+      /**
+       * @see https://codemirror.net/docs/ref/#state.TransactionSpec
+       */
+      Schema.Tuple(
+        /**
+         * Type of the change
+         */
+        Schema.Literal(0),
+        ChangeSetSchema,
+        EditorSelectionSchema,
+      ),
     ),
   ),
 }) {
