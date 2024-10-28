@@ -2,12 +2,13 @@ import { type Infer, v } from 'convex/values'
 import { Schema } from 'effect'
 import { ChangeSetSchema } from '~/lib/codemirror/change-set-schema'
 import { EditorSelectionSchema } from '~/lib/codemirror/editor-selection-schema'
+import { TrackBase, trackBase } from './trackBase'
 
 export const trackTextChanges = v.object({
-  assetId: v.id('assets'),
   assetType: v.literal('text'),
-  offset: v.number(),
+  type: v.literal('changes'),
   changes: v.array(v.any()),
+  ...trackBase.fields,
 })
 
 export class TrackTextChanges extends Schema.Class<TrackTextChanges>(
@@ -15,6 +16,7 @@ export class TrackTextChanges extends Schema.Class<TrackTextChanges>(
 )({
   assetId: Schema.String,
   assetType: Schema.Literal('text'),
+  type: Schema.Literal('changes'),
   offset: Schema.Number,
   changes: Schema.Array(
     Schema.Tuple(
@@ -37,16 +39,16 @@ export class TrackTextChanges extends Schema.Class<TrackTextChanges>(
   ),
 }) {
   static encodedFromEntity({
-    assetId,
     assetType,
-    offset,
+    type,
     changes,
+    ...base
   }: Infer<typeof trackTextChanges>): typeof TrackTextChanges.Encoded {
     return {
-      assetId,
       assetType,
-      offset,
+      type,
       changes,
+      ...TrackBase.encodedFromEntity(base),
     }
   }
 }
