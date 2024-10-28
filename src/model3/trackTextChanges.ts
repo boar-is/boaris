@@ -5,19 +5,18 @@ import { EditorSelectionSchema } from '~/lib/codemirror/editor-selection-schema'
 import { TrackBase, trackBase } from './trackBase'
 
 export const trackTextChanges = v.object({
+  ...trackBase.fields,
   assetType: v.literal('text'),
   type: v.literal('changes'),
   changes: v.array(v.any()),
-  ...trackBase.fields,
 })
 
 export class TrackTextChanges extends Schema.Class<TrackTextChanges>(
   'TrackTextChanges',
 )({
-  assetId: Schema.String,
+  ...TrackBase.fields,
   assetType: Schema.Literal('text'),
   type: Schema.Literal('changes'),
-  offset: Schema.Number,
   changes: Schema.Array(
     Schema.Tuple(
       /**
@@ -45,10 +44,10 @@ export class TrackTextChanges extends Schema.Class<TrackTextChanges>(
     ...base
   }: Infer<typeof trackTextChanges>): typeof TrackTextChanges.Encoded {
     return {
+      ...TrackBase.encodedFromEntity(base),
       assetType,
       type,
       changes,
-      ...TrackBase.encodedFromEntity(base),
     }
   }
 }
