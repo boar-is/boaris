@@ -5,6 +5,7 @@ import {
 } from '@uiw/react-codemirror'
 import { type Infer, v } from 'convex/values'
 import { Schema } from 'effect'
+import type { Id } from '~/convex/_generated/dataModel'
 import { ChangeSetSchema } from '~/lib/codemirror/change-set-schema'
 import { EditorSelectionSchema } from '~/lib/codemirror/editor-selection-schema'
 import { AssetBase, assetBase } from './assetBase'
@@ -42,7 +43,9 @@ export class AssetText extends AssetBase.extend<AssetText>('AssetText')({
     value,
     changes,
     ...base
-  }: Infer<typeof assetText>): typeof AssetText.Encoded {
+  }: Infer<typeof assetText> & {
+    _id: Id<'assets'>
+  }): typeof AssetText.Encoded {
     return {
       ...AssetBase.encodedFromEntity(base),
       type,

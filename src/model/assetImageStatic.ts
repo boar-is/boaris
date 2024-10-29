@@ -1,5 +1,6 @@
 import { type Infer, v } from 'convex/values'
 import { Schema } from 'effect'
+import type { Id } from '~/convex/_generated/dataModel'
 import type { PropsWithGetUrl } from '~/lib/utils/props-with-get-url'
 import { AssetBase, assetBase } from './assetBase'
 
@@ -26,7 +27,7 @@ export class AssetImageStatic extends AssetBase.extend<AssetImageStatic>(
       caption,
       alt,
       ...base
-    }: Infer<typeof assetImageStatic>): Promise<
+    }: Infer<typeof assetImageStatic> & { _id: Id<'assets'> }): Promise<
       typeof AssetImageStatic.Encoded
     > => ({
       ...AssetBase.encodedFromEntity(base),

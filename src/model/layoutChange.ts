@@ -6,10 +6,6 @@ import { LayoutLayer, layoutLayer } from './layoutLayer'
 
 export const layoutChange = v.object({
   /**
-   * id is needed for patching optimizations
-   */
-  id: v.string(),
-  /**
    * a number from 0 to 1
    */
   offset: v.number(),
@@ -17,17 +13,14 @@ export const layoutChange = v.object({
 })
 
 export class LayoutChange extends Schema.Class<LayoutChange>('LayoutChange')({
-  id: Schema.NonEmptyTrimmedString,
   offset: Schema.Number,
   value: Schema.OptionFromUndefinedOr(LayoutLayer),
 }) {
   static encodedFromEntity({
-    id,
     offset,
     value,
   }: Infer<typeof layoutChange>): typeof LayoutChange.Encoded {
     return {
-      id,
       offset,
       value: value && LayoutLayer.encodedFromEntity(value),
     }
