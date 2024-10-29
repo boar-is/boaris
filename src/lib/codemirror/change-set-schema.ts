@@ -27,6 +27,6 @@ export const ChangeSetFromJson = Schema.transformOrFail(
         )
       }
     },
-    encode: (input) => input.toJSON(),
+    encode: (input) => ParseResult.succeed(input.toJSON()),
   },
 )
