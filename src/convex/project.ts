@@ -1,21 +1,20 @@
-import { v } from 'convex/values'
+import { Schema } from 'effect'
 import { query } from '~/convex/_generated/server'
 import { getUrlProps } from '~/lib/convex/get-url-props'
 import { Project } from '~/model/project'
 import { Revision } from '~/model/revision'
 import { Tag } from '~/model/tag'
 import { User } from '~/model/user'
-import type { ProjectRequest } from '~/rpc/project-request'
+import { ProjectRequest } from '~/rpc/project-request'
 
 const project = query({
-  args: {
-    workspaceSlug: v.string(),
-    projectSlug: v.string(),
-  },
   handler: async (
     { db, storage },
-    { workspaceSlug, projectSlug },
+    args,
   ): Promise<(typeof ProjectRequest)['success']['Encoded']> => {
+    const { workspaceSlug, projectSlug } =
+      Schema.decodeUnknownSync(ProjectRequest)(args)
+
     const workspace = await db
       .query('workspaces')
       .withIndex('by_slug', (q) => q.eq('slug', workspaceSlug))
