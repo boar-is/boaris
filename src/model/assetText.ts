@@ -57,12 +57,19 @@ export class AssetText extends AssetBase.extend<AssetText>('AssetText')({
 
 export type AssetTextChange = (typeof AssetText.Type)['changes'][number]
 
+export const reversedTextChanges = (
+  initialValue: string,
+  advances: ReadonlyArray<AssetTextChange>,
+): ReadonlyArray<AssetTextChange> => {
+  return []
+}
+
 export const seekCodeMirrorActions =
   (state: EditorState) =>
-  (initialState: string) =>
+  (initialValue: string) =>
   (
-    forwards: ReadonlyArray<AssetTextChange>,
-    backwards: ReadonlyArray<AssetTextChange>,
+    advances: ReadonlyArray<AssetTextChange>,
+    reverses: ReadonlyArray<AssetTextChange>,
   ) =>
   (anchor: number | undefined, head: number | undefined) => {
     if (!head) {
@@ -70,7 +77,7 @@ export const seekCodeMirrorActions =
         changes: {
           from: 0,
           to: state.doc.length,
-          insert: initialState,
+          insert: initialValue,
         },
         selection: undefined,
         scrollIntoView: true,
@@ -88,11 +95,11 @@ export const seekCodeMirrorActions =
 
     if (!anchor || anchor < head) {
       for (let i = anchor ? anchor + 1 : 0; i <= head; i++) {
-        applyChange(forwards[i]!)
+        applyChange(advances[i]!)
       }
     } else if (anchor > head) {
       for (let i = anchor; i > head; i--) {
-        applyChange(backwards[i]!)
+        applyChange(reverses[i]!)
       }
     }
 

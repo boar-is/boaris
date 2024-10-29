@@ -1,10 +1,24 @@
-import ReactCodeMirror, { type ReactCodeMirrorRef } from '@uiw/react-codemirror'
+import ReactCodeMirror, {
+  type BasicSetupOptions,
+  type ReactCodeMirrorRef,
+} from '@uiw/react-codemirror'
 import { Array, Match, Option } from 'effect'
 import { AnimatePresence, transform } from 'framer-motion'
 import { type Atom, atom, useAtomValue } from 'jotai'
+import { jotai } from 'jotai-components'
 import { atomEffect } from 'jotai-effect'
 import { splitAtom } from 'jotai/utils'
-import { type PropsWithChildren, forwardRef, useMemo, useRef } from 'react'
+import {
+  type PropsWithChildren,
+  forwardRef,
+  memo,
+  useMemo,
+  useRef,
+} from 'react'
+import {
+  AssetIdAtomContext,
+  useAssetIdAtom,
+} from '~/features/asset-id-atom-context'
 import { useAssetsAtom } from '~/features/assets-atom-context'
 import { useLayoutAtom } from '~/features/layout-atom-context'
 import {
@@ -25,6 +39,7 @@ import { useConstant } from '~/lib/react/use-constant'
 import { cx } from '~/lib/utils/cx'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 import type { Asset } from '~/model/asset'
+import { reversedTextChanges, seekCodeMirrorActions } from '~/model/assetText'
 import { layoutProgressInterpolationFromChanges } from '~/model/layoutChange'
 
 export function PostScrollingLayout() {
@@ -133,55 +148,82 @@ function MainLayerGridItems() {
   )
 }
 
-const MainLayerGridItem = forwardRef<
-  HTMLLIElement,
-  { assetAtom: Atom<typeof Asset.Type> }
->(function MainLayerGridItem({ assetAtom }, ref) {
-  const asset = useAtomValue(assetAtom)
+const JotaiMotionLi = jotai.create(motion.li)
 
-  return (
-    <motion.li
-      ref={ref}
-      className="bg-gray-1/80 backdrop-blur-md border border-gray-4/80 rounded-xl overflow-hidden"
-      style={{ gridArea: track.id }}
-      initial={{ opacity: 0, filter: 'blur(16px)' }}
-      animate={{ opacity: 1, filter: 'blur(0px)' }}
-      exit={{ opacity: 0, filter: 'blur(16px)' }}
-    >
-      {matchLayoutTrackPanel(track)}
-    </motion.li>
-  )
-})
+const MainLayerGridItem = memo(
+  forwardRef<HTMLLIElement, { assetAtom: Atom<typeof Asset.Type> }>(
+    function MainLayerGridItem({ assetAtom }, ref) {
+      const idAtom = useConstant(() => atom((get) => get(assetAtom)._id))
 
-const matchLayoutTrackPanel = Match.type<typeof Track.Type>().pipe(
-  Match.when({ type: 'image-static' }, (track) => (
-    <LayoutTrackImageStatic track={track} />
-  )),
-  Match.when({ type: 'image-dynamic' }, (track) => (
-    <LayoutTrackImageDynamic track={track} />
-  )),
-  Match.when({ type: 'text' }, (track) => <LayoutTrackText track={track} />),
+      const styleAtom = useConstant(() =>
+        atom((get) => ({ gridArea: get(idAtom) })),
+      )
+
+      const type = useAtomValue(
+        useConstant(() => atom((get) => get(assetAtom).type)),
+      )
+
+      return (
+        <JotaiMotionLi
+          ref={ref}
+          className="bg-gray-1/80 backdrop-blur-md border border-gray-4/80 rounded-xl overflow-hidden"
+          $style={styleAtom}
+          initial={{ opacity: 0, filter: 'blur(16px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, filter: 'blur(16px)' }}
+        >
+          <AssetIdAtomContext.Provider value={idAtom}>
+            {matchLayoutAssetPanel(type)}
+          </AssetIdAtomContext.Provider>
+        </JotaiMotionLi>
+      )
+    },
+  ),
+)
+
+const matchLayoutAssetPanel = Match.type<(typeof Asset.Type)['type']>().pipe(
+  Match.when('image-static', () => <LayoutAssetImageStatic />),
+  Match.when('image-dynamic', () => <LayoutAssetImageDynamic />),
+  Match.when('text', () => <LayoutAssetText />),
   Match.exhaustive,
 )
 
-function LayoutTrackImageStatic({
-  track,
-}: { track: typeof TrackImageStatic.Type }) {
+const getAssetAtomById =
+  (assetsAtom: Atom<ReadonlyArray<typeof Asset.Type>>) =>
+  (idAtom: Atom<(typeof Asset.Type)['_id']>) =>
+  <T extends (typeof Asset.Type)['type']>(assertionType: T) =>
+    atom((get) => {
+      const id = get(idAtom)
+      const asset = get(assetsAtom).find((it) => it._id === id)
+      if (asset?.type !== assertionType) {
+        throw new Error(`Impossible state deriving the asset with id ${id}`)
+      }
+      return asset as Extract<typeof Asset.Type, { type: T }>
+    })
+
+const LayoutAssetImageStatic = memo(function LayoutAssetImageStatic() {
+  const assetsAtom = useAssetsAtom()
+  const idAtom = useAssetIdAtom()
+
+  const { name, url, alt, caption } = useAtomValue(
+    useConstant(() => getAssetAtomById(assetsAtom)(idAtom)('image-static')),
+  )
+
   return (
     <LayoutPanel>
-      <LayoutPanelHeader name={track.name} />
+      <LayoutPanelHeader name={name} />
       <Image
-        src={track.url}
+        src={url}
         className="object-cover blur-md"
-        alt="Image's backdrop"
+        alt="Image's backdrop blur"
         fill
       />
       <section className="flex-1 relative">
         <Image
-          src={track.url}
+          src={url}
           className="object-contain"
-          alt={track.alt.pipe(
-            Option.orElse(() => track.caption),
+          alt={alt.pipe(
+            Option.orElse(() => caption),
             Option.getOrElse(
               () => 'The author did not provide any alt to this image',
             ),
@@ -189,25 +231,28 @@ function LayoutTrackImageStatic({
           fill
         />
       </section>
-      {track.caption.pipe(
-        Option.andThen((caption) => (
-          <LayoutPanelFooter>{caption}</LayoutPanelFooter>
-        )),
+      {caption.pipe(
+        Option.andThen((c) => <LayoutPanelFooter>{c}</LayoutPanelFooter>),
         Option.getOrNull,
       )}
     </LayoutPanel>
   )
-}
+})
 
-function LayoutTrackImageDynamic({
-  track,
-}: { track: typeof TrackImageDynamic.Type }) {
+const LayoutAssetImageDynamic = memo(function LayoutAssetImageDynamic() {
+  const assetsAtom = useAssetsAtom()
+  const idAtom = useAssetIdAtom()
+
+  const { name, url, caption } = useAtomValue(
+    useConstant(() => getAssetAtomById(assetsAtom)(idAtom)('image-dynamic')),
+  )
+
   return (
     <LayoutPanel>
-      <LayoutPanelHeader name={track.name} />
+      <LayoutPanelHeader name={name} />
       <video
         className="absolute inset-0 size-full -z-[2] object-cover blur-lg"
-        src={track.url}
+        src={url}
         autoPlay
         playsInline
         muted
@@ -216,33 +261,43 @@ function LayoutTrackImageDynamic({
       <section className="flex-1 relative flex items-center">
         <video
           className="absolute inset-0 size-full object-contain object-center"
-          src={track.url}
+          src={url}
           autoPlay
           playsInline
           muted
           loop
         />
       </section>
-      {track.caption.pipe(
-        Option.andThen((caption) => (
-          <LayoutPanelFooter>{caption}</LayoutPanelFooter>
-        )),
+      {caption.pipe(
+        Option.andThen((c) => <LayoutPanelFooter>{c}</LayoutPanelFooter>),
         Option.getOrNull,
       )}
     </LayoutPanel>
   )
-}
+})
 
-function LayoutTrackText({ track }: { track: typeof TrackText.Type }) {
+const LayoutAssetText = memo(function LayoutAssetText() {
+  const assetsAtom = useAssetsAtom()
+  const idAtom = useAssetIdAtom()
+  const assetAtom = useConstant(() =>
+    getAssetAtomById(assetsAtom)(idAtom)('text'),
+  )
+
+  const { name, value } = useAtomValue(assetAtom)
+
   const cmRef = useRef<ReactCodeMirrorRef | null>(null)
 
   const progressAtom = useLayoutProgressAtom()
+
   const headIndexAtom = useConstant(() =>
     atom((get) =>
-      findClosestIndex(track.actions, get(progressAtom), (it) => it.offset),
+      findClosestIndex(
+        get(assetAtom).changes,
+        get(progressAtom),
+        (it) => it[0],
+      ),
     ),
   )
-
   const anchorIndexAtom = useConstant(() => atom<number | undefined>(undefined))
 
   useAtomValue(
@@ -258,47 +313,50 @@ function LayoutTrackText({ track }: { track: typeof TrackText.Type }) {
         const anchor = get(anchorIndexAtom)
         const head = get(headIndexAtom)
 
-        const changes = getCmTransactionSpecFromActions(state)(track.actions)(
-          anchor,
-          head,
-        )
+        const initialValue = get(assetAtom).value
+        const advances = get(assetAtom).changes
+        const reverses = reversedTextChanges(initialValue, advances)
 
-        view.dispatch({ changes })
+        const spec = seekCodeMirrorActions(state)(initialValue)(
+          advances,
+          reverses,
+        )(anchor, head)
+
+        view.dispatch(spec)
 
         set(anchorIndexAtom, head)
       }),
     ),
   )
 
-  const extensions = useMemo(
-    () => matchCodemirrorExtensions(track.name),
-    [track.name],
-  )
+  const extensions = useMemo(() => matchCodemirrorExtensions(name), [name])
+
+  const basicSetup: BasicSetupOptions = useConstant(() => ({
+    lineNumbers: false,
+    foldGutter: false,
+    highlightActiveLine: false,
+  }))
 
   return (
     <LayoutPanel>
-      <LayoutPanelHeader name={track.name} />
+      <LayoutPanelHeader name={name} />
       <section className="flex-1 overflow-hidden">
         <ReactCodeMirror
           className={cx(
             'h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!text-xs md:[&_.cm-scroller]:!text-sm [&_.cm-line]:px-4',
             '[&_.cm-scroller]:overflow-hidden',
           )}
-          value={track.value}
+          value={value}
           extensions={extensions}
           editable={false}
           theme={codemirrorTheme}
-          basicSetup={{
-            lineNumbers: false,
-            foldGutter: false,
-            highlightActiveLine: false,
-          }}
+          basicSetup={basicSetup}
           ref={cmRef}
         />
       </section>
     </LayoutPanel>
   )
-}
+})
 
 const panelEdgeClassName = cx(
   'bg-gray-2/75 py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1.5 z-10 tracking-wide',
