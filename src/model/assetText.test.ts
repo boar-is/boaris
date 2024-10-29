@@ -30,15 +30,25 @@ describe.concurrent('seekCodeMirrorChanges', () => {
   it.concurrent.each<{
     params: Params & {
       currentValue: Text
-      head: number | undefined
-      anchor: number | undefined
+      head?: number | undefined
+      anchor?: number | undefined
     }
     expects: {
       doc: Text
-      selection: EditorSelection | undefined
+      selection?: EditorSelection | undefined
       scrollIntoView: boolean
     }
   }>([
+    {
+      params: {
+        ...params1,
+        currentValue: params1.initialValue,
+      },
+      expects: {
+        doc: Text.of(['0123456789']),
+        scrollIntoView: true,
+      },
+    },
     {
       params: {
         ...params1,
