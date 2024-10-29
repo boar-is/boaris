@@ -22,7 +22,6 @@ export const assetText = v.object({
 })
 
 export class AssetText extends AssetBase.extend<AssetText>('AssetText')({
-  ...AssetBase.fields,
   type: Schema.Literal('text'),
   value: Schema.String,
   changes: Schema.Array(

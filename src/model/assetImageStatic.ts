@@ -14,7 +14,6 @@ export const assetImageStatic = v.object({
 export class AssetImageStatic extends AssetBase.extend<AssetImageStatic>(
   'AssetImageStatic',
 )({
-  ...AssetBase.fields,
   type: Schema.Literal('image-static'),
   url: Schema.NonEmptyTrimmedString,
   caption: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),

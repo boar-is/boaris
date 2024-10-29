@@ -13,7 +13,6 @@ export const assetImageDynamic = v.object({
 export class AssetImageDynamic extends AssetBase.extend<AssetImageDynamic>(
   'AssetImageDynamic',
 )({
-  ...AssetBase.fields,
   type: Schema.Literal('image-dynamic'),
   url: Schema.NonEmptyTrimmedString,
   caption: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
