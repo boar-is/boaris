@@ -17,22 +17,9 @@ import { getWordRangeAtPos } from '~/lib/prosemirror/get-word-range-at-pos'
 import { offsetTopAtPos } from '~/lib/prosemirror/offset-top-at-pos'
 import { useConstant } from '~/lib/react/use-constant'
 import { useFactoredHeight } from '~/lib/react/use-factored-height'
-import { getCaptionsProgress } from '~/model/captions'
-import type { Interpolation } from '~/model/interpolation'
 
-export function PostScrollingCaptions({
-  editor,
-  interpolation,
-}: { editor: Editor; interpolation: Interpolation }) {
-  const playbackProgressAtom = usePlaybackProgressAtom()
-
-  const progressAtom = useConstant(() => {
-    const getCaptionsProgressByInterpolation =
-      getCaptionsProgress(interpolation)
-    return atom((get) =>
-      getCaptionsProgressByInterpolation(get(playbackProgressAtom)),
-    )
-  })
+export function PostScrollingCaptions({ editor }: { editor: Editor }) {
+  const progressAtom = usePlaybackProgressAtom()
 
   const positionAtom = useConstant(() => {
     const getPositionByStateProgress = getPositionByProgress(editor.state)

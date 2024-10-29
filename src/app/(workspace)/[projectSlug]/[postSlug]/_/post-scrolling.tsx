@@ -1,7 +1,6 @@
 'use client'
 
 import { useEditor } from '@tiptap/react'
-import { Option } from 'effect'
 import { useAtomValue } from 'jotai'
 import { atom } from 'jotai/index'
 import { PostScrollingLayout } from '~/app/(workspace)/[projectSlug]/[postSlug]/_/post-scrolling-layout'
@@ -33,10 +32,7 @@ export function PostScrolling() {
 }
 
 function PostScrollingContent() {
-  const { content, interpolation } = useAtomValue(useCaptionsAtom()).pipe(
-    // TODO implement post without captions
-    Option.getOrThrow,
-  )
+  const { content } = useAtomValue(useCaptionsAtom())
 
   const extensions = defaultEditorExtensions
 
@@ -53,10 +49,7 @@ function PostScrollingContent() {
     <div>
       <div className="mx-auto typography max-w-prose w-full">
         {editor ? (
-          <PostScrollingCaptions
-            editor={editor}
-            interpolation={interpolation}
-          />
+          <PostScrollingCaptions editor={editor} />
         ) : (
           <StaticEditorContent content={content} extensions={extensions} />
         )}
