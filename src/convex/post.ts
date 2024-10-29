@@ -1,6 +1,9 @@
 import { Schema } from 'effect'
 import { query } from '~/convex/_generated/server'
 import { getUrlProps } from '~/lib/convex/get-url-props'
+import { assetEncodedFromEntity } from '~/model/asset'
+import { Captions } from '~/model/captions'
+import { Layout } from '~/model/layout'
 import { Post } from '~/model/post'
 import { Revision } from '~/model/revision'
 import { Tag } from '~/model/tag'
@@ -54,19 +57,38 @@ const post = query({
 
     const getUrl = getUrlProps(storage)
 
-    const [post, postTags, postAuthors] = await Promise.all([
-      Post.encodedFromEntity(postEntity),
-      db
-        .query('postTags')
-        .withIndex('by_postId', (q) => q.eq('postId', postEntity._id))
-        .collect(),
-      db
-        .query('postAuthors')
-        .withIndex('by_postId', (q) => q.eq('postId', postEntity._id))
-        .collect(),
-    ])
+    const [post, postTags, postAuthors, captions, layout, assetEntities] =
+      await Promise.all([
+        Post.encodedFromEntity(postEntity),
+        db
+          .query('postTags')
+          .withIndex('by_postId', (q) => q.eq('postId', postEntity._id))
+          .collect(),
+        db
+          .query('postAuthors')
+          .withIndex('by_postId', (q) => q.eq('postId', postEntity._id))
+          .collect(),
+        db
+          .query('captions')
+          .withIndex('by_revisionId', (q) =>
+            q.eq('revisionId', revisionEntity._id),
+          )
+          .unique(),
+        db
+          .query('layouts')
+          .withIndex('by_revisionId', (q) =>
+            q.eq('revisionId', revisionEntity._id),
+          )
+          .unique(),
+        db
+          .query('assets')
+          .withIndex('by_revisionId', (q) =>
+            q.eq('revisionId', revisionEntity._id),
+          )
+          .collect(),
+      ])
 
-    const [tags, authors, revision] = await Promise.all([
+    const [tags, authors, revision, assets] = await Promise.all([
       Promise.all(
         postTags.map((it) =>
           db.get(it.tagId).then((it) => Tag.encodedFromEntity(it!)),
@@ -78,6 +100,7 @@ const post = query({
         ),
       ),
       Revision.encodedFromEntity(revisionEntity, getUrl),
+      Promise.all(assetEntities.map(assetEncodedFromEntity(getUrl))),
     ])
 
     return {
@@ -85,6 +108,9 @@ const post = query({
       tags,
       authors,
       revision,
+      captions: Captions.encodedFromEntity(captions!),
+      layout: Layout.encodedFromEntity(layout!),
+      assets,
     }
   },
 })

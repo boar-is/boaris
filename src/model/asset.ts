@@ -13,19 +13,19 @@ export const Asset = Schema.Union(
   AssetImageStatic,
   AssetText,
 )
-export const assetEncodedFromEntity = async (
-  t: Infer<typeof asset>,
-  withGetUrl: PropsWithGetUrl,
-): Promise<typeof Asset.Encoded> =>
-  Match.value(t).pipe(
-    Match.when(
-      { type: 'image-dynamic' },
-      AssetImageDynamic.encodedFromEntity(withGetUrl),
-    ),
-    Match.when(
-      { type: 'image-static' },
-      AssetImageStatic.encodedFromEntity(withGetUrl),
-    ),
-    Match.when({ type: 'text' }, AssetText.encodedFromEntity),
-    Match.exhaustive,
-  )
+
+export const assetEncodedFromEntity =
+  (withGetUrl: PropsWithGetUrl) =>
+  async (t: Infer<typeof asset>): Promise<typeof Asset.Encoded> =>
+    Match.value(t).pipe(
+      Match.when(
+        { type: 'image-dynamic' },
+        AssetImageDynamic.encodedFromEntity(withGetUrl),
+      ),
+      Match.when(
+        { type: 'image-static' },
+        AssetImageStatic.encodedFromEntity(withGetUrl),
+      ),
+      Match.when({ type: 'text' }, AssetText.encodedFromEntity),
+      Match.exhaustive,
+    )

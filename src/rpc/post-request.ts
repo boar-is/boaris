@@ -1,4 +1,7 @@
 import { Schema } from 'effect'
+import { Asset } from '~/model/asset'
+import { Captions } from '~/model/captions'
+import { Layout } from '~/model/layout'
 import { Post } from '~/model/post'
 import { Revision } from '~/model/revision'
 import { Tag } from '~/model/tag'
@@ -15,6 +18,9 @@ export class PostRequest extends Schema.TaggedRequest<PostRequest>()(
         tags: Schema.Array(Tag),
         authors: Schema.Array(User),
         revision: Revision,
+        captions: Captions,
+        layout: Layout,
+        assets: Schema.Array(Asset),
       }),
     ),
     payload: {
