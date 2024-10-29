@@ -2,6 +2,7 @@ import {
   ChangeSet,
   type EditorSelection,
   type EditorState,
+  type Text,
 } from '@uiw/react-codemirror'
 import { type Infer, v } from 'convex/values'
 import { Schema } from 'effect'
@@ -58,10 +59,19 @@ export class AssetText extends AssetBase.extend<AssetText>('AssetText')({
 export type AssetTextChange = (typeof AssetText.Type)['changes'][number]
 
 export const reversedTextChanges = (
-  initialValue: string,
+  initialValue: Text,
   advances: ReadonlyArray<AssetTextChange>,
 ): ReadonlyArray<AssetTextChange> => {
-  return []
+  let currentValue = initialValue
+  const reverses: Array<AssetTextChange> = []
+
+  for (const [offset, [changeSet, selection]] of advances) {
+    const invertedChangeSet = changeSet.invert(currentValue)
+    currentValue = changeSet.apply(currentValue)
+    reverses.unshift([offset, [invertedChangeSet, selection]])
+  }
+
+  return reverses
 }
 
 export const seekCodeMirrorChanges =
