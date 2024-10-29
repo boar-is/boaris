@@ -1,8 +1,8 @@
 import {
   ChangeSet,
+  EditorSelection,
   EditorState,
   Text,
-  type TransactionSpec,
 } from '@uiw/react-codemirror'
 import { describe, expect, it } from 'vitest'
 import {
@@ -12,38 +12,54 @@ import {
 } from '~/model/assetText'
 
 describe.concurrent('seekCodeMirrorChanges', () => {
+  const doc = Text.of(['0123456789'])
+  const advances = [
+    [
+      1,
+      [ChangeSet.of({ from: 0, insert: 'a' }, 10), EditorSelection.single(0)],
+    ],
+  ] as const satisfies ReadonlyArray<AssetTextChange>
+
   it.concurrent.each<{
     params: {
-      doc: Text
-      advances: ReadonlyArray<AssetTextChange>
-      head: number
-      anchor: number
+      head: number | undefined
+      anchor: number | undefined
     }
-    returns: TransactionSpec
+    expects: {
+      doc: Text
+      selection: EditorSelection | undefined
+      scrollIntoView: boolean
+    }
   }>([
     {
       params: {
-        doc: Text.of(['abc']),
-        advances: [],
-        head: 0,
+        head: undefined,
         anchor: 0,
       },
-      returns: {
-        changes: ChangeSet.empty(3),
+      expects: {
+        doc: Text.of(['a0123456789']),
+        selection: EditorSelection.single(0),
         scrollIntoView: true,
-        selection: undefined,
-        sequential: true,
       },
     },
-  ])(
-    '$params -> $returns',
-    ({ params: { doc, advances, head, anchor }, returns }) => {
-      const state = EditorState.create({ doc })
-      const reverses = reversedTextChanges(doc, advances)
+  ])('$params -> $returns', ({ params: { head, anchor }, expects }) => {
+    const state = EditorState.create({ doc })
+    const reverses = reversedTextChanges(doc, advances)
 
-      expect(
-        seekCodeMirrorChanges(state)(doc)(advances, reverses)(head, anchor),
-      ).toEqual(returns)
-    },
-  )
+    const spec = seekCodeMirrorChanges(state)(doc)(advances, reverses)(
+      head,
+      anchor,
+    )
+    const transaction = state.update(spec)
+
+    expect(transaction.newDoc.eq(expects.doc)).toBeTruthy()
+
+    {
+      const a = transaction.selection
+      const b = expects.selection
+      expect((!a && !b) || (a && b && a.eq(b))).toBeTruthy()
+    }
+
+    expect(transaction.scrollIntoView).toEqual(expects.scrollIntoView)
+  })
 })
