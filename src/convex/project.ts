@@ -1,8 +1,8 @@
 import { v } from 'convex/values'
 import { query } from '~/convex/_generated/server'
 import { getUrlProps } from '~/lib/convex/get-url-props'
-import { Post } from '~/model/post'
 import { Project } from '~/model/project'
+import { Revision } from '~/model/revision'
 import { Tag } from '~/model/tag'
 import { User } from '~/model/user'
 import type { ProjectRequest } from '~/rpc/project-request'
@@ -45,51 +45,45 @@ const project = query({
 
     const getUrl = getUrlProps(storage)
 
-    const [posts, tagsByPostSlug, authorsByPostSlug] = await Promise.all([
-      Promise.all(latestPosts.map(Post.encodedFromEntity(getUrl))),
-      Promise.all(
-        latestPosts.map(async (post) => {
-          const postTags = await db
+    const posts = await Promise.all(
+      latestPosts.map(async (post) => {
+        const [postTags, postAuthors, revision] = await Promise.all([
+          db
             .query('postTags')
             .withIndex('by_postId', (q) => q.eq('postId', post._id))
-            .collect()
-
-          return [
-            post.slug,
-            await Promise.all(
-              postTags.map(async (it) =>
-                Tag.encodedFromEntity(await db.get(it.tagId).then((it) => it!)),
-              ),
-            ),
-          ] as const
-        }),
-      ),
-      Promise.all(
-        latestPosts.map(async (post) => {
-          const postAuthors = await db
+            .collect(),
+          db
             .query('postAuthors')
             .withIndex('by_postId', (q) => q.eq('postId', post._id))
-            .collect()
+            .collect(),
+          // Checked above
+          db.get(post.publishedRevisionId!),
+        ])
 
-          return [
-            post.slug,
-            await Promise.all(
-              postAuthors.map(async (it) =>
-                User.encodedFromEntity(
-                  await db.get(it.authorId).then((it) => it!),
-                ),
-              ),
+        const [tags, authors] = await Promise.all([
+          Promise.all(
+            postTags.map(async (it) =>
+              Tag.encodedFromEntity(await db.get(it.tagId).then((it) => it!)),
             ),
-          ] as const
-        }),
-      ),
-    ])
+          ),
+          Promise.all(
+            postAuthors.map(async (it) =>
+              User.encodedFromEntity(await db.get(it.userId).then((it) => it!)),
+            ),
+          ),
+        ])
+
+        return {
+          revision: await Revision.encodedFromEntity(revision!, getUrl),
+          tags,
+          authors,
+        }
+      }),
+    )
 
     return {
       project: Project.encodedFromEntity(project),
       posts,
-      tagsByPostSlug,
-      authorsByPostSlug,
     }
   },
 })

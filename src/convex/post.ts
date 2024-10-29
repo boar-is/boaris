@@ -4,7 +4,6 @@ import { getUrlProps } from '~/lib/convex/get-url-props'
 import { Post } from '~/model/post'
 import { Revision } from '~/model/revision'
 import { Tag } from '~/model/tag'
-import { toActionsByTrackId } from '~/model/trackChunk'
 import { User } from '~/model/user'
 import type { PostRequest } from '~/rpc/post-request'
 
@@ -57,8 +56,8 @@ const post = query({
 
     const getUrl = getUrlProps(storage)
 
-    const [post, postTags, postAuthors, trackChunks] = await Promise.all([
-      Post.encodedFromEntity(getUrl)(postEntity),
+    const [post, postTags, postAuthors] = await Promise.all([
+      Post.encodedFromEntity(postEntity),
       db
         .query('postTags')
         .withIndex('by_postId', (q) => q.eq('postId', postEntity._id))
@@ -66,12 +65,6 @@ const post = query({
       db
         .query('postAuthors')
         .withIndex('by_postId', (q) => q.eq('postId', postEntity._id))
-        .collect(),
-      db
-        .query('trackChunks')
-        .withIndex('by_revisionId', (q) =>
-          q.eq('revisionId', revisionEntity._id),
-        )
         .collect(),
     ])
 
@@ -83,14 +76,10 @@ const post = query({
       ),
       Promise.all(
         postAuthors.map((it) =>
-          db.get(it.authorId).then((it) => User.encodedFromEntity(it!)),
+          db.get(it.userId).then((it) => User.encodedFromEntity(it!)),
         ),
       ),
-      Revision.encodedFromEntity(
-        revisionEntity,
-        toActionsByTrackId(trackChunks),
-        getUrl,
-      ),
+      Revision.encodedFromEntity(revisionEntity, getUrl),
     ])
 
     return {
