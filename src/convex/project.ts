@@ -1,6 +1,7 @@
 import { Schema } from 'effect'
 import { query } from '~/convex/_generated/server'
 import { getUrlProps } from '~/lib/convex/get-url-props'
+import { Post } from '~/model/post'
 import { Project } from '~/model/project'
 import { Revision } from '~/model/revision'
 import { Tag } from '~/model/tag'
@@ -10,7 +11,7 @@ import { ProjectRequest } from '~/rpc/project-request'
 const project = query({
   handler: async (
     { db, storage },
-    args,
+    args: { workspaceSlug: string; projectSlug: string },
   ): Promise<(typeof ProjectRequest)['success']['Encoded']> => {
     const { workspaceSlug, projectSlug } =
       Schema.decodeUnknownSync(ProjectRequest)(args)
@@ -73,6 +74,7 @@ const project = query({
         ])
 
         return {
+          ...Post.encodedFromEntity(post),
           revision: await Revision.encodedFromEntity(revision!, getUrl),
           tags,
           authors,

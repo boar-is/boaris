@@ -7,7 +7,7 @@ import { WorkspaceRequest } from '~/rpc/workspace-request'
 const workspace = query({
   handler: async (
     { db, storage },
-    args,
+    args: { workspaceSlug: string },
   ): Promise<(typeof WorkspaceRequest)['success']['Encoded']> => {
     const { workspaceSlug } = Schema.decodeUnknownSync(WorkspaceRequest)(args)
     const workspace = await db

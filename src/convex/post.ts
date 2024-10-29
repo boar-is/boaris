@@ -10,7 +10,7 @@ import { PostRequest } from '~/rpc/post-request'
 const post = query({
   handler: async (
     { db, storage },
-    args,
+    args: { workspaceSlug: string; projectSlug: string; postSlug: string },
   ): Promise<(typeof PostRequest)['success']['Encoded']> => {
     const { workspaceSlug, projectSlug, postSlug } =
       Schema.decodeUnknownSync(PostRequest)(args)

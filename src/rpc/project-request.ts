@@ -1,4 +1,5 @@
 import { Schema } from 'effect'
+import { Post } from '~/model/post'
 import { Project } from '~/model/project'
 import { Revision } from '~/model/revision'
 import { Tag } from '~/model/tag'
@@ -14,6 +15,7 @@ export class ProjectRequest extends Schema.TaggedRequest<ProjectRequest>()(
         project: Project,
         posts: Schema.Array(
           Schema.Struct({
+            ...Post.fields,
             revision: Revision,
             tags: Schema.Array(Tag),
             authors: Schema.Array(User),
