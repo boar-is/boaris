@@ -1,26 +1,46 @@
 import { EditorSelection } from '@uiw/react-codemirror'
-import { Schema } from 'effect'
+import { ParseResult, Schema } from 'effect'
 
-export const EditorSelectionSchema = Schema.declare(
+export const EditorSelectionFromSelf = Schema.declare(
   (input: unknown): input is EditorSelection =>
     input instanceof EditorSelection,
   {
-    identifier: 'EditorSelectionSchema',
-    decode: ({ ranges, mainIndex }: EditorSelection) => [
-      ranges.map(({ anchor, head }) => [
-        anchor,
-        head === anchor ? undefined : head,
+    identifier: 'EditorSelectionFromSelf',
+  },
+)
+
+export const EditorSelectionFromSerialized = Schema.transformOrFail(
+  Schema.Any,
+  EditorSelectionFromSelf,
+  {
+    strict: true,
+    decode: (input, _, ast) => {
+      try {
+        return ParseResult.succeed(
+          EditorSelection.create(
+            input.ranges.map(([anchor, head]: [number, number]) =>
+              EditorSelection.range(anchor, head ?? anchor),
+            ),
+            input.mainIndex ?? 0,
+          ),
+        )
+      } catch (e) {
+        return ParseResult.fail(
+          new ParseResult.Type(
+            ast,
+            input,
+            `Failed to convert EditorSelection: ${e}`,
+          ),
+        )
+      }
+    },
+    encode: ({ ranges, mainIndex }) =>
+      ParseResult.succeed([
+        ranges.map(({ anchor, head }) => [
+          anchor,
+          head === anchor ? undefined : head,
+        ]),
+        mainIndex === 0 ? undefined : mainIndex,
       ]),
-      mainIndex === 0 ? undefined : mainIndex,
-    ],
-    // biome-ignore lint/suspicious/noExplicitAny: yolo
-    encode: ([ranges, mainIndex]: any) =>
-      EditorSelection.create(
-        // @ts-expect-error yolo
-        ranges.map(([anchor, head]) =>
-          EditorSelection.range(anchor, head ?? anchor),
-        ),
-        mainIndex ?? 0,
-      ),
   },
 )

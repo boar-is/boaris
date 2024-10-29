@@ -1,4 +1,4 @@
-import { Function } from 'effect'
+import { identity } from 'effect'
 import {
   type ValueAnimationTransition,
   animate,
@@ -12,7 +12,7 @@ export const useAtomAnimatedMotionValue = <T>(
   valueAtom: Atom<T>,
   {
     initial,
-    mapFn = Function.identity,
+    mapFn = identity,
     ...animateOptions
   }: ValueAnimationTransition<T> & {
     initial: T

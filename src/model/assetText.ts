@@ -7,8 +7,9 @@ import {
 import { type Infer, v } from 'convex/values'
 import { Schema } from 'effect'
 import type { Id } from '~/convex/_generated/dataModel'
-import { ChangeSetSchema } from '~/lib/codemirror/change-set-schema'
-import { EditorSelectionSchema } from '~/lib/codemirror/editor-selection-schema'
+import { ChangeSetFromJson } from '~/lib/codemirror/change-set-schema'
+import { EditorSelectionFromSerialized } from '~/lib/codemirror/editor-selection-schema'
+import { TextFromStringArray } from '~/lib/codemirror/text-schema'
 import { AssetBase, assetBase } from './assetBase'
 
 /**
@@ -19,13 +20,13 @@ import { AssetBase, assetBase } from './assetBase'
 export const assetText = v.object({
   ...assetBase.fields,
   type: v.literal('text'),
-  value: v.string(),
+  value: v.array(v.string()),
   changes: v.array(v.any()),
 })
 
 export class AssetText extends AssetBase.extend<AssetText>('AssetText')({
   type: Schema.Literal('text'),
-  value: Schema.String,
+  value: TextFromStringArray,
   changes: Schema.Array(
     Schema.Tuple(
       /**
@@ -35,7 +36,7 @@ export class AssetText extends AssetBase.extend<AssetText>('AssetText')({
       /**
        * @see https://codemirror.net/docs/ref/#state.TransactionSpec
        */
-      Schema.Tuple(ChangeSetSchema, EditorSelectionSchema),
+      Schema.Tuple(ChangeSetFromJson, EditorSelectionFromSerialized),
     ),
   ),
 }) {

@@ -1,11 +1,31 @@
 import { ChangeSet } from '@uiw/react-codemirror'
-import { Schema } from 'effect'
+import { ParseResult, Schema } from 'effect'
 
-export const ChangeSetSchema = Schema.declare(
+export const ChangeSetFromSelf = Schema.declare(
   (input: unknown): input is ChangeSet => input instanceof ChangeSet,
   {
-    identifier: 'ChangeSetSchema',
-    decode: (input: ChangeSet) => input.toJSON(),
-    encode: (input: unknown) => ChangeSet.fromJSON(input),
+    identifier: 'ChangeSetFromSelf',
+  },
+)
+
+export const ChangeSetFromJson = Schema.transformOrFail(
+  Schema.Unknown,
+  ChangeSetFromSelf,
+  {
+    strict: true,
+    decode: (input, _, ast) => {
+      try {
+        return ParseResult.succeed(ChangeSet.fromJSON(input))
+      } catch (e) {
+        return ParseResult.fail(
+          new ParseResult.Type(
+            ast,
+            input,
+            `Failed to convert JSON to ChangeSet: ${e}`,
+          ),
+        )
+      }
+    },
+    encode: (input) => input.toJSON(),
   },
 )
