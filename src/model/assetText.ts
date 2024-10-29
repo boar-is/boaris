@@ -64,7 +64,7 @@ export const reversedTextChanges = (
   return []
 }
 
-export const seekCodeMirrorActions =
+export const seekCodeMirrorChanges =
   (state: EditorState) =>
   (initialValue: string) =>
   (

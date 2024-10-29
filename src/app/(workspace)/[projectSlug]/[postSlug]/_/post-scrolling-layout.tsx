@@ -39,7 +39,7 @@ import { useConstant } from '~/lib/react/use-constant'
 import { cx } from '~/lib/utils/cx'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 import type { Asset } from '~/model/asset'
-import { reversedTextChanges, seekCodeMirrorActions } from '~/model/assetText'
+import { reversedTextChanges, seekCodeMirrorChanges } from '~/model/assetText'
 import { layoutProgressInterpolationFromChanges } from '~/model/layoutChange'
 
 export function PostScrollingLayout() {
@@ -317,7 +317,7 @@ const LayoutAssetText = memo(function LayoutAssetText() {
         const advances = get(assetAtom).changes
         const reverses = reversedTextChanges(initialValue, advances)
 
-        const spec = seekCodeMirrorActions(state)(initialValue)(
+        const spec = seekCodeMirrorChanges(state)(initialValue)(
           advances,
           reverses,
         )(anchor, head)
