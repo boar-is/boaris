@@ -2,6 +2,7 @@ import { Effect, Option } from 'effect'
 import { notFound } from 'next/navigation'
 import type { CSSProperties, PropsWithChildren } from 'react'
 import { matchSocialNetworkIcon } from '~/features/match-social-network-icon'
+import { matchSocialNetworkName } from '~/features/match-social-network-name'
 import { NewsletterSubscriptionFormProvider } from '~/features/newsletter-subscription-form-provider'
 import { Button } from '~/lib/buttons/button'
 import { Menu, MenuItem, MenuTrigger } from '~/lib/collections/menu'
@@ -20,7 +21,7 @@ import { Modal, ModalOverlay } from '~/lib/overlays/modal'
 import { Popover } from '~/lib/overlays/popover'
 import { currentWorkspaceSlug } from '~/lib/utils/constants'
 import { cx } from '~/lib/utils/cx'
-import { getComputedLabel } from '~/model/socialLink'
+import type { SocialLink } from '~/model/socialLink'
 import { WorkspaceRequest } from '~/rpc/workspace-request'
 import { AppServerRuntime } from '~/runtimes/app-server-runtime'
 import { AppRpcClient } from '~/services/app-rpc-client'
@@ -54,6 +55,12 @@ export default async function WorkspaceLayout({
       }
 
       const { workspace } = result
+
+      const getComputedLabel = ({ label, href }: typeof SocialLink.Type) =>
+        label.pipe(
+          Option.orElse(() => matchSocialNetworkName(href)),
+          Option.getOrElse(() => 'Link'),
+        )
 
       return (
         <div className="flex flex-col gap-4 md:gap-10 items-stretch min-h-dvh">

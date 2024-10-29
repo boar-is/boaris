@@ -1,7 +1,7 @@
 // noinspection HttpUrlsUsage
 
 import { describe, expect, it } from 'vitest'
-import { socialNetworkRegexes } from './socialLink'
+import { socialNetworkRegexes } from '~/lib/utils/regexes'
 
 describe.concurrent('socialNetworkRegexes', () => {
   describe.concurrent('GitHub', () => {

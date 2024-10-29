@@ -1,6 +1,7 @@
 import { type Infer, v } from 'convex/values'
 import { Match, Schema } from 'effect'
 
+import type { Id } from '~/convex/_generated/dataModel'
 import type { PropsWithGetUrl } from '~/lib/utils/props-with-get-url'
 import { AssetImageDynamic, assetImageDynamic } from './assetImageDynamic'
 import { AssetImageStatic, assetImageStatic } from './assetImageStatic'
@@ -16,7 +17,9 @@ export const Asset = Schema.Union(
 
 export const assetEncodedFromEntity =
   (withGetUrl: PropsWithGetUrl) =>
-  async (t: Infer<typeof asset>): Promise<typeof Asset.Encoded> =>
+  async (
+    t: Infer<typeof asset> & { _id: Id<'assets'> },
+  ): Promise<typeof Asset.Encoded> =>
     Match.value(t).pipe(
       Match.when(
         { type: 'image-dynamic' },

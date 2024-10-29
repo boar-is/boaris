@@ -1,6 +1,5 @@
 import { type Infer, v } from 'convex/values'
-import { Option, Schema } from 'effect'
-import { matchSocialNetworkName } from '~/features/match-social-network-name'
+import { Schema } from 'effect'
 
 export const socialLink = v.object({
   href: v.string(),
@@ -21,9 +20,3 @@ export class SocialLink extends Schema.Class<SocialLink>('SocialLink')({
     }
   }
 }
-
-export const getComputedLabel = ({ label, href }: typeof SocialLink.Type) =>
-  label.pipe(
-    Option.orElse(() => matchSocialNetworkName(href)),
-    Option.getOrElse(() => 'Link'),
-  )
