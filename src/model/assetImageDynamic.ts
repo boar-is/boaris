@@ -13,6 +13,7 @@ export const assetImageDynamic = v.object({
 export class AssetImageDynamic extends AssetBase.extend<AssetImageDynamic>(
   'AssetImageDynamic',
 )({
+  ...AssetBase.fields,
   type: Schema.Literal('image-dynamic'),
   url: Schema.NonEmptyTrimmedString,
   caption: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
@@ -26,10 +27,10 @@ export class AssetImageDynamic extends AssetBase.extend<AssetImageDynamic>(
     }: Infer<typeof assetImageDynamic>): Promise<
       typeof AssetImageDynamic.Encoded
     > => ({
+      ...AssetBase.encodedFromEntity(base),
       type,
       url: (await getUrl(storageId))!,
       caption,
-      ...AssetBase.encodedFromEntity(base),
     })
   }
 }

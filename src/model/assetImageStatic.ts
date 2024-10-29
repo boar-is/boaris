@@ -14,6 +14,7 @@ export const assetImageStatic = v.object({
 export class AssetImageStatic extends AssetBase.extend<AssetImageStatic>(
   'AssetImageStatic',
 )({
+  ...AssetBase.fields,
   type: Schema.Literal('image-static'),
   url: Schema.NonEmptyTrimmedString,
   caption: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
@@ -29,11 +30,11 @@ export class AssetImageStatic extends AssetBase.extend<AssetImageStatic>(
     }: Infer<typeof assetImageStatic>): Promise<
       typeof AssetImageStatic.Encoded
     > => ({
+      ...AssetBase.encodedFromEntity(base),
       type,
       url: (await getUrl(storageId))!,
       caption,
       alt,
-      ...AssetBase.encodedFromEntity(base),
     })
   }
 }
