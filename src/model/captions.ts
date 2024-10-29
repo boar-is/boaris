@@ -1,14 +1,14 @@
 import { type Infer, v } from 'convex/values'
 import { Schema } from 'effect'
-import { JsonContent, jsonContent } from './jsonContent'
+import { JsonContentSchema } from '~/lib/prosemirror/json-content-schema'
 
 export const captions = v.object({
   revisionId: v.id('revisions'),
-  content: jsonContent,
+  content: v.any(),
 })
 
 export class Captions extends Schema.Class<Captions>('Captions')({
-  content: JsonContent,
+  content: JsonContentSchema,
 }) {
   static encodedFromEntity({
     content,
