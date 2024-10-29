@@ -84,7 +84,7 @@ export const seekCodeMirrorChanges =
     reverses: ReadonlyArray<AssetTextChange>,
   ) =>
   (anchor: number | undefined, head: number | undefined): TransactionSpec => {
-    if (!head) {
+    if (head === undefined) {
       return {
         changes: {
           from: 0,
@@ -105,7 +105,7 @@ export const seekCodeMirrorChanges =
       selection = editorSelection
     }
 
-    if (!anchor || anchor < head) {
+    if (anchor === undefined || anchor < head) {
       for (let i = anchor ? anchor + 1 : 0; i <= head; i++) {
         applyChange(advances[i]!)
       }

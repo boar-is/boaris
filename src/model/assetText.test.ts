@@ -1,17 +1,49 @@
-import { Text } from '@uiw/react-codemirror'
+import {
+  ChangeSet,
+  EditorState,
+  Text,
+  type TransactionSpec,
+} from '@uiw/react-codemirror'
 import { describe, expect, it } from 'vitest'
-import { reversedTextChanges } from '~/model/assetText'
+import {
+  type AssetTextChange,
+  reversedTextChanges,
+  seekCodeMirrorChanges,
+} from '~/model/assetText'
 
-describe.concurrent('reversedTextChanges', () => {
+describe.concurrent('seekCodeMirrorChanges', () => {
   it.concurrent.each<{
-    params: Parameters<typeof reversedTextChanges>
-    returns: ReturnType<typeof reversedTextChanges>
+    params: {
+      doc: Text
+      advances: ReadonlyArray<AssetTextChange>
+      head: number
+      anchor: number
+    }
+    returns: TransactionSpec
   }>([
     {
-      params: [Text.empty, []],
-      returns: [],
+      params: {
+        doc: Text.of(['abc']),
+        advances: [],
+        head: 0,
+        anchor: 0,
+      },
+      returns: {
+        changes: ChangeSet.empty(3),
+        scrollIntoView: true,
+        selection: undefined,
+        sequential: true,
+      },
     },
-  ])('$params -> $returns', ({ params, returns }) => {
-    expect(reversedTextChanges(...params)).toEqual(returns)
-  })
+  ])(
+    '$params -> $returns',
+    ({ params: { doc, advances, head, anchor }, returns }) => {
+      const state = EditorState.create({ doc })
+      const reverses = reversedTextChanges(doc, advances)
+
+      expect(
+        seekCodeMirrorChanges(state)(doc)(advances, reverses)(head, anchor),
+      ).toEqual(returns)
+    },
+  )
 })

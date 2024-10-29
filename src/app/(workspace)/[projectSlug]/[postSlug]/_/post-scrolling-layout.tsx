@@ -306,16 +306,16 @@ const LayoutAssetText = memo(function LayoutAssetText() {
         const state = cmRef.current?.state
         const view = cmRef.current?.view
 
-        if (!(state && view)) {
-          return
-        }
-
         const anchor = get(anchorIndexAtom)
         const head = get(headIndexAtom)
 
         const initialValue = get(assetAtom).value
         const advances = get(assetAtom).changes
         const reverses = reversedTextChanges(initialValue, advances)
+
+        if (!(state && view)) {
+          return
+        }
 
         const spec = seekCodeMirrorChanges(state)(initialValue)(
           advances,

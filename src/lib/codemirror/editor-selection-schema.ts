@@ -19,10 +19,10 @@ export const EditorSelectionFromSerialized = Schema.transformOrFail(
       try {
         return ParseResult.succeed(
           EditorSelection.create(
-            input.ranges.map(([anchor, head]: [number, number]) =>
+            input[0].map(([anchor, head]: [number, number]) =>
               EditorSelection.range(anchor, head ?? anchor),
             ),
-            input.mainIndex ?? 0,
+            input[1] ?? 0,
           ),
         )
       } catch (e) {
