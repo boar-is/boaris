@@ -41,7 +41,10 @@ export default async function WorkspaceProjectPage({
           {posts.length ? (
             <div className="flex flex-col gap-8">
               {posts.map((post) => (
-                <Link key={post.slug} href={`/${project.slug}/${post.slug}`}>
+                <Link
+                  key={post.post.slug}
+                  href={`/${project.slug}/${post.post.slug}`}
+                >
                   <article className="group rounded-xl lg:rounded-3xl flex flex-col lg:flex-row gap-4 lg:gap-8 p-4 lg:p-6 justify-between items-center border border-gray-3 overflow-hidden transition-colors bg-gradient-to-tr from-gray-1/90 to-gray-2/90">
                     {post.revision.posterUrl.pipe(
                       Option.andThen((url) => (
@@ -120,7 +123,7 @@ export default async function WorkspaceProjectPage({
                           Option.getOrThrow,
                         )}
                         <small className="text-gray-8 font-medium tracking-wide text-xs lg:text-sm">
-                          {readableDate(post.date)}
+                          {readableDate(post.post.date)}
                         </small>
                       </footer>
                     </section>
