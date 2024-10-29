@@ -5,6 +5,7 @@ import { useAtomValue } from 'jotai'
 import type { PropsWithChildren } from 'react'
 import { useAuthorsAtom } from '~/features/authors-atom-context'
 import { usePostAtom } from '~/features/post-atom-context'
+import { useRevisionAtom } from '~/features/revision-atom-context'
 import { useTagsAtom } from '~/features/tags-atom-context'
 import { getMonoFontClassName } from '~/lib/media/fonts/get-mono-font-class-name'
 import { Image } from '~/lib/media/image'
@@ -28,23 +29,24 @@ export function PostReadingHeader() {
   const post = useAtomValue(usePostAtom())
   const tags = useAtomValue(useTagsAtom())
   const authors = useAtomValue(useAuthorsAtom())
+  const revision = useAtomValue(useRevisionAtom())
 
   return (
     <header className="w-full max-w-prose">
       <hgroup className="flex flex-col gap-6">
-        {post.posterUrl.pipe(
+        {revision.posterUrl.pipe(
           Option.andThen((url) => (
             <figure className="relative">
               <Image
                 src={url}
-                alt={`${post.title}'s poster's blur`}
+                alt={`${revision.title}'s poster's blur`}
                 width={1024}
                 height={768}
                 className="absolute rounded-2xl blur-2xl opacity-35 pointer-events-none"
               />
               <Image
                 src={url}
-                alt={`${post.title}'s poster`}
+                alt={`${revision.title}'s poster`}
                 width={1024}
                 height={768}
                 className="rounded-2xl drop-shadow-xl"
@@ -54,7 +56,7 @@ export function PostReadingHeader() {
           Option.getOrNull,
         )}
         <h1 className="text-4xl text-gray-12 font-semibold tracking-tight text-balance">
-          {post.title}
+          {revision.title}
         </h1>
         {tags.length > 0 && (
           <ul className="flex flex-wrap gap-1.5 lg:gap-2 text-sm lg:text-base font-medium tracking-wide text-gray-10 *:my-0.5">
@@ -67,7 +69,7 @@ export function PostReadingHeader() {
             ))}
           </ul>
         )}
-        {post.lead.pipe(
+        {revision.lead.pipe(
           Option.andThen((lead) => (
             <p className="text-gray-11 text-pretty text-lg font-medium">
               {lead}
