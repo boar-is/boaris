@@ -1,7 +1,7 @@
 import { Effect, Schema } from 'effect'
 import { notFound } from 'next/navigation'
-import { currentWorkspaceSlug } from '~/lib/constants'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
+import { currentWorkspaceSlug } from '~/lib/utils/constants'
 import { PostRequest } from '~/rpc/post-request'
 import { PostSlugsRequest } from '~/rpc/post-slugs-request'
 import { AppServerRuntime } from '~/runtimes/app-server-runtime'
