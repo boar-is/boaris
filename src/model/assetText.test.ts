@@ -27,35 +27,30 @@ describe.concurrent('seekCodeMirrorChanges', () => {
     ],
   }
 
-  it.concurrent.each<{
-    params: Params & {
+  it.concurrent.each<
+    Params & {
       currentValue: Text
       head?: number | undefined
       anchor?: number | undefined
+      expects: {
+        doc: Text
+        selection?: EditorSelection | undefined
+        scrollIntoView: boolean
+      }
     }
-    expects: {
-      doc: Text
-      selection?: EditorSelection | undefined
-      scrollIntoView: boolean
-    }
-  }>([
+  >([
     {
-      params: {
-        ...params1,
-        currentValue: params1.initialValue,
-      },
+      ...params1,
+      currentValue: params1.initialValue,
       expects: {
         doc: Text.of(['0123456789']),
         scrollIntoView: true,
       },
     },
     {
-      params: {
-        ...params1,
-        currentValue: params1.initialValue,
-        head: undefined,
-        anchor: 0,
-      },
+      ...params1,
+      currentValue: params1.initialValue,
+      head: 0,
       expects: {
         doc: Text.of(['a0123456789']),
         selection: EditorSelection.single(0),
@@ -63,16 +58,13 @@ describe.concurrent('seekCodeMirrorChanges', () => {
       },
     },
   ])(
-    '$params -> $returns',
-    ({
-      params: { initialValue, currentValue, advances, head, anchor },
-      expects,
-    }) => {
+    '$anchor -> $head',
+    ({ initialValue, currentValue, advances, head, anchor, expects }) => {
       const currentState = EditorState.create({ doc: currentValue })
       const spec = seekCodeMirrorChanges(currentState)(initialValue)(
         advances,
         reversedTextChanges(initialValue, advances),
-      )(head, anchor)
+      )(anchor, head)
 
       const transaction = currentState.update(spec)
 
