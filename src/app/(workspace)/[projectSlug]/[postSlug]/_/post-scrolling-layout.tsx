@@ -5,7 +5,8 @@ import { type Atom, atom, useAtomValue } from 'jotai'
 import { atomEffect } from 'jotai-effect'
 import { splitAtom } from 'jotai/utils'
 import { type PropsWithChildren, forwardRef, useMemo, useRef } from 'react'
-import { useLayoutChangesAtom } from '~/features/layout-changes-atom-context'
+import { useAssetsAtom } from '~/features/assets-atom-context'
+import { useLayoutAtom } from '~/features/layout-atom-context'
 import {
   LayoutLayerAtomContext,
   useLayoutLayerAtom,
@@ -16,7 +17,6 @@ import {
 } from '~/features/layout-progress-atom.context'
 import { matchFileTypeIcon } from '~/features/match-file-type-icon'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
-import { useTracksAtom } from '~/features/tracks-atom-context'
 import { codemirrorTheme } from '~/lib/codemirror/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/codemirror/match-codemirror-extensions'
 import { motion } from '~/lib/framer-motion/motion'
@@ -24,16 +24,14 @@ import { Image } from '~/lib/media/image'
 import { useConstant } from '~/lib/react/use-constant'
 import { cx } from '~/lib/utils/cx'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
-import { getCmTransactionSpecFromActions } from '~/model/action'
+import type { Asset } from '~/model/asset'
 import { layoutProgressInterpolationFromChanges } from '~/model/layoutChange'
-import type { Track } from '~/model/track'
-import type { TrackImageDynamic } from '~/model/trackImageDynamic'
-import type { TrackImageStatic } from '~/model/trackImageStatic'
-import type { TrackText } from '~/model/trackText'
 
 export function PostScrollingLayout() {
   const playbackProgressAtom = usePlaybackProgressAtom()
-  const changesAtom = useLayoutChangesAtom()
+  const layoutAtom = useLayoutAtom()
+
+  const changesAtom = useConstant(() => atom((get) => get(layoutAtom).changes))
 
   const transformInterpolationAtom = useConstant(() =>
     atom((get) => {
@@ -60,22 +58,18 @@ export function PostScrollingLayout() {
     ),
   )
 
-  const layersAtom = useConstant(() =>
+  const layerAtom = useConstant(() =>
     atom((get) =>
       get(indexAtom).pipe(
         Option.andThen((index) => Array.get(get(changesAtom), index)),
-        Option.andThen((it) => it.layers),
+        Option.andThen((it) => it.value),
       ),
     ),
   )
 
-  const mainLayerAtom = useConstant(() =>
-    atom((get) => get(layersAtom).pipe(Option.andThen((it) => it.main))),
-  )
-
   return (
     <LayoutProgressAtomContext.Provider value={progressAtom}>
-      <LayoutLayerAtomContext.Provider value={mainLayerAtom}>
+      <LayoutLayerAtomContext.Provider value={layerAtom}>
         <MainLayerGrid>
           <MainLayerGridItems />
         </MainLayerGrid>
@@ -113,15 +107,15 @@ function MainLayerGridItems() {
     atom((get) => get(layerAtom).pipe(Option.map((it) => it.areas))),
   )
 
-  const tracksAtom = useTracksAtom()
+  const assetsAtom = useAssetsAtom()
 
-  const currentTrackAtoms = useAtomValue(
+  const currentAssetsAtoms = useAtomValue(
     useConstant(() =>
       splitAtom(
         atom((get) =>
           get(areasAtom).pipe(
             Option.andThen((areas) =>
-              get(tracksAtom).filter((it) => areas.includes(it.id)),
+              get(assetsAtom).filter((it) => areas.includes(it._id)),
             ),
             Option.getOrElse(() => []),
           ),
@@ -132,8 +126,8 @@ function MainLayerGridItems() {
 
   return (
     <AnimatePresence mode="popLayout">
-      {currentTrackAtoms.map((trackAtom) => (
-        <MainLayerGridItem key={`${trackAtom}`} trackAtom={trackAtom} />
+      {currentAssetsAtoms.map((assetAtom) => (
+        <MainLayerGridItem key={`${assetAtom}`} assetAtom={assetAtom} />
       ))}
     </AnimatePresence>
   )
@@ -141,9 +135,9 @@ function MainLayerGridItems() {
 
 const MainLayerGridItem = forwardRef<
   HTMLLIElement,
-  { trackAtom: Atom<typeof Track.Type> }
->(function MainLayerGridItem({ trackAtom }, ref) {
-  const track = useAtomValue(trackAtom)
+  { assetAtom: Atom<typeof Asset.Type> }
+>(function MainLayerGridItem({ assetAtom }, ref) {
+  const asset = useAtomValue(assetAtom)
 
   return (
     <motion.li
