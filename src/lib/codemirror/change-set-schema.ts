@@ -5,6 +5,7 @@ export const ChangeSetFromSelf = Schema.declare(
   (input: unknown): input is ChangeSet => input instanceof ChangeSet,
   {
     identifier: 'ChangeSetFromSelf',
+    description: 'https://codemirror.net/docs/ref/#state.ChangeSet',
   },
 )
 

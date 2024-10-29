@@ -6,6 +6,7 @@ export const EditorSelectionFromSelf = Schema.declare(
     input instanceof EditorSelection,
   {
     identifier: 'EditorSelectionFromSelf',
+    description: 'https://codemirror.net/docs/ref/#state.EditorSelection',
   },
 )
 

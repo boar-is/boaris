@@ -3,4 +3,13 @@ import { Schema } from 'effect'
 
 export const JsonContentFromSelf = Schema.declare(
   (input: unknown): input is JSONContent => true,
+  {
+    identifier: 'JsonContentFromSelf',
+    description: 'https://prosemirror.net/docs/ref/#model.Node',
+  },
 )
+
+/**
+ * TODO Implement checking: https://prosemirror.net/docs/ref/#model.Node.check
+ */
+export const JsonContentFromJson = Schema.parseJson(JsonContentFromSelf)
