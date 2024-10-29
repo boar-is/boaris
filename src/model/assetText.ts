@@ -3,6 +3,7 @@ import {
   type EditorSelection,
   type EditorState,
   type Text,
+  type TransactionSpec,
 } from '@uiw/react-codemirror'
 import { type Infer, v } from 'convex/values'
 import { Schema } from 'effect'
@@ -77,12 +78,12 @@ export const reversedTextChanges = (
 
 export const seekCodeMirrorChanges =
   (state: EditorState) =>
-  (initialValue: string) =>
+  (initialValue: Text) =>
   (
     advances: ReadonlyArray<AssetTextChange>,
     reverses: ReadonlyArray<AssetTextChange>,
   ) =>
-  (anchor: number | undefined, head: number | undefined) => {
+  (anchor: number | undefined, head: number | undefined): TransactionSpec => {
     if (!head) {
       return {
         changes: {
