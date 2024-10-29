@@ -1,5 +1,5 @@
 import { Rpc, RpcRouter } from '@effect/rpc'
-import { ChangeSet, EditorSelection } from '@uiw/react-codemirror'
+import { ChangeSet, EditorSelection, Text } from '@uiw/react-codemirror'
 import { Effect, HashSet, Layer, Option } from 'effect'
 import { PostRequest } from '~/rpc/post-request'
 import { PostSlugsRequest } from '~/rpc/post-slugs-request'
@@ -196,7 +196,7 @@ export const AppRpcRouterMock = Layer.succeed(
             _id: 'GvsdhtasCVQN',
             type: 'text',
             name: 'index.ts',
-            value: `const hello = 'world'`,
+            value: Text.of([`const hello = 'world'`]),
             changes: [
               [
                 0.1,
