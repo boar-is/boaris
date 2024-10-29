@@ -74,7 +74,7 @@ const project = query({
         ])
 
         return {
-          ...Post.encodedFromEntity(post),
+          post: Post.encodedFromEntity(post),
           revision: await Revision.encodedFromEntity(revision!, getUrl),
           tags,
           authors,

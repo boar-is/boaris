@@ -15,8 +15,7 @@ export class ProjectRequest extends Schema.TaggedRequest<ProjectRequest>()(
         project: Project,
         posts: Schema.Array(
           Schema.Struct({
-            // TODO do not spread, hard to pass to contexts
-            ...Post.fields,
+            post: Post,
             revision: Revision,
             tags: Schema.Array(Tag),
             authors: Schema.Array(User),

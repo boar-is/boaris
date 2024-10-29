@@ -10,7 +10,7 @@ export const ChangeSetFromSelf = Schema.declare(
 )
 
 export const ChangeSetFromJson = Schema.transformOrFail(
-  Schema.Unknown,
+  Schema.Any,
   ChangeSetFromSelf,
   {
     strict: true,
