@@ -66,7 +66,9 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
             wordRangeAtom={wordRangeAtom}
             containerOffset={containerOffset}
             offsetTopMv={offsetTopMv}
-            offsetLeft={() => scrollableRef.current?.offsetLeft ?? 0}
+            offsetLeft={() =>
+              scrollableRef.current?.getBoundingClientRect()?.left ?? 0
+            }
           />
           <EditorContent editor={editor} />
         </motion.div>
