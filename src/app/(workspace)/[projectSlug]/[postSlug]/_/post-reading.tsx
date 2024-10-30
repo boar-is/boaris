@@ -55,7 +55,7 @@ export function PostReadingHeader() {
           )),
           Option.getOrNull,
         )}
-        <h1 className="text-4xl text-gray-12 font-semibold tracking-tight text-balance">
+        <h1 className="text-4xl bg-gradient-to-tr from-gray-11 to-gray-12 bg-clip-text text-transparent font-semibold tracking-tight text-balance">
           {revision.title}
         </h1>
         {tags.length > 0 && (
