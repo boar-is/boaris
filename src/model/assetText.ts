@@ -118,7 +118,7 @@ export const seekCodeMirrorChanges = ({
   }
 
   if (anchor === undefined || anchor < head) {
-    for (let i = anchor ? anchor + 1 : 0; i <= head; i++) {
+    for (let i = anchor === undefined ? 0 : anchor + 1; i <= head; i++) {
       applyChange(advances[i]!)
     }
   } else if (anchor > head) {
