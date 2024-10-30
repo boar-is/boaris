@@ -283,6 +283,13 @@ const LayoutAssetText = memo(function LayoutAssetText() {
     getAssetAtomById(assetsAtom)(idAtom)('text'),
   )
 
+  const reversesAtom = useConstant(() =>
+    atom((get) => {
+      const { value, changes } = get(assetAtom)
+      return reversedTextChanges(value, changes)
+    }),
+  )
+
   const { name, value } = useAtomValue(assetAtom)
 
   const cmRef = useRef<ReactCodeMirrorRef | null>(null)
@@ -299,7 +306,6 @@ const LayoutAssetText = memo(function LayoutAssetText() {
     ),
   )
   const anchorIndexAtom = useConstant(() => atom<number | undefined>(undefined))
-
   useAtomValue(
     useConstant(() =>
       atomEffect((get, set) => {
@@ -311,7 +317,7 @@ const LayoutAssetText = memo(function LayoutAssetText() {
 
         const initialValue = get(assetAtom).value
         const advances = get(assetAtom).changes
-        const reverses = reversedTextChanges(initialValue, advances)
+        const reverses = get(reversesAtom)
 
         if (!(state && view)) {
           return
