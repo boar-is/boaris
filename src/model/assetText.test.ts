@@ -11,7 +11,7 @@ import {
   seekCodeMirrorChanges,
 } from '~/model/assetText'
 
-describe.concurrent('seekCodeMirrorChanges', () => {
+describe('seekCodeMirrorChanges', () => {
   type Params = {
     initialValue: Text
     advances: ReadonlyArray<AssetTextChange>
@@ -37,7 +37,7 @@ describe.concurrent('seekCodeMirrorChanges', () => {
     ],
   }
 
-  it.concurrent.each<
+  it.each<
     Params & {
       currentValue: Text
       head?: number | undefined
@@ -122,9 +122,11 @@ describe.concurrent('seekCodeMirrorChanges', () => {
     '$anchor -> $head',
     ({ initialValue, currentValue, advances, head, anchor, expects }) => {
       const currentState = EditorState.create({ doc: currentValue })
+      const reverses = reversedTextChanges(initialValue, advances)
+
       const spec = seekCodeMirrorChanges(currentState)(initialValue)(
         advances,
-        reversedTextChanges(initialValue, advances),
+        reverses,
       )(anchor, head)
 
       const transaction = currentState.update(spec)
@@ -132,9 +134,11 @@ describe.concurrent('seekCodeMirrorChanges', () => {
       expect(transaction.newDoc.toString()).toEqual(expects.doc.toString())
 
       {
-        const a = transaction.selection
-        const b = expects.selection
-        expect((!a && !b) || (a && b && a.eq(b))).toBeTruthy()
+        const actual = transaction.selection
+        const expected = expects.selection
+        expect(
+          (!actual && !expected) || (actual && expected && actual.eq(expected)),
+        ).toBeTruthy()
       }
 
       expect(transaction.scrollIntoView).toEqual(expects.scrollIntoView)

@@ -37,7 +37,10 @@ export class AssetText extends AssetBase.extend<AssetText>('AssetText')({
       /**
        * @see https://codemirror.net/docs/ref/#state.TransactionSpec
        */
-      Schema.Tuple(ChangeSetFromJson, EditorSelectionFromSerialized),
+      Schema.Tuple(
+        ChangeSetFromJson,
+        Schema.UndefinedOr(EditorSelectionFromSerialized),
+      ),
     ),
   ),
 }) {
@@ -64,13 +67,16 @@ export const reversedTextChanges = (
   initialValue: Text,
   advances: ReadonlyArray<AssetTextChange>,
 ): ReadonlyArray<AssetTextChange> => {
-  let currentValue = initialValue
   const reverses: Array<AssetTextChange> = []
+  let currentValue = initialValue
 
-  for (const [offset, [changeSet, selection]] of advances) {
+  for (let i = 0; i < advances.length; i++) {
+    const [offset, [changeSet]] = advances[i]!
     const invertedChangeSet = changeSet.invert(currentValue)
+
+    const selection = i > 0 ? advances[i - 1]![1][1] : undefined
+    reverses.push([offset, [invertedChangeSet, selection]])
     currentValue = changeSet.apply(currentValue)
-    reverses.unshift([offset, [invertedChangeSet, selection]])
   }
 
   return reverses
