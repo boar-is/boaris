@@ -105,9 +105,10 @@ describe('seekCodeMirrorChanges', () => {
     [1, 3, scenario1],
     [3, 2, scenario1],
     [3, 1, scenario1],
+    [1, 0, scenario1],
   ])(
     '%i -> %i',
-    (head, anchor, { params: { initialValue, advances }, states }) => {
+    (anchor, head, { params: { initialValue, advances }, states }) => {
       const anchorState = states[anchor ?? 'undefined']!
       const headState = states[head ?? 'undefined']!
 
