@@ -1,7 +1,6 @@
 import {
   ChangeSet,
   type EditorSelection,
-  type EditorState,
   type Text,
   type TransactionSpec,
 } from '@uiw/react-codemirror'
@@ -82,49 +81,56 @@ export const reversedTextChanges = (
   return reverses
 }
 
-export const seekCodeMirrorChanges =
-  (state: EditorState) =>
-  (initialValue: Text) =>
-  (
-    advances: ReadonlyArray<AssetTextChange>,
-    reverses: ReadonlyArray<AssetTextChange>,
-  ) =>
-  (anchor: number | undefined, head: number | undefined): TransactionSpec => {
-    if (head === undefined) {
-      return {
-        changes: {
-          from: 0,
-          to: state.doc.length,
-          insert: initialValue,
-        },
-        selection: undefined,
-        scrollIntoView: true,
-      }
-    }
-
-    let changes = ChangeSet.empty(state.doc.length)
-    let selection: EditorSelection | undefined
-
-    const applyChange = (change: AssetTextChange) => {
-      const [changeSet, editorSelection] = change[1]
-      changes = changes.compose(changeSet)
-      selection = editorSelection
-    }
-
-    if (anchor === undefined || anchor < head) {
-      for (let i = anchor ? anchor + 1 : 0; i <= head; i++) {
-        applyChange(advances[i]!)
-      }
-    } else if (anchor > head) {
-      for (let i = anchor; i > head; i--) {
-        applyChange(reverses[i]!)
-      }
-    }
-
+export const seekCodeMirrorChanges = ({
+  currentValue,
+  initialValue,
+  advances,
+  reverses,
+  anchor,
+  head,
+}: {
+  currentValue: Text
+  initialValue: Text
+  advances: ReadonlyArray<AssetTextChange>
+  reverses: ReadonlyArray<AssetTextChange>
+  anchor: number | undefined
+  head: number | undefined
+}): TransactionSpec => {
+  if (head === undefined) {
     return {
-      changes,
-      selection,
+      changes: {
+        from: 0,
+        to: currentValue.length,
+        insert: initialValue,
+      },
+      selection: undefined,
       scrollIntoView: true,
-      sequential: true,
     }
   }
+
+  let changes = ChangeSet.empty(currentValue.length)
+  let selection: EditorSelection | undefined
+
+  const applyChange = (change: AssetTextChange) => {
+    const [changeSet, editorSelection] = change[1]
+    changes = changes.compose(changeSet)
+    selection = editorSelection
+  }
+
+  if (anchor === undefined || anchor < head) {
+    for (let i = anchor ? anchor + 1 : 0; i <= head; i++) {
+      applyChange(advances[i]!)
+    }
+  } else if (anchor > head) {
+    for (let i = anchor; i > head; i--) {
+      applyChange(reverses[i]!)
+    }
+  }
+
+  return {
+    changes,
+    selection,
+    scrollIntoView: true,
+    sequential: true,
+  }
+}

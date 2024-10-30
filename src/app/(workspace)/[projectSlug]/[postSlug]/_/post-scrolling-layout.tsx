@@ -303,8 +303,8 @@ const LayoutAssetText = memo(function LayoutAssetText() {
   useAtomValue(
     useConstant(() =>
       atomEffect((get, set) => {
-        const state = cmRef.current?.state
         const view = cmRef.current?.view
+        const state = view?.state
 
         const anchor = get(anchorIndexAtom)
         const head = get(headIndexAtom)
@@ -317,10 +317,14 @@ const LayoutAssetText = memo(function LayoutAssetText() {
           return
         }
 
-        const spec = seekCodeMirrorChanges(state)(initialValue)(
+        const spec = seekCodeMirrorChanges({
+          currentValue: state.doc,
+          initialValue,
           advances,
           reverses,
-        )(anchor, head)
+          anchor,
+          head,
+        })
 
         view.dispatch(spec)
 

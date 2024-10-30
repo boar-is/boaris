@@ -105,7 +105,10 @@ describe('seekCodeMirrorChanges', () => {
     [1, 3, scenario1],
     [3, 2, scenario1],
     [3, 1, scenario1],
+    [0, 1, scenario1],
+    [0, 2, scenario1],
     [1, 0, scenario1],
+    [1, 2, scenario1],
   ])(
     '%i -> %i',
     (anchor, head, { params: { initialValue, advances }, states }) => {
@@ -115,10 +118,14 @@ describe('seekCodeMirrorChanges', () => {
       const currentState = EditorState.create({ doc: anchorState.doc })
       const reverses = reversedTextChanges(initialValue, advances)
 
-      const spec = seekCodeMirrorChanges(currentState)(initialValue)(
+      const spec = seekCodeMirrorChanges({
+        currentValue: currentState.doc,
+        initialValue,
         advances,
         reverses,
-      )(anchor, head)
+        anchor,
+        head,
+      })
 
       const transaction = currentState.update(spec)
 

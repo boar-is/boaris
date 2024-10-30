@@ -195,16 +195,32 @@ export const AppRpcRouterMock = Layer.succeed(
           {
             _id: 'GvsdhtasCVQN',
             type: 'text',
-            name: 'index.ts',
-            value: Text.of([`const hello = 'world'`]),
+            name: 'index.md',
+            value: Text.of(['0123456789']),
             changes: [
               [
                 0.1,
                 [
-                  ChangeSet.of({ from: 0, insert: '// ' }, 21),
+                  ChangeSet.of({ from: 0, insert: 'a' }, 10),
+                  EditorSelection.single(0),
+                ],
+              ],
+              [0.2, [ChangeSet.empty(11), EditorSelection.single(5)]],
+              [
+                0.3,
+                [
+                  ChangeSet.of({ from: 3, to: 5 }, 11),
+                  EditorSelection.single(2),
+                ],
+              ],
+              [
+                0.4,
+                [
+                  ChangeSet.of({ from: 4, to: 6, insert: '!' }, 9),
                   EditorSelection.single(1),
                 ],
               ],
+              [0.5, [ChangeSet.empty(8), EditorSelection.single(8)]],
             ],
           },
         ],
