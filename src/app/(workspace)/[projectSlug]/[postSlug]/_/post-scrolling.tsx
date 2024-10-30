@@ -28,9 +28,7 @@ export function PostScrolling() {
           <PostReadingSeparator />
           <PostScrollingContent />
         </PostReading>
-        <div className="self-start sticky top-1/2 -translate-y-1/2">
-          <PostScrollingLayout />
-        </div>
+        <PostScrollingLayout />
       </div>
     </PlaybackProgressAtomContext.Provider>
   )

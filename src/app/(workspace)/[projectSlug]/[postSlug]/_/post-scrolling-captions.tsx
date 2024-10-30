@@ -46,7 +46,7 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
   const scrollableHeight = useFactoredHeight(contentRef, 1 / 30)
   const [scrollableRef] = usePlaybackProgressScrollSync({ scrollableHeight })
 
-  const containerOffset = 128
+  const containerOffset = 256
 
   return (
     <div

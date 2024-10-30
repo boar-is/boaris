@@ -85,21 +85,21 @@ export function PostScrollingLayout() {
   return (
     <LayoutProgressAtomContext.Provider value={progressAtom}>
       <LayoutLayerAtomContext.Provider value={layerAtom}>
-        <MainLayerGrid>
-          <MainLayerGridItems />
-        </MainLayerGrid>
+        <LayerGrid>
+          <LayerGridItems />
+        </LayerGrid>
       </LayoutLayerAtomContext.Provider>
     </LayoutProgressAtomContext.Provider>
   )
 }
 
-function MainLayerGrid({ children }: PropsWithChildren) {
+function LayerGrid({ children }: PropsWithChildren) {
   const layer = useAtomValue(useLayoutLayerAtom())
 
   return layer.pipe(
     Option.andThen(({ areas, rows, columns }) => (
       <motion.ul
-        className="grid gap-2 *:h-full"
+        className="self-start sticky top-64 grid gap-2 *:h-full"
         style={{
           gridTemplateAreas: areas,
           gridTemplateColumns: Option.getOrUndefined(columns),
@@ -115,7 +115,7 @@ function MainLayerGrid({ children }: PropsWithChildren) {
   )
 }
 
-function MainLayerGridItems() {
+function LayerGridItems() {
   const layerAtom = useLayoutLayerAtom()
 
   const areasAtom = useConstant(() =>
