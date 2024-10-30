@@ -22,15 +22,13 @@ export function PostScrolling() {
 
   return (
     <PlaybackProgressAtomContext.Provider value={playbackProgressAtom}>
-      <div className="relative container grid grid-cols-10 gap-16">
-        <div className="col-span-4">
-          <PostReading>
-            <PostReadingHeader />
-            <PostReadingSeparator />
-            <PostScrollingContent />
-          </PostReading>
-        </div>
-        <div className="col-span-6 self-start sticky top-1/2 -translate-y-1/2">
+      <div className="relative container grid grid-cols-[65ch_auto] gap-16">
+        <PostReading>
+          <PostReadingHeader />
+          <PostReadingSeparator />
+          <PostScrollingContent />
+        </PostReading>
+        <div className="self-start sticky top-1/2 -translate-y-1/2">
           <PostScrollingLayout />
         </div>
       </div>

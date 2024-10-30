@@ -40,11 +40,6 @@ const tailwindConfig = {
       sans: ['var(--font-sans)', ...fontFamily.sans],
       mono: ['var(--font-mono)', ...fontFamily.mono],
     },
-    extend: {
-      maxWidth: {
-        prose: '75ch',
-      },
-    },
     animation: {
       rainbow: 'rainbow var(--speed, 2s) infinite linear',
     },
