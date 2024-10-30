@@ -21,9 +21,19 @@ describe.concurrent('seekCodeMirrorChanges', () => {
     initialValue: Text.of(['0123456789']),
     advances: [
       [
-        1,
+        0.1,
         [ChangeSet.of({ from: 0, insert: 'a' }, 10), EditorSelection.single(0)],
       ],
+      [0.2, [ChangeSet.empty(11), EditorSelection.single(5)]],
+      [0.3, [ChangeSet.of({ from: 3, to: 5 }, 11), EditorSelection.single(2)]],
+      [
+        0.4,
+        [
+          ChangeSet.of({ from: 4, to: 6, insert: '!' }, 9),
+          EditorSelection.single(1),
+        ],
+      ],
+      [0.5, [ChangeSet.empty(8), EditorSelection.single(8)]],
     ],
   }
 
@@ -57,6 +67,57 @@ describe.concurrent('seekCodeMirrorChanges', () => {
         scrollIntoView: true,
       },
     },
+    {
+      ...params1,
+      currentValue: params1.initialValue,
+      head: 1,
+      expects: {
+        doc: Text.of(['a0123456789']),
+        selection: EditorSelection.single(5),
+        scrollIntoView: true,
+      },
+    },
+    {
+      ...params1,
+      currentValue: params1.initialValue,
+      head: 2,
+      expects: {
+        doc: Text.of(['a01456789']),
+        selection: EditorSelection.single(2),
+        scrollIntoView: true,
+      },
+    },
+    {
+      ...params1,
+      currentValue: params1.initialValue,
+      head: 3,
+      expects: {
+        doc: Text.of(['a014!789']),
+        selection: EditorSelection.single(1),
+        scrollIntoView: true,
+      },
+    },
+    {
+      ...params1,
+      currentValue: params1.initialValue,
+      head: 4,
+      expects: {
+        doc: Text.of(['a014!789']),
+        selection: EditorSelection.single(8),
+        scrollIntoView: true,
+      },
+    },
+    {
+      ...params1,
+      currentValue: Text.of(['a014!789']),
+      anchor: 4,
+      head: 3,
+      expects: {
+        doc: Text.of(['a014!789']),
+        selection: EditorSelection.single(1),
+        scrollIntoView: true,
+      },
+    },
   ])(
     '$anchor -> $head',
     ({ initialValue, currentValue, advances, head, anchor, expects }) => {
@@ -68,7 +129,7 @@ describe.concurrent('seekCodeMirrorChanges', () => {
 
       const transaction = currentState.update(spec)
 
-      expect(transaction.newDoc.eq(expects.doc)).toBeTruthy()
+      expect(transaction.newDoc.toString()).toEqual(expects.doc.toString())
 
       {
         const a = transaction.selection
