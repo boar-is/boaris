@@ -1,6 +1,7 @@
 import { Rpc, RpcRouter } from '@effect/rpc'
 import { ChangeSet, EditorSelection, Text } from '@uiw/react-codemirror'
 import { Effect, HashSet, Layer, Option } from 'effect'
+import type { AssetText } from '~/model/assetText'
 import { PostRequest } from '~/rpc/post-request'
 import { PostSlugsRequest } from '~/rpc/post-slugs-request'
 import { ProjectRequest } from '~/rpc/project-request'
@@ -195,33 +196,754 @@ export const AppRpcRouterMock = Layer.succeed(
           {
             _id: 'GvsdhtasCVQN',
             type: 'text',
-            name: 'index.md',
-            value: Text.of(['0123456789']),
-            changes: [
-              [
-                0.1,
+            name: 'index.tsx',
+            value: Text.empty,
+            changes: (() => {
+              const recorded: (typeof AssetText.Encoded)['changes'] = [
                 [
-                  ChangeSet.of({ from: 0, insert: 'a' }, 10),
-                  EditorSelection.single(0),
+                  0.0847,
+                  [
+                    [],
+                    {
+                      ranges: [
+                        {
+                          anchor: 0,
+                          head: 0,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
                 ],
-              ],
-              [0.2, [ChangeSet.empty(11), EditorSelection.single(5)]],
-              [
-                0.3,
                 [
-                  ChangeSet.of({ from: 3, to: 5 }, 11),
-                  EditorSelection.single(2),
+                  0.1933,
+                  [
+                    [[0, 'f']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 1,
+                          head: 1,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
                 ],
-              ],
-              [
-                0.4,
                 [
-                  ChangeSet.of({ from: 4, to: 6, insert: '!' }, 9),
-                  EditorSelection.single(1),
+                  0.2106,
+                  [
+                    [1, [0, 'u']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 2,
+                          head: 2,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
                 ],
-              ],
-              [0.5, [ChangeSet.empty(8), EditorSelection.single(8)]],
-            ],
+                [
+                  0.2165,
+                  [
+                    [2, [0, 'n']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 3,
+                          head: 3,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.222,
+                  [
+                    [3, [0, 'c']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 4,
+                          head: 4,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.2388,
+                  [
+                    [4, [0, 't']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 5,
+                          head: 5,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.242,
+                  [
+                    [5, [0, 'i']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 6,
+                          head: 6,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.2457,
+                  [
+                    [6, [0, 'o']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 7,
+                          head: 7,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.2484,
+                  [
+                    [7, [0, 'n']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 8,
+                          head: 8,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.2619,
+                  [
+                    [8, [0, ' ']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 9,
+                          head: 9,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.2831,
+                  [
+                    [9, [0, 'C']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 10,
+                          head: 10,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.2935,
+                  [
+                    [10, [0, 'o']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 11,
+                          head: 11,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.3005,
+                  [
+                    [11, [0, 'm']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 12,
+                          head: 12,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.3131,
+                  [
+                    [12, [0, 'p']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 13,
+                          head: 13,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.3183,
+                  [
+                    [13, [0, 'o']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 14,
+                          head: 14,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.3362,
+                  [
+                    [14, [0, 'n']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 15,
+                          head: 15,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.3437,
+                  [
+                    [15, [0, 'e']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 16,
+                          head: 16,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.3507,
+                  [
+                    [16, [0, 'n']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 17,
+                          head: 17,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.3569,
+                  [
+                    [17, [0, 't']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 18,
+                          head: 18,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.3821,
+                  [
+                    [18, [0, '()']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 19,
+                          head: 19,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.3858,
+                  [
+                    [19, [1, ')']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 20,
+                          head: 20,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.4154,
+                  [
+                    [20, [0, ' ']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 21,
+                          head: 21,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.4261,
+                  [
+                    [21, [0, '{}']],
+                    {
+                      ranges: [
+                        {
+                          anchor: 22,
+                          head: 22,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.4514,
+                  [
+                    [22, [0, '', '  ', ''], 1],
+                    {
+                      ranges: [
+                        {
+                          anchor: 25,
+                          head: 25,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.5083,
+                  [
+                    [25, [0, 'r'], 2],
+                    {
+                      ranges: [
+                        {
+                          anchor: 26,
+                          head: 26,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.5134,
+                  [
+                    [26, [0, 'e'], 2],
+                    {
+                      ranges: [
+                        {
+                          anchor: 27,
+                          head: 27,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.5244,
+                  [
+                    [27, [0, 't'], 2],
+                    {
+                      ranges: [
+                        {
+                          anchor: 28,
+                          head: 28,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.5299,
+                  [
+                    [28, [0, 'u'], 2],
+                    {
+                      ranges: [
+                        {
+                          anchor: 29,
+                          head: 29,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.5377,
+                  [
+                    [29, [0, 'r'], 2],
+                    {
+                      ranges: [
+                        {
+                          anchor: 30,
+                          head: 30,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.5463,
+                  [
+                    [30, [0, 'n'], 2],
+                    {
+                      ranges: [
+                        {
+                          anchor: 31,
+                          head: 31,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.5535,
+                  [
+                    [31, [0, ' '], 2],
+                    {
+                      ranges: [
+                        {
+                          anchor: 32,
+                          head: 32,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.6312,
+                  [
+                    [32, [0, '<'], 2],
+                    {
+                      ranges: [
+                        {
+                          anchor: 33,
+                          head: 33,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.6483,
+                  [
+                    [33, [0, 'd'], 2],
+                    {
+                      ranges: [
+                        {
+                          anchor: 34,
+                          head: 34,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.6559,
+                  [
+                    [34, [0, 'i'], 2],
+                    {
+                      ranges: [
+                        {
+                          anchor: 35,
+                          head: 35,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.6613,
+                  [
+                    [35, [0, 'v'], 2],
+                    {
+                      ranges: [
+                        {
+                          anchor: 36,
+                          head: 36,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.6862,
+                  [
+                    [36, [0, '></div>'], 2],
+                    {
+                      ranges: [
+                        {
+                          anchor: 37,
+                          head: 37,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.7719,
+                  [
+                    [37, [0, 'H'], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 38,
+                          head: 38,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.7908,
+                  [
+                    [38, [0, 'e'], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 39,
+                          head: 39,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.8344,
+                  [
+                    [39, [0, 'l'], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 40,
+                          head: 40,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.8478,
+                  [
+                    [40, [0, 'l'], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 41,
+                          head: 41,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.8509,
+                  [
+                    [41, [0, 'o'], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 42,
+                          head: 42,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.8795,
+                  [
+                    [42, [0, ','], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 43,
+                          head: 43,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.9086,
+                  [
+                    [43, [0, ' '], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 44,
+                          head: 44,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.9213,
+                  [
+                    [44, [0, 'w'], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 45,
+                          head: 45,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.9308,
+                  [
+                    [45, [0, 'o'], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 46,
+                          head: 46,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.9389,
+                  [
+                    [46, [0, 'r'], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 47,
+                          head: 47,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.9463,
+                  [
+                    [47, [0, 'l'], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 48,
+                          head: 48,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.9525,
+                  [
+                    [48, [0, 'd'], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 49,
+                          head: 49,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+                [
+                  0.9999,
+                  [
+                    [49, [0, '!'], 8],
+                    {
+                      ranges: [
+                        {
+                          anchor: 50,
+                          head: 50,
+                        },
+                      ],
+                      main: 0,
+                    },
+                  ],
+                ],
+              ]
+              return recorded.map(
+                ([t, [c, s]]) =>
+                  [
+                    t,
+                    [ChangeSet.fromJSON(c), EditorSelection.fromJSON(s)],
+                  ] as const,
+              )
+            })(),
           },
         ],
       }),
