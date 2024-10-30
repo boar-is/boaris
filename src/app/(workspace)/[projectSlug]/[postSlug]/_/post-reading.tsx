@@ -17,7 +17,7 @@ export function PostReading({ children }: PropsWithChildren) {
     <article
       className={cx(
         getMonoFontClassName(),
-        'container flex flex-col gap-12 items-center',
+        'flex flex-col gap-12 items-center',
       )}
     >
       {children}

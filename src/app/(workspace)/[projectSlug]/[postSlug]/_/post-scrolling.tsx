@@ -3,7 +3,6 @@
 import { useEditor } from '@tiptap/react'
 import { useAtomValue } from 'jotai'
 import { atom } from 'jotai/index'
-import { PostScrollingLayout } from '~/app/(workspace)/[projectSlug]/[postSlug]/_/post-scrolling-layout'
 import { useCaptionsAtom } from '~/features/captions-atom-context'
 import { PlaybackProgressAtomContext } from '~/features/playback-progress-atom-context'
 import { defaultEditorOptions } from '~/lib/prosemirror/default-editor-options'
@@ -16,18 +15,26 @@ import {
   PostReadingSeparator,
 } from './post-reading'
 import { PostScrollingCaptions } from './post-scrolling-captions'
+import { PostScrollingLayout } from './post-scrolling-layout'
 
 export function PostScrolling() {
   const playbackProgressAtom = useConstant(() => atom(0))
 
   return (
-    <PostReading>
-      <PostReadingHeader />
-      <PostReadingSeparator />
-      <PlaybackProgressAtomContext.Provider value={playbackProgressAtom}>
-        <PostScrollingContent />
-      </PlaybackProgressAtomContext.Provider>
-    </PostReading>
+    <PlaybackProgressAtomContext.Provider value={playbackProgressAtom}>
+      <div className="relative container grid grid-cols-10 gap-16">
+        <div className="col-span-4">
+          <PostReading>
+            <PostReadingHeader />
+            <PostReadingSeparator />
+            <PostScrollingContent />
+          </PostReading>
+        </div>
+        <div className="col-span-6 self-start sticky top-1/2 -translate-y-1/2">
+          <PostScrollingLayout />
+        </div>
+      </div>
+    </PlaybackProgressAtomContext.Provider>
   )
 }
 
@@ -54,7 +61,6 @@ function PostScrollingContent() {
           <StaticEditorContent content={content} extensions={extensions} />
         )}
       </div>
-      <PostScrollingLayout />
     </div>
   )
 }

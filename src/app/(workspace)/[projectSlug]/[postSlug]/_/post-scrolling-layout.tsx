@@ -99,7 +99,7 @@ function MainLayerGrid({ children }: PropsWithChildren) {
   return layer.pipe(
     Option.andThen(({ areas, rows, columns }) => (
       <motion.ul
-        className="grid sticky bottom-4 inset-x-0 h-[60dvh] w-screen container gap-2 *:h-full"
+        className="grid gap-2 *:h-full"
         style={{
           gridTemplateAreas: areas,
           gridTemplateColumns: Option.getOrUndefined(columns),
@@ -166,7 +166,7 @@ const MainLayerGridItem = memo(
       return (
         <JotaiMotionLi
           ref={ref}
-          className="bg-gray-1/80 backdrop-blur-md border border-gray-4/80 rounded-xl overflow-hidden"
+          className="bg-gray-1/80 backdrop-blur-md border border-gray-4/80 rounded-xl overflow-hidden aspect-video"
           $style={styleAtom}
           initial={{ opacity: 0, filter: 'blur(16px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}

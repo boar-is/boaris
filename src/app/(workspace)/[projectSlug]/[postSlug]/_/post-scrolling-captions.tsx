@@ -56,7 +56,6 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
     >
       <div className="sticky inset-x-0 h-0" style={{ top: containerOffset }}>
         <motion.div
-          className="relative"
           style={{
             y: offsetTopMv,
           }}
