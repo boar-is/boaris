@@ -87,56 +87,20 @@ describe('seekCodeMirrorChanges', () => {
     },
   }
 
-  it.each<{
-    scenario: Scenario
-    anchor: number | undefined
-    head: number | undefined
-  }>([
-    {
-      scenario: scenario1,
-      anchor: undefined,
-      head: undefined,
-    },
-    {
-      scenario: scenario1,
-      anchor: undefined,
-      head: 0,
-    },
-    {
-      scenario: scenario1,
-      anchor: undefined,
-      head: 1,
-    },
-    {
-      scenario: scenario1,
-      anchor: undefined,
-      head: 2,
-    },
-    {
-      scenario: scenario1,
-      anchor: undefined,
-      head: 3,
-    },
-    {
-      scenario: scenario1,
-      anchor: undefined,
-      head: 4,
-    },
-    {
-      scenario: scenario1,
-      anchor: 4,
-      head: 3,
-    },
+  it.each<
+    [anchor: number | undefined, head: number | undefined, scenario: Scenario]
+  >([
+    [undefined, undefined, scenario1],
+    [undefined, 0, scenario1],
+    [undefined, 1, scenario1],
+    [undefined, 2, scenario1],
+    [undefined, 3, scenario1],
+    [undefined, 4, scenario1],
+    [4, 3, scenario1],
+    [4, 2, scenario1],
   ])(
-    '$anchor -> $head',
-    ({
-      scenario: {
-        params: { initialValue, advances },
-        states,
-      },
-      head,
-      anchor,
-    }) => {
+    '%i -> %i',
+    (head, anchor, { params: { initialValue, advances }, states }) => {
       const anchorState = states[anchor ?? 'undefined']!
       const headState = states[head ?? 'undefined']!
 
