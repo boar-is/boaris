@@ -12,116 +12,135 @@ import {
 } from '~/model/assetText'
 
 describe('seekCodeMirrorChanges', () => {
-  type Params = {
-    initialValue: Text
-    advances: ReadonlyArray<AssetTextChange>
-  }
-
-  const params1: Params = {
-    initialValue: Text.of(['0123456789']),
-    advances: [
-      [
-        0.1,
-        [ChangeSet.of({ from: 0, insert: 'a' }, 10), EditorSelection.single(0)],
-      ],
-      [0.2, [ChangeSet.empty(11), EditorSelection.single(5)]],
-      [0.3, [ChangeSet.of({ from: 3, to: 5 }, 11), EditorSelection.single(2)]],
-      [
-        0.4,
-        [
-          ChangeSet.of({ from: 4, to: 6, insert: '!' }, 9),
-          EditorSelection.single(1),
-        ],
-      ],
-      [0.5, [ChangeSet.empty(8), EditorSelection.single(8)]],
-    ],
-  }
-
-  it.each<
-    Params & {
-      currentValue: Text
-      head?: number | undefined
-      anchor?: number | undefined
-      expects: {
+  type Scenario = {
+    params: {
+      initialValue: Text
+      advances: ReadonlyArray<AssetTextChange>
+    }
+    states: Record<
+      'undefined' | number,
+      {
         doc: Text
-        selection?: EditorSelection | undefined
+        selection: EditorSelection | undefined
         scrollIntoView: boolean
       }
-    }
-  >([
-    {
-      ...params1,
-      currentValue: params1.initialValue,
-      expects: {
+    >
+  }
+
+  const scenario1: Scenario = {
+    params: {
+      initialValue: Text.of(['0123456789']),
+      advances: [
+        [
+          0.1,
+          [
+            ChangeSet.of({ from: 0, insert: 'a' }, 10),
+            EditorSelection.single(0),
+          ],
+        ],
+        [0.2, [ChangeSet.empty(11), EditorSelection.single(5)]],
+        [
+          0.3,
+          [ChangeSet.of({ from: 3, to: 5 }, 11), EditorSelection.single(2)],
+        ],
+        [
+          0.4,
+          [
+            ChangeSet.of({ from: 4, to: 6, insert: '!' }, 9),
+            EditorSelection.single(1),
+          ],
+        ],
+        [0.5, [ChangeSet.empty(8), EditorSelection.single(8)]],
+      ],
+    },
+    states: {
+      undefined: {
         doc: Text.of(['0123456789']),
+        selection: undefined,
         scrollIntoView: true,
       },
-    },
-    {
-      ...params1,
-      currentValue: params1.initialValue,
-      head: 0,
-      expects: {
+      0: {
         doc: Text.of(['a0123456789']),
         selection: EditorSelection.single(0),
         scrollIntoView: true,
       },
-    },
-    {
-      ...params1,
-      currentValue: params1.initialValue,
-      head: 1,
-      expects: {
+      1: {
         doc: Text.of(['a0123456789']),
         selection: EditorSelection.single(5),
         scrollIntoView: true,
       },
-    },
-    {
-      ...params1,
-      currentValue: params1.initialValue,
-      head: 2,
-      expects: {
+      2: {
         doc: Text.of(['a01456789']),
         selection: EditorSelection.single(2),
         scrollIntoView: true,
       },
-    },
-    {
-      ...params1,
-      currentValue: params1.initialValue,
-      head: 3,
-      expects: {
+      3: {
         doc: Text.of(['a014!789']),
         selection: EditorSelection.single(1),
         scrollIntoView: true,
       },
-    },
-    {
-      ...params1,
-      currentValue: params1.initialValue,
-      head: 4,
-      expects: {
+      4: {
         doc: Text.of(['a014!789']),
         selection: EditorSelection.single(8),
         scrollIntoView: true,
       },
     },
+  }
+
+  it.each<{
+    scenario: Scenario
+    anchor: number | undefined
+    head: number | undefined
+  }>([
     {
-      ...params1,
-      currentValue: Text.of(['a014!789']),
+      scenario: scenario1,
+      anchor: undefined,
+      head: undefined,
+    },
+    {
+      scenario: scenario1,
+      anchor: undefined,
+      head: 0,
+    },
+    {
+      scenario: scenario1,
+      anchor: undefined,
+      head: 1,
+    },
+    {
+      scenario: scenario1,
+      anchor: undefined,
+      head: 2,
+    },
+    {
+      scenario: scenario1,
+      anchor: undefined,
+      head: 3,
+    },
+    {
+      scenario: scenario1,
+      anchor: undefined,
+      head: 4,
+    },
+    {
+      scenario: scenario1,
       anchor: 4,
       head: 3,
-      expects: {
-        doc: Text.of(['a014!789']),
-        selection: EditorSelection.single(1),
-        scrollIntoView: true,
-      },
     },
   ])(
     '$anchor -> $head',
-    ({ initialValue, currentValue, advances, head, anchor, expects }) => {
-      const currentState = EditorState.create({ doc: currentValue })
+    ({
+      scenario: {
+        params: { initialValue, advances },
+        states,
+      },
+      head,
+      anchor,
+    }) => {
+      const anchorState = states[anchor ?? 'undefined']!
+      const headState = states[head ?? 'undefined']!
+
+      const currentState = EditorState.create({ doc: anchorState.doc })
       const reverses = reversedTextChanges(initialValue, advances)
 
       const spec = seekCodeMirrorChanges(currentState)(initialValue)(
@@ -131,17 +150,17 @@ describe('seekCodeMirrorChanges', () => {
 
       const transaction = currentState.update(spec)
 
-      expect(transaction.newDoc.toString()).toEqual(expects.doc.toString())
+      expect(transaction.newDoc.toString()).toEqual(headState.doc.toString())
 
       {
         const actual = transaction.selection
-        const expected = expects.selection
+        const expected = headState.selection
         expect(
           (!actual && !expected) || (actual && expected && actual.eq(expected)),
         ).toBeTruthy()
       }
 
-      expect(transaction.scrollIntoView).toEqual(expects.scrollIntoView)
+      expect(transaction.scrollIntoView).toEqual(headState.scrollIntoView)
     },
   )
 })
