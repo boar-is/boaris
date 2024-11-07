@@ -1,5 +1,8 @@
 'use server'
 
+import { Schema } from 'effect'
+import { Email } from '~/model/email'
+
 type SubscribeState =
   | {
       status: 'initial'
@@ -13,16 +16,13 @@ type SubscribeState =
       error: string
     }
 
-const emailRegex =
-  /^(?!\.)(?!.*\.\.)([A-Z0-9_+-.]*)[A-Z0-9_+-]@([A-Z0-9][A-Z0-9-]*\.)+[A-Z]{2,}$/i
-
 export async function subscribeToNewsletter(
   _: SubscribeState,
   formData: FormData,
 ): Promise<SubscribeState> {
   const email = formData.get('email') as string
 
-  if (!emailRegex.test(email)) {
+  if (!Schema.is(Email)(email)) {
     return {
       status: 'error',
       error: 'Wrong email format',
@@ -31,21 +31,21 @@ export async function subscribeToNewsletter(
 
   try {
     const res = await fetch(
-      `https://api.convertkit.com/v3/forms/${process.env['CONVERTKIT_API_FORM_ID']}/subscribe`,
+      `https://api.kit.com/v4/forms/${process.env['KIT_API_FORM_ID']}/subscribe`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${process.env['KIT_API_KEY']}`,
         },
         body: JSON.stringify({
-          api_key: process.env['CONVERTKIT_API_KEY'],
-          email,
+          email_address: email,
         }),
       },
     )
 
     // biome-ignore lint/suspicious/noExplicitAny: yolo
-    if (((await res.json()) as any)['subscription']?.['subscriber']?.['id']) {
+    if (((await res.json()) as any)['subscriber']?.['id']) {
       return {
         status: 'success',
         email,
