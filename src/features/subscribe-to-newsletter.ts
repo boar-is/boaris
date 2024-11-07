@@ -31,21 +31,22 @@ export async function subscribeToNewsletter(
 
   try {
     const res = await fetch(
-      `https://api.kit.com/v4/forms/${process.env['KIT_API_FORM_ID']}/subscribe`,
+      `https://api.convertkit.com/v3/forms/${process.env['CONVERTKIT_API_FORM_ID']}/subscribe`,
       {
         method: 'POST',
         headers: {
+          Accept: 'application/json; charset=UTF-8',
           'Content-Type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${process.env['KIT_API_KEY']}`,
         },
         body: JSON.stringify({
-          email_address: email,
+          api_key: process.env['CONVERTKIT_API_KEY'],
+          email,
         }),
       },
-    )
+      // biome-ignore lint/suspicious/noExplicitAny: yolo
+    ).then((it) => it.json() as any)
 
-    // biome-ignore lint/suspicious/noExplicitAny: yolo
-    if (((await res.json()) as any)['subscriber']?.['id']) {
+    if (res['subscription']?.['subscriber']?.['id']) {
       return {
         status: 'success',
         email,

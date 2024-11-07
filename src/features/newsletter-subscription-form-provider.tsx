@@ -14,17 +14,17 @@ export function NewsletterSubscriptionFormProvider({
     status: 'initial',
   })
 
-  const { close } = useContext(OverlayTriggerStateContext)
+  const { isOpen, close } = useContext(OverlayTriggerStateContext)
 
   useEffect(() => {
-    if (state.status === 'success') {
+    if (isOpen && state.status === 'success') {
       close()
       toast.success(`Confirmation email sent to ${state.email}`, {
         description: 'Please, check your inbox and a spam folder',
         duration: 10e3,
       })
     }
-  }, [state, close])
+  }, [state, isOpen, close])
 
   return (
     <FormContext.Provider
