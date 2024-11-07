@@ -20,9 +20,12 @@ importers:
       '@codemirror/lang-json':
         specifier: 6.0.1
         version: 6.0.1
+      '@effect/platform':
+        specifier: 0.69.19
+        version: 0.69.19(effect@3.10.4)
       '@effect/rpc':
         specifier: 0.44.9
-        version: 0.44.9(@effect/platform@0.69.9(effect@3.10.4))(effect@3.10.4)
+        version: 0.44.9(@effect/platform@0.69.19(effect@3.10.4))(effect@3.10.4)
       '@lezer/highlight':
         specifier: 1.2.1
         version: 1.2.1
@@ -407,10 +410,10 @@ packages:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
     engines: {node: '>=10.0.0'}
 
-  '@effect/platform@0.69.9':
-    resolution: {integrity: sha512-gdp5rLxKLBBI895ycBRkuwCQHnYf8g6+Sdg5tFhuH+axIdgP4J8dGzIvYBGAkRMw/4k2BYeSKKf8ZONYnNWcWg==}
+  '@effect/platform@0.69.19':
+    resolution: {integrity: sha512-kA5ce4kjcNRVDH13TuRnEdZkxkNuRyXqa0DmP/qjoFZa0UD2O6V8RIudXR7oYRJ6tZsl05HYsLO+OGZ/Cm4T5A==}
     peerDependencies:
-      effect: ^3.10.4
+      effect: ^3.10.12
 
   '@effect/rpc@0.44.9':
     resolution: {integrity: sha512-xrAJcKKMl5n3Baq7JzP1QPjLELho/37oiMbVDyOqTf7A6oAm5kJZGkijdOgANQ9zlIrKPLJDm4lqOcEJoTD+OQ==}
@@ -3301,15 +3304,15 @@ snapshots:
 
   '@discoveryjs/json-ext@0.5.7': {}
 
-  '@effect/platform@0.69.9(effect@3.10.4)':
+  '@effect/platform@0.69.19(effect@3.10.4)':
     dependencies:
       effect: 3.10.4
       find-my-way-ts: 0.1.5
       multipasta: 0.2.5
 
-  '@effect/rpc@0.44.9(@effect/platform@0.69.9(effect@3.10.4))(effect@3.10.4)':
+  '@effect/rpc@0.44.9(@effect/platform@0.69.19(effect@3.10.4))(effect@3.10.4)':
     dependencies:
-      '@effect/platform': 0.69.9(effect@3.10.4)
+      '@effect/platform': 0.69.19(effect@3.10.4)
       effect: 3.10.4
 
   '@esbuild/aix-ppc64@0.21.5':

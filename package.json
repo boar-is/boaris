@@ -18,6 +18,7 @@
     "@codemirror/lang-css": "6.3.0",
     "@codemirror/lang-javascript": "6.2.2",
     "@codemirror/lang-json": "6.0.1",
+    "@effect/platform": "0.69.19",
     "@effect/rpc": "0.44.9",
     "@lezer/highlight": "1.2.1",
     "@next/bundle-analyzer": "14.2.16",
