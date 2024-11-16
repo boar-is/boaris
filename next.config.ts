@@ -1,8 +1,8 @@
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import optimizeLocales from '@react-aria/optimize-locales-plugin'
+import type { NextConfig } from 'next'
 
-/** @type {import('next').NextConfig} */
-const baseNextConfig = {
+const baseNextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['react-aria-components', 'usehooks-ts'],
   },
@@ -23,7 +23,10 @@ const baseNextConfig = {
       },
       {
         protocol: 'https',
-        hostname: process.env['NEXT_PUBLIC_CONVEX_URL'].replace('https://', ''),
+        hostname: process.env['NEXT_PUBLIC_CONVEX_URL']!.replace(
+          'https://',
+          '',
+        ),
         port: '',
       },
     ],
@@ -31,7 +34,7 @@ const baseNextConfig = {
 }
 
 const nextConfig = withBundleAnalyzer({
-  enabled: globalThis.process.env.ANALYZE === 'true',
+  enabled: globalThis.process.env['ANALYZE'] === 'true',
   openAnalyzer: true,
 })(baseNextConfig)
 
