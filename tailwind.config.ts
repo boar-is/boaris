@@ -18,7 +18,7 @@ const radixGray = {
   12: '#EEEEEE',
 } as const
 
-const tailwindConfig = {
+const tailwindConfig: Config = {
   // TODO more specific
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
@@ -51,6 +51,6 @@ const tailwindConfig = {
     },
   },
   plugins: [tailwindAnimate, tailwindRac],
-} satisfies Config
+}
 
 export default tailwindConfig
