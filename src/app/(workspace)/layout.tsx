@@ -37,12 +37,14 @@ const itemMobileCx = cx('rounded-md')
 
 export default async function WorkspaceLayout({
   children,
-  params: { workspaceSlug = currentWorkspaceSlug },
+  params,
 }: PropsWithChildren<{
-  params: {
+  params: Promise<{
     workspaceSlug: string
-  }
+  }>
 }>) {
+  const { workspaceSlug = currentWorkspaceSlug } = await params
+
   return AppServerRuntime.runPromise(
     Effect.gen(function* () {
       const result = yield* (yield* AppRpcClient)(

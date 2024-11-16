@@ -17,8 +17,14 @@ export async function generateStaticParams() {
 }
 
 export default async function WorkspaceProjectPostPage({
-  params: { workspaceSlug = currentWorkspaceSlug, projectSlug, postSlug },
+  params,
 }: PropsWithStaticParams<typeof generateStaticParams>) {
+  const {
+    workspaceSlug = currentWorkspaceSlug,
+    projectSlug,
+    postSlug,
+  } = await params
+
   return AppServerRuntime.runPromise(
     Effect.gen(function* () {
       const result = yield* (yield* AppRpcClient)(
