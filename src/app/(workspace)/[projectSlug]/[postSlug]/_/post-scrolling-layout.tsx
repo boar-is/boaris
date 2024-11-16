@@ -3,11 +3,11 @@ import ReactCodeMirror, {
   type ReactCodeMirrorRef,
 } from '@uiw/react-codemirror'
 import { Array, Match, Option } from 'effect'
-import { AnimatePresence, transform } from 'framer-motion'
 import { type Atom, atom, useAtomValue } from 'jotai'
 import { jotai } from 'jotai-components'
 import { atomEffect } from 'jotai-effect'
 import { splitAtom } from 'jotai/utils'
+import { AnimatePresence, transform } from 'motion/react'
 import {
   type PropsWithChildren,
   forwardRef,
@@ -33,8 +33,8 @@ import { matchFileTypeIcon } from '~/features/match-file-type-icon'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
 import { codemirrorTheme } from '~/lib/codemirror/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/codemirror/match-codemirror-extensions'
-import { motion } from '~/lib/framer-motion/motion'
 import { Image } from '~/lib/media/image'
+import { motion } from '~/lib/motion/motion'
 import { useConstant } from '~/lib/react/use-constant'
 import { cx } from '~/lib/utils/cx'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'

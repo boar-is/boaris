@@ -1,17 +1,18 @@
 import { type Editor, EditorContent } from '@tiptap/react'
+import { type Atom, atom } from 'jotai'
 import {
   type MotionValue,
   useAnimate,
+  useMotionValue,
   useMotionValueEvent,
-} from 'framer-motion'
-import { type Atom, atom } from 'jotai'
+} from 'motion/react'
 import { useRef } from 'react'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
 import { usePlaybackProgressScrollSync } from '~/features/use-playback-progress-scroll-sync'
-import { type Coords, mergeCoords } from '~/lib/framer-motion/merge-coords'
-import { motion } from '~/lib/framer-motion/motion'
-import { useAtomAnimatedMotionValue } from '~/lib/framer-motion/use-atom-animated-motion-value'
-import { useAtomMotionValue } from '~/lib/framer-motion/use-atom-motion-value'
+import { type Coords, mergeCoords } from '~/lib/motion/merge-coords'
+import { motion } from '~/lib/motion/motion'
+import { useAtomAnimatedMotionValue } from '~/lib/motion/use-atom-animated-motion-value'
+import { useAtomMotionValue } from '~/lib/motion/use-atom-motion-value'
 import { getPositionByProgress } from '~/lib/prosemirror/get-position-by-progress'
 import { getWordRangeAtPos } from '~/lib/prosemirror/get-word-range-at-pos'
 import { offsetTopAtPos } from '~/lib/prosemirror/offset-top-at-pos'
@@ -48,6 +49,8 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
 
   const containerOffset = 256
 
+  const a = useMotionValue(5)
+
   return (
     <div
       className="relative w-full"
@@ -57,6 +60,7 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
       <div className="sticky inset-x-0 h-0" style={{ top: containerOffset }}>
         <motion.div
           style={{
+            // @ts-expect-error @see https://github.com/motiondivision/motion/issues/2887
             y: offsetTopMv,
           }}
           ref={contentRef}

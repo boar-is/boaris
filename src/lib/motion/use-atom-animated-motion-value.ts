@@ -1,11 +1,11 @@
 import { identity } from 'effect'
+import { type Atom, useAtomValue } from 'jotai'
+import { atomEffect } from 'jotai-effect'
 import {
   type ValueAnimationTransition,
   animate,
   useMotionValue,
-} from 'framer-motion'
-import { type Atom, useAtomValue } from 'jotai'
-import { atomEffect } from 'jotai-effect'
+} from 'motion/react'
 import { useConstant } from '~/lib/react/use-constant'
 
 export const useAtomAnimatedMotionValue = <T>(

@@ -1,6 +1,6 @@
 import { useResizeObserver } from '@react-aria/utils'
-import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { useSetAtom } from 'jotai/index'
+import { useMotionValueEvent, useScroll } from 'motion/react'
 import { useRef } from 'react'
 import { usePlaybackProgressAtom } from './playback-progress-atom-context'
 
@@ -22,7 +22,7 @@ export const usePlaybackProgressScrollSync = ({
   )
   /**
    * A hack to recalculate scrollYProgress
-   * @see https://github.com/framer/motion/issues/2718
+   * @see https://github.com/motiondivision/motion/issues/2718
    */
   useResizeObserver({
     ref,

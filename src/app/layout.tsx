@@ -1,10 +1,10 @@
 import type { PropsWithChildren } from 'react'
-import { FramerMotionProvider } from '~/lib/framer-motion/provider'
 import { I18nProvider } from '~/lib/i18n/i18n-provider'
 import { LocalizedStringProvider } from '~/lib/i18n/localized-string-provider'
 import { FocusVisibleProvider } from '~/lib/interactions/focus-visible-provider'
 import { JotaiProvider } from '~/lib/jotai/jotai-provider'
 import { getSansFontClassName } from '~/lib/media/fonts/get-sans-font-class-name'
+import { MotionProvider } from '~/lib/motion/provider'
 import { AriaRouterProvider } from '~/lib/routing/aria-router-provider'
 import { ToastProvider } from '~/lib/toast/toast-provider'
 import { cx } from '~/lib/utils/cx'
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <I18nProvider>
           <AriaRouterProvider>
             <JotaiProvider>
-              <FramerMotionProvider>{children}</FramerMotionProvider>
+              <MotionProvider>{children}</MotionProvider>
             </JotaiProvider>
           </AriaRouterProvider>
         </I18nProvider>
