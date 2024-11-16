@@ -1,7 +1,11 @@
 'use client'
 
-import { type PropsWithChildren, useContext, useEffect } from 'react'
-import { useFormState } from 'react-dom'
+import {
+  type PropsWithChildren,
+  useActionState,
+  useContext,
+  useEffect,
+} from 'react'
 import { FormContext } from '~/lib/forms/form'
 import { OverlayTriggerStateContext } from '~/lib/overlays/dialog'
 import { toast } from '~/lib/toast/toast'
@@ -10,7 +14,7 @@ import { subscribeToNewsletter } from './subscribe-to-newsletter'
 export function NewsletterSubscriptionFormProvider({
   children,
 }: PropsWithChildren) {
-  const [state, action] = useFormState(subscribeToNewsletter, {
+  const [state, action] = useActionState(subscribeToNewsletter, {
     status: 'initial',
   })
 
