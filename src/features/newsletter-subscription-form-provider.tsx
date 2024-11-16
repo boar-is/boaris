@@ -18,6 +18,9 @@ export function NewsletterSubscriptionFormProvider({
     status: 'initial',
   })
 
+  let a = 5
+  a = 3
+
   const { isOpen, close } = useContext(OverlayTriggerStateContext)
 
   useEffect(() => {
