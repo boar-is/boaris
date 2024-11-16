@@ -21,7 +21,9 @@
     "rules": {
       "complexity": {
         // @see https://github.com/biomejs/biome/issues/2416
-        "useLiteralKeys": "off"
+        "useLiteralKeys": "off",
+        // Learn TypeScript
+        "noBannedTypes": "off"
       },
       "style": {
         "noNegationElse": "error",
