@@ -15,7 +15,6 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { usePostVmAtom } from '~/app/(site)/blog/[postSlug]/page.client'
 import { matchFileTypeIcon } from '~/features/match-file-type-icon'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
 import { codemirrorTheme } from '~/lib/codemirror/codemirror-theme'
@@ -32,6 +31,7 @@ import type { Asset } from '~/model/asset'
 import type { AssetImageDynamic } from '~/model/assetImageDynamic'
 import type { AssetImageStatic } from '~/model/assetImageStatic'
 import type { AssetText } from '~/model/assetText'
+import { usePostVmAtom } from './page.client'
 
 export function PostScrollingLayout() {
   const progressAtom = usePlaybackProgressAtom()
