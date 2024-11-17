@@ -1,11 +1,6 @@
 import { type Editor, EditorContent } from '@tiptap/react'
 import { type Atom, atom } from 'jotai'
-import {
-  type MotionValue,
-  useAnimate,
-  useMotionValue,
-  useMotionValueEvent,
-} from 'motion/react'
+import { type MotionValue, useAnimate, useMotionValueEvent } from 'motion/react'
 import { useRef } from 'react'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
 import { usePlaybackProgressScrollSync } from '~/features/use-playback-progress-scroll-sync'
@@ -48,8 +43,6 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
   const [scrollableRef] = usePlaybackProgressScrollSync({ scrollableHeight })
 
   const containerOffset = 256
-
-  const a = useMotionValue(5)
 
   return (
     <div
