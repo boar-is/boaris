@@ -3,16 +3,16 @@ import { type Atom, atom } from 'jotai'
 import { type MotionValue, useAnimate, useMotionValueEvent } from 'motion/react'
 import { useRef } from 'react'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
-import { usePlaybackProgressScrollSync } from '~/features/use-playback-progress-scroll-sync'
 import { type Coords, mergeCoords } from '~/lib/motion/merge-coords'
 import { motion } from '~/lib/motion/motion'
 import { useAtomAnimatedMotionValue } from '~/lib/motion/use-atom-animated-motion-value'
 import { useAtomMotionValue } from '~/lib/motion/use-atom-motion-value'
+import { useAtomScrollSyncEffect } from '~/lib/motion/use-atom-scroll-sync-effect'
 import { getPositionByProgress } from '~/lib/prosemirror/get-position-by-progress'
 import { getWordRangeAtPos } from '~/lib/prosemirror/get-word-range-at-pos'
 import { offsetTopAtPos } from '~/lib/prosemirror/offset-top-at-pos'
 import { useConstant } from '~/lib/react/use-constant'
-import { useFactoredHeight } from '~/lib/react/use-factored-height'
+import { useContainerHeightSync } from '~/lib/react/use-container-height-sync'
 
 export function PostScrollingCaptions({ editor }: { editor: Editor }) {
   const progressAtom = usePlaybackProgressAtom()
@@ -39,17 +39,17 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
 
   const contentRef = useRef<HTMLDivElement | null>(null)
 
-  const scrollableHeight = useFactoredHeight(contentRef, 1 / 30)
-  const [scrollableRef] = usePlaybackProgressScrollSync({ scrollableHeight })
+  const containerRef = useContainerHeightSync({ contentRef })
+
+  useAtomScrollSyncEffect({
+    targetRef: containerRef,
+    progressAtom,
+  })
 
   const containerOffset = 256
 
   return (
-    <div
-      className="relative w-full"
-      style={{ height: scrollableHeight }}
-      ref={scrollableRef}
-    >
+    <div className="relative w-full" ref={containerRef}>
       <div className="sticky inset-x-0 h-0" style={{ top: containerOffset }}>
         <motion.div
           style={{
@@ -64,7 +64,7 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
             containerOffset={containerOffset}
             offsetTopMv={offsetTopMv}
             offsetLeft={() =>
-              scrollableRef.current?.getBoundingClientRect()?.left ?? 0
+              containerRef.current?.getBoundingClientRect()?.left ?? 0
             }
           />
           <EditorContent editor={editor} />
