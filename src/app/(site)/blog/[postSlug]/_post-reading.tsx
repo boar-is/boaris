@@ -1,11 +1,12 @@
 'use client'
 
+import { identity } from 'effect'
 import type { PropsWithChildren } from 'react'
 import { getMonoFontClassName } from '~/lib/media/fonts/get-mono-font-class-name'
 import { Image } from '~/lib/media/image'
 import { cx } from '~/lib/utils/cx'
 import { readableDate } from '~/lib/utils/readable-date'
-import { usePostVm } from './page.client'
+import { usePostVmAtomValue } from './page.client'
 
 export function PostReading({ children }: PropsWithChildren) {
   return (
@@ -21,37 +22,33 @@ export function PostReading({ children }: PropsWithChildren) {
 }
 
 export function PostReadingHeader() {
-  const title = usePostVm((it) => it.title)
-  const lead = usePostVm((it) => it.lead)
-  const posterUrl = usePostVm((it) => it.posterUrl)
-  const tags = usePostVm((it) => it.tags)
-  const date = usePostVm((it) => readableDate(it.date))
+  const vm = usePostVmAtomValue(identity)
 
   return (
     <header className="w-full max-w-prose">
       <hgroup className="flex flex-col gap-6">
         <figure className="relative">
           <Image
-            src={posterUrl}
-            alt={`${title}'s poster's blur`}
+            src={vm.posterUrl}
+            alt={`${vm.title}'s poster's blur`}
             width={1024}
             height={768}
             className="absolute rounded-2xl blur-2xl opacity-35 pointer-events-none"
           />
           <Image
-            src={posterUrl}
-            alt={`${title}'s poster`}
+            src={vm.posterUrl}
+            alt={`${vm.title}'s poster`}
             width={1024}
             height={768}
             className="rounded-2xl drop-shadow-xl"
           />
         </figure>
         <h1 className="text-4xl bg-gradient-to-tr from-gray-11 to-gray-12 bg-clip-text text-transparent font-semibold tracking-tight text-balance">
-          {title}
+          {vm.title}
         </h1>
-        {tags.length > 0 && (
+        {vm.tags.length > 0 && (
           <ul className="flex flex-wrap gap-1.5 lg:gap-2 text-sm lg:text-base font-medium tracking-wide text-gray-10 *:my-0.5">
-            {tags.map((tag) => (
+            {vm.tags.map((tag) => (
               <li key={tag}>
                 <span className="border border-gray-9 rounded-full px-3 py-0.5">
                   {tag}
@@ -60,9 +57,11 @@ export function PostReadingHeader() {
             ))}
           </ul>
         )}
-        <p className="text-gray-11 text-pretty text-lg font-medium">{lead}</p>
+        <p className="text-gray-11 text-pretty text-lg font-medium">
+          {vm.lead}
+        </p>
         <small className="text-gray-10 font-medium tracking-wide text-sm lg:text-base">
-          {date}
+          {readableDate(vm.date)}
         </small>
       </hgroup>
     </header>

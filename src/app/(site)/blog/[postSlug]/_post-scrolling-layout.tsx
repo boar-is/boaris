@@ -7,7 +7,7 @@ import { type Atom, atom, useAtomValue } from 'jotai'
 import { jotai } from 'jotai-components'
 import { atomEffect } from 'jotai-effect'
 import { splitAtom } from 'jotai/utils'
-import { AnimatePresence, transform } from 'motion/react'
+import { AnimatePresence } from 'motion/react'
 import {
   type PropsWithChildren,
   forwardRef,
@@ -15,20 +15,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import {
-  AssetIdAtomContext,
-  useAssetIdAtom,
-} from '~/features/asset-id-atom-context'
-import { useAssetsAtom } from '~/features/assets-atom-context'
-import { useLayoutAtom } from '~/features/layout-atom-context'
-import {
-  LayoutLayerAtomContext,
-  useLayoutLayerAtom,
-} from '~/features/layout-layer-atom-context'
-import {
-  LayoutProgressAtomContext,
-  useLayoutProgressAtom,
-} from '~/features/layout-progress-atom.context'
+import { usePostVmAtom } from '~/app/(site)/blog/[postSlug]/page.client'
 import { matchFileTypeIcon } from '~/features/match-file-type-icon'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
 import { codemirrorTheme } from '~/lib/codemirror/codemirror-theme'
@@ -40,26 +27,11 @@ import { cx } from '~/lib/utils/cx'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 import type { Asset } from '~/model/asset'
 import { reversedTextChanges, seekCodeMirrorChanges } from '~/model/assetText'
-import { layoutProgressInterpolationFromChanges } from '~/model/layoutChange'
 
 export function PostScrollingLayout() {
-  const playbackProgressAtom = usePlaybackProgressAtom()
-  const layoutAtom = useLayoutAtom()
+  const progressAtom = usePlaybackProgressAtom()
 
-  const changesAtom = useConstant(() => atom((get) => get(layoutAtom).changes))
-
-  const transformInterpolationAtom = useConstant(() =>
-    atom((get) => {
-      const { input, output } = layoutProgressInterpolationFromChanges(
-        get(changesAtom),
-      )
-      return transform(input as Array<number>, output as Array<number>)
-    }),
-  )
-
-  const progressAtom = useConstant(() =>
-    atom((get) => get(transformInterpolationAtom)(get(playbackProgressAtom))),
-  )
+  const changesAtom = usePostVmAtom((it) => it.layoutChanges)
 
   const indexAtom = useConstant(() =>
     atom((get) =>
@@ -73,23 +45,19 @@ export function PostScrollingLayout() {
     ),
   )
 
-  const layerAtom = useConstant(() =>
+  const areasAtom = useConstant(() =>
     atom((get) =>
       get(indexAtom).pipe(
         Option.andThen((index) => Array.get(get(changesAtom), index)),
-        Option.andThen((it) => it.value),
+        Option.andThen((it) => it.areas),
       ),
     ),
   )
 
   return (
-    <LayoutProgressAtomContext.Provider value={progressAtom}>
-      <LayoutLayerAtomContext.Provider value={layerAtom}>
-        <LayerGrid>
-          <LayerGridItems />
-        </LayerGrid>
-      </LayoutLayerAtomContext.Provider>
-    </LayoutProgressAtomContext.Provider>
+    <LayerGrid>
+      <LayerGridItems />
+    </LayerGrid>
   )
 }
 
