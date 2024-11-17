@@ -23,6 +23,7 @@ const workspace = query({
       workspace: await Workspace.encodedFromEntity(getUrlProps(storage))(
         workspace,
       ),
+      authors: [],
     }
   },
 })
