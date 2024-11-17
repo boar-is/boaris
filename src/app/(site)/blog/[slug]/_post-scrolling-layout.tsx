@@ -85,7 +85,9 @@ function LayerGrid({
 }: PropsWithChildren<{ areasAtom: Atom<Option.Option<string>> }>) {
   const layer = useAtomValue(areasAtom)
 
-  return layer.pipe(
+  const areas = useAtomValue(areasAtom)
+
+  return areas.pipe(
     Option.andThen((areas) => (
       <motion.ul
         className="self-start sticky top-64 grid gap-2 *:h-full"
