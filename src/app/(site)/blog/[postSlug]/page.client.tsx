@@ -15,7 +15,7 @@ import type { LayoutMode } from '~/model/layoutMode'
 import { PostRequest } from '~/rpc/post-request'
 import { PostScrolling } from './_/post-scrolling'
 
-export function WorkspaceProjectPostPageClient({
+export function PostPageClient({
   result,
 }: {
   result: (typeof PostRequest)['success']['Encoded']
