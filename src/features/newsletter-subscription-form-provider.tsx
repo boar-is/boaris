@@ -9,12 +9,12 @@ import {
 import { FormContext } from '~/lib/forms/form'
 import { OverlayTriggerStateContext } from '~/lib/overlays/dialog'
 import { toast } from '~/lib/toast/toast'
-import { subscribeToNewsletter } from './subscribe-to-newsletter'
+import { newsletterSubscriptionAction } from './newsletter-subscription-action'
 
 export function NewsletterSubscriptionFormProvider({
   children,
 }: PropsWithChildren) {
-  const [state, action] = useActionState(subscribeToNewsletter, {
+  const [state, action] = useActionState(newsletterSubscriptionAction, {
     status: 'initial',
   })
 

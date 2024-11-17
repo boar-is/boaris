@@ -16,7 +16,7 @@ type SubscribeState =
       error: string
     }
 
-export async function subscribeToNewsletter(
+export async function newsletterSubscriptionAction(
   _: SubscribeState,
   formData: FormData,
 ): Promise<SubscribeState> {
