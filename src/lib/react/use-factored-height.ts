@@ -1,6 +1,7 @@
 import { useResizeObserver } from '@react-aria/utils'
 import { type RefObject, useState } from 'react'
 
+// TODO lolwut?
 export const useFactoredHeight = (
   contentRef: RefObject<HTMLDivElement | null>,
   factor: number,
