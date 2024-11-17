@@ -1,7 +1,6 @@
 import type { JSONContent } from '@tiptap/react'
 import { ChangeSet, EditorSelection, Text } from '@uiw/react-codemirror'
 import { Option } from 'effect'
-import type { AssetText } from '~/model/assetText'
 import type { Asset } from './asset'
 import type { LayoutChange } from './layoutChange'
 
@@ -185,9 +184,10 @@ export const posts: Array<Post> = [
         _id: 'GvsdhtasCVQN',
         type: 'text',
         name: 'index.tsx',
-        value: Text.empty,
-        changes: (() => {
-          const recorded: (typeof AssetText.Encoded)['changes'] = [
+        initialValue: Text.empty,
+        advances: (() => {
+          // biome-ignore lint/suspicious/noExplicitAny: YOLO
+          const recorded: Array<any> = [
             [
               0.0847,
               [

@@ -4,7 +4,6 @@ import {
   type Text,
   type TransactionSpec,
 } from '@uiw/react-codemirror'
-import type { AssetTextChange } from '~/model/assetText'
 import type { OffsetChange } from './offset-change'
 
 export const seekChanges = ({
@@ -37,7 +36,7 @@ export const seekChanges = ({
   let changes = ChangeSet.empty(currentValue.length)
   let selection: EditorSelection | undefined
 
-  const applyChange = (change: AssetTextChange) => {
+  const applyChange = (change: OffsetChange) => {
     const [changeSet, editorSelection] = change[1]
     changes = changes.compose(changeSet)
     selection = editorSelection
