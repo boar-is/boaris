@@ -6,7 +6,7 @@ export const OffsetChange = Schema.Tuple(
   /**
    * The offset
    */
-  Schema.Int,
+  Schema.Number,
   /**
    * @see https://codemirror.net/docs/ref/#state.TransactionSpec
    */
