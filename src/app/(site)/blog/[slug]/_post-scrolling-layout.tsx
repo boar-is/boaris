@@ -15,7 +15,6 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { matchFileTypeIcon } from '~/features/match-file-type-icon'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
 import { codemirrorTheme } from '~/lib/codemirror/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/codemirror/match-codemirror-extensions'
@@ -24,6 +23,7 @@ import { seekChanges } from '~/lib/codemirror/seek-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { Image } from '~/lib/media/image'
+import { matchFileTypeIcon } from '~/lib/media/match-file-type-icon'
 import { motion } from '~/lib/motion/motion'
 import { cx } from '~/lib/react/cx'
 import { useConst } from '~/lib/react/use-const'
