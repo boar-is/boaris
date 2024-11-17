@@ -1,6 +1,7 @@
+import { Schema } from 'effect'
 import { notFound } from 'next/navigation'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
-import { posts } from '~/model/post'
+import { Post, posts } from '~/model/post'
 import { PostPageClient } from './page.client'
 
 export async function generateStaticParams() {
@@ -18,5 +19,5 @@ export default async function PostPage({
     notFound()
   }
 
-  return <PostPageClient post={post} />
+  return <PostPageClient post={Schema.encodeSync(Post)(post)} />
 }

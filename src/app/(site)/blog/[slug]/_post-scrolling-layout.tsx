@@ -104,7 +104,10 @@ function LayerGrid({
 
 const JotaiMotionLi = jotai.create(motion.li)
 
-const matchLayoutAssetPanel = (_id: Asset['_id'], type: Asset['type']) =>
+const matchLayoutAssetPanel = ({
+  _id,
+  type,
+}: Pick<typeof Asset.Type, '_id' | 'type'>) =>
   Match.value(type).pipe(
     Match.when('image-static', () => <LayoutAssetImageStatic _id={_id} />),
     Match.when('image-dynamic', () => <LayoutAssetImageDynamic _id={_id} />),
@@ -113,7 +116,7 @@ const matchLayoutAssetPanel = (_id: Asset['_id'], type: Asset['type']) =>
   )
 
 const MainLayerGridItem = memo(
-  forwardRef<HTMLLIElement, { assetAtom: Atom<Asset> }>(
+  forwardRef<HTMLLIElement, { assetAtom: Atom<typeof Asset.Type> }>(
     function MainLayerGridItem({ assetAtom }, ref) {
       const idAtom = useConstAtom((get) => get(assetAtom)._id)
 
@@ -130,18 +133,16 @@ const MainLayerGridItem = memo(
           animate={{ opacity: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, filter: 'blur(16px)' }}
         >
-          {matchLayoutAssetPanel(_id, type)}
+          {matchLayoutAssetPanel({ _id, type })}
         </JotaiMotionLi>
       )
     },
   ),
 )
 
-type LayoutAssetProps = {
-  _id: Asset['_id']
-}
+type LayoutAssetProps = Pick<typeof Asset.Type, '_id'>
 
-const useAsset = (_id: Asset['_id']) =>
+const useAsset = (_id: (typeof Asset.Type)['_id']) =>
   useAtomValue(usePostVmAtom((it) => it.assets)).find((it) => it._id === _id)
 
 const LayoutAssetImageStatic = memo(function LayoutAssetImageStatic({
