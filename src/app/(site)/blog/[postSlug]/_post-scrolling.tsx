@@ -1,9 +1,7 @@
 'use client'
 
 import { useEditor } from '@tiptap/react'
-import { useAtomValue } from 'jotai'
 import { atom } from 'jotai/index'
-import { useCaptionsAtom } from '~/features/captions-atom-context'
 import { PlaybackProgressAtomContext } from '~/features/playback-progress-atom-context'
 import { defaultEditorOptions } from '~/lib/prosemirror/default-editor-options'
 import { defaultEditorExtensions } from '~/lib/prosemirror/defaultEditorExtensions'
@@ -14,8 +12,9 @@ import {
   PostReadingHeader,
   PostReadingSeparator,
 } from './_post-reading'
-import { PostScrollingCaptions } from './post-scrolling-captions'
-import { PostScrollingLayout } from './post-scrolling-layout'
+import { PostScrollingCaptions } from './_post-scrolling-captions'
+import { PostScrollingLayout } from './_post-scrolling-layout'
+import { usePostVm } from './page.client'
 
 export function PostScrolling() {
   const playbackProgressAtom = useConstant(() => atom(0))
@@ -35,17 +34,17 @@ export function PostScrolling() {
 }
 
 function PostScrollingContent() {
-  const { content } = useAtomValue(useCaptionsAtom())
+  const captions = usePostVm((it) => it.captions)
 
   const extensions = defaultEditorExtensions
 
   const editor = useEditor(
     {
       ...defaultEditorOptions,
-      content,
+      content: captions,
       extensions,
     },
-    [content, extensions],
+    [captions, extensions],
   )
 
   return (
@@ -54,7 +53,7 @@ function PostScrollingContent() {
         {editor ? (
           <PostScrollingCaptions editor={editor} />
         ) : (
-          <StaticEditorContent content={content} extensions={extensions} />
+          <StaticEditorContent content={captions} extensions={extensions} />
         )}
       </div>
     </div>
