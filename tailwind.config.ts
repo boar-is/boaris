@@ -4,7 +4,7 @@ import tailwindRac from 'tailwindcss-react-aria-components'
 import { fontFamily, spacing } from 'tailwindcss/defaultTheme'
 
 const radixGray = {
-  1: '#111111',
+  1: '#070708',
   2: '#191919',
   3: '#222222',
   4: '#2A2A2A',
