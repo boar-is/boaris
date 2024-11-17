@@ -4,6 +4,7 @@ import { useMotionValueEvent, useScroll } from 'motion/react'
 import { useRef } from 'react'
 import { usePlaybackProgressAtom } from './playback-progress-atom-context'
 
+// TODO any atom can be passed instead
 export const usePlaybackProgressScrollSync = ({
   scrollableHeight,
 }: { scrollableHeight: number | undefined }) => {
