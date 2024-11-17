@@ -14,7 +14,7 @@ import {
   TypeScriptFileTypeIcon,
   VideoFileTypeIcon,
   YamlFileTypeIcon,
-} from '~/lib/media/icons'
+} from './icons'
 
 export const matchFileTypeIcon = Match.type<string>().pipe(
   Match.when(

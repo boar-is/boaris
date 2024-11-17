@@ -11,6 +11,7 @@ import { PendingFormDisabledButtonProvider } from '~/lib/forms/pending-form-disa
 import { Input, Label, TextField } from '~/lib/forms/text-field'
 import { CloseIcon, MenuIcon } from '~/lib/media/icons'
 import { Image } from '~/lib/media/image'
+import { matchSocialNetworkIcon } from '~/lib/media/match-social-network-icon'
 import { Link } from '~/lib/navigation/link'
 import { CloseDialogButtonProvider } from '~/lib/overlays/close-dialog-button-provider'
 import { Dialog, DialogTrigger } from '~/lib/overlays/dialog'
@@ -37,6 +38,12 @@ export const metadata: Metadata = {
 }
 
 export default async function SiteLayout({ children }: PropsWithChildren) {
+  const { name, logoUrl } = workspace
+  const socialLinks = workspace.socialLinks.map((it) => ({
+    ...it,
+    Icon: matchSocialNetworkIcon(it.href),
+  }))
+
   return (
     <div className="flex flex-col gap-4 md:gap-10 items-stretch min-h-dvh">
       <div className="z-[-2] absolute h-screen left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
@@ -57,13 +64,13 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                 )}
               >
                 <Image
-                  src={workspace.logoUrl}
-                  alt={`${workspace.name}'s logo`}
+                  src={logoUrl}
+                  alt={`${name}'s logo`}
                   width={36}
                   height={36}
                   className="rounded-[inherit] shadow-inner size-9"
                 />
-                {workspace.name}
+                {name}
               </Link>
             </li>
             <li className="hidden md:block mr-auto">
@@ -71,7 +78,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                 Blog
               </Link>
             </li>
-            {workspace.socialLinks.map((socialLink, index) => (
+            {socialLinks.map((socialLink, index) => (
               <li
                 key={socialLink.href}
                 className={cx('hidden md:block', {
@@ -218,7 +225,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                     </Section>
                     <Section className={sectionMobileCx}>
                       <Header className={headerMobileCx}>Social</Header>
-                      {workspace.socialLinks.map((socialLink) => (
+                      {socialLinks.map((socialLink) => (
                         <MenuItem
                           key={socialLink.href}
                           href={socialLink.href}
@@ -243,10 +250,10 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
           <ul className="flex justify-between py-4 font-semibold text-gray-9 md:gap-4">
             <li>
               <Link href="/" className="rounded-sm px-2">
-                {workspace.name}
+                {name}
               </Link>
             </li>
-            {workspace.socialLinks.map((socialLink, index) => (
+            {socialLinks.map((socialLink, index) => (
               <li
                 key={socialLink.href}
                 className={cx({ 'ml-auto': index === 0 })}
