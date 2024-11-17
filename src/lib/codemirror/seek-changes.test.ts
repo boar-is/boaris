@@ -12,7 +12,7 @@ import { seekChanges } from './seek-changes'
 type Scenario = {
   params: {
     initialValue: Text
-    advances: ReadonlyArray<OffsetChange>
+    advances: ReadonlyArray<typeof OffsetChange.Type>
   }
   states: Record<
     'undefined' | number,

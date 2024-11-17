@@ -16,8 +16,8 @@ export const seekChanges = ({
 }: {
   currentValue: Text
   initialValue: Text
-  advances: ReadonlyArray<OffsetChange>
-  reverses: ReadonlyArray<OffsetChange>
+  advances: ReadonlyArray<typeof OffsetChange.Type>
+  reverses: ReadonlyArray<typeof OffsetChange.Type>
   anchor: number | undefined
   head: number | undefined
 }): TransactionSpec => {
@@ -36,7 +36,7 @@ export const seekChanges = ({
   let changes = ChangeSet.empty(currentValue.length)
   let selection: EditorSelection | undefined
 
-  const applyChange = (change: OffsetChange) => {
+  const applyChange = (change: typeof OffsetChange.Type) => {
     const [changeSet, editorSelection] = change[1]
     changes = changes.compose(changeSet)
     selection = editorSelection

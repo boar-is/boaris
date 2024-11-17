@@ -3,9 +3,9 @@ import type { OffsetChange } from './offset-change'
 
 export const reversedChanges = (
   initialValue: Text,
-  advances: ReadonlyArray<OffsetChange>,
-): ReadonlyArray<OffsetChange> => {
-  const reverses: Array<OffsetChange> = []
+  advances: ReadonlyArray<typeof OffsetChange.Type>,
+): ReadonlyArray<typeof OffsetChange.Type> => {
+  const reverses: Array<typeof OffsetChange.Type> = []
   let currentValue = initialValue
 
   for (let i = 0; i < advances.length; i++) {
