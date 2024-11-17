@@ -4,6 +4,7 @@ import type { PropsWithChildren } from 'react'
 import { getMonoFontClassName } from '~/lib/media/fonts/get-mono-font-class-name'
 import { Image } from '~/lib/media/image'
 import { cx } from '~/lib/utils/cx'
+import { readableDate } from '~/lib/utils/readable-date'
 import { usePostVm } from './page.client'
 
 export function PostReading({ children }: PropsWithChildren) {
@@ -24,7 +25,7 @@ export function PostReadingHeader() {
   const lead = usePostVm((it) => it.lead)
   const posterUrl = usePostVm((it) => it.posterUrl)
   const tags = usePostVm((it) => it.tags)
-  const date = usePostVm((it) => it.date)
+  const date = usePostVm((it) => readableDate(it.date))
 
   return (
     <header className="w-full max-w-prose">
@@ -60,6 +61,9 @@ export function PostReadingHeader() {
           </ul>
         )}
         <p className="text-gray-11 text-pretty text-lg font-medium">{lead}</p>
+        <small className="text-gray-10 font-medium tracking-wide text-sm lg:text-base">
+          {date}
+        </small>
       </hgroup>
     </header>
   )
