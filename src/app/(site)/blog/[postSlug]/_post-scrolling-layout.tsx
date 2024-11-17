@@ -22,7 +22,7 @@ import { codemirrorTheme } from '~/lib/codemirror/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/codemirror/match-codemirror-extensions'
 import { Image } from '~/lib/media/image'
 import { motion } from '~/lib/motion/motion'
-import { useConstant } from '~/lib/react/use-constant'
+import { useConst } from '~/lib/react/use-const'
 import { cx } from '~/lib/utils/cx'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
 import type { Asset } from '~/model/asset'
@@ -33,7 +33,7 @@ export function PostScrollingLayout() {
 
   const changesAtom = usePostVmAtom((it) => it.layoutChanges)
 
-  const indexAtom = useConstant(() =>
+  const indexAtom = useConst(() =>
     atom((get) =>
       Option.fromNullable(
         findClosestIndex(
@@ -45,7 +45,7 @@ export function PostScrollingLayout() {
     ),
   )
 
-  const areasAtom = useConstant(() =>
+  const areasAtom = useConst(() =>
     atom((get) =>
       get(indexAtom).pipe(
         Option.andThen((index) => Array.get(get(changesAtom), index)),
@@ -86,14 +86,14 @@ function LayerGrid({ children }: PropsWithChildren) {
 function LayerGridItems() {
   const layerAtom = useLayoutLayerAtom()
 
-  const areasAtom = useConstant(() =>
+  const areasAtom = useConst(() =>
     atom((get) => get(layerAtom).pipe(Option.map((it) => it.areas))),
   )
 
   const assetsAtom = useAssetsAtom()
 
   const currentAssetsAtoms = useAtomValue(
-    useConstant(() =>
+    useConst(() =>
       splitAtom(
         atom((get) =>
           get(areasAtom).pipe(
@@ -121,14 +121,14 @@ const JotaiMotionLi = jotai.create(motion.li)
 const MainLayerGridItem = memo(
   forwardRef<HTMLLIElement, { assetAtom: Atom<typeof Asset.Type> }>(
     function MainLayerGridItem({ assetAtom }, ref) {
-      const idAtom = useConstant(() => atom((get) => get(assetAtom)._id))
+      const idAtom = useConst(() => atom((get) => get(assetAtom)._id))
 
-      const styleAtom = useConstant(() =>
+      const styleAtom = useConst(() =>
         atom((get) => ({ gridArea: get(idAtom) })),
       )
 
       const type = useAtomValue(
-        useConstant(() => atom((get) => get(assetAtom).type)),
+        useConst(() => atom((get) => get(assetAtom).type)),
       )
 
       return (
@@ -174,7 +174,7 @@ const LayoutAssetImageStatic = memo(function LayoutAssetImageStatic() {
   const idAtom = useAssetIdAtom()
 
   const { name, url, alt, caption } = useAtomValue(
-    useConstant(() => getAssetAtomById(assetsAtom)(idAtom)('image-static')),
+    useConst(() => getAssetAtomById(assetsAtom)(idAtom)('image-static')),
   )
 
   return (
@@ -212,7 +212,7 @@ const LayoutAssetImageDynamic = memo(function LayoutAssetImageDynamic() {
   const idAtom = useAssetIdAtom()
 
   const { name, url, caption } = useAtomValue(
-    useConstant(() => getAssetAtomById(assetsAtom)(idAtom)('image-dynamic')),
+    useConst(() => getAssetAtomById(assetsAtom)(idAtom)('image-dynamic')),
   )
 
   return (
@@ -247,11 +247,9 @@ const LayoutAssetImageDynamic = memo(function LayoutAssetImageDynamic() {
 const LayoutAssetText = memo(function LayoutAssetText() {
   const assetsAtom = useAssetsAtom()
   const idAtom = useAssetIdAtom()
-  const assetAtom = useConstant(() =>
-    getAssetAtomById(assetsAtom)(idAtom)('text'),
-  )
+  const assetAtom = useConst(() => getAssetAtomById(assetsAtom)(idAtom)('text'))
 
-  const reversesAtom = useConstant(() =>
+  const reversesAtom = useConst(() =>
     atom((get) => {
       const { value, changes } = get(assetAtom)
       return reversedTextChanges(value, changes)
@@ -264,7 +262,7 @@ const LayoutAssetText = memo(function LayoutAssetText() {
 
   const progressAtom = useLayoutProgressAtom()
 
-  const headIndexAtom = useConstant(() =>
+  const headIndexAtom = useConst(() =>
     atom((get) =>
       findClosestIndex(
         get(assetAtom).changes,
@@ -273,9 +271,9 @@ const LayoutAssetText = memo(function LayoutAssetText() {
       ),
     ),
   )
-  const anchorIndexAtom = useConstant(() => atom<number | undefined>(undefined))
+  const anchorIndexAtom = useConst(() => atom<number | undefined>(undefined))
   useAtomValue(
-    useConstant(() =>
+    useConst(() =>
       atomEffect((get, set) => {
         const view = cmRef.current?.view
         const state = view?.state
@@ -309,7 +307,7 @@ const LayoutAssetText = memo(function LayoutAssetText() {
 
   const extensions = useMemo(() => matchCodemirrorExtensions(name), [name])
 
-  const basicSetup: BasicSetupOptions = useConstant(() => ({
+  const basicSetup: BasicSetupOptions = useConst(() => ({
     lineNumbers: false,
     foldGutter: false,
     highlightActiveLine: false,

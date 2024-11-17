@@ -6,7 +6,7 @@ import {
   animate,
   useMotionValue,
 } from 'motion/react'
-import { useConstant } from '~/lib/react/use-constant'
+import { useConst } from '~/lib/react/use-const'
 
 export const useAtomAnimatedMotionValue = <T>(
   valueAtom: Atom<T>,
@@ -22,7 +22,7 @@ export const useAtomAnimatedMotionValue = <T>(
   const motionValue = useMotionValue(initial)
 
   useAtomValue(
-    useConstant(() =>
+    useConst(() =>
       atomEffect((get) => {
         const value = mapFn(get(valueAtom))
         if (value !== undefined) {

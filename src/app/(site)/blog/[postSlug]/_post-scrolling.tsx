@@ -7,7 +7,7 @@ import { PlaybackProgressAtomContext } from '~/features/playback-progress-atom-c
 import { defaultEditorOptions } from '~/lib/prosemirror/default-editor-options'
 import { defaultEditorExtensions } from '~/lib/prosemirror/defaultEditorExtensions'
 import { StaticEditorContent } from '~/lib/prosemirror/static-editor-content'
-import { useConstant } from '~/lib/react/use-constant'
+import { useConst } from '~/lib/react/use-const'
 import {
   PostReading,
   PostReadingHeader,
@@ -17,7 +17,7 @@ import { PostScrollingCaptions } from './_post-scrolling-captions'
 import { PostScrollingLayout } from './_post-scrolling-layout'
 
 export function PostScrolling() {
-  const playbackProgressAtom = useConstant(() => atom(0))
+  const playbackProgressAtom = useConst(() => atom(0))
 
   return (
     <PlaybackProgressAtomContext.Provider value={playbackProgressAtom}>

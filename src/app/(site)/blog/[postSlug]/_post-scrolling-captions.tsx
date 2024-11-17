@@ -11,13 +11,13 @@ import { useAtomScrollSyncEffect } from '~/lib/motion/use-atom-scroll-sync-effec
 import { getPositionByProgress } from '~/lib/prosemirror/get-position-by-progress'
 import { getWordRangeAtPos } from '~/lib/prosemirror/get-word-range-at-pos'
 import { offsetTopAtPos } from '~/lib/prosemirror/offset-top-at-pos'
-import { useConstant } from '~/lib/react/use-constant'
+import { useConst } from '~/lib/react/use-const'
 import { useContainerHeightSync } from '~/lib/react/use-container-height-sync'
 
 export function PostScrollingCaptions({ editor }: { editor: Editor }) {
   const progressAtom = usePlaybackProgressAtom()
 
-  const positionAtom = useConstant(() => {
+  const positionAtom = useConst(() => {
     const getPositionByStateProgress = getPositionByProgress(editor.state)
     return atom((get) => getPositionByStateProgress(get(progressAtom)))
   })
@@ -32,7 +32,7 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
     },
   })
 
-  const wordRangeAtom = useConstant(() => {
+  const wordRangeAtom = useConst(() => {
     const getStateWordRangeAtPos = getWordRangeAtPos(editor.state)
     return atom((get) => getStateWordRangeAtPos(get(positionAtom)))
   })
@@ -89,7 +89,7 @@ function PostScrollingCaptionsCursor({
 }) {
   const [scope, animate] = useAnimate()
 
-  const [startAtom, endAtom] = useConstant(
+  const [startAtom, endAtom] = useConst(
     () =>
       [
         atom((get) => get(wordRangeAtom)?.start),
@@ -97,7 +97,7 @@ function PostScrollingCaptionsCursor({
       ] as const,
   )
 
-  const rangeAtom = useConstant(() =>
+  const rangeAtom = useConst(() =>
     atom((get) => {
       const start = get(startAtom)
       const end = get(endAtom)
