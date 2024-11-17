@@ -4,9 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"next dev\" \"convex dev\"",
-    "predev": "convex dev --until-success",
-    "convex:dev": "convex dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "test": "vitest",
@@ -55,7 +53,6 @@
     "@uiw/react-codemirror": "4.23.6",
     "@vitejs/plugin-react": "4.3.3",
     "clsx": "2.1.1",
-    "concurrently": "9.1.0",
     "effect": "3.10.15",
     "jotai": "2.10.2",
     "jotai-components": "0.2.0",
