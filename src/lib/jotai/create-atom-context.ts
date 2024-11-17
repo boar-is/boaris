@@ -1,5 +1,5 @@
 import { type Atom, useAtomValue } from 'jotai'
-import { useAtomConst } from '~/lib/jotai/useAtomConst'
+import { useAtomStable } from '~/lib/jotai/useAtomStable'
 import {
   type CreateContextOptions,
   createStrictContext,
@@ -13,7 +13,7 @@ export const createAtomContext = <T>({
 
   const useAtom = <R>(mapFn: (t: T) => R) => {
     const contextAtom = useContext()
-    return useAtomConst((get) => mapFn(get(contextAtom)))
+    return useAtomStable((get) => mapFn(get(contextAtom)))
   }
 
   const useAtomVal = <R>(mapFn: (t: T) => R) => useAtomValue(useAtom(mapFn))
