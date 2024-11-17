@@ -1,7 +1,7 @@
 import { type Infer, v } from 'convex/values'
 import { Schema } from 'effect'
 import type { Id } from '~/convex/_generated/dataModel'
-import type { PropsWithGetUrl } from '~/lib/utils/props-with-get-url'
+import type { PropsWithGetUrl } from '~/lib/regexes/props-with-get-url'
 import { AssetBase, assetBase } from './assetBase'
 
 export const assetImageDynamic = v.object({

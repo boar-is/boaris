@@ -2,10 +2,10 @@
 
 import { identity } from 'effect'
 import type { PropsWithChildren } from 'react'
+import { readableDate } from '~/lib/date/readable-date'
 import { getMonoFontClassName } from '~/lib/media/fonts/get-mono-font-class-name'
 import { Image } from '~/lib/media/image'
-import { cx } from '~/lib/utils/cx'
-import { readableDate } from '~/lib/utils/readable-date'
+import { cx } from '~/lib/react/cx'
 import { usePostVmAtomValue } from './page.client'
 
 export function PostReading({ children }: PropsWithChildren) {

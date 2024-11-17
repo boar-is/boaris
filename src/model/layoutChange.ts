@@ -1,6 +1,6 @@
 import { type Infer, v } from 'convex/values'
 import { Schema } from 'effect'
-import { toFixed } from '~/lib/utils/to-fixed'
+import { toFixed } from '~/lib/number/to-fixed'
 import { Interpolation } from './interpolation'
 import { LayoutLayer, layoutLayer } from './layoutLayer'
 

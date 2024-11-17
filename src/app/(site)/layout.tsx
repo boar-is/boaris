@@ -16,7 +16,7 @@ import { CloseDialogButtonProvider } from '~/lib/overlays/close-dialog-button-pr
 import { Dialog, DialogTrigger } from '~/lib/overlays/dialog'
 import { Modal, ModalOverlay } from '~/lib/overlays/modal'
 import { Popover } from '~/lib/overlays/popover'
-import { cx } from '~/lib/utils/cx'
+import { cx } from '~/lib/react/cx'
 import { workspace } from '~/model2/workspace'
 
 const layerCx = cx('border border-gray-4 rounded-2xl p-4')

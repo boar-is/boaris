@@ -1,7 +1,7 @@
 import { Option } from 'effect'
+import { readableDate } from '~/lib/date/readable-date'
 import { Image } from '~/lib/media/image'
 import { Link } from '~/lib/navigation/link'
-import { readableDate } from '~/lib/utils/readable-date'
 import { posts } from '~/model2/post'
 
 export default async function BlogPage() {

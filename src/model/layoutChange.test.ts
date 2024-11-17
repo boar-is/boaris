@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { toFixed } from '~/lib/utils/to-fixed'
+import { toFixed } from '~/lib/number/to-fixed'
 import { layoutProgressInterpolationFromChanges } from '~/model/layoutChange'
 
 describe.concurrent('layoutProgressInterpolationFromChanges', () => {

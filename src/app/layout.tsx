@@ -5,9 +5,9 @@ import { FocusVisibleProvider } from '~/lib/interactions/focus-visible-provider'
 import { JotaiProvider } from '~/lib/jotai/jotai-provider'
 import { getSansFontClassName } from '~/lib/media/fonts/get-sans-font-class-name'
 import { MotionProvider } from '~/lib/motion/provider'
+import { cx } from '~/lib/react/cx'
 import { AriaRouterProvider } from '~/lib/routing/aria-router-provider'
 import { ToastProvider } from '~/lib/toast/toast-provider'
-import { cx } from '~/lib/utils/cx'
 import './globals.css'
 
 export default function RootLayout({ children }: PropsWithChildren) {

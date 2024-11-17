@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef } from 'react'
 import { Image } from '~/lib/media/image'
-import { cx } from '~/lib/utils/cx'
+import { cx } from '~/lib/react/cx'
 
 export type SvgIconProps = ComponentPropsWithoutRef<'svg'>
 export type ImageIconProps = { className?: string | undefined }
