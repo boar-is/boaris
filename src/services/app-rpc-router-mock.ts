@@ -962,6 +962,7 @@ export const AppRpcRouterMock = Layer.succeed(
         project: {
           slug: 'blog',
           name: 'Blog',
+          description: Option.none(),
         },
         posts: [],
       }),
@@ -979,9 +980,23 @@ export const AppRpcRouterMock = Layer.succeed(
         workspace: {
           slug: 'boaris',
           name: 'Boaris',
-          logoUrl: Option.none(),
+          description:
+            'Friendly tutorials for developers. Focus on React, CSS, Animation, and more!',
+          logoUrl: Option.some(
+            'https://avatars.githubusercontent.com/u/31354262?v=4',
+          ),
           socialLinks: [],
         },
+        authors: [
+          {
+            slug: 'boris',
+            name: 'Boris',
+            avatarUrl: Option.some(
+              'https://avatars.githubusercontent.com/u/31354262?v=4',
+            ),
+            socialLinks: [],
+          },
+        ],
       }),
     ),
     Rpc.effect(WorkspaceSlugsRequest, () =>

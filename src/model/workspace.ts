@@ -6,6 +6,7 @@ import { SocialLink, socialLink } from './socialLink'
 export const workspace = v.object({
   slug: v.string(),
   name: v.string(),
+  description: v.string(),
   logoId: v.optional(v.id('_storage')),
   socialLinks: v.array(socialLink),
 })
@@ -13,6 +14,7 @@ export const workspace = v.object({
 export class Workspace extends Schema.Class<Workspace>('Workspace')({
   slug: Schema.NonEmptyTrimmedString,
   name: Schema.NonEmptyTrimmedString,
+  description: Schema.NonEmptyTrimmedString,
   logoUrl: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
   socialLinks: Schema.Array(SocialLink),
 }) {
@@ -20,11 +22,13 @@ export class Workspace extends Schema.Class<Workspace>('Workspace')({
     return async ({
       slug,
       name,
+      description,
       logoId,
       socialLinks,
     }: Infer<typeof workspace>): Promise<typeof Workspace.Encoded> => ({
       slug,
       name,
+      description,
       logoUrl: logoId && (await getUrl(logoId)),
       socialLinks: socialLinks.map(SocialLink.encodedFromEntity),
     })

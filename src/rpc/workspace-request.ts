@@ -1,4 +1,5 @@
 import { Schema } from 'effect'
+import { User } from '~/model/user'
 import { Workspace } from '~/model/workspace'
 
 export class WorkspaceRequest extends Schema.TaggedRequest<WorkspaceRequest>()(
@@ -9,6 +10,7 @@ export class WorkspaceRequest extends Schema.TaggedRequest<WorkspaceRequest>()(
       Schema.Null,
       Schema.Struct({
         workspace: Workspace,
+        authors: Schema.Array(User),
       }),
     ),
     payload: {

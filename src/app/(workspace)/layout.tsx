@@ -1,4 +1,5 @@
 import { Effect, Option } from 'effect'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import type { CSSProperties, PropsWithChildren } from 'react'
 import { matchSocialNetworkIcon } from '~/features/match-social-network-icon'
@@ -19,6 +20,7 @@ import { CloseDialogButtonProvider } from '~/lib/overlays/close-dialog-button-pr
 import { Dialog, DialogTrigger } from '~/lib/overlays/dialog'
 import { Modal, ModalOverlay } from '~/lib/overlays/modal'
 import { Popover } from '~/lib/overlays/popover'
+import type { PropsWithParams } from '~/lib/react/props-with-params'
 import { currentWorkspaceSlug } from '~/lib/utils/constants'
 import { cx } from '~/lib/utils/cx'
 import type { SocialLink } from '~/model/socialLink'
@@ -35,14 +37,53 @@ const sectionMobileCx = cx('flex flex-col *:px-2 *:py-1')
 const headerMobileCx = cx('text-xs uppercase text-gray-9 tracking-tight')
 const itemMobileCx = cx('rounded-md')
 
+type Params = { workspaceSlug: string }
+
+export async function generateMetadata({
+  params,
+}: PropsWithParams<Params>): Promise<Metadata> {
+  const { workspaceSlug = currentWorkspaceSlug } = await params
+
+  return AppServerRuntime.runPromise(
+    Effect.gen(function* () {
+      const result = yield* (yield* AppRpcClient)(
+        new WorkspaceRequest({ workspaceSlug }),
+      )
+
+      if (!result) {
+        return notFound()
+      }
+
+      const {
+        workspace: { name: title, description },
+        authors,
+      } = result
+
+      const metadata: Metadata = {
+        title,
+        description,
+        authors: authors.map(({ name }) => ({ name })),
+        openGraph: {
+          title,
+          description,
+          // 1280 675
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title,
+          description,
+        },
+      }
+
+      return metadata
+    }),
+  )
+}
+
 export default async function WorkspaceLayout({
   children,
   params,
-}: PropsWithChildren<{
-  params: Promise<{
-    workspaceSlug: string
-  }>
-}>) {
+}: PropsWithChildren<PropsWithParams<Params>>) {
   const { workspaceSlug = currentWorkspaceSlug } = await params
 
   return AppServerRuntime.runPromise(
