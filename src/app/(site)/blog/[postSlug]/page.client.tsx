@@ -1,6 +1,7 @@
 'use client'
 
 import { Match, Schema } from 'effect'
+import type { Atom } from 'jotai'
 import { atom, useAtomValue } from 'jotai'
 import { AssetsAtomContext } from '~/features/assets-atom-context'
 import { AuthorsAtomContext } from '~/features/authors-atom-context'
@@ -10,10 +11,19 @@ import { LayoutModeAtomContext } from '~/features/layout-mode-atom-context'
 import { PostAtomContext } from '~/features/post-atom-context'
 import { RevisionAtomContext } from '~/features/revision-atom-context'
 import { TagsAtomContext } from '~/features/tags-atom-context'
+import { createStrictContext } from '~/lib/react/create-strict-context'
 import { useConstant } from '~/lib/react/use-constant'
 import type { LayoutMode } from '~/model/layoutMode'
 import { PostRequest } from '~/rpc/post-request'
 import { PostScrolling } from './_/post-scrolling'
+
+export type PostVm = {}
+
+export const [PostVmAtomContext, usePostVmAtom] = createStrictContext<
+  Atom<PostVm>
+>({
+  name: 'PostVmAtomContext',
+})
 
 export function PostPageClient({
   result,
