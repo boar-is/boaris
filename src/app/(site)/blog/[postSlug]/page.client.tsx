@@ -2,7 +2,7 @@
 
 import { createAtomContext } from '~/lib/jotai/create-atom-context'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
-import type { Post } from '~/model2/post'
+import type { Post } from '~/model/post'
 import { PostScrolling } from './_post-scrolling'
 
 export type PostVm = Post

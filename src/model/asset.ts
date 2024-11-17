@@ -1,34 +1,5 @@
-import { type Infer, v } from 'convex/values'
-import { Match, Schema } from 'effect'
+import type { AssetImageDynamic } from './assetImageDynamic'
+import type { AssetImageStatic } from './assetImageStatic'
+import type { AssetText } from './assetText'
 
-import type { Id } from '~/convex/_generated/dataModel'
-import type { PropsWithGetUrl } from '~/lib/regexes/props-with-get-url'
-import { AssetImageDynamic, assetImageDynamic } from './assetImageDynamic'
-import { AssetImageStatic, assetImageStatic } from './assetImageStatic'
-import { AssetText, assetText } from './assetText'
-
-export const asset = v.union(assetImageDynamic, assetImageStatic, assetText)
-
-export const Asset = Schema.Union(
-  AssetImageDynamic,
-  AssetImageStatic,
-  AssetText,
-)
-
-export const assetEncodedFromEntity =
-  (withGetUrl: PropsWithGetUrl) =>
-  async (
-    t: Infer<typeof asset> & { _id: Id<'assets'> },
-  ): Promise<typeof Asset.Encoded> =>
-    Match.value(t).pipe(
-      Match.when(
-        { type: 'image-dynamic' },
-        AssetImageDynamic.encodedFromEntity(withGetUrl),
-      ),
-      Match.when(
-        { type: 'image-static' },
-        AssetImageStatic.encodedFromEntity(withGetUrl),
-      ),
-      Match.when({ type: 'text' }, AssetText.encodedFromEntity),
-      Match.exhaustive,
-    )
+export type Asset = AssetImageDynamic | AssetImageStatic | AssetText

@@ -21,14 +21,6 @@ const baseNextConfig: NextConfig = {
         hostname: 'avatars.githubusercontent.com',
         port: '',
       },
-      {
-        protocol: 'https',
-        hostname: process.env['NEXT_PUBLIC_CONVEX_URL']!.replace(
-          'https://',
-          '',
-        ),
-        port: '',
-      },
     ],
   },
   async headers() {

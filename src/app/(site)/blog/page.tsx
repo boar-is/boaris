@@ -2,7 +2,7 @@ import { Option } from 'effect'
 import { readableDate } from '~/lib/date/readable-date'
 import { Image } from '~/lib/media/image'
 import { Link } from '~/lib/navigation/link'
-import { posts } from '~/model2/post'
+import { posts } from '~/model/post'
 
 export default async function BlogPage() {
   return (

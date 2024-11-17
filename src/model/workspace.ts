@@ -1,36 +1,28 @@
-import { type Infer, v } from 'convex/values'
-import { Schema } from 'effect'
-import type { PropsWithGetUrl } from '~/lib/regexes/props-with-get-url'
-import { SocialLink, socialLink } from './socialLink'
+import type { FC } from 'react'
+import type { SvgIconProps } from '~/lib/media/icons/_base'
+import { GitHubIcon } from '~/lib/media/icons/github'
 
-export const workspace = v.object({
-  slug: v.string(),
-  name: v.string(),
-  description: v.string(),
-  logoId: v.optional(v.id('_storage')),
-  socialLinks: v.array(socialLink),
-})
+export type Workspace = {
+  name: string
+  description: string
+  logoUrl: string
+  socialLinks: Array<{
+    href: string
+    label: string
+    Icon: FC<SvgIconProps>
+  }>
+}
 
-export class Workspace extends Schema.Class<Workspace>('Workspace')({
-  slug: Schema.NonEmptyTrimmedString,
-  name: Schema.NonEmptyTrimmedString,
-  description: Schema.NonEmptyTrimmedString,
-  logoUrl: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
-  socialLinks: Schema.Array(SocialLink),
-}) {
-  static encodedFromEntity({ getUrl }: PropsWithGetUrl) {
-    return async ({
-      slug,
-      name,
-      description,
-      logoId,
-      socialLinks,
-    }: Infer<typeof workspace>): Promise<typeof Workspace.Encoded> => ({
-      slug,
-      name,
-      description,
-      logoUrl: logoId && (await getUrl(logoId)),
-      socialLinks: socialLinks.map(SocialLink.encodedFromEntity),
-    })
-  }
+export const workspace: Workspace = {
+  name: 'Boaris',
+  // TODO fill up
+  description: 'Boaris description',
+  logoUrl: '/logo.png',
+  socialLinks: [
+    {
+      href: 'https://github.com/boaris',
+      label: 'GitHub',
+      Icon: GitHubIcon,
+    },
+  ],
 }

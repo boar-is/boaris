@@ -1,7 +1,7 @@
 'use server'
 
 import { Schema } from 'effect'
-import { Email } from '~/model2/email'
+import { Email } from '~/model/email'
 
 type SubscribeState =
   | {

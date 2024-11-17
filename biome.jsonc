@@ -1,9 +1,5 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "files": {
-    // the Convex CLI wrongly formats convex.json
-    "ignore": ["convex.json"]
-  },
   "vcs": {
     "enabled": true,
     "clientKind": "git",

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
-import { posts } from '~/model2/post'
+import { posts } from '~/model/post'
 import { PostPageClient } from './page.client'
 
 export async function generateStaticParams() {

@@ -28,10 +28,10 @@ import { Image } from '~/lib/media/image'
 import { motion } from '~/lib/motion/motion'
 import { cx } from '~/lib/react/cx'
 import { useConst } from '~/lib/react/use-const'
-import type { Asset } from '~/model2/asset'
-import type { AssetImageDynamic } from '~/model2/assetImageDynamic'
-import type { AssetImageStatic } from '~/model2/assetImageStatic'
-import type { AssetText } from '~/model2/assetText'
+import type { Asset } from '~/model/asset'
+import type { AssetImageDynamic } from '~/model/assetImageDynamic'
+import type { AssetImageStatic } from '~/model/assetImageStatic'
+import type { AssetText } from '~/model/assetText'
 
 export function PostScrollingLayout() {
   const progressAtom = usePlaybackProgressAtom()
