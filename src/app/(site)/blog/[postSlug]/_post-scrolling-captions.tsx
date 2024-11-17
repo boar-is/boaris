@@ -1,8 +1,9 @@
 import { type Editor, EditorContent } from '@tiptap/react'
-import { type Atom, atom } from 'jotai'
+import type { Atom } from 'jotai'
 import { type MotionValue, useAnimate, useMotionValueEvent } from 'motion/react'
 import { useRef } from 'react'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
+import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { type Coords, mergeCoords } from '~/lib/motion/merge-coords'
 import { motion } from '~/lib/motion/motion'
 import { useAtomAnimatedMotionValue } from '~/lib/motion/use-atom-animated-motion-value'
@@ -11,16 +12,15 @@ import { useAtomScrollSyncEffect } from '~/lib/motion/use-atom-scroll-sync-effec
 import { getPositionByProgress } from '~/lib/prosemirror/get-position-by-progress'
 import { getWordRangeAtPos } from '~/lib/prosemirror/get-word-range-at-pos'
 import { offsetTopAtPos } from '~/lib/prosemirror/offset-top-at-pos'
-import { useConst } from '~/lib/react/use-const'
 import { useContainerHeightSync } from '~/lib/react/use-container-height-sync'
 
 export function PostScrollingCaptions({ editor }: { editor: Editor }) {
   const progressAtom = usePlaybackProgressAtom()
 
-  const positionAtom = useConst(() => {
-    const getPositionByStateProgress = getPositionByProgress(editor.state)
-    return atom((get) => getPositionByStateProgress(get(progressAtom)))
-  })
+  const getPositionByStateProgress = getPositionByProgress(editor.state)
+  const positionAtom = useConstAtom((get) =>
+    getPositionByStateProgress(get(progressAtom)),
+  )
 
   const offsetTopAtViewPos = offsetTopAtPos(editor.view)
   const offsetTopMv = useAtomAnimatedMotionValue(positionAtom, {
@@ -32,10 +32,11 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
     },
   })
 
-  const wordRangeAtom = useConst(() => {
-    const getStateWordRangeAtPos = getWordRangeAtPos(editor.state)
-    return atom((get) => getStateWordRangeAtPos(get(positionAtom)))
-  })
+  const getStateWordRangeAtPos = getWordRangeAtPos(editor.state)
+
+  const wordRangeAtom = useConstAtom((get) =>
+    getStateWordRangeAtPos(get(positionAtom)),
+  )
 
   const contentRef = useRef<HTMLDivElement | null>(null)
 
@@ -89,21 +90,14 @@ function PostScrollingCaptionsCursor({
 }) {
   const [scope, animate] = useAnimate()
 
-  const [startAtom, endAtom] = useConst(
-    () =>
-      [
-        atom((get) => get(wordRangeAtom)?.start),
-        atom((get) => get(wordRangeAtom)?.end),
-      ] as const,
-  )
+  const startAtom = useConstAtom((get) => get(wordRangeAtom)?.start)
+  const endAtom = useConstAtom((get) => get(wordRangeAtom)?.end)
 
-  const rangeAtom = useConst(() =>
-    atom((get) => {
-      const start = get(startAtom)
-      const end = get(endAtom)
-      return start && end && { start, end }
-    }),
-  )
+  const rangeAtom = useConstAtom((get) => {
+    const start = get(startAtom)
+    const end = get(endAtom)
+    return start && end && { start, end }
+  })
 
   const range = useAtomMotionValue(rangeAtom, undefined)
 

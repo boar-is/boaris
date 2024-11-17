@@ -20,6 +20,7 @@ import { matchFileTypeIcon } from '~/features/match-file-type-icon'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
 import { codemirrorTheme } from '~/lib/codemirror/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/codemirror/match-codemirror-extensions'
+import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { Image } from '~/lib/media/image'
 import { motion } from '~/lib/motion/motion'
 import { useConst } from '~/lib/react/use-const'
@@ -33,24 +34,16 @@ export function PostScrollingLayout() {
 
   const changesAtom = usePostVmAtom((it) => it.layoutChanges)
 
-  const indexAtom = useConst(() =>
-    atom((get) =>
-      Option.fromNullable(
-        findClosestIndex(
-          get(changesAtom),
-          get(progressAtom),
-          (it) => it.offset,
-        ),
-      ),
+  const indexAtom = useConstAtom((get) =>
+    Option.fromNullable(
+      findClosestIndex(get(changesAtom), get(progressAtom), (it) => it.offset),
     ),
   )
 
-  const areasAtom = useConst(() =>
-    atom((get) =>
-      get(indexAtom).pipe(
-        Option.andThen((index) => Array.get(get(changesAtom), index)),
-        Option.andThen((it) => it.areas),
-      ),
+  const areasAtom = useConstAtom((get) =>
+    get(indexAtom).pipe(
+      Option.andThen((index) => Array.get(get(changesAtom), index)),
+      Option.andThen((it) => it.areas),
     ),
   )
 
@@ -86,8 +79,8 @@ function LayerGrid({ children }: PropsWithChildren) {
 function LayerGridItems() {
   const layerAtom = useLayoutLayerAtom()
 
-  const areasAtom = useConst(() =>
-    atom((get) => get(layerAtom).pipe(Option.map((it) => it.areas))),
+  const areasAtom = useConstAtom((get) =>
+    get(layerAtom).pipe(Option.map((it) => it.areas)),
   )
 
   const assetsAtom = useAssetsAtom()
@@ -121,15 +114,11 @@ const JotaiMotionLi = jotai.create(motion.li)
 const MainLayerGridItem = memo(
   forwardRef<HTMLLIElement, { assetAtom: Atom<typeof Asset.Type> }>(
     function MainLayerGridItem({ assetAtom }, ref) {
-      const idAtom = useConst(() => atom((get) => get(assetAtom)._id))
+      const idAtom = useConstAtom((get) => get(assetAtom)._id)
 
-      const styleAtom = useConst(() =>
-        atom((get) => ({ gridArea: get(idAtom) })),
-      )
+      const styleAtom = useConstAtom((get) => ({ gridArea: get(idAtom) }))
 
-      const type = useAtomValue(
-        useConst(() => atom((get) => get(assetAtom).type)),
-      )
+      const type = useConstAtom((get) => get(assetAtom).type)
 
       return (
         <JotaiMotionLi
@@ -249,12 +238,10 @@ const LayoutAssetText = memo(function LayoutAssetText() {
   const idAtom = useAssetIdAtom()
   const assetAtom = useConst(() => getAssetAtomById(assetsAtom)(idAtom)('text'))
 
-  const reversesAtom = useConst(() =>
-    atom((get) => {
-      const { value, changes } = get(assetAtom)
-      return reversedTextChanges(value, changes)
-    }),
-  )
+  const reversesAtom = useConstAtom((get) => {
+    const { value, changes } = get(assetAtom)
+    return reversedTextChanges(value, changes)
+  })
 
   const { name, value } = useAtomValue(assetAtom)
 
@@ -262,16 +249,12 @@ const LayoutAssetText = memo(function LayoutAssetText() {
 
   const progressAtom = useLayoutProgressAtom()
 
-  const headIndexAtom = useConst(() =>
-    atom((get) =>
-      findClosestIndex(
-        get(assetAtom).changes,
-        get(progressAtom),
-        (it) => it[0],
-      ),
-    ),
+  const headIndexAtom = useConstAtom((get) =>
+    findClosestIndex(get(assetAtom).changes, get(progressAtom), (it) => it[0]),
   )
+
   const anchorIndexAtom = useConst(() => atom<number | undefined>(undefined))
+
   useAtomValue(
     useConst(() =>
       atomEffect((get, set) => {

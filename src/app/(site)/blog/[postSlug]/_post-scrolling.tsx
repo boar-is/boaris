@@ -1,13 +1,12 @@
 'use client'
 
 import { useEditor } from '@tiptap/react'
-import { atom } from 'jotai/index'
 import { usePostVmAtomValue } from '~/app/(site)/blog/[postSlug]/page.client'
 import { PlaybackProgressAtomContext } from '~/features/playback-progress-atom-context'
+import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { defaultEditorOptions } from '~/lib/prosemirror/default-editor-options'
 import { defaultEditorExtensions } from '~/lib/prosemirror/defaultEditorExtensions'
 import { StaticEditorContent } from '~/lib/prosemirror/static-editor-content'
-import { useConst } from '~/lib/react/use-const'
 import {
   PostReading,
   PostReadingHeader,
@@ -17,7 +16,7 @@ import { PostScrollingCaptions } from './_post-scrolling-captions'
 import { PostScrollingLayout } from './_post-scrolling-layout'
 
 export function PostScrolling() {
-  const playbackProgressAtom = useConst(() => atom(0))
+  const playbackProgressAtom = useConstAtom(0)
 
   return (
     <PlaybackProgressAtomContext.Provider value={playbackProgressAtom}>

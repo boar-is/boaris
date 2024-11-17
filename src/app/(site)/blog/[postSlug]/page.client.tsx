@@ -1,8 +1,7 @@
 'use client'
 
-import { atom } from 'jotai'
 import { createAtomContext } from '~/lib/jotai/create-atom-context'
-import { useConst } from '~/lib/react/use-const'
+import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import type { Post } from '~/model2/post'
 import { PostScrolling } from './_post-scrolling'
 
@@ -19,7 +18,7 @@ export function PostPageClient({
   post: Post
 }) {
   return (
-    <PostVmAtomContext.Provider value={useConst(() => atom(post))}>
+    <PostVmAtomContext.Provider value={useConstAtom(post)}>
       <PostScrolling />
     </PostVmAtomContext.Provider>
   )
