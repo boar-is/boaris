@@ -13,7 +13,7 @@ import {
   PostReading,
   PostReadingHeader,
   PostReadingSeparator,
-} from './post-reading'
+} from './_post-reading'
 import { PostScrollingCaptions } from './post-scrolling-captions'
 import { PostScrollingLayout } from './post-scrolling-layout'
 

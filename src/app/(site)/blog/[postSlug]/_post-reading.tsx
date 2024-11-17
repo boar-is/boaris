@@ -4,7 +4,7 @@ import type { PropsWithChildren } from 'react'
 import { getMonoFontClassName } from '~/lib/media/fonts/get-mono-font-class-name'
 import { Image } from '~/lib/media/image'
 import { cx } from '~/lib/utils/cx'
-import { usePostVm } from '../page.client'
+import { usePostVm } from './page.client'
 
 export function PostReading({ children }: PropsWithChildren) {
   return (
