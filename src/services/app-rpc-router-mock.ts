@@ -16,7 +16,7 @@ export const AppRpcRouterMock = Layer.succeed(
     Rpc.effect(PostRequest, () =>
       Effect.succeed<(typeof PostRequest)['success']['Type']>({
         post: {
-          slug: 'use-deferred-value',
+          slug: 'use-deferred-initialValue',
           date: new Date(),
         },
         tags: [],

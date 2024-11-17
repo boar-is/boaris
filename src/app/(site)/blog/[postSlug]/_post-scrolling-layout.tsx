@@ -20,14 +20,18 @@ import { matchFileTypeIcon } from '~/features/match-file-type-icon'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
 import { codemirrorTheme } from '~/lib/codemirror/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/codemirror/match-codemirror-extensions'
+import { reversedChanges } from '~/lib/codemirror/reversed-changes'
+import { seekChanges } from '~/lib/codemirror/seek-changes'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { Image } from '~/lib/media/image'
 import { motion } from '~/lib/motion/motion'
 import { useConst } from '~/lib/react/use-const'
 import { cx } from '~/lib/utils/cx'
 import { findClosestIndex } from '~/lib/utils/find-closest-index'
-import type { Asset } from '~/model/asset'
-import { reversedTextChanges, seekCodeMirrorChanges } from '~/model/assetText'
+import type { Asset } from '~/model2/asset'
+import type { AssetImageDynamic } from '~/model2/assetImageDynamic'
+import type { AssetImageStatic } from '~/model2/assetImageStatic'
+import type { AssetText } from '~/model2/assetText'
 
 export function PostScrollingLayout() {
   const progressAtom = usePlaybackProgressAtom()
@@ -47,43 +51,7 @@ export function PostScrollingLayout() {
     ),
   )
 
-  return (
-    <LayerGrid>
-      <LayerGridItems />
-    </LayerGrid>
-  )
-}
-
-function LayerGrid({ children }: PropsWithChildren) {
-  const layer = useAtomValue(useLayoutLayerAtom())
-
-  return layer.pipe(
-    Option.andThen(({ areas, rows, columns }) => (
-      <motion.ul
-        className="self-start sticky top-64 grid gap-2 *:h-full"
-        style={{
-          gridTemplateAreas: areas,
-          gridTemplateColumns: Option.getOrUndefined(columns),
-          gridTemplateRows: Option.getOrUndefined(rows),
-          gridAutoColumns: 'minmax(0, 1fr)',
-          gridAutoRows: 'minmax(0, 1fr)',
-        }}
-      >
-        {children}
-      </motion.ul>
-    )),
-    Option.getOrNull,
-  )
-}
-
-function LayerGridItems() {
-  const layerAtom = useLayoutLayerAtom()
-
-  const areasAtom = useConstAtom((get) =>
-    get(layerAtom).pipe(Option.map((it) => it.areas)),
-  )
-
-  const assetsAtom = useAssetsAtom()
+  const assetsAtom = usePostVmAtom((it) => it.assets)
 
   const currentAssetsAtoms = useAtomValue(
     useConst(() =>
@@ -101,24 +69,57 @@ function LayerGridItems() {
   )
 
   return (
-    <AnimatePresence mode="popLayout">
-      {currentAssetsAtoms.map((assetAtom) => (
-        <MainLayerGridItem key={`${assetAtom}`} assetAtom={assetAtom} />
-      ))}
-    </AnimatePresence>
+    <LayerGrid areasAtom={areasAtom}>
+      <AnimatePresence mode="popLayout">
+        {currentAssetsAtoms.map((assetAtom) => (
+          <MainLayerGridItem key={`${assetAtom}`} assetAtom={assetAtom} />
+        ))}
+      </AnimatePresence>
+    </LayerGrid>
+  )
+}
+
+function LayerGrid({
+  children,
+  areasAtom,
+}: PropsWithChildren<{ areasAtom: Atom<Option.Option<string>> }>) {
+  const layer = useAtomValue(areasAtom)
+
+  return layer.pipe(
+    Option.andThen((areas) => (
+      <motion.ul
+        className="self-start sticky top-64 grid gap-2 *:h-full"
+        style={{
+          gridTemplateAreas: areas,
+          gridAutoColumns: 'minmax(0, 1fr)',
+          gridAutoRows: 'minmax(0, 1fr)',
+        }}
+      >
+        {children}
+      </motion.ul>
+    )),
+    Option.getOrNull,
   )
 }
 
 const JotaiMotionLi = jotai.create(motion.li)
 
+const matchLayoutAssetPanel = (_id: Asset['_id'], type: Asset['type']) =>
+  Match.value(type).pipe(
+    Match.when('image-static', () => <LayoutAssetImageStatic _id={_id} />),
+    Match.when('image-dynamic', () => <LayoutAssetImageDynamic _id={_id} />),
+    Match.when('text', () => <LayoutAssetText _id={_id} />),
+    Match.exhaustive,
+  )
+
 const MainLayerGridItem = memo(
-  forwardRef<HTMLLIElement, { assetAtom: Atom<typeof Asset.Type> }>(
+  forwardRef<HTMLLIElement, { assetAtom: Atom<Asset> }>(
     function MainLayerGridItem({ assetAtom }, ref) {
       const idAtom = useConstAtom((get) => get(assetAtom)._id)
 
       const styleAtom = useConstAtom((get) => ({ gridArea: get(idAtom) }))
 
-      const type = useConstAtom((get) => get(assetAtom).type)
+      const { _id, type } = useAtomValue(assetAtom)
 
       return (
         <JotaiMotionLi
@@ -129,55 +130,37 @@ const MainLayerGridItem = memo(
           animate={{ opacity: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, filter: 'blur(16px)' }}
         >
-          <AssetIdAtomContext.Provider value={idAtom}>
-            {matchLayoutAssetPanel(type)}
-          </AssetIdAtomContext.Provider>
+          {matchLayoutAssetPanel(_id, type)}
         </JotaiMotionLi>
       )
     },
   ),
 )
 
-const matchLayoutAssetPanel = Match.type<(typeof Asset.Type)['type']>().pipe(
-  Match.when('image-static', () => <LayoutAssetImageStatic />),
-  Match.when('image-dynamic', () => <LayoutAssetImageDynamic />),
-  Match.when('text', () => <LayoutAssetText />),
-  Match.exhaustive,
-)
+type LayoutAssetProps = {
+  _id: Asset['_id']
+}
 
-const getAssetAtomById =
-  (assetsAtom: Atom<ReadonlyArray<typeof Asset.Type>>) =>
-  (idAtom: Atom<(typeof Asset.Type)['_id']>) =>
-  <T extends (typeof Asset.Type)['type']>(assertionType: T) =>
-    atom((get) => {
-      const id = get(idAtom)
-      const asset = get(assetsAtom).find((it) => it._id === id)
-      if (asset?.type !== assertionType) {
-        throw new Error(`Impossible state deriving the asset with id ${id}`)
-      }
-      return asset as Extract<typeof Asset.Type, { type: T }>
-    })
+const useAsset = (_id: Asset['_id']) =>
+  useAtomValue(usePostVmAtom((it) => it.assets)).find((it) => it._id === _id)
 
-const LayoutAssetImageStatic = memo(function LayoutAssetImageStatic() {
-  const assetsAtom = useAssetsAtom()
-  const idAtom = useAssetIdAtom()
-
-  const { name, url, alt, caption } = useAtomValue(
-    useConst(() => getAssetAtomById(assetsAtom)(idAtom)('image-static')),
-  )
+const LayoutAssetImageStatic = memo(function LayoutAssetImageStatic({
+  _id,
+}: LayoutAssetProps) {
+  const { name, href, alt, caption } = useAsset(_id) as AssetImageStatic
 
   return (
     <LayoutPanel>
       <LayoutPanelHeader name={name} />
       <Image
-        src={url}
+        src={href}
         className="object-cover blur-md"
         alt="Image's backdrop blur"
         fill
       />
       <section className="flex-1 relative">
         <Image
-          src={url}
+          src={href}
           className="object-contain"
           alt={alt.pipe(
             Option.orElse(() => caption),
@@ -196,20 +179,17 @@ const LayoutAssetImageStatic = memo(function LayoutAssetImageStatic() {
   )
 })
 
-const LayoutAssetImageDynamic = memo(function LayoutAssetImageDynamic() {
-  const assetsAtom = useAssetsAtom()
-  const idAtom = useAssetIdAtom()
-
-  const { name, url, caption } = useAtomValue(
-    useConst(() => getAssetAtomById(assetsAtom)(idAtom)('image-dynamic')),
-  )
+const LayoutAssetImageDynamic = memo(function LayoutAssetImageDynamic({
+  _id,
+}: LayoutAssetProps) {
+  const { name, href, caption } = useAsset(_id) as AssetImageDynamic
 
   return (
     <LayoutPanel>
       <LayoutPanelHeader name={name} />
       <video
         className="absolute inset-0 size-full -z-[2] object-cover blur-lg"
-        src={url}
+        src={href}
         autoPlay
         playsInline
         muted
@@ -218,7 +198,7 @@ const LayoutAssetImageDynamic = memo(function LayoutAssetImageDynamic() {
       <section className="flex-1 relative flex items-center">
         <video
           className="absolute inset-0 size-full object-contain object-center"
-          src={url}
+          src={href}
           autoPlay
           playsInline
           muted
@@ -233,27 +213,25 @@ const LayoutAssetImageDynamic = memo(function LayoutAssetImageDynamic() {
   )
 })
 
-const LayoutAssetText = memo(function LayoutAssetText() {
-  const assetsAtom = useAssetsAtom()
-  const idAtom = useAssetIdAtom()
-  const assetAtom = useConst(() => getAssetAtomById(assetsAtom)(idAtom)('text'))
+const LayoutAssetText = memo(function LayoutAssetText({
+  _id,
+}: LayoutAssetProps) {
+  const { name, initialValue, advances } = useAsset(_id) as AssetText
 
-  const reversesAtom = useConstAtom((get) => {
-    const { value, changes } = get(assetAtom)
-    return reversedTextChanges(value, changes)
-  })
-
-  const { name, value } = useAtomValue(assetAtom)
+  const reverses = useMemo(
+    () => reversedChanges(initialValue, advances),
+    [initialValue, advances],
+  )
 
   const cmRef = useRef<ReactCodeMirrorRef | null>(null)
 
-  const progressAtom = useLayoutProgressAtom()
+  const progressAtom = usePlaybackProgressAtom()
 
   const headIndexAtom = useConstAtom((get) =>
-    findClosestIndex(get(assetAtom).changes, get(progressAtom), (it) => it[0]),
+    findClosestIndex(advances, get(progressAtom), (it) => it[0]),
   )
 
-  const anchorIndexAtom = useConst(() => atom<number | undefined>(undefined))
+  const anchorIndexAtom = useConstAtom<number | undefined>(undefined)
 
   useAtomValue(
     useConst(() =>
@@ -264,15 +242,11 @@ const LayoutAssetText = memo(function LayoutAssetText() {
         const anchor = get(anchorIndexAtom)
         const head = get(headIndexAtom)
 
-        const initialValue = get(assetAtom).value
-        const advances = get(assetAtom).changes
-        const reverses = get(reversesAtom)
-
         if (!(state && view)) {
           return
         }
 
-        const spec = seekCodeMirrorChanges({
+        const spec = seekChanges({
           currentValue: state.doc,
           initialValue,
           advances,
@@ -305,7 +279,7 @@ const LayoutAssetText = memo(function LayoutAssetText() {
             'h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!text-xs md:[&_.cm-scroller]:!text-sm [&_.cm-line]:px-4',
             '[&_.cm-scroller]:overflow-hidden',
           )}
-          value={value.toString()}
+          value={initialValue.toString()}
           extensions={extensions}
           editable={false}
           theme={codemirrorTheme}

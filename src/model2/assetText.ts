@@ -1,4 +1,5 @@
-import type { ChangeSet, EditorSelection, Text } from '@uiw/react-codemirror'
+import type { Text } from '@uiw/react-codemirror'
+import type { OffsetChange } from '~/lib/codemirror/offset-change'
 import type { AssetBase } from './assetBase'
 
 /**
@@ -8,15 +9,6 @@ import type { AssetBase } from './assetBase'
  */
 export type AssetText = AssetBase & {
   type: 'text'
-  value: Text
-
-  changes: Array<
-    [
-      offset: number,
-      /**
-       * @see https://codemirror.net/docs/ref/#state.TransactionSpec
-       */
-      spec: [ChangeSet, EditorSelection?],
-    ]
-  >
+  initialValue: Text
+  advances: Array<OffsetChange>
 }
