@@ -85,10 +85,12 @@ function LayerGrid({
 }: PropsWithChildren<{ areasAtom: Atom<Option.Option<string>> }>) {
   const layer = useAtomValue(areasAtom)
 
-  const areas = useAtomValue(areasAtom)
+  const areas = useAtomValue(
+    useConstAtom((get) => Option.getOrUndefined(get(areasAtom))),
+  )
 
-  return areas.pipe(
-    Option.andThen((areas) => (
+  return (
+    areas && (
       <motion.ul
         className="self-start sticky top-64 grid gap-2 *:h-full"
         style={{
@@ -99,8 +101,7 @@ function LayerGrid({
       >
         {children}
       </motion.ul>
-    )),
-    Option.getOrNull,
+    )
   )
 }
 
