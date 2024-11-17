@@ -1,24 +1,24 @@
-import type { JSONContent } from '@tiptap/react'
 import { ChangeSet, EditorSelection, Text } from '@uiw/react-codemirror'
-import { Option } from 'effect'
-import type { Asset } from './asset'
-import type { LayoutChange } from './layoutChange'
+import { Option, Schema } from 'effect'
+import { JsonContentFromJson } from '~/lib/prosemirror/json-content'
+import { Asset } from './asset'
+import { LayoutChange } from './layoutChange'
 
-export type Post = {
-  slug: string
-  title: string
-  lead: string
-  description: Option.Option<string>
-  posterUrl: string
-  tags: Array<string>
-  date: Date
-  captions: JSONContent
-  layoutChanges: Array<LayoutChange>
-  assets: Array<Asset>
-}
+export class Post extends Schema.Class<Post>('Post')({
+  slug: Schema.NonEmptyTrimmedString,
+  title: Schema.NonEmptyTrimmedString,
+  lead: Schema.NonEmptyTrimmedString,
+  description: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
+  posterUrl: Schema.NonEmptyTrimmedString,
+  tags: Schema.Array(Schema.NonEmptyTrimmedString),
+  date: Schema.DateFromNumber,
+  captions: JsonContentFromJson,
+  layoutChanges: Schema.Array(LayoutChange),
+  assets: Schema.Array(Asset),
+}) {}
 
-export const posts: Array<Post> = [
-  {
+export const posts: ReadonlyArray<Post> = [
+  new Post({
     slug: 'use-deferred-value',
     title: 'Understanding React Server Components',
     lead: 'useDeferredValue is one of the most underrated React hooks. It allows us to dramatically improve the performance of our applications in certain contexts. I recently used it to solve a gnarly performance problem on this blog, and in this tutorial, I’ll show you how! ⚡',
@@ -934,5 +934,5 @@ export const posts: Array<Post> = [
         })(),
       },
     ],
-  },
+  }),
 ]

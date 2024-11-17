@@ -1,5 +1,10 @@
-import type { AssetImageDynamic } from './assetImageDynamic'
-import type { AssetImageStatic } from './assetImageStatic'
-import type { AssetText } from './assetText'
+import { Schema } from 'effect'
+import { AssetImageDynamic } from './assetImageDynamic'
+import { AssetImageStatic } from './assetImageStatic'
+import { AssetText } from './assetText'
 
-export type Asset = AssetImageDynamic | AssetImageStatic | AssetText
+export const Asset = Schema.Union(
+  AssetImageDynamic,
+  AssetImageStatic,
+  AssetText,
+)

@@ -1,9 +1,11 @@
-import type { Option } from 'effect'
-import type { AssetBase } from './assetBase'
+import { Schema } from 'effect'
+import { AssetBase } from './assetBase'
 
-export type AssetImageStatic = AssetBase & {
-  type: 'image-static'
-  href: string
-  caption: Option.Option<string>
-  alt: Option.Option<string>
-}
+export class AssetImageStatic extends AssetBase.extend<AssetImageStatic>(
+  'AssetImageStatic',
+)({
+  type: Schema.Literal('image-static'),
+  href: Schema.NonEmptyTrimmedString,
+  caption: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
+  alt: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
+}) {}

@@ -1,19 +1,18 @@
-import type { FC } from 'react'
-import type { SvgIconProps } from '~/lib/media/icons/_base'
-import { GitHubIcon } from '~/lib/media/icons/github'
+import { Schema } from 'effect'
 
-export type Workspace = {
-  name: string
-  description: string
-  logoUrl: string
-  socialLinks: Array<{
-    href: string
-    label: string
-    Icon: FC<SvgIconProps>
-  }>
-}
+export class Workspace extends Schema.Class<Workspace>('Workspace')({
+  name: Schema.NonEmptyTrimmedString,
+  description: Schema.NonEmptyTrimmedString,
+  logoUrl: Schema.NonEmptyTrimmedString,
+  socialLinks: Schema.Array(
+    Schema.Struct({
+      href: Schema.NonEmptyTrimmedString,
+      label: Schema.NonEmptyTrimmedString,
+    }),
+  ),
+}) {}
 
-export const workspace: Workspace = {
+export const workspace = new Workspace({
   name: 'Boaris',
   // TODO fill up
   description: 'Boaris description',
@@ -22,7 +21,6 @@ export const workspace: Workspace = {
     {
       href: 'https://github.com/boaris',
       label: 'GitHub',
-      Icon: GitHubIcon,
     },
   ],
-}
+})

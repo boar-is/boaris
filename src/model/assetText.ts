@@ -1,14 +1,15 @@
-import type { Text } from '@uiw/react-codemirror'
-import type { OffsetChange } from '~/lib/codemirror/offset-change'
-import type { AssetBase } from './assetBase'
+import { Schema } from 'effect'
+import { OffsetChange } from '~/lib/codemirror/offset-change'
+import { TextFromStringArray } from '~/lib/codemirror/text'
+import { AssetBase } from './assetBase'
 
 /**
  * @example coding files like .ts, .tsx, .etc.
  * @example plain text files
  * @example unknown file formats that would open with CodeMirror
  */
-export type AssetText = AssetBase & {
-  type: 'text'
-  initialValue: Text
-  advances: Array<OffsetChange>
-}
+export class AssetText extends AssetBase.extend<AssetText>('AssetText')({
+  type: Schema.Literal('text'),
+  initialValue: TextFromStringArray,
+  advances: Schema.Array(OffsetChange),
+}) {}

@@ -1,8 +1,10 @@
-import type { Option } from 'effect'
-import type { AssetBase } from './assetBase'
+import { Schema } from 'effect'
+import { AssetBase } from './assetBase'
 
-export type AssetImageDynamic = AssetBase & {
-  type: 'image-dynamic'
-  href: string
-  caption: Option.Option<string>
-}
+export class AssetImageDynamic extends AssetBase.extend<AssetImageDynamic>(
+  'AssetImageDynamic',
+)({
+  type: Schema.Literal('image-dynamic'),
+  href: Schema.NonEmptyTrimmedString,
+  caption: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
+}) {}
