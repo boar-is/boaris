@@ -1,8 +1,8 @@
 import { Option } from 'effect'
-import { posts } from '~/data/posts'
 import { Image } from '~/lib/media/image'
 import { Link } from '~/lib/navigation/link'
 import { readableDate } from '~/lib/utils/readable-date'
+import { posts } from '~/model2/post'
 
 export default async function BlogPage() {
   return (
@@ -35,9 +35,9 @@ export default async function BlogPage() {
                     Option.andThen((tags) => (
                       <ul className="flex flex-wrap gap-1 lg:gap-1.5 text-xs lg:text-sm font-medium tracking-wide text-gray-8 *:my-0.5">
                         {tags.map((tag) => (
-                          <li key={tag.name}>
+                          <li key={tag}>
                             <span className="border border-gray-7 rounded-full px-3 py-0.5">
-                              {tag.name}
+                              {tag}
                             </span>
                           </li>
                         ))}

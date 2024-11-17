@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import type { CSSProperties, PropsWithChildren } from 'react'
-import { workspace } from '~/data/workspace'
 import { NewsletterSubscriptionFormProvider } from '~/features/newsletter-subscription-form-provider'
 import { Button } from '~/lib/buttons/button'
 import { Menu, MenuItem, MenuTrigger } from '~/lib/collections/menu'
@@ -18,6 +17,7 @@ import { Dialog, DialogTrigger } from '~/lib/overlays/dialog'
 import { Modal, ModalOverlay } from '~/lib/overlays/modal'
 import { Popover } from '~/lib/overlays/popover'
 import { cx } from '~/lib/utils/cx'
+import { workspace } from '~/model2/workspace'
 
 const layerCx = cx('border border-gray-4 rounded-2xl p-4')
 const mutedCx = cx('transition-colors text-gray-10 hover:text-gray-12')
