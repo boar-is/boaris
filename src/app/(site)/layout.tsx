@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import type { CSSProperties, PropsWithChildren } from 'react'
 import { NewsletterSubscriptionFormProvider } from '~/features/newsletter-subscription-form-provider'
 import { Button } from '~/lib/buttons/button'
@@ -13,6 +12,7 @@ import { CloseIcon, MenuIcon } from '~/lib/media/icons'
 import logo from '~/lib/media/icons/logo.png'
 import { Image } from '~/lib/media/image'
 import { matchSocialNetworkIcon } from '~/lib/media/match-social-network-icon'
+import { constructMetadata } from '~/lib/metadata/construct-metadata'
 import { Link } from '~/lib/navigation/link'
 import { CloseDialogButtonProvider } from '~/lib/overlays/close-dialog-button-provider'
 import { Dialog, DialogTrigger } from '~/lib/overlays/dialog'
@@ -30,13 +30,7 @@ const sectionMobileCx = cx('flex flex-col *:px-2 *:py-1')
 const headerMobileCx = cx('text-xs uppercase text-gray-9 tracking-tight')
 const itemMobileCx = cx('rounded-md')
 
-export const metadata: Metadata = {
-  title: {
-    template: `%s | ${workspace.name}`,
-    default: workspace.name,
-  },
-  description: workspace.description,
-}
+export const metadata = constructMetadata()
 
 export default async function SiteLayout({ children }: PropsWithChildren) {
   const { name } = workspace

@@ -1,8 +1,13 @@
 import { Option } from 'effect'
 import { readableDate } from '~/lib/date/readable-date'
 import { Image } from '~/lib/media/image'
+import { constructMetadata } from '~/lib/metadata/construct-metadata'
 import { Link } from '~/lib/navigation/link'
 import { posts } from '~/model/post'
+
+export const metadata = constructMetadata({
+  title: 'Blog',
+})
 
 export default async function BlogPage() {
   return (
