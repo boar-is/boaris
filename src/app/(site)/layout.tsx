@@ -10,6 +10,7 @@ import { FieldError, Form } from '~/lib/forms/form'
 import { PendingFormDisabledButtonProvider } from '~/lib/forms/pending-form-disabled-button-provider'
 import { Input, Label, TextField } from '~/lib/forms/text-field'
 import { CloseIcon, MenuIcon } from '~/lib/media/icons'
+import logo from '~/lib/media/icons/logo.png'
 import { Image } from '~/lib/media/image'
 import { matchSocialNetworkIcon } from '~/lib/media/match-social-network-icon'
 import { Link } from '~/lib/navigation/link'
@@ -64,7 +65,8 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                 )}
               >
                 <Image
-                  src={logoUrl}
+                  src={logo}
+                  placeholder="blur"
                   alt={`${name}'s logo`}
                   width={36}
                   height={36}
