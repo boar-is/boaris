@@ -1,5 +1,5 @@
 import { ChangeSet, EditorSelection, Text } from '@uiw/react-codemirror'
-import { Option, Schema } from 'effect'
+import { DateTime, Option, Schema } from 'effect'
 import { JsonContentFromJson } from '~/lib/prosemirror/json-content'
 import { Asset } from './asset'
 import { AssetText } from './assetText'
@@ -12,10 +12,11 @@ export class Post extends Schema.Class<Post>('Post')({
   description: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
   posterUrl: Schema.NonEmptyTrimmedString,
   tags: Schema.Array(Schema.NonEmptyTrimmedString),
-  date: Schema.DateFromNumber,
   captions: JsonContentFromJson,
   layoutChanges: Schema.Array(LayoutChange),
   assets: Schema.Array(Asset),
+  date: Schema.DateTimeUtcFromNumber,
+  updateDate: Schema.DateTimeUtcFromNumber,
 }) {}
 
 export const posts: ReadonlyArray<Post> = [
@@ -26,7 +27,6 @@ export const posts: ReadonlyArray<Post> = [
     description: Option.none(),
     posterUrl: '/assets/use-deferred-value/poster.png',
     tags: ['TypeScript', 'React'],
-    date: new Date(),
     captions: {
       content: [
         {
@@ -935,5 +935,11 @@ export const posts: ReadonlyArray<Post> = [
         })(),
       }),
     ],
+    date: DateTime.make({ year: 2024, month: 12, day: 1 }).pipe(
+      Option.getOrThrow,
+    ),
+    updateDate: DateTime.make({ year: 2024, month: 12, day: 1 }).pipe(
+      Option.getOrThrow,
+    ),
   }),
 ]
