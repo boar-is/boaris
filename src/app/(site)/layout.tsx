@@ -12,7 +12,6 @@ import { CloseIcon, MenuIcon } from '~/lib/media/icons'
 import logo from '~/lib/media/icons/logo.png'
 import { Image } from '~/lib/media/image'
 import { matchSocialNetworkIcon } from '~/lib/media/match-social-network-icon'
-import { constructMetadata } from '~/lib/metadata/construct-metadata'
 import { Link } from '~/lib/navigation/link'
 import { CloseDialogButtonProvider } from '~/lib/overlays/close-dialog-button-provider'
 import { Dialog, DialogTrigger } from '~/lib/overlays/dialog'
@@ -29,8 +28,6 @@ const rectCx = cx('px-3 md:px-4')
 const sectionMobileCx = cx('flex flex-col *:px-2 *:py-1')
 const headerMobileCx = cx('text-xs uppercase text-gray-9 tracking-tight')
 const itemMobileCx = cx('rounded-md')
-
-export const metadata = constructMetadata()
 
 export default async function SiteLayout({ children }: PropsWithChildren) {
   const { name } = workspace

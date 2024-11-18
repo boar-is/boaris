@@ -9,6 +9,15 @@ import { cx } from '~/lib/react/cx'
 import { AriaRouterProvider } from '~/lib/routing/aria-router-provider'
 import { ToastProvider } from '~/lib/toast/toast-provider'
 import './globals.css'
+import type { Viewport } from 'next'
+import { constructMetadata } from '~/lib/metadata/construct-metadata'
+
+export const viewport: Viewport = {
+  themeColor: '#070708',
+  colorScheme: 'dark',
+}
+
+export const metadata = constructMetadata()
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
