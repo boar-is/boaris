@@ -37,7 +37,7 @@ const tailwindConfig: Config = {
       },
     },
     fontFamily: {
-      sans: ['var(--font-sans)', ...fontFamily.sans],
+      sans: ['var(--font-geist-sans)', ...fontFamily.sans],
       mono: ['var(--font-mono)', ...fontFamily.mono],
     },
     animation: {

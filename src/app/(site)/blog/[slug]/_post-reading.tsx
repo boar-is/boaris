@@ -3,19 +3,14 @@
 import { identity } from 'effect'
 import type { PropsWithChildren } from 'react'
 import { readableDate } from '~/lib/date/readable-date'
-import { getMonoFontClassName } from '~/lib/media/fonts/get-mono-font-class-name'
+import { mono } from '~/lib/media/fonts/mono'
 import { Image } from '~/lib/media/image'
 import { cx } from '~/lib/react/cx'
 import { usePostVmAtomValue } from './page.client'
 
 export function PostReading({ children }: PropsWithChildren) {
   return (
-    <article
-      className={cx(
-        getMonoFontClassName(),
-        'flex flex-col gap-12 items-center',
-      )}
-    >
+    <article className={cx(mono.variable, 'flex flex-col gap-12 items-center')}>
       {children}
     </article>
   )

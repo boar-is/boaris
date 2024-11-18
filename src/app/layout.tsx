@@ -3,7 +3,7 @@ import { I18nProvider } from '~/lib/i18n/i18n-provider'
 import { LocalizedStringProvider } from '~/lib/i18n/localized-string-provider'
 import { FocusVisibleProvider } from '~/lib/interactions/focus-visible-provider'
 import { JotaiProvider } from '~/lib/jotai/jotai-provider'
-import { getSansFontClassName } from '~/lib/media/fonts/get-sans-font-class-name'
+import { sans } from '~/lib/media/fonts/sans'
 import { MotionProvider } from '~/lib/motion/provider'
 import { cx } from '~/lib/react/cx'
 import { AriaRouterProvider } from '~/lib/routing/aria-router-provider'
@@ -15,7 +15,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html
       lang="en"
       className={cx(
-        getSansFontClassName(),
+        sans.variable,
         'relative dark antialiased bg-gray-1 font-sans text-gray-11',
       )}
     >
