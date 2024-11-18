@@ -83,8 +83,6 @@ function LayerGrid({
   children,
   areasAtom,
 }: PropsWithChildren<{ areasAtom: Atom<Option.Option<string>> }>) {
-  const layer = useAtomValue(areasAtom)
-
   const areas = useAtomValue(
     useConstAtom((get) => Option.getOrUndefined(get(areasAtom))),
   )
