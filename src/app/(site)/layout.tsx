@@ -21,7 +21,7 @@ import { Popover } from '~/lib/overlays/popover'
 import { cx } from '~/lib/react/cx'
 import { workspace } from '~/model/workspace'
 
-const layerCx = cx('border border-gray-4 rounded-2xl p-4')
+const layerCx = cx('border border-gray-4 rounded-2xl p-3')
 const mutedCx = cx('transition-colors text-gray-10 hover:text-gray-12')
 const itemCx = cx('flex justify-center items-center rounded-lg h-full')
 const squareCx = cx('px-1 md:px-2.5 md:-mx-2')
