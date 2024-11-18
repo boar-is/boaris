@@ -13,6 +13,7 @@
   *::before,
   *::after {
     @apply border-gray-4 outline-gray-8;
+    font-variation-settings: "opsz" 32;
   }
 
   :focus-visible {

@@ -54,7 +54,6 @@
     "@vitejs/plugin-react": "4.3.3",
     "clsx": "2.1.1",
     "effect": "3.10.15",
-    "geist": "1.3.1",
     "jotai": "2.10.2",
     "jotai-components": "0.2.0",
     "jotai-effect": "1.0.3",

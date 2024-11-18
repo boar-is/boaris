@@ -15,7 +15,7 @@ const radixGray = {
   9: '#6E6E6E',
   10: '#7B7B7B',
   11: '#B4B4B4',
-  12: '#EEEEEE',
+  12: '#fff',
 } as const
 
 const tailwindConfig: Config = {
@@ -37,7 +37,7 @@ const tailwindConfig: Config = {
       },
     },
     fontFamily: {
-      sans: ['var(--font-geist-sans)', ...fontFamily.sans],
+      sans: ['var(--font-sans)', ...fontFamily.sans],
       mono: ['var(--font-mono)', ...fontFamily.mono],
     },
     animation: {
