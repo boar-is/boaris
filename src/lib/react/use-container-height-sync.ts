@@ -13,10 +13,13 @@ export const useContainerHeightSync = ({
   useResizeObserver({
     ref: contentRef,
     onResize: () => {
-      if (!(ref.current && contentRef.current)) {
-        return
-      }
-      ref.current.style.height = `${contentRef.current.offsetHeight / factor}px`
+      // Without setTimeout, strange empty error is shown
+      setTimeout(() => {
+        if (!(ref.current && contentRef.current)) {
+          return
+        }
+        ref.current.style.height = `${contentRef.current.offsetHeight / factor}px`
+      })
     },
   })
 
