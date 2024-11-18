@@ -33,7 +33,7 @@ const itemMobileCx = cx('rounded-md')
 export const metadata: Metadata = {
   title: {
     template: `%s | ${workspace.name}`,
-    default: 'Home',
+    default: workspace.name,
   },
   description: workspace.description,
 }
@@ -55,7 +55,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
             'bg-gray-1/50 backdrop-blur-md backdrop-saturate-150',
           )}
         >
-          <ul className="flex items-stretch font-medium justify-between gap-2 text-sm md:gap-8 md:text-base">
+          <ul className="flex items-stretch justify-between gap-2 text-sm md:gap-8 md:text-base">
             <li>
               <Link
                 href="/"
