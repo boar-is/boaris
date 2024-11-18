@@ -33,7 +33,7 @@ const baseNextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: `
   default-src 'self' vercel.live;
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live va.vercel-scripts.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live va.vercel-scripts.com unpkg.com;
   style-src 'self' 'unsafe-inline';
   img-src 'self' blob: data:;
   media-src 'none';

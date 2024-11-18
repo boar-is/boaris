@@ -28,6 +28,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
         'relative dark antialiased bg-gray-1 font-sans text-gray-11',
       )}
     >
+      <head>
+        <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+      </head>
       <body>
         <FocusVisibleProvider />
         <LocalizedStringProvider locale="en-US" />
