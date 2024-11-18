@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 }
 
 export default async function SiteLayout({ children }: PropsWithChildren) {
-  const { name, logoUrl } = workspace
+  const { name } = workspace
   const socialLinks = workspace.socialLinks.map((it) => ({
     ...it,
     Icon: matchSocialNetworkIcon(it.href),
@@ -66,7 +66,6 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
               >
                 <Image
                   src={logo}
-                  placeholder="blur"
                   alt={`${name}'s logo`}
                   width={36}
                   height={36}
