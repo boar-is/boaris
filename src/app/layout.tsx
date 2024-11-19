@@ -29,7 +29,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
       )}
     >
       <head>
-        <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+        {process.env.NODE_ENV === 'development' && (
+          <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+        )}
       </head>
       <body>
         <FocusVisibleProvider />

@@ -1,6 +1,6 @@
 import { DateTime } from 'effect'
 import type { MetadataRoute } from 'next'
-import { baseUrl } from '~/lib/metadata/baseUrl'
+import { baseUrl } from '~/lib/metadata/base-url'
 import { posts } from '~/model/post'
 
 export default function sitemap(): MetadataRoute.Sitemap {

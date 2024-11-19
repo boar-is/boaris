@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { baseUrl } from '~/lib/metadata/baseUrl'
+import { baseUrl } from '~/lib/metadata/base-url'
 import { workspace } from '~/model/workspace'
 
 export const constructMetadata = ({

@@ -1,7 +1,7 @@
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import optimizeLocales from '@react-aria/optimize-locales-plugin'
 import type { NextConfig } from 'next'
-import { isLocalhost } from '~/lib/metadata/baseUrl'
+import { isLocalhost } from '~/lib/metadata/base-url'
 
 const baseNextConfig: NextConfig = {
   experimental: {
