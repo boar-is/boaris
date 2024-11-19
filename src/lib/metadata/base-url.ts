@@ -7,8 +7,8 @@ export const baseUrl = (() => {
     process.env['NEXT_PUBLIC_VERCEL_BRANCH_URL']
 
   return process.env.NODE_ENV === 'production' && vercelDomain
-    ? `https://${vercelDomain}`
-    : 'http://localhost:3000'
+    ? (`https://${vercelDomain}` as const)
+    : (`http://localhost:${process.env['PORT'] || 3000}` as const)
 })()
 
 export const isLocalhost = baseUrl.startsWith('http://localhost:')

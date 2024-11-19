@@ -6,7 +6,7 @@ import { posts } from '~/model/post'
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: `${baseUrl}`,
+      url: baseUrl,
     },
     {
       url: `${baseUrl}/blog`,
