@@ -26,6 +26,8 @@ const tailwindConfig: Config = {
       transparent: 'transparent',
       current: 'currentColor',
       inherit: 'inherit',
+      black: '#000',
+      white: '#fff',
       light: 'hsl(223.81 0% 98%)',
       dark: 'hsl(239.95 9% 6%)',
       border: 'hsl(240.01 7% 15%)',
@@ -78,6 +80,7 @@ const tailwindConfig: Config = {
       },
     },
     borderRadius: {
+      full: '9999px',
       '3xl': 'calc(var(--radius) + 6px)',
       '2xl': 'calc(var(--radius) + 4px)',
       xl: 'calc(var(--radius) + 2px)',
