@@ -3,24 +3,22 @@ import { tv } from 'tailwind-variants'
 export const buttonStyles = tv({
   slots: {
     root: [
-      'box-border isolate',
+      'relative isolate transition',
       'inline-flex items-center justify-center',
-      'border font-medium no-underline',
+      'border font-medium no-underline cursor-default',
     ],
     icon: '-mx-0.5, my-1 size-4 shrink-0',
   },
   variants: {
     intent: {
       primary: {
-        root: [
-          'relative text-primary-fg bg-primary border-transparent',
-          'before:absolute before:inset-0 before:-z-10 before:bg-primary before:shadow',
-          'after:absolute after:inset-0 after:-z-10 after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)] after:active:bg-white/10 after:hover:bg-white/10',
-          'dark:after:-inset-px dark:before:hidden dark:border-white/5',
-        ],
+        root: ['text-bg bg-fg border-transparent'],
       },
       secondary: {
-        root: '',
+        root: [
+          'bg-secondary text-secondary-fg border-white/5 hover:bg-secondary/90 pressed:bg-secondary/80',
+          'after:absolute after:-inset-px after:-z-10 after:shadow-inset',
+        ],
       },
       tertiary: {
         root: '',
@@ -37,7 +35,10 @@ export const buttonStyles = tv({
         root: 'gap-1.5',
       },
       md: {
-        root: 'gap-2 h-10 px-4 py-2 text-base lg:text-sm',
+        root: [
+          'min-h-10 gap-2 h-10 px-4 py-2 text-base lg:text-sm',
+          'rounded-lg',
+        ],
       },
       lg: {
         root: 'gap-2.5',
@@ -45,12 +46,24 @@ export const buttonStyles = tv({
     },
     isDisabled: {
       true: {
-        root: 'opacity-60 before:shadow-none after:shadow-none',
+        root: 'opacity-60',
       },
     },
   },
+  compoundVariants: [
+    {
+      intent: 'secondary',
+      size: 'md',
+      className: 'after:rounded-lg',
+    },
+    {
+      intent: 'secondary',
+      isDisabled: true,
+      className: 'after:shadow-none',
+    },
+  ],
   defaultVariants: {
-    intent: 'tertiary',
+    intent: 'primary',
     size: 'md',
   },
 })

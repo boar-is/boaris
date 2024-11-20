@@ -4,7 +4,6 @@ import tailwindRac from 'tailwindcss-react-aria-components'
 import { fontFamily, spacing } from 'tailwindcss/defaultTheme'
 
 const tailwindConfig: Config = {
-  // TODO more specific
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     colors: {
@@ -91,6 +90,11 @@ const tailwindConfig: Config = {
       rainbow: {
         '0%': { 'background-position': '0%' },
         '100%': { 'background-position': '200%' },
+      },
+    },
+    extend: {
+      boxShadow: {
+        inset: 'inset 0 1px rgb(255 255 255 / 20%)',
       },
     },
   },

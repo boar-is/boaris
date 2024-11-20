@@ -21,7 +21,7 @@ export const getButtonProps = (
   return [
     {
       type: 'button' as const,
-      className: root(),
+      className: root({}),
     },
     {
       className: icon(),
