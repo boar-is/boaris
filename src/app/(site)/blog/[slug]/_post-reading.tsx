@@ -38,24 +38,20 @@ export function PostReadingHeader() {
             className="rounded-2xl drop-shadow-xl"
           />
         </figure>
-        <h1 className="text-4xl bg-gradient-to-tr from-gray-11 to-gray-12 bg-clip-text text-transparent font-semibold tracking-tight text-balance">
+        <h1 className="text-4xl bg-gradient-to-tr from-fg to-muted-fg bg-clip-text text-transparent font-semibold tracking-tight text-balance">
           {vm.title}
         </h1>
         {vm.tags.length > 0 && (
-          <ul className="flex flex-wrap gap-1.5 lg:gap-2 text-sm lg:text-base font-medium tracking-wide text-gray-10 *:my-0.5">
+          <ul className="flex flex-wrap gap-1.5 lg:gap-2 text-sm lg:text-base font-medium tracking-wide text-muted-fg *:my-0.5">
             {vm.tags.map((tag) => (
               <li key={tag}>
-                <span className="border border-gray-9 rounded-full px-3 py-0.5">
-                  {tag}
-                </span>
+                <span className="border rounded-full px-3 py-0.5">{tag}</span>
               </li>
             ))}
           </ul>
         )}
-        <p className="text-gray-11 text-pretty text-lg font-medium">
-          {vm.lead}
-        </p>
-        <small className="text-gray-10 font-medium tracking-wide text-sm lg:text-base">
+        <p className="text-pretty text-lg font-medium">{vm.lead}</p>
+        <small className="text-muted-fg font-medium tracking-wide text-sm lg:text-base">
           {readableDate(vm.date)}
         </small>
       </hgroup>
@@ -64,5 +60,5 @@ export function PostReadingHeader() {
 }
 
 export function PostReadingSeparator() {
-  return <hr className="w-full max-w-prose border-gray-3" />
+  return <hr className="w-full max-w-prose border" />
 }

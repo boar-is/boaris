@@ -3,21 +3,6 @@ import tailwindAnimate from 'tailwindcss-animate'
 import tailwindRac from 'tailwindcss-react-aria-components'
 import { fontFamily, spacing } from 'tailwindcss/defaultTheme'
 
-const radixGray = {
-  1: '#070708',
-  2: '#191919',
-  3: '#222222',
-  4: '#2A2A2A',
-  5: '#313131',
-  6: '#3A3A3A',
-  7: '#484848',
-  8: '#606060',
-  9: '#6E6E6E',
-  10: '#7B7B7B',
-  11: '#B4B4B4',
-  12: '#fff',
-} as const
-
 const tailwindConfig: Config = {
   // TODO more specific
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],

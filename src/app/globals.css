@@ -9,8 +9,8 @@
 
   html {
     color-scheme: dark;
-    /*scrollbar-color: theme('colors.gray.8') theme('colors.transparent');*/
-    scrollbar-color: #606060 transparent;
+    /*scrollbar-color: theme('colors.muted') theme('colors.transparent');*/
+    scrollbar-color: hsl(239.95 3% 16%) transparent;
   }
 
   *,
@@ -34,7 +34,7 @@
 }
 
 .tiptap .is-editor-empty:first-child::before {
-  @apply text-gray-7 content-[attr(data-placeholder)] float-left h-0 pointer-events-none;
+  @apply text-muted-fg content-[attr(data-placeholder)] float-left h-0 pointer-events-none;
 }
 
 .cm-scroller {
@@ -43,7 +43,7 @@
 
 @layer components {
   .typography {
-    @apply max-w-prose text-pretty text-gray-11;
+    @apply max-w-prose text-pretty;
   }
 
   .typography .tiptap > *:first-child {
@@ -55,11 +55,11 @@
   }
 
   .typography :where([data-slot~="heading"]) {
-    @apply text-gray-12 mt-8 mb-3 text-3xl font-semibold tracking-tight text-balance;
+    @apply mt-8 mb-3 text-3xl font-semibold tracking-tight text-balance;
   }
 
   .typography :where([data-slot~="subheading"]) {
-    @apply text-gray-12 mt-4 mb-2 text-2xl font-medium tracking-tighter text-balance;
+    @apply mt-4 mb-2 text-2xl font-medium tracking-tighter text-balance;
   }
 
   .typography :where(p) {
@@ -67,15 +67,15 @@
   }
 
   .typography :where(code) {
-    @apply font-mono text-[80%] font-medium [font-variant-ligatures:normal] border border-gray-4 py-[0.25%] px-[1%] bg-gray-2 text-gray-11 rounded-md tracking-normal;
+    @apply font-mono text-[80%] font-medium [font-variant-ligatures:normal] border border-fg/10 py-[0.25%] px-[1%] bg-muted text-muted-fg rounded-md tracking-normal;
   }
 
   .typography :where(strong) {
-    @apply text-gray-12;
+    @apply font-bold
   }
 
   .typography :where(a) {
-    @apply text-gray-12 cursor-pointer border-b border-transparent hover:border-current font-medium transition-colors;
+    @apply text-primary cursor-pointer border-b border-transparent hover:border-current font-medium transition-colors;
   }
 
   .typography :where(ol, ul) {
@@ -95,7 +95,7 @@
   }
 
   .typography :where(li) {
-    @apply marker:text-gray-8;
+    @apply marker:text-toggle;
   }
 
   .typography

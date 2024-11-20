@@ -13,7 +13,7 @@ import type { Viewport } from 'next'
 import { constructMetadata } from '~/lib/metadata/construct-metadata'
 
 export const viewport: Viewport = {
-  themeColor: '#070708',
+  themeColor: 'hsl(239.95 9% 6%)',
   colorScheme: 'dark',
 }
 
@@ -25,7 +25,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       lang="en"
       className={cx(
         sans.variable,
-        'relative dark antialiased bg-bg font-sans text-fg',
+        'relative dark antialiased font-sans text-fg bg-bg',
       )}
     >
       <head>

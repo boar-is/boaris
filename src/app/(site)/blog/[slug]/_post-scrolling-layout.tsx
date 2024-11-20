@@ -128,7 +128,7 @@ const MainLayerGridItem = memo(
       return (
         <JotaiMotionLi
           ref={ref}
-          className="bg-gray-1/80 backdrop-blur-md border border-gray-4/80 rounded-xl overflow-hidden aspect-video"
+          className="bg-bg/80 backdrop-blur-md border rounded-xl overflow-hidden aspect-video"
           $style={styleAtom}
           initial={{ opacity: 0, filter: 'blur(16px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
@@ -294,7 +294,7 @@ const LayoutAssetText = memo(function LayoutAssetText({
 })
 
 const panelEdgeClassName = cx(
-  'bg-gray-2/75 py-2 px-3.5 text-sm text-gray-11 flex items-center gap-1.5 z-10 tracking-wide',
+  'bg-overlay/75 py-2 px-3.5 text-sm flex items-center gap-1.5 z-10 tracking-wide',
 )
 
 function LayoutPanel({ children }: PropsWithChildren) {
@@ -310,7 +310,7 @@ function LayoutPanelHeader({ name }: { name: string }) {
 
   return (
     <header className={panelEdgeClassName}>
-      <FileTypeIcon className="size-4 text-gray-9" />
+      <FileTypeIcon className="size-4 text-muted-fg" />
       {name.split('/').pop()}
     </header>
   )

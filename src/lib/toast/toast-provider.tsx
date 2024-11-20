@@ -7,7 +7,9 @@ export function ToastProvider() {
       theme="dark"
       toastOptions={{
         classNames: {
-          toast: cx('bg-gray-2 text-gray-11 border-gray-6 font-sans'),
+          toast: cx(
+            'bg-bg text-fg ring-1 ring-border dark:ring-inset font-sans rounded-xl',
+          ),
           title: cx('font-semibold'),
         },
       }}
