@@ -25,7 +25,7 @@
   }
 
   .focus-visible :focus-visible {
-    @apply outline-2 outline-inherit outline-offset-2;
+    @apply outline outline-ring/35 outline-offset-2;
   }
 }
 

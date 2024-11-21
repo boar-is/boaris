@@ -15,13 +15,3 @@ export const focusStyles = tv({
     isInvalid: { true: 'border-danger' },
   },
 })
-
-export const focusButtonStyles = tv({
-  base: 'outline outline-ring outline-offset-2',
-  variants: {
-    isFocusVisible: {
-      false: 'outline-0',
-      true: 'outline-2',
-    },
-  },
-})
