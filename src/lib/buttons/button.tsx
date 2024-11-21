@@ -12,35 +12,36 @@ export const buttonStyles = tv({
   base: [
     'relative isolate transition',
     'inline-flex items-center justify-center',
-    'border border-transparent font-medium no-underline cursor-default focus-visible:outline-ring',
+    'border border-transparent font-medium no-underline cursor-default focus-visible:outline-ring rounded-lg',
     'hover:opacity-90 pressed:opacity-80 disabled:opacity-60',
   ],
   variants: {
     intent: {
-      primary: ['text-bg bg-fg'],
-      secondary: [
-        'bg-secondary text-secondary-fg border-white/5 ',
-        'after:absolute after:-inset-px after:-z-10 after:shadow-inset after:disabled:shadow-none',
-      ],
+      primary: 'text-bg bg-fg',
+      secondary: 'bg-secondary text-secondary-fg border-white/5',
       tertiary: 'hover:bg-tertiary text-tertiary-fg',
-      destructive: '',
+      destructive: 'bg-danger text-danger-fg border-white/15',
     },
     size: {
-      xs: 'gap-1',
-      sm: 'gap-1.5',
-      md: ['gap-2 min-h-10 px-4 py-2 text-base lg:text-sm', 'rounded-lg'],
-      lg: 'gap-2.5',
+      xs: 'min-h-8 px-3 py-1 text-xs',
+      sm: 'min-h-9 px-4 py-1.5 text-sm',
+      md: 'min-h-10 px-4 py-2 text-base',
+      lg: 'min-h-10 px-6 py-3 text-xl',
     },
   },
   compoundVariants: [
     {
-      intent: 'secondary',
-      size: 'md',
+      intent: ['secondary', 'destructive'],
       className: 'after:rounded-lg',
+    },
+    {
+      intent: ['secondary', 'destructive'],
+      className:
+        'after:absolute after:-inset-px after:-z-10 after:shadow-inset after:disabled:shadow-none',
     },
   ],
   defaultVariants: {
-    intent: 'primary',
+    intent: 'secondary',
     size: 'md',
   },
 })
