@@ -6,9 +6,11 @@ import {
   type ButtonProps as ButtonPrimitiveProps,
 } from 'react-aria-components'
 import { type VariantProps, tv } from 'tailwind-variants'
+import { focusButtonStyles } from '~/lib/interactions/focus-styles'
 import { cr } from '~/lib/react/cr'
 
 export const buttonStyles = tv({
+  extend: focusButtonStyles,
   base: [
     'relative isolate transition',
     'inline-flex items-center justify-center',
