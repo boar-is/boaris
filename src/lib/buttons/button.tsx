@@ -10,14 +10,15 @@ import { cr } from '~/lib/react/cr'
 
 export const buttonStyles = tv({
   base: [
-    'relative isolate after:content-none',
+    'relative isolate after:content-none transition',
     'inline-flex items-center justify-center',
     'border border-transparent font-medium no-underline rounded-lg after:rounded-lg',
-    'hover:opacity-90 pressed:opacity-80 disabled:opacity-60 focus-visible:outline-ring cursor-default',
+    'hover:opacity-95 pressed:opacity-90 disabled:opacity-75 focus-visible:outline-ring cursor-default',
   ],
   variants: {
     intent: {
-      primary: 'text-bg bg-fg',
+      primary:
+        'bg-primary text-primary-fg shadow-lg shadow-primary/20 hover:shadow-primary/25 pressed:shadow-primary/30',
       secondary: 'bg-secondary text-secondary-fg border-white/5',
       tertiary: 'hover:bg-tertiary text-tertiary-fg',
       destructive: 'bg-danger text-danger-fg border-white/15',
@@ -37,7 +38,7 @@ export const buttonStyles = tv({
     },
   ],
   defaultVariants: {
-    intent: 'secondary',
+    intent: 'tertiary',
     size: 'md',
   },
 })
