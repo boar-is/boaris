@@ -10,10 +10,10 @@ import { cr } from '~/lib/react/cr'
 
 export const buttonStyles = tv({
   base: [
-    'relative isolate transition',
+    'relative isolate after:content-none',
     'inline-flex items-center justify-center',
-    'border border-transparent font-medium no-underline cursor-default focus-visible:outline-ring rounded-lg',
-    'hover:opacity-90 pressed:opacity-80 disabled:opacity-60',
+    'border border-transparent font-medium no-underline rounded-lg after:rounded-lg',
+    'hover:opacity-90 pressed:opacity-80 disabled:opacity-60 focus-visible:outline-ring cursor-default',
   ],
   variants: {
     intent: {
@@ -32,12 +32,8 @@ export const buttonStyles = tv({
   compoundVariants: [
     {
       intent: ['secondary', 'destructive'],
-      className: 'after:rounded-lg',
-    },
-    {
-      intent: ['secondary', 'destructive'],
       className:
-        'after:absolute after:-inset-px after:-z-10 after:shadow-inset after:disabled:shadow-none',
+        'after:content-[""] after:absolute after:-inset-px after:-z-10 after:shadow-inset after:disabled:shadow-none',
     },
   ],
   defaultVariants: {
