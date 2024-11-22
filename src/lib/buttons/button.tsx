@@ -6,8 +6,8 @@ import {
   type ButtonProps as ButtonPrimitiveProps,
 } from 'react-aria-components'
 import type { VariantProps } from 'tailwind-variants'
-import { buttonStyles } from '~/lib/buttons/button-styles'
 import { cr } from '~/lib/react/cr'
+import { buttonStyles } from './button-styles'
 
 export interface ButtonProps
   extends ButtonPrimitiveProps,

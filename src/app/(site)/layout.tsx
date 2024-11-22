@@ -109,8 +109,8 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                   className="z-20 entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-bg/25 px-4 backdrop-blur-sm backdrop-saturate-150"
                 >
                   <Modal className="exiting:fade-out-0 entering:fade-in-0 exiting:zoom-out-95 entering:zoom-in-95 max-w-md entering:animate-in exiting:animate-out md:max-w-lg">
-                    <Dialog className="flex flex-col items-stretch gap-5 rounded-xl border border-muted bg-overlay p-4 leading-relaxed md:rounded-2xl md:p-6 md:text-lg">
-                      <header className="flex justify-between">
+                    <Dialog className="flex flex-col items-stretch gap-6 rounded-xl border border-muted bg-overlay text-overlay-fg p-6 leading-relaxed md:rounded-3xl md:px-10 md:py-8 md:text-lg">
+                      <header className="flex justify-between items-center">
                         <Heading
                           slot="title"
                           className="font-semibold text-2xl md:text-3xl"
@@ -118,13 +118,13 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                           Like the format?
                         </Heading>
                         <CloseDialogButtonProvider>
-                          <Button className="rounded-sm text-muted-fg">
+                          <Button className="-mr-4">
                             <span className="sr-only">Close</span>
                             <CloseIcon className="size-6 md:size-8" />
                           </Button>
                         </CloseDialogButtonProvider>
                       </header>
-                      <section className="flex flex-col gap-4">
+                      <section className="flex flex-col gap-4 text-muted-fg">
                         <p>
                           My goal with this blog is to create helpful content
                           for front-end web devs. I have a{' '}
