@@ -19,7 +19,7 @@ export default async function BlogPage() {
         <div className="flex flex-col gap-8">
           {posts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`}>
-              <article className="group rounded-xl lg:rounded-3xl flex flex-col lg:flex-row gap-4 lg:gap-12 justify-between items-center overflow-hidden transition-colors bg-bg">
+              <article className="group rounded-xl lg:rounded-3xl flex flex-col lg:flex-row gap-4 lg:gap-12 justify-between overflow-hidden transition-colors bg-bg">
                 <aside className="relative lg:basis-1/2 xl:basis-1/3">
                   <Image
                     src={post.posterUrl}
@@ -29,8 +29,8 @@ export default async function BlogPage() {
                     className="object-cover sizes-full rounded-xl lg:rounded-2xl"
                   />
                 </aside>
-                <section className="flex-1 flex flex-col gap-2 lg:gap-6">
-                  <header className="space-y-3">
+                <section className="flex-1 flex flex-col justify-around">
+                  <header className="space-y-4">
                     <h3 className="text-2xl lg:text-3xl font-medium tracking-tight text-balance">
                       {post.title}
                     </h3>
