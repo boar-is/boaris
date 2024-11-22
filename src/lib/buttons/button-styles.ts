@@ -9,8 +9,7 @@ export const buttonStyles = tv({
   ],
   variants: {
     intent: {
-      primary:
-        'bg-primary text-primary-fg shadow-lg shadow-primary/20 hover:shadow-primary/25 pressed:shadow-primary/30',
+      primary: 'bg-white text-black',
       secondary: 'bg-secondary text-secondary-fg border-white/5',
       tertiary: 'hover:bg-tertiary text-tertiary-fg',
       destructive: 'bg-danger text-danger-fg border-white/15',

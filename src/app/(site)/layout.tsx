@@ -161,10 +161,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                             <FieldError className="text-error text-sm" />
                           </TextField>
                           <PendingFormDisabledButtonProvider>
-                            <Button
-                              type="submit"
-                              className="block rounded-lg bg-primary p-2 font-medium text-primary-fg transition-colors hover:bg-primary/80 disabled:bg-primary/60 md:rounded-xl"
-                            >
+                            <Button intent="primary" type="submit">
                               Subscribe
                             </Button>
                           </PendingFormDisabledButtonProvider>
