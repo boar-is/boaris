@@ -11,7 +11,7 @@ export const metadata = constructMetadata({
 
 export default async function BlogPage() {
   return (
-    <article className="container flex flex-col gap-6 lg:gap-10 items-stretch">
+    <article className="container max-w-5xl flex flex-col gap-6 lg:gap-10 items-stretch">
       <header className="sr-only">
         <h1>Blog</h1>
       </header>
