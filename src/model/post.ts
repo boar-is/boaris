@@ -25,7 +25,7 @@ export const posts: ReadonlyArray<Post> = [
     title: 'Understanding React Server Components',
     lead: 'useDeferredValue is one of the most underrated React hooks. It allows us to dramatically improve the performance of our applications in certain contexts. I recently used it to solve a gnarly performance problem on this blog, and in this tutorial, I’ll show you how! ⚡',
     description: Option.none(),
-    posterUrl: '/assets/use-deferred-value/poster.png',
+    posterUrl: '/assets/use-deferred-value/poster.webp',
     tags: ['TypeScript', 'React'],
     captions: {
       content: [
