@@ -118,7 +118,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                           Like the format?
                         </Heading>
                         <CloseDialogButtonProvider>
-                          <Button className="-mr-4">
+                          <Button className="-mr-4 text-muted-fg/80">
                             <span className="sr-only">Close</span>
                             <CloseIcon className="size-6 md:size-8" />
                           </Button>
