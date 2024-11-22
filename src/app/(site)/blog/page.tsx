@@ -29,7 +29,7 @@ export default async function BlogPage() {
                     className="object-cover sizes-full rounded-xl lg:rounded-2xl"
                   />
                 </aside>
-                <section className="flex-1 flex flex-col justify-around">
+                <section className="flex-1 flex flex-col gap-8">
                   <header className="space-y-4">
                     <h3 className="text-2xl lg:text-3xl font-medium tracking-tight text-balance">
                       {post.title}
