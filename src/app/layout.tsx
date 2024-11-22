@@ -9,13 +9,9 @@ import { cx } from '~/lib/react/cx'
 import { AriaRouterProvider } from '~/lib/routing/aria-router-provider'
 import { ToastProvider } from '~/lib/toast/toast-provider'
 import './globals.css'
-import type { Viewport } from 'next'
 import { constructMetadata } from '~/lib/metadata/construct-metadata'
 
-export const viewport: Viewport = {
-  themeColor: 'hsl(239.95 9% 6%)',
-  colorScheme: 'dark',
-}
+export { viewport } from '~/lib/metadata/viewport'
 
 export const metadata = constructMetadata()
 

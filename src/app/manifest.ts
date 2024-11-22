@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { viewport } from '~/lib/metadata/viewport'
 import { workspace } from '~/model/workspace'
 
 export default function manifest(): MetadataRoute.Manifest {
@@ -8,8 +9,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: workspace.description,
     start_url: '/',
     display: 'standalone',
-    background_color: '#070708',
-    theme_color: '#070708',
+    background_color: viewport.themeColor,
+    theme_color: viewport.themeColor,
     icons: [
       {
         src: '/images/icon-192.png',
