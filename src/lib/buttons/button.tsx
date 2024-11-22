@@ -57,9 +57,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cr(className, (className, renderProps) =>
           buttonStyles({
             ...renderProps,
+            className,
             intent,
             size,
-            className,
           }),
         )}
       />
