@@ -1,6 +1,7 @@
-import type { CSSProperties, PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 import { NewsletterSubscriptionFormProvider } from '~/features/newsletter-subscription-form-provider'
 import { Button } from '~/lib/buttons/button'
+import { buttonStyles } from '~/lib/buttons/button-styles'
 import { Menu, MenuItem, MenuTrigger } from '~/lib/collections/menu'
 import { Header } from '~/lib/content/header'
 import { Heading } from '~/lib/content/heading'
@@ -20,14 +21,13 @@ import { Popover } from '~/lib/overlays/popover'
 import { cx } from '~/lib/react/cx'
 import { workspace } from '~/model/workspace'
 
-const layerCx = cx('border rounded-2xl p-3')
+const layerCx = cx('border rounded-3xl p-2.5')
 const mutedCx = cx('transition-colors text-muted-fg hover:text-fg')
 const itemCx = cx('flex justify-center items-center rounded-lg h-full')
 const squareCx = cx('px-1 md:px-2.5 md:-mx-2')
-const rectCx = cx('px-3 md:px-4')
-const sectionMobileCx = cx('flex flex-col *:px-2 *:py-1')
-const headerMobileCx = cx('text-xs uppercase text-muted-fg tracking-tight')
-const itemMobileCx = cx('rounded-md')
+const sectionMobileCx = cx('flex flex-col *:px-2')
+const headerMobileCx = cx('text-xs uppercase text-muted-fg/80 tracking-tight')
+const itemMobileCx = cx('rounded-md text-lg')
 
 export default async function SiteLayout({ children }: PropsWithChildren) {
   const { name } = workspace
@@ -65,7 +65,14 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
               </Link>
             </li>
             <li className="hidden md:block mr-auto">
-              <Link href="/blog" className={cx(itemCx, rectCx, mutedCx)}>
+              <Link
+                href="/blog"
+                className={cx(
+                  buttonStyles({ intent: 'tertiary' }),
+                  itemCx,
+                  mutedCx,
+                )}
+              >
                 Blog
               </Link>
             </li>
@@ -80,7 +87,12 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                   href={socialLink.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={cx(itemCx, squareCx, mutedCx)}
+                  className={cx(
+                    buttonStyles({ intent: 'tertiary' }),
+                    itemCx,
+                    squareCx,
+                    mutedCx,
+                  )}
                 >
                   <span className="sr-only">{socialLink.label} Profile</span>
                   <socialLink.Icon className="size-5" />
@@ -89,26 +101,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
             ))}
             <li className="ml-auto md:ml-0">
               <DialogTrigger>
-                <Button
-                  type="button"
-                  className={cx(
-                    itemCx,
-                    rectCx,
-                    'relative min-h-10 bg-primary text-primary-fg transition-colors font-medium',
-                    'animate-rainbow bg-[length:200%] [background-clip:padding-box,border-box,border-box] [background-origin:border-box] [border:calc(0.08*1rem)_solid_transparent]',
-                    'before:absolute before:bottom-[-20%] before:left-1/2 before:z-0 before:h-1/5 before:w-3/5 before:-translate-x-1/2 before:animate-rainbow before:bg-[linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))] before:bg-[length:200%] before:[filter:blur(calc(0.8*1rem))]',
-                    'bg-[linear-gradient(#000,#000),linear-gradient(#fff_50%,rgba(255,255,255,0.6)_80%,rgba(0,0,0,0)),linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))]',
-                  )}
-                  style={
-                    {
-                      '--color-1': '0 100% 63%',
-                      '--color-2': '270 100% 63%',
-                      '--color-3': '210 100% 63%',
-                      '--color-4': '195 100% 63%',
-                      '--color-5': '90 100% 63%',
-                    } as CSSProperties
-                  }
-                >
+                <Button intent="primary" className={itemCx}>
                   Like the Format?
                 </Button>
                 <ModalOverlay
@@ -185,8 +178,12 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
             <li className="md:hidden">
               <MenuTrigger>
                 <Button
-                  type="button"
-                  className={cx(itemCx, squareCx, 'group relative px-1.5')}
+                  className={cx(
+                    buttonStyles({ intent: 'tertiary' }),
+                    itemCx,
+                    squareCx,
+                    'group relative px-1.5',
+                  )}
                 >
                   <span className="sr-only">Toggle Menu</span>
                   <MenuIcon className="size-5 rotate-0 scale-100 transition-transform group-aria-expanded:rotate-90 group-aria-expanded:scale-0" />
@@ -201,7 +198,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                   <Menu
                     className={cx(
                       layerCx,
-                      'flex min-w-40 flex-col gap-2 bg-overlay text-overlay-fg font-semibold text-lg',
+                      'bg-overlay text-overlay-fg flex min-w-48 flex-col gap-2 font-medium space-y-2 p-4',
                     )}
                   >
                     <Section className={sectionMobileCx}>

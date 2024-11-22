@@ -83,15 +83,6 @@ const tailwindConfig: Config = {
       sans: ['var(--font-sans)', ...fontFamily.sans],
       mono: ['var(--font-mono)', ...fontFamily.mono],
     },
-    animation: {
-      rainbow: 'rainbow var(--speed, 2s) infinite linear',
-    },
-    keyframes: {
-      rainbow: {
-        '0%': { 'background-position': '0%' },
-        '100%': { 'background-position': '200%' },
-      },
-    },
     extend: {
       boxShadow: {
         inset: 'inset 0 1px rgb(255 255 255 / 20%)',

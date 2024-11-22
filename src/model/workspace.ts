@@ -19,7 +19,7 @@ export const workspace = new Workspace({
   logoUrl: '/logo.png',
   socialLinks: [
     {
-      href: 'https://github.com/boaris',
+      href: 'https://github.com/boar-is',
       label: 'GitHub',
     },
   ],
