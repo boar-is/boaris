@@ -28,7 +28,7 @@ export function PostReadingHeader() {
             alt={`${vm.title}'s poster's blur`}
             width={1024}
             height={768}
-            className="absolute rounded-2xl blur-2xl opacity-35 pointer-events-none"
+            className="fixed inset-0 size-full rounded-full opacity-50 blur-3xl animate-spin-slow pointer-events-none"
           />
           <Image
             src={vm.posterUrl}
