@@ -1,6 +1,6 @@
 'use client'
 
-import { AnimatePresence, useScroll, useTransform } from 'motion/react'
+import { AnimatePresence } from 'motion/react'
 import { usePathname } from 'next/navigation'
 import { type PropsWithChildren, useEffect, useMemo, useState } from 'react'
 import { Image as NextImage } from '~/lib/media/image'
@@ -24,8 +24,6 @@ export const useBackgroundEffect = (url: string) => {
   }, [setBackgroundUrl, url])
 }
 
-const MotionImage = motion.create(NextImage)
-
 export function BackgroundProvider({
   children,
   defaultUrl = '/images/icon-512.png',
@@ -34,9 +32,6 @@ export function BackgroundProvider({
 }) {
   const [url, setUrl] = useState(defaultUrl)
   const pathname = usePathname()
-  const { scrollYProgress } = useScroll()
-
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '-50%'])
 
   const value: BackgroundContextValue = useMemo(
     () => ({
@@ -55,32 +50,50 @@ export function BackgroundProvider({
 
   return (
     <BackgroundContext.Provider value={value}>
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <AnimatePresence>
-          <MotionImage
-            key={url}
-            src={url}
-            alt="Background"
-            fill
-            style={{
-              // @ts-expect-error @see https://github.com/motiondivision/motion/issues/2887
-              y,
-            }}
-            initial={{ opacity: 0, rotate: 0, scale: 2 }}
-            animate={{ opacity: 1, rotate: 360, scale: 1.5 }}
-            exit={{ opacity: 0 }}
+      <AnimatePresence>
+        <motion.div
+          className="fixed inset-0 -z-10 overflow-hidden pointer-events-none"
+          key={url}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            initial={{ rotate: 0 }}
+            animate={{ rotate: 360 }}
             transition={{
-              opacity: { duration: 1 },
-              rotate: {
-                duration: 120,
-                ease: 'linear',
-                repeat: Number.POSITIVE_INFINITY,
-              },
+              duration: 120,
+              ease: 'linear',
+              repeat: Number.POSITIVE_INFINITY,
             }}
-            className="absolute size-[200%] -top-1/2 -left-1/2 blur-[72px]"
-          />
-        </AnimatePresence>
-      </div>
+            className="absolute w-[200%] aspect-square top-0 right-0"
+          >
+            <NextImage
+              src={url}
+              alt="Background"
+              fill
+              className="rounded-[50%] blur-[96px] opacity-60"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ rotate: 360 }}
+            animate={{ rotate: 0 }}
+            transition={{
+              duration: 120,
+              ease: 'linear',
+              repeat: Number.POSITIVE_INFINITY,
+            }}
+            className="absolute w-[200%] aspect-square bottom-0 left-0 mix-blend-luminosity"
+          >
+            <NextImage
+              src={url}
+              alt="Background"
+              fill
+              className="rounded-[50%] blur-[96px] opacity-60"
+            />
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
       {children}
     </BackgroundContext.Provider>
   )

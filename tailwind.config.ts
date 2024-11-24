@@ -87,19 +87,6 @@ const tailwindConfig: Config = {
       boxShadow: {
         inset: 'inset 0 1px rgb(255 255 255 / 20%)',
       },
-      keyframes: {
-        'spin-slow': {
-          from: { transform: 'rotate(0deg) scale(2)', filter: 'hue(0deg)' },
-          '50%': {
-            transform: 'rotate(180deg) scale(3)',
-            filter: 'hue(100deg)',
-          },
-          to: { transform: 'rotate(360deg) scale(2)', filter: 'hue(0deg)' },
-        },
-      },
-      animation: {
-        'spin-slow': 'spin-slow 20s linear infinite',
-      },
     },
   },
   plugins: [tailwindAnimate, tailwindRac],
