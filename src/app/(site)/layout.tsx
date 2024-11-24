@@ -88,7 +88,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                   className="z-20 entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-bg/25 px-4 backdrop-blur-sm backdrop-saturate-150"
                 >
                   <Modal className="exiting:fade-out-0 entering:fade-in-0 exiting:zoom-out-95 entering:zoom-in-95 max-w-md entering:animate-in exiting:animate-out md:max-w-lg">
-                    <Dialog className="flex flex-col items-stretch gap-6 rounded-xl border border-muted bg-overlay text-overlay-fg p-6 leading-relaxed md:rounded-3xl md:px-10 md:py-8 md:text-lg">
+                    <Dialog className="flex flex-col items-stretch gap-6 rounded-xl border border-muted bg-overlay/95 text-overlay-fg p-6 leading-relaxed md:rounded-3xl md:px-10 md:py-8 md:text-lg">
                       <header className="flex justify-between items-center">
                         <Heading
                           slot="title"
