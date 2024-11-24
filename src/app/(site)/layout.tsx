@@ -17,10 +17,10 @@ import { Modal, ModalOverlay } from '~/lib/overlays/modal'
 import { cx } from '~/lib/react/cx'
 import { workspace } from '~/model/workspace'
 
-const layerCx = cx('border rounded-3xl p-2.5')
-const mutedCx = cx('transition-colors text-muted-fg hover:text-fg')
+const layerCx = cx(
+  'bg-clip-padding border border-white/15 rounded-3xl p-2.5 drop-shadow-lg',
+)
 const itemCx = cx('flex justify-center items-center rounded-lg h-full')
-const squareCx = cx('px-1 md:px-2.5 md:-mx-2')
 
 export default async function SiteLayout({ children }: PropsWithChildren) {
   const { name } = workspace
@@ -31,14 +31,14 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
 
   return (
     <div className="flex flex-col gap-4 md:gap-10 items-stretch min-h-dvh">
-      <header className="container sticky z-10 top-0 py-3 max-w-5xl">
+      <header className="container sticky z-10 top-0 py-3">
         <nav
           className={cx(
             layerCx,
-            'bg-bg/50 backdrop-blur-md backdrop-saturate-150',
+            'bg-bg/40 backdrop-blur-md backdrop-saturate-150',
           )}
         >
-          <ul className="flex items-stretch justify-between gap-4 text-sm md:gap-6 md:text-base">
+          <ul className="flex items-stretch justify-between gap-4 text-sm md:text-base">
             <li>
               <Link
                 href="/"
@@ -66,15 +66,10 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                   href={socialLink.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={cx(
-                    buttonStyles({ intent: 'tertiary' }),
-                    itemCx,
-                    squareCx,
-                    mutedCx,
-                  )}
+                  className={cx(buttonStyles({ intent: 'tertiary' }), itemCx)}
                 >
                   <span className="sr-only">{socialLink.label} Profile</span>
-                  <socialLink.Icon className="size-5" />
+                  <socialLink.Icon className="size-6" />
                 </Link>
               </li>
             ))}
@@ -157,7 +152,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
       <main className="flex-1">{children}</main>
       <footer className="container">
         <div className="container">
-          <ul className="flex justify-between py-4 font-semibold text-muted-fg md:gap-4">
+          <ul className="flex justify-between py-4 font-semibold md:gap-4">
             <li>
               <Link href="/" className="rounded-sm px-2">
                 {name}

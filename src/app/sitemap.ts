@@ -8,9 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: baseUrl,
     },
-    {
-      url: `${baseUrl}/blog`,
-    },
     ...posts.map((it) => ({
       url: `${baseUrl}/blog/${it.slug}`,
       lastModified: it.updateDate.pipe(DateTime.toDate),

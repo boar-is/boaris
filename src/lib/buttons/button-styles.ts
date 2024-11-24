@@ -11,7 +11,7 @@ export const buttonStyles = tv({
     intent: {
       primary: 'bg-white text-black',
       secondary: 'bg-secondary text-secondary-fg border-white/5',
-      tertiary: 'hover:bg-tertiary text-tertiary-fg',
+      tertiary: 'hover:bg-tertiary/35 text-tertiary-fg',
       destructive: 'bg-danger text-danger-fg border-white/15',
     },
     size: {
