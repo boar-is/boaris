@@ -3,7 +3,6 @@ import { readableDate } from '~/lib/date/readable-date'
 import { Image } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { Link } from '~/lib/navigation/link'
-import { Spotlight } from '~/lib/overlays/spotlight'
 import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 import { posts } from '~/model/post'
@@ -26,7 +25,6 @@ export default async function SitePage() {
                   'rounded-4xl after:rounded-4xl lg:rounded-5xl lg:after:rounded-5xl flex flex-col lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5 justify-between transition-colors bg-clip-padding border border-white/10 bg-bg/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-xl',
                 )}
               >
-                <Spotlight size={2048} />
                 <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
                   <Image
                     src={post.posterUrl}

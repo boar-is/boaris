@@ -19,13 +19,16 @@ export class Post extends Schema.Class<Post>('Post')({
   updateDate: Schema.DateTimeUtcFromNumber,
 }) {}
 
-export const posts: ReadonlyArray<Post> = [
+const createPost = (
+  slug = 'use-deferred-value',
+  posterUrl = '/assets/use-deferred-value/poster.webp',
+) =>
   new Post({
-    slug: 'use-deferred-value',
+    slug,
     title: 'Understanding React Server Components',
     lead: 'useDeferredValue is one of the most underrated React hooks. It allows us to dramatically improve the performance of our applications in certain contexts. I recently used it to solve a gnarly performance problem on this blog, and in this tutorial, I’ll show you how! ⚡',
     description: Option.none(),
-    posterUrl: '/assets/use-deferred-value/poster.webp',
+    posterUrl,
     tags: ['TypeScript', 'React'],
     captions: {
       content: [
@@ -941,5 +944,11 @@ export const posts: ReadonlyArray<Post> = [
     updateDate: DateTime.make({ year: 2024, month: 12, day: 1 }).pipe(
       Option.getOrThrow,
     ),
-  }),
+  })
+
+export const posts: ReadonlyArray<Post> = [
+  createPost(),
+  createPost('2', '/assets/use-deferred-value/poster-2.webp'),
+  createPost('3', '/assets/use-deferred-value/poster-3.webp'),
+  createPost('4', '/assets/use-deferred-value/poster-4.webp'),
 ]
