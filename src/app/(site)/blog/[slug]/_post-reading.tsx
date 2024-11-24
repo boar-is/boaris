@@ -2,10 +2,10 @@
 
 import { identity } from 'effect'
 import type { PropsWithChildren } from 'react'
-import { useBackgroundEffect } from '~/features/background'
 import { readableDate } from '~/lib/date/readable-date'
 import { mono } from '~/lib/media/fonts/mono'
 import { Image } from '~/lib/media/image'
+import { useBackgroundEffect } from '~/lib/overlays/background'
 import { cx } from '~/lib/react/cx'
 import { usePostVmAtomValue } from './page.client'
 

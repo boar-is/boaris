@@ -2,7 +2,7 @@
 
 import { useHover } from '@react-aria/interactions'
 import type { ComponentPropsWithoutRef } from 'react'
-import { useBackgroundContext } from '~/features/background'
+import { useBackgroundContext } from '~/lib/overlays/background'
 
 export function BlogPostArticle({
   url,
