@@ -61,12 +61,12 @@ export default async function SitePage() {
                     )}
                   </header>
 
-                  <p className="text-muted-fg text-pretty !leading-relaxed max-w-prose">
+                  <p className="text-muted-fg text-lg font-medium text-pretty !leading-relaxed max-w-prose">
                     {post.lead}
                   </p>
 
                   <footer className="flex justify-between gap-8 items-center">
-                    <small className="text-muted-fg/50 font-medium tracking-wide text-xs lg:text-sm">
+                    <small className="text-muted-fg/75 font-medium tracking-wide text-sm lg:text-base">
                       {readableDate(post.date)}
                     </small>
                   </footer>

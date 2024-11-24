@@ -56,7 +56,7 @@ const tailwindConfig: Config = {
       },
       muted: {
         DEFAULT: 'hsl(239.95 3% 16%)',
-        fg: 'hsl(240 5.03% 64.9%)',
+        fg: 'hsl(240,5%,58%)',
       },
       overlay: {
         DEFAULT: 'hsl(240.03 6% 6%)',
