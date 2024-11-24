@@ -30,12 +30,12 @@ export default async function SitePage() {
                     alt={`${post.title}'s poster`}
                     sizes="320px"
                     fill
-                    className="object-cover rounded-4xl"
+                    className="object-cover rounded-4xl shadow-inner border border-white/10"
                   />
                 </aside>
                 <section className="flex-1 flex flex-col gap-8 py-4">
                   <header className="space-y-4">
-                    <h3 className="text-2xl lg:text-4xl font-medium tracking-tight text-balance">
+                    <h3 className="text-2xl lg:text-4xl font-semibold tracking-tight text-balance bg-gradient-to-b from-fg to-muted-fg bg-clip-text text-transparent">
                       {post.title}
                     </h3>
                     {Option.some(post.tags).pipe(
@@ -44,7 +44,7 @@ export default async function SitePage() {
                         <ul className="flex flex-wrap gap-1 lg:gap-2 text-xs lg:text-sm font-medium tracking-wide text-primary *:my-0.5">
                           {tags.map((tag) => (
                             <li key={tag}>
-                              <span className="bg-primary/10 rounded-full px-3.5 py-1">
+                              <span className="bg-primary/10 border border-primary rounded-full px-3.5 py-1">
                                 {tag}
                               </span>
                             </li>
