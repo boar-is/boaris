@@ -60,14 +60,14 @@ export function BackgroundProvider({
       ease: 'linear',
       repeat: Number.POSITIVE_INFINITY,
     },
-    className: 'absolute w-[200%] aspect-square',
+    className: 'absolute w-[200%] aspect-square transform-gpu',
   } satisfies HTMLMotionProps<'div'>
 
   const nextImageProps = {
     src: imageUrl,
     fill: true,
     alt: 'Background',
-    className: 'rounded-[50%] blur-[96px] opacity-60',
+    className: 'rounded-[50%] blur-[80px] opacity-60 transform-gpu',
     sizes: '25vw',
   } satisfies ImageProps
 
