@@ -35,14 +35,26 @@ export default async function SitePage() {
                   />
                 </aside>
                 <section className="flex-1 flex flex-col gap-8 py-4">
-                  <header className="space-y-4">
-                    <h3 className="text-2xl lg:text-4xl font-semibold tracking-tight text-balance bg-gradient-to-b from-fg to-muted-fg bg-clip-text text-transparent">
-                      {post.title}
-                    </h3>
-                    {Option.some(post.tags).pipe(
-                      Option.filter((it) => it.length > 0),
-                      Option.andThen((tags) => (
-                        <ul className="flex flex-wrap gap-1 lg:gap-2 text-xs lg:text-sm font-medium tracking-wide text-primary *:my-0.5">
+                  <header>
+                    <hgroup>
+                      <small className="text-muted-fg/75 font-medium tracking-wide text-sm lg:text-base">
+                        {readableDate(post.date)}
+                      </small>
+                      <h3 className="text-2xl lg:text-4xl font-semibold tracking-tight text-balance bg-gradient-to-b from-fg to-muted-fg bg-clip-text text-transparent">
+                        {post.title}
+                      </h3>
+                    </hgroup>
+                  </header>
+
+                  <p className="text-muted-fg text-lg font-medium text-pretty !leading-relaxed max-w-prose">
+                    {post.lead}
+                  </p>
+
+                  {Option.some(post.tags).pipe(
+                    Option.filter((it) => it.length > 0),
+                    Option.andThen((tags) => (
+                      <footer className="flex justify-between gap-8 items-center">
+                        <ul className="flex flex-wrap gap-2 lg:gap-4 text-xs lg:text-sm font-medium tracking-wide text-primary *:my-0.5">
                           {tags.map((tag) => {
                             const Icon = matchTagIcon(tag)
 
@@ -56,20 +68,10 @@ export default async function SitePage() {
                             )
                           })}
                         </ul>
-                      )),
-                      Option.getOrThrow,
-                    )}
-                  </header>
-
-                  <p className="text-muted-fg text-lg font-medium text-pretty !leading-relaxed max-w-prose">
-                    {post.lead}
-                  </p>
-
-                  <footer className="flex justify-between gap-8 items-center">
-                    <small className="text-muted-fg/75 font-medium tracking-wide text-sm lg:text-base">
-                      {readableDate(post.date)}
-                    </small>
-                  </footer>
+                      </footer>
+                    )),
+                    Option.getOrThrow,
+                  )}
                 </section>
               </BlogPostArticle>
             </Link>
