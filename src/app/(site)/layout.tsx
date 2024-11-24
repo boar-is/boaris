@@ -19,10 +19,6 @@ import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 import { workspace } from '~/model/workspace'
 
-const layerCx = cx(
-  shadowInsetStyles,
-  'bg-clip-padding border border-white/10 rounded-3xl after:rounded-3xl p-2.5 drop-shadow-lg',
-)
 const itemCx = cx('flex justify-center items-center rounded-lg h-full')
 
 export default async function SiteLayout({ children }: PropsWithChildren) {
@@ -37,7 +33,8 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
       <header className="container sticky z-10 top-0 py-3">
         <nav
           className={cx(
-            layerCx,
+            shadowInsetStyles,
+            'bg-clip-padding border border-white/10 rounded-3xl after:rounded-3xl p-2.5 drop-shadow-lg',
             'bg-bg/40 backdrop-blur-md backdrop-saturate-150',
           )}
         >
@@ -83,14 +80,19 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                 </Button>
                 <ModalOverlay
                   isDismissable
-                  className="z-20 entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-bg/25 px-4 backdrop-blur-sm backdrop-saturate-150"
+                  className="isolate z-20 entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-bg/25 px-4 backdrop-blur-sm backdrop-saturate-150"
                 >
                   <Modal className="exiting:fade-out-0 entering:fade-in-0 exiting:zoom-out-95 entering:zoom-in-95 max-w-md entering:animate-in exiting:animate-out md:max-w-lg">
-                    <Dialog className="flex flex-col items-stretch gap-6 rounded-xl border border-muted bg-overlay/95 text-overlay-fg p-6 leading-relaxed md:rounded-3xl md:px-10 md:py-8 md:text-lg">
+                    <Dialog
+                      className={cx(
+                        shadowInsetStyles,
+                        'flex flex-col items-stretch gap-6 rounded-3xl after:rounded-3xl border border-white/15 bg-overlay/95 bg-clip-padding text-overlay-fg p-6 leading-relaxed md:rounded-3xl md:p-10 md:text-lg',
+                      )}
+                    >
                       <header className="flex justify-between items-center">
                         <Heading
                           slot="title"
-                          className="font-semibold text-2xl md:text-3xl"
+                          className="font-semibold text-2xl md:text-4xl"
                         >
                           Like the format?
                         </Heading>
@@ -120,7 +122,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                         </p>
                       </section>
                       <NewsletterSubscriptionFormProvider>
-                        <Form className="flex flex-col gap-4">
+                        <Form className="flex flex-col gap-6">
                           <TextField
                             name="email"
                             type="email"
@@ -138,7 +140,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                             <FieldError className="text-error text-sm" />
                           </TextField>
                           <PendingFormDisabledButtonProvider>
-                            <Button intent="primary" type="submit">
+                            <Button type="submit" intent="primary">
                               Subscribe
                             </Button>
                           </PendingFormDisabledButtonProvider>
@@ -153,8 +155,9 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
         </nav>
       </header>
       <main className="flex-1">{children}</main>
-      <footer className="container py-4">
+      <footer className="container py-8">
         <Link href="/" className="flex justify-center items-center">
+          <span className="sr-only">Go to the home page</span>
           <SignatureIcon className="h-10 opacity-90" />
         </Link>
       </footer>
