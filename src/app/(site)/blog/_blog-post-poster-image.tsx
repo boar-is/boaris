@@ -1,13 +1,13 @@
 'use client'
 
 import { useHover } from '@react-aria/interactions'
+import type { ComponentPropsWithoutRef } from 'react'
 import { useBackgroundContext } from '~/features/background'
-import { Image } from '~/lib/media/image'
 
-export function BlogPostPosterImage({
+export function BlogPostArticle({
   url,
-  alt,
-}: { url: string; alt: string }) {
+  ...props
+}: ComponentPropsWithoutRef<'article'> & { url: string }) {
   const { setBackgroundUrl } = useBackgroundContext()
 
   const { hoverProps } = useHover({
@@ -16,13 +16,11 @@ export function BlogPostPosterImage({
   })
 
   return (
-    <Image
-      src={url}
-      alt={alt}
-      width={640}
-      height={360}
-      className="object-cover sizes-full rounded-xl lg:rounded-2xl"
-      {...hoverProps}
+    <article
+      {...{
+        ...props,
+        ...hoverProps,
+      }}
     />
   )
 }
