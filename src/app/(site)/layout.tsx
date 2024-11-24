@@ -155,10 +155,10 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
         </nav>
       </header>
       <main className="flex-1">{children}</main>
-      <footer className="container py-8">
+      <footer className="container py-24">
         <Link href="/" className="flex justify-center items-center">
           <span className="sr-only">Go to the home page</span>
-          <SignatureIcon className="h-10 opacity-90" />
+          <SignatureIcon className="h-16 opacity-90" />
         </Link>
       </footer>
     </div>
