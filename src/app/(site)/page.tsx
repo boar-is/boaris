@@ -1,6 +1,7 @@
 import { Option } from 'effect'
 import { readableDate } from '~/lib/date/readable-date'
 import { Image } from '~/lib/media/image'
+import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { Link } from '~/lib/navigation/link'
 import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
@@ -42,13 +43,18 @@ export default async function SitePage() {
                       Option.filter((it) => it.length > 0),
                       Option.andThen((tags) => (
                         <ul className="flex flex-wrap gap-1 lg:gap-2 text-xs lg:text-sm font-medium tracking-wide text-primary *:my-0.5">
-                          {tags.map((tag) => (
-                            <li key={tag}>
-                              <span className="bg-primary/10 border border-primary rounded-full px-3.5 py-1">
-                                {tag}
-                              </span>
-                            </li>
-                          ))}
+                          {tags.map((tag) => {
+                            const Icon = matchTagIcon(tag)
+
+                            return (
+                              <li key={tag}>
+                                <div className="flex gap-1.5 items-center bg-primary/10 border border-primary rounded-full px-3 py-1">
+                                  {Icon && <Icon className="size-5" />}
+                                  {tag}
+                                </div>
+                              </li>
+                            )
+                          })}
                         </ul>
                       )),
                       Option.getOrThrow,
