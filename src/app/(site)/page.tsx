@@ -11,12 +11,12 @@ import { BlogPostArticle } from './_blog-post-poster-image'
 
 export default async function SitePage() {
   return (
-    <article className="container flex flex-col gap-6 lg:gap-10 items-stretch">
+    <article className="container">
       <header className="sr-only">
         <h1>Blog</h1>
       </header>
       {posts.length ? (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4">
           {posts.map((post, index) => (
             <Link key={post.slug} href={`/blog/${post.slug}`}>
               <BlurFade key={post.slug} delay={index * 0.05} inView>
