@@ -65,6 +65,8 @@ const tailwindConfig: Config = {
     },
     borderRadius: {
       full: '9999px',
+      '5xl': 'calc(var(--radius) + 20px)',
+      '4xl': 'calc(var(--radius) + 12px)',
       '3xl': 'calc(var(--radius) + 6px)',
       '2xl': 'calc(var(--radius) + 4px)',
       xl: 'calc(var(--radius) + 2px)',
