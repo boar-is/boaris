@@ -22,7 +22,7 @@ export default async function SitePage() {
                 posterUrl={post.posterUrl}
                 className={cx(
                   shadowInsetStyles,
-                  'rounded-5xl after:rounded-5xl flex flex-col lg:flex-row gap-6 p-3 justify-between transition-colors bg-clip-padding border border-white/10 bg-bg/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-xl',
+                  'rounded-5xl after:rounded-5xl flex flex-col lg:flex-row gap-10 p-5 justify-between transition-colors bg-clip-padding border border-white/10 bg-bg/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-xl',
                 )}
               >
                 <aside className="relative lg:basis-1/2 xl:basis-2/5 max-w-md">
@@ -34,10 +34,10 @@ export default async function SitePage() {
                     className="object-cover rounded-4xl shadow-inner border border-white/10"
                   />
                 </aside>
-                <section className="flex-1 flex flex-col gap-8 py-4">
+                <section className="flex-1 space-y-6 py-4">
                   <header>
                     <hgroup>
-                      <small className="text-muted-fg/75 font-medium tracking-wide text-sm lg:text-base">
+                      <small className="text-muted-fg/75 font-semibold tracking-wide text-sm lg:text-base">
                         {readableDate(post.date)}
                       </small>
                       <h3 className="text-2xl lg:text-4xl font-semibold tracking-tight text-balance bg-gradient-to-b from-fg to-muted-fg bg-clip-text text-transparent">
