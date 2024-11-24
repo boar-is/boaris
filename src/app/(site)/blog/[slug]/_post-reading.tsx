@@ -2,6 +2,7 @@
 
 import { identity } from 'effect'
 import type { PropsWithChildren } from 'react'
+import { useBackgroundEffect } from '~/features/background'
 import { readableDate } from '~/lib/date/readable-date'
 import { mono } from '~/lib/media/fonts/mono'
 import { Image } from '~/lib/media/image'
@@ -19,17 +20,12 @@ export function PostReading({ children }: PropsWithChildren) {
 export function PostReadingHeader() {
   const vm = usePostVmAtomValue(identity)
 
+  useBackgroundEffect(vm.posterUrl)
+
   return (
     <header className="w-full max-w-prose">
       <hgroup className="flex flex-col gap-6">
         <figure className="relative">
-          <Image
-            src={vm.posterUrl}
-            alt={`${vm.title}'s poster's blur`}
-            width={1024}
-            height={768}
-            className="fixed inset-0 size-full rounded-full opacity-50 blur-3xl animate-spin-slow pointer-events-none"
-          />
           <Image
             src={vm.posterUrl}
             alt={`${vm.title}'s poster`}

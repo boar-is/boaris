@@ -1,6 +1,6 @@
 import { Option } from 'effect'
+import { BlogPostPosterImage } from '~/app/(site)/blog/_blog-post-poster-image'
 import { readableDate } from '~/lib/date/readable-date'
-import { Image } from '~/lib/media/image'
 import { constructMetadata } from '~/lib/metadata/construct-metadata'
 import { Link } from '~/lib/navigation/link'
 import { posts } from '~/model/post'
@@ -21,12 +21,9 @@ export default async function BlogPage() {
             <Link key={post.slug} href={`/blog/${post.slug}`}>
               <article className="group rounded-xl lg:rounded-3xl flex flex-col lg:flex-row gap-4 lg:gap-12 justify-between overflow-hidden transition-colors bg-bg">
                 <aside className="relative lg:basis-1/2 xl:basis-1/3">
-                  <Image
-                    src={post.posterUrl}
+                  <BlogPostPosterImage
+                    url={post.posterUrl}
                     alt={`${post.title}'s poster`}
-                    width={640}
-                    height={360}
-                    className="object-cover sizes-full rounded-xl lg:rounded-2xl"
                   />
                 </aside>
                 <section className="flex-1 flex flex-col gap-8">
