@@ -2,14 +2,11 @@ import type { PropsWithChildren } from 'react'
 import { NewsletterSubscriptionFormProvider } from '~/features/newsletter-subscription-form-provider'
 import { Button } from '~/lib/buttons/button'
 import { buttonStyles } from '~/lib/buttons/button-styles'
-import { Menu, MenuItem, MenuTrigger } from '~/lib/collections/menu'
-import { Header } from '~/lib/content/header'
 import { Heading } from '~/lib/content/heading'
-import { Section } from '~/lib/content/section'
 import { FieldError, Form } from '~/lib/forms/form'
 import { PendingFormDisabledButtonProvider } from '~/lib/forms/pending-form-disabled-button-provider'
 import { Input, Label, TextField } from '~/lib/forms/text-field'
-import { CloseIcon, MenuIcon } from '~/lib/media/icons'
+import { CloseIcon } from '~/lib/media/icons'
 import logo from '~/lib/media/icons/logo.png'
 import { Image } from '~/lib/media/image'
 import { matchSocialNetworkIcon } from '~/lib/media/match-social-network-icon'
@@ -17,7 +14,6 @@ import { Link } from '~/lib/navigation/link'
 import { CloseDialogButtonProvider } from '~/lib/overlays/close-dialog-button-provider'
 import { Dialog, DialogTrigger } from '~/lib/overlays/dialog'
 import { Modal, ModalOverlay } from '~/lib/overlays/modal'
-import { Popover } from '~/lib/overlays/popover'
 import { cx } from '~/lib/react/cx'
 import { workspace } from '~/model/workspace'
 
@@ -25,9 +21,6 @@ const layerCx = cx('border rounded-3xl p-2.5')
 const mutedCx = cx('transition-colors text-muted-fg hover:text-fg')
 const itemCx = cx('flex justify-center items-center rounded-lg h-full')
 const squareCx = cx('px-1 md:px-2.5 md:-mx-2')
-const sectionMobileCx = cx('flex flex-col *:px-2')
-const headerMobileCx = cx('text-xs uppercase text-muted-fg/80 tracking-tight')
-const itemMobileCx = cx('rounded-md text-lg')
 
 export default async function SiteLayout({ children }: PropsWithChildren) {
   const { name } = workspace
@@ -45,7 +38,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
             'bg-bg/50 backdrop-blur-md backdrop-saturate-150',
           )}
         >
-          <ul className="flex items-stretch justify-between gap-2 text-sm md:gap-8 md:text-base">
+          <ul className="flex items-stretch justify-between gap-4 text-sm md:gap-6 md:text-base">
             <li>
               <Link
                 href="/"
@@ -64,24 +57,10 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                 {name}
               </Link>
             </li>
-            <li className="hidden md:block mr-auto">
-              <Link
-                href="/blog"
-                className={cx(
-                  buttonStyles({ intent: 'tertiary' }),
-                  itemCx,
-                  mutedCx,
-                )}
-              >
-                Blog
-              </Link>
-            </li>
             {socialLinks.map((socialLink, index) => (
               <li
                 key={socialLink.href}
-                className={cx('hidden md:block', {
-                  'ml-auto': index === 0,
-                })}
+                className={cx({ 'ml-auto': index === 0 })}
               >
                 <Link
                   href={socialLink.href}
@@ -99,10 +78,10 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                 </Link>
               </li>
             ))}
-            <li className="ml-auto md:ml-0">
+            <li>
               <DialogTrigger>
                 <Button intent="primary" className={itemCx}>
-                  Like the Format?
+                  Subscribe
                 </Button>
                 <ModalOverlay
                   isDismissable
@@ -171,56 +150,6 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                   </Modal>
                 </ModalOverlay>
               </DialogTrigger>
-            </li>
-            <li className="md:hidden">
-              <MenuTrigger>
-                <Button
-                  className={cx(
-                    buttonStyles({ intent: 'tertiary' }),
-                    itemCx,
-                    squareCx,
-                    'group relative px-1.5',
-                  )}
-                >
-                  <span className="sr-only">Toggle Menu</span>
-                  <MenuIcon className="size-5 rotate-0 scale-100 transition-transform group-aria-expanded:rotate-90 group-aria-expanded:scale-0" />
-                  <CloseIcon className="-rotate-90 absolute size-5 scale-0 transition-transform group-aria-expanded:rotate-0 group-aria-expanded:scale-100" />
-                </Button>
-                <Popover
-                  placement="bottom end"
-                  offset={28}
-                  crossOffset={16}
-                  className="entering:fade-in exiting:fade-out entering:animate-in exiting:animate-out"
-                >
-                  <Menu
-                    className={cx(
-                      layerCx,
-                      'bg-overlay text-overlay-fg flex min-w-48 flex-col gap-2 font-medium space-y-2 p-4',
-                    )}
-                  >
-                    <Section className={sectionMobileCx}>
-                      <Header className={headerMobileCx}>Projects</Header>
-                      <MenuItem href="/blog" className={itemMobileCx}>
-                        Blog
-                      </MenuItem>
-                    </Section>
-                    <Section className={sectionMobileCx}>
-                      <Header className={headerMobileCx}>Social</Header>
-                      {socialLinks.map((socialLink) => (
-                        <MenuItem
-                          key={socialLink.href}
-                          href={socialLink.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={itemMobileCx}
-                        >
-                          {socialLink.label}
-                        </MenuItem>
-                      ))}
-                    </Section>
-                  </Menu>
-                </Popover>
-              </MenuTrigger>
             </li>
           </ul>
         </nav>
