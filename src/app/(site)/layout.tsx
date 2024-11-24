@@ -8,6 +8,7 @@ import { PendingFormDisabledButtonProvider } from '~/lib/forms/pending-form-disa
 import { Input, Label, TextField } from '~/lib/forms/text-field'
 import { CloseIcon } from '~/lib/media/icons'
 import logo from '~/lib/media/icons/logo.png'
+import { SignatureIcon } from '~/lib/media/icons/signature'
 import { Image } from '~/lib/media/image'
 import { matchSocialNetworkIcon } from '~/lib/media/match-social-network-icon'
 import { Link } from '~/lib/navigation/link'
@@ -15,10 +16,12 @@ import { CloseDialogButtonProvider } from '~/lib/overlays/close-dialog-button-pr
 import { Dialog, DialogTrigger } from '~/lib/overlays/dialog'
 import { Modal, ModalOverlay } from '~/lib/overlays/modal'
 import { cx } from '~/lib/react/cx'
+import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 import { workspace } from '~/model/workspace'
 
 const layerCx = cx(
-  'bg-clip-padding border border-white/15 rounded-3xl p-2.5 drop-shadow-lg',
+  shadowInsetStyles,
+  'bg-clip-padding border border-white/10 rounded-3xl after:rounded-3xl p-2.5 drop-shadow-lg',
 )
 const itemCx = cx('flex justify-center items-center rounded-lg h-full')
 
@@ -44,7 +47,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                 href="/"
                 className={cx(
                   itemCx,
-                  'gap-2 select-none text-lg leading-tight break-all font-semibold',
+                  'gap-2 select-none text-lg leading-tight break-all font-semibold text-fg',
                 )}
               >
                 <Image
@@ -150,31 +153,10 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
         </nav>
       </header>
       <main className="flex-1">{children}</main>
-      <footer className="container">
-        <div className="container">
-          <ul className="flex justify-between py-4 font-semibold md:gap-4">
-            <li>
-              <Link href="/" className="rounded-sm px-2">
-                {name}
-              </Link>
-            </li>
-            {socialLinks.map((socialLink, index) => (
-              <li
-                key={socialLink.href}
-                className={cx({ 'ml-auto': index === 0 })}
-              >
-                <a
-                  href={socialLink.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-sm px-2"
-                >
-                  {socialLink.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <footer className="container py-4">
+        <Link href="/" className="flex justify-center items-center">
+          <SignatureIcon className="h-10 opacity-90" />
+        </Link>
       </footer>
     </div>
   )

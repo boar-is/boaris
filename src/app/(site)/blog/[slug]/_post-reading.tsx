@@ -5,8 +5,8 @@ import type { PropsWithChildren } from 'react'
 import { readableDate } from '~/lib/date/readable-date'
 import { mono } from '~/lib/media/fonts/mono'
 import { Image } from '~/lib/media/image'
-import { useBackgroundEffect } from '~/lib/overlays/background'
 import { cx } from '~/lib/react/cx'
+import { useBackgroundEffect } from '~/lib/surfaces/background'
 import { usePostVmAtomValue } from './page.client'
 
 export function PostReading({ children }: PropsWithChildren) {

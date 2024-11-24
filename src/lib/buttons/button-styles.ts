@@ -1,4 +1,6 @@
 import { tv } from 'tailwind-variants'
+import { cx } from '~/lib/react/cx'
+import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 
 export const buttonStyles = tv({
   base: [
@@ -24,8 +26,7 @@ export const buttonStyles = tv({
   compoundVariants: [
     {
       intent: ['secondary', 'destructive'],
-      className:
-        'after:content-[""] after:absolute after:-inset-px after:-z-10 after:shadow-inset after:disabled:shadow-none',
+      className: cx(shadowInsetStyles, 'after:disabled:shadow-none'),
     },
   ],
   defaultVariants: {
