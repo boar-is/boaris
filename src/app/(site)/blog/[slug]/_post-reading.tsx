@@ -4,7 +4,7 @@ import { identity } from 'effect'
 import type { PropsWithChildren } from 'react'
 import { readableDate } from '~/lib/date/readable-date'
 import { mono } from '~/lib/media/fonts/mono'
-import { Image, type ImageProps } from '~/lib/media/image'
+import { Image } from '~/lib/media/image'
 import { useBackgroundEffect } from '~/lib/overlays/background'
 import { cx } from '~/lib/react/cx'
 import { usePostVmAtomValue } from './page.client'
@@ -20,20 +20,19 @@ export function PostReading({ children }: PropsWithChildren) {
 export function PostReadingHeader() {
   const vm = usePostVmAtomValue(identity)
 
-  const imageProps = {
-    src: vm.posterUrl,
-    width: 1024,
-    height: 768,
-    alt: `${vm.title}'s poster`,
-  } satisfies ImageProps
-
-  useBackgroundEffect(imageProps)
+  useBackgroundEffect(vm.posterUrl)
 
   return (
     <header className="w-full max-w-prose">
       <hgroup className="flex flex-col gap-6">
         <figure className="relative">
-          <Image {...imageProps} className="rounded-2xl drop-shadow-xl" />
+          <Image
+            src={vm.posterUrl}
+            width={1024}
+            height={768}
+            alt={`${vm.title}'s poster`}
+            className="rounded-2xl drop-shadow-xl"
+          />
         </figure>
         <h1 className="text-4xl bg-gradient-to-tr from-fg to-muted-fg bg-clip-text text-transparent font-semibold tracking-tight text-balance">
           {vm.title}

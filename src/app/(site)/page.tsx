@@ -24,7 +24,7 @@ export default async function SitePage() {
             return (
               <Link key={post.slug} href={`/blog/${post.slug}`}>
                 <BlogPostArticle
-                  imageProps={imageProps}
+                  posterUrl={post.posterUrl}
                   className="group rounded-xl lg:rounded-3xl flex flex-col lg:flex-row gap-4 lg:gap-12 justify-between overflow-hidden transition-colors bg-bg"
                 >
                   <aside className="relative lg:basis-1/2 xl:basis-1/3">
