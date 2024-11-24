@@ -24,7 +24,7 @@ export default async function SitePage() {
                   posterUrl={post.posterUrl}
                   className={cx(
                     shadowInsetStyles,
-                    'rounded-4xl after:rounded-4xl lg:rounded-5xl lg:after:rounded-5xl flex flex-col lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5 justify-between transition-colors bg-clip-padding border border-white/10 bg-bg/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-xl',
+                    'rounded-4xl after:rounded-4xl lg:rounded-5xl lg:after:rounded-5xl flex flex-col lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5 justify-between transition-colors bg-clip-padding border border-white/10 bg-bg/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
                   )}
                 >
                   <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
