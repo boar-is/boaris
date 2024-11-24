@@ -1,11 +1,12 @@
 'use client'
 
-import { AnimatePresence } from 'motion/react'
+import { AnimatePresence, type HTMLMotionProps } from 'motion/react'
 import { usePathname } from 'next/navigation'
 import { type PropsWithChildren, useEffect, useMemo, useState } from 'react'
-import { Image as NextImage } from '~/lib/media/image'
+import { type ImageProps, Image as NextImage } from '~/lib/media/image'
 import { motion } from '~/lib/motion/motion'
 import { createStrictContext } from '~/lib/react/create-strict-context'
+import { cx } from '~/lib/react/cx'
 
 export type BackgroundContextValue = {
   setBackgroundUrl: (url?: string) => void
@@ -48,6 +49,22 @@ export function BackgroundProvider({
     setUrl(pathname && defaultUrl)
   }, [pathname, defaultUrl])
 
+  const rotateProps = {
+    transition: {
+      duration: 120,
+      ease: 'linear',
+      repeat: Number.POSITIVE_INFINITY,
+    },
+    className: 'absolute w-[200%] aspect-square',
+  } satisfies HTMLMotionProps<'div'>
+
+  const imageProps = {
+    src: url,
+    alt: 'Background',
+    fill: true,
+    className: 'rounded-[50%] blur-[96px] opacity-60',
+  } satisfies ImageProps
+
   return (
     <BackgroundContext.Provider value={value}>
       <AnimatePresence>
@@ -59,38 +76,23 @@ export function BackgroundProvider({
           exit={{ opacity: 0 }}
         >
           <motion.div
+            {...rotateProps}
             initial={{ rotate: 0 }}
             animate={{ rotate: 360 }}
-            transition={{
-              duration: 120,
-              ease: 'linear',
-              repeat: Number.POSITIVE_INFINITY,
-            }}
-            className="absolute w-[200%] aspect-square top-0 right-0"
+            className={cx(rotateProps.className, 'top-0 right-0')}
           >
-            <NextImage
-              src={url}
-              alt="Background"
-              fill
-              className="rounded-[50%] blur-[96px] opacity-60"
-            />
+            <NextImage {...imageProps} />
           </motion.div>
           <motion.div
+            {...rotateProps}
             initial={{ rotate: 360 }}
             animate={{ rotate: 0 }}
-            transition={{
-              duration: 120,
-              ease: 'linear',
-              repeat: Number.POSITIVE_INFINITY,
-            }}
-            className="absolute w-[200%] aspect-square bottom-0 left-0 mix-blend-luminosity"
+            className={cx(
+              rotateProps.className,
+              'bottom-0 left-0 mix-blend-luminosity',
+            )}
           >
-            <NextImage
-              src={url}
-              alt="Background"
-              fill
-              className="rounded-[50%] blur-[96px] opacity-60"
-            />
+            <NextImage {...imageProps} />
           </motion.div>
         </motion.div>
       </AnimatePresence>

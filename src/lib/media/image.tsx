@@ -1,3 +1,1 @@
-import Image from 'next/image'
-
-export { Image }
+export { default as Image, type ImageProps } from 'next/image'
