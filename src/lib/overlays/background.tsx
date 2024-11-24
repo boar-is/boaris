@@ -12,10 +12,8 @@ import { motion } from '~/lib/motion/motion'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 import { cx } from '~/lib/react/cx'
 
-export type BackgroundImageProps = Pick<ImageProps, 'src' | 'width' | 'height'>
-
 export type BackgroundContextValue = {
-  setBackground: (imageProps: BackgroundImageProps | null) => void
+  setBackground: (url: string | null) => void
 }
 
 export const [BackgroundContext, useBackgroundContext] =
@@ -23,41 +21,36 @@ export const [BackgroundContext, useBackgroundContext] =
     name: 'BackgroundContext',
   })
 
-export const useBackgroundEffect = (imageProps: BackgroundImageProps) => {
+export const useBackgroundEffect = (url: string) => {
   const { setBackground } = useBackgroundContext()
 
   useEffect(() => {
-    setBackground(imageProps)
-  }, [setBackground, imageProps])
+    setBackground(url)
+  }, [setBackground, url])
 }
 
 export function BackgroundProvider({
   children,
-  defaultImageProps = {
-    src: '/images/icon-512.png',
-    width: 128,
-    height: 128,
-  },
+  defaultImageUrl = '/images/icon-512.png',
 }: PropsWithChildren<{
-  defaultImageProps?: BackgroundImageProps | undefined
+  defaultImageUrl?: string | undefined
 }>) {
-  const [imageProps, setImageProps] =
-    useState<BackgroundImageProps>(defaultImageProps)
+  const [imageUrl, setImageUrl] = useState(defaultImageUrl)
 
   const pathname = usePathname()
 
   const value: BackgroundContextValue = useMemo(
     () => ({
-      setBackground: (it) => setImageProps(it ?? defaultImageProps),
+      setBackground: (it) => setImageUrl(it ?? defaultImageUrl),
     }),
-    [defaultImageProps],
+    [defaultImageUrl],
   )
 
   useEffect(() => {
     if (pathname) {
-      setImageProps(defaultImageProps)
+      setImageUrl(defaultImageUrl)
     }
-  }, [pathname, defaultImageProps])
+  }, [pathname, defaultImageUrl])
 
   const shouldReduceMotion = useReducedMotion()
 
@@ -67,14 +60,14 @@ export function BackgroundProvider({
       ease: 'linear',
       repeat: Number.POSITIVE_INFINITY,
     },
-    className: 'absolute w-[200%] aspect-square',
+    className: 'absolute',
   } satisfies HTMLMotionProps<'div'>
 
   const nextImageProps = {
-    ...imageProps,
-    alt: 'Background',
+    src: imageUrl,
     fill: true,
-    className: 'rounded-[50%] blur-[96px] opacity-60',
+    alt: 'Background',
+    className: 'rounded-[50%] blur-[96px] opacity-60 w-72 aspect-square',
   } satisfies ImageProps
 
   return (
@@ -82,20 +75,20 @@ export function BackgroundProvider({
       <AnimatePresence>
         <motion.div
           className="fixed inset-0 -z-10 overflow-hidden pointer-events-none"
-          key={`${imageProps.src}`}
+          key={imageUrl}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <motion.div
+          <motion.figure
             {...rotateProps}
             initial={{ rotate: 0 }}
             animate={{ rotate: shouldReduceMotion ? 0 : 360 }}
             className={cx(rotateProps.className, 'top-0 right-0')}
           >
             <NextImage {...nextImageProps} />
-          </motion.div>
-          <motion.div
+          </motion.figure>
+          <motion.figure
             {...rotateProps}
             initial={{ rotate: 360 }}
             animate={{ rotate: shouldReduceMotion ? 360 : 0 }}
@@ -105,7 +98,7 @@ export function BackgroundProvider({
             )}
           >
             <NextImage {...nextImageProps} />
-          </motion.div>
+          </motion.figure>
         </motion.div>
       </AnimatePresence>
       {children}
