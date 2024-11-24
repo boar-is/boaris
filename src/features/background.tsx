@@ -36,7 +36,7 @@ export function BackgroundProvider({
   const pathname = usePathname()
   const { scrollYProgress } = useScroll()
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, -100])
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '-50%'])
 
   const value: BackgroundContextValue = useMemo(
     () => ({
@@ -66,18 +66,18 @@ export function BackgroundProvider({
               // @ts-expect-error @see https://github.com/motiondivision/motion/issues/2887
               y,
             }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, rotate: 0, scale: 2 }}
+            animate={{ opacity: 1, rotate: 360, scale: 1.5 }}
             exit={{ opacity: 0 }}
             transition={{
               opacity: { duration: 1 },
               rotate: {
-                duration: 60,
+                duration: 120,
                 ease: 'linear',
                 repeat: Number.POSITIVE_INFINITY,
               },
             }}
-            className="absolute size-[200%] -top-1/2 -left-1/2 animate-spin-slow blur-3xl"
+            className="absolute size-[200%] -top-1/2 -left-1/2 blur-[72px]"
           />
         </AnimatePresence>
       </div>
