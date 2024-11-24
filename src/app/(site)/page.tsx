@@ -56,7 +56,7 @@ export default async function SitePage() {
                       Option.filter((it) => it.length > 0),
                       Option.andThen((tags) => (
                         <footer className="flex justify-between gap-8 items-center">
-                          <ul className="flex flex-wrap gap-2 lg:gap-4 text-xs lg:text-sm font-medium tracking-wide text-primary *:my-0.5">
+                          <ul className="flex flex-wrap gap-2 lg:gap-4 text-xs lg:text-sm font-semibold tracking-wide text-primary *:my-0.5">
                             {tags.map((tag) => {
                               const Icon = matchTagIcon(tag)
 
