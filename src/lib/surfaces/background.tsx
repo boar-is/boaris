@@ -30,7 +30,9 @@ export const useBackgroundEffect = (props: BackgroundImageProps | null) => {
   const { setBackground } = useBackgroundContext()
 
   useEffect(() => {
-    setBackground(props)
+    setTimeout(() => {
+      setBackground(props)
+    })
   }, [setBackground, props])
 }
 
