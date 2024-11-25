@@ -12,8 +12,13 @@ import { motion } from '~/lib/motion/motion'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 import { cx } from '~/lib/react/cx'
 
+export type BackgroundImageProps = {
+  src: string
+  sizes: string
+}
+
 export type BackgroundContextValue = {
-  setBackground: (url: string | null) => void
+  setBackground: (props: BackgroundImageProps | null) => void
 }
 
 export const [BackgroundContext, useBackgroundContext] =
@@ -21,36 +26,39 @@ export const [BackgroundContext, useBackgroundContext] =
     name: 'BackgroundContext',
   })
 
-export const useBackgroundEffect = (url: string) => {
+export const useBackgroundEffect = (props: BackgroundImageProps | null) => {
   const { setBackground } = useBackgroundContext()
 
   useEffect(() => {
-    setBackground(url)
-  }, [setBackground, url])
+    setBackground(props)
+  }, [setBackground, props])
 }
 
 export function BackgroundProvider({
   children,
-  defaultImageUrl = '/images/icon-512.png',
+  defaultImageProps = {
+    src: '/images/icon-512.png',
+    sizes: '320px',
+  },
 }: PropsWithChildren<{
-  defaultImageUrl?: string | undefined
+  defaultImageProps?: BackgroundImageProps | undefined
 }>) {
-  const [imageUrl, setImageUrl] = useState(defaultImageUrl)
+  const [imageProps, setImageProps] = useState(defaultImageProps)
 
   const pathname = usePathname()
 
   const value: BackgroundContextValue = useMemo(
     () => ({
-      setBackground: (it) => setImageUrl(it ?? defaultImageUrl),
+      setBackground: (it) => setImageProps(it ?? defaultImageProps),
     }),
-    [defaultImageUrl],
+    [defaultImageProps],
   )
 
   useEffect(() => {
     if (pathname) {
-      setImageUrl(defaultImageUrl)
+      setImageProps(defaultImageProps)
     }
-  }, [pathname, defaultImageUrl])
+  }, [pathname, defaultImageProps])
 
   const shouldReduceMotion = useReducedMotion()
 
@@ -64,11 +72,10 @@ export function BackgroundProvider({
   } satisfies HTMLMotionProps<'div'>
 
   const nextImageProps = {
-    src: imageUrl,
+    ...imageProps,
     fill: true,
     alt: 'Background',
     className: 'rounded-[50%] blur-[80px] opacity-60 transform-gpu',
-    sizes: '25vw',
   } satisfies ImageProps
 
   return (
@@ -76,7 +83,7 @@ export function BackgroundProvider({
       <AnimatePresence>
         <motion.div
           className="fixed inset-0 -z-10 overflow-hidden pointer-events-none"
-          key={imageUrl}
+          key={imageProps.src}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

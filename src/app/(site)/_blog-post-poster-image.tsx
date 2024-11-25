@@ -2,16 +2,21 @@
 
 import { useHover } from '@react-aria/interactions'
 import type { ComponentPropsWithoutRef } from 'react'
-import { useBackgroundContext } from '~/lib/surfaces/background'
+import {
+  type BackgroundImageProps,
+  useBackgroundContext,
+} from '~/lib/surfaces/background'
 
 export function BlogPostArticle({
-  posterUrl,
+  posterImageProps,
   ...props
-}: ComponentPropsWithoutRef<'article'> & { posterUrl: string }) {
+}: ComponentPropsWithoutRef<'article'> & {
+  posterImageProps: BackgroundImageProps
+}) {
   const { setBackground } = useBackgroundContext()
 
   const { hoverProps } = useHover({
-    onHoverStart: () => setBackground(posterUrl),
+    onHoverStart: () => setBackground(posterImageProps),
     onHoverEnd: () => setBackground(null),
   })
 
