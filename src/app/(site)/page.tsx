@@ -20,7 +20,7 @@ export default async function SitePage() {
           {posts.map((post, index) => {
             const posterImageProps = {
               src: post.posterUrl,
-              sizes: '320px',
+              sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
               alt: `${post.title}'s poster`,
             } satisfies ImageProps
 

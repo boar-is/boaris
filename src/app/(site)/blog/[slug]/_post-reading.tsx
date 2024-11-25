@@ -22,7 +22,7 @@ export function PostReadingHeader() {
 
   const posterImageProps = {
     src: vm.posterUrl,
-    sizes: '768px',
+    sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
     alt: `${vm.title}'s poster`,
   } satisfies ImageProps
 

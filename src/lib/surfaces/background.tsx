@@ -34,12 +34,14 @@ export const useBackgroundEffect = (props: BackgroundImageProps | null) => {
   }, [setBackground, props])
 }
 
+export const defaultImagePropsConst: BackgroundImageProps = {
+  src: '/images/icon-512.png',
+  sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
+} as const
+
 export function BackgroundProvider({
   children,
-  defaultImageProps = {
-    src: '/images/icon-512.png',
-    sizes: '320px',
-  },
+  defaultImageProps = defaultImagePropsConst,
 }: PropsWithChildren<{
   defaultImageProps?: BackgroundImageProps | undefined
 }>) {
