@@ -156,7 +156,9 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
       </header>
       <main className="flex-1">{children}</main>
       <footer className="container py-24 flex flex-row flex-wrap gap-5 justify-center items-center">
-        <div className="text-lg font-semibold tracking-tight">with <span className="animate-pulse">❤️</span> by</div>
+        <div className="text-lg font-semibold tracking-tight">
+          with <span className="animate-pulse">❤️</span> by
+        </div>
         <Link href="/" className="flex justify-center items-center">
           <span className="sr-only">Go to the home page</span>
           <SignatureIcon className="h-16 opacity-95 drop-shadow" />

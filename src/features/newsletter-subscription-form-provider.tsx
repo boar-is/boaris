@@ -20,8 +20,12 @@ export function NewsletterSubscriptionFormProvider({
 
   const overlayState = useContext(OverlayTriggerStateContext)
 
+  if (!overlayState) {
+    throw new Error('OverlayTriggerStateContext is null')
+  }
+
   useEffect(() => {
-    if (!overlayState?.isOpen || state.status !== 'success') {
+    if (!overlayState.isOpen || state.status !== 'success') {
       return
     }
 
