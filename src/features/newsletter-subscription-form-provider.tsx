@@ -18,17 +18,19 @@ export function NewsletterSubscriptionFormProvider({
     status: 'initial',
   })
 
-  const { isOpen, close } = useContext(OverlayTriggerStateContext)
+  const overlayState = useContext(OverlayTriggerStateContext)
 
   useEffect(() => {
-    if (isOpen && state.status === 'success') {
-      close()
-      toast.success(`Confirmation email sent to ${state.email}`, {
-        description: 'Please, check your inbox and a spam folder',
-        duration: 10e3,
-      })
+    if (!overlayState?.isOpen || state.status !== 'success') {
+      return
     }
-  }, [state, isOpen, close])
+
+    overlayState.close()
+    toast.success(`Confirmation email sent to ${state.email}`, {
+      description: 'Please, check your inbox and a spam folder',
+      duration: 10e3,
+    })
+  }, [state, overlayState])
 
   return (
     <FormContext.Provider
