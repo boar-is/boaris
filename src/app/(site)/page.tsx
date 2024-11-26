@@ -44,7 +44,7 @@ export default async function SitePage() {
                     <section className="flex-1 space-y-4 lg:space-y-6 lg:py-4">
                       <header>
                         <hgroup className="space-y-1">
-                          <small className="text-gray-11 font-semibold tracking-wide text-sm lg:text-base">
+                          <small className="text-accent-11 font-semibold tracking-wide text-sm lg:text-base">
                             {readableDate(post.date)}
                           </small>
                           <h3 className="text-3xl lg:text-4xl font-semibold tracking-tight text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent">
