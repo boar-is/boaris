@@ -55,11 +55,11 @@ export function PostScrollingHeader() {
         />
       </aside>
       <section className="flex-1 space-y-4 lg:space-y-6 lg:py-4">
-        <div className="space-y-2">
+        <div>
           <small className="text-accent-11 font-bold tracking-wide text-sm lg:text-lg">
             {readableDate(vm.date)}
           </small>
-          <h1 className="text-4xl lg:text-5xl font-bold text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent">
+          <h1 className="text-4xl lg:text-5xl font-bold text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent !leading-relaxed">
             {vm.title}
           </h1>
         </div>
