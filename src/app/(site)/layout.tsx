@@ -159,13 +159,13 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
         </nav>
       </header>
       <main className="flex-1">{children}</main>
-      <footer className="container py-24 flex flex-row flex-wrap gap-5 justify-center items-center">
-        <div className="text-lg font-semibold tracking-tight">
-          with <span className="animate-pulse">❤</span> by
-        </div>
-        <Link href="/" className="flex justify-center items-center">
-          <span className="sr-only">Go to the home page</span>
-          <SignatureIcon className="h-16 opacity-95 drop-shadow" />
+      <footer className="container pb-24 pt-12 flex justify-center items-center">
+        <Link
+          href="/"
+          className="text-lg font-semibold tracking-tight text-center"
+        >
+          with <span className="animate-pulse">❤</span> by{' '}
+          <SignatureIcon className="mx-4 inline-block h-16 opacity-95 drop-shadow" />
         </Link>
       </footer>
     </div>
