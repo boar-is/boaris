@@ -19,7 +19,7 @@ import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 import { workspace } from '~/model/workspace'
 
-const itemCx = cx('flex justify-center items-center rounded-lg h-full')
+const itemCx = cx('flex justify-center items-center rounded-full h-full')
 
 export default async function SiteLayout({ children }: PropsWithChildren) {
   const { name } = workspace
@@ -34,7 +34,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
         <nav
           className={cx(
             shadowInsetStyles,
-            'bg-clip-padding border border-white/10 rounded-3xl after:rounded-3xl p-2.5 drop-shadow-lg',
+            'bg-clip-padding border border-white/10 rounded-full after:rounded-full p-2.5 drop-shadow-lg',
             'bg-gradient-to-br from-bg/50 to-bg/75 backdrop-blur-md backdrop-saturate-150',
           )}
         >
@@ -52,7 +52,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                   alt={`${name}'s logo`}
                   width={36}
                   height={36}
-                  className="rounded-[inherit] shadow-inner size-9"
+                  className="rounded-[inherit] shadow-inner size-10"
                 />
                 {name}
               </Link>
@@ -157,7 +157,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
       <main className="flex-1">{children}</main>
       <footer className="container py-24 flex flex-row flex-wrap gap-5 justify-center items-center">
         <div className="text-lg font-semibold tracking-tight">
-          with <span className="animate-pulse">❤️</span> by
+          with <span className="animate-pulse">❤</span> by
         </div>
         <Link href="/" className="flex justify-center items-center">
           <span className="sr-only">Go to the home page</span>
