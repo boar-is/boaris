@@ -86,7 +86,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                     <Dialog
                       className={cx(
                         shadowInsetStyles,
-                        'flex flex-col items-stretch gap-6 rounded-4xl after:rounded-4xl border border-white/15 bg-gray-2/95 bg-clip-padding p-6 leading-relaxed md:rounded-3xl md:p-10 md:text-lg',
+                        'flex flex-col items-stretch gap-6 rounded-4xl after:rounded-4xl border border-white/15 bg-gray-2/95 bg-clip-padding p-6 leading-relaxed md:p-10 md:text-lg',
                       )}
                     >
                       <header className="flex justify-between items-center">
@@ -122,7 +122,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                         </p>
                       </section>
                       <NewsletterSubscriptionFormProvider>
-                        <Form className="flex flex-col gap-6">
+                        <Form className="flex flex-col gap-4">
                           <TextField
                             name="email"
                             type="email"
@@ -130,7 +130,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                             autoFocus
                             className="flex w-full flex-col gap-1"
                           >
-                            <Label className="text-gray-11 text-xs md:text-sm">
+                            <Label className="text-gray-11 text-sm md:text-base">
                               Email
                             </Label>
                             <Input

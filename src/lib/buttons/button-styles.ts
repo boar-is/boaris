@@ -7,7 +7,7 @@ export const buttonStyles = tv({
     'relative isolate after:content-none transition',
     'inline-flex items-center justify-center',
     'border border-transparent font-medium no-underline rounded-lg after:rounded-lg',
-    'hover:opacity-95 pressed:opacity-90 disabled:opacity-75 focus-visible:outline-accent-8/75 cursor-default',
+    'hover:opacity-95 pressed:opacity-90 disabled:opacity-75 focus-visible:outline-accent-8/90 cursor-default',
   ],
   variants: {
     intent: {
