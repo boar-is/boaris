@@ -11,6 +11,7 @@ import logo from '~/lib/media/icons/logo.png'
 import { SignatureIcon } from '~/lib/media/icons/signature'
 import { Image } from '~/lib/media/image'
 import { matchSocialNetworkIcon } from '~/lib/media/match-social-network-icon'
+import { BlurFade } from '~/lib/motion/blur-fade'
 import { Link } from '~/lib/navigation/link'
 import { CloseDialogButtonProvider } from '~/lib/overlays/close-dialog-button-provider'
 import { Dialog, DialogTrigger } from '~/lib/overlays/dialog'
@@ -160,13 +161,15 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
       </header>
       <main className="flex-1">{children}</main>
       <footer className="container pb-24 pt-12 flex justify-center items-center">
-        <Link
-          href="/"
-          className="text-lg font-semibold tracking-tight text-center"
-        >
-          with <span className="animate-pulse">❤</span> by{' '}
-          <SignatureIcon className="mx-4 inline-block h-16 opacity-95 drop-shadow" />
-        </Link>
+        <BlurFade inView>
+          <Link
+            href="/"
+            className="text-lg font-semibold tracking-tight text-center"
+          >
+            with <span className="animate-pulse">❤</span> by{' '}
+            <SignatureIcon className="mx-4 inline-block h-16 opacity-95 drop-shadow" />
+          </Link>
+        </BlurFade>
       </footer>
     </div>
   )
