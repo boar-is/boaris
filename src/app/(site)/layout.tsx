@@ -143,7 +143,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                             <Button
                               type="submit"
                               intent="primary"
-                              className="rounded-xl text-xl"
+                              className="rounded-xl lg:text-xl"
                             >
                               Subscribe
                             </Button>
