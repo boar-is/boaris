@@ -90,7 +90,7 @@ const createPost = (
         },
         {
           attrs: { level: 0 },
-          content: [{ text: 'The problem', type: 'text' }],
+          content: [{ text: 'One of the problem', type: 'text' }],
           type: 'heading',
         },
         {

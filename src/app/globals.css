@@ -28,11 +28,11 @@
 }
 
 .tiptap {
-  @apply rounded-md;
+  @apply rounded-xl;
 }
 
 .tiptap .is-editor-empty:first-child::before {
-  @apply text-gray-11 content-[attr(data-placeholder)] float-left h-0 pointer-events-none;
+  @apply text-gray-10 content-[attr(data-placeholder)] float-left h-0 pointer-events-none;
 }
 
 .cm-scroller {
@@ -41,7 +41,7 @@
 
 @layer components {
   .typography {
-    @apply max-w-prose text-pretty;
+    @apply max-w-[40ch] text-balance text-2xl text-gray-11 tracking-tight;
   }
 
   .typography .tiptap > *:first-child {
@@ -53,19 +53,19 @@
   }
 
   .typography :where([data-slot~="heading"]) {
-    @apply mt-8 mb-3 text-3xl font-semibold tracking-tight text-balance;
+    @apply mt-16 mb-8 text-5xl font-bold;
   }
 
   .typography :where([data-slot~="subheading"]) {
-    @apply mt-4 mb-2 text-2xl font-medium tracking-tighter text-balance;
+    @apply mt-12 mb-6 text-4xl font-semibold;
   }
 
   .typography :where(p) {
-    @apply my-5 leading-relaxed text-lg first:mt-0;
+    @apply my-10 leading-normal first:mt-0 font-semibold;
   }
 
   .typography :where(code) {
-    @apply font-mono text-[80%] font-medium [font-variant-ligatures:normal] border border-accent-6 py-[0.25%] px-[1%] bg-accent-6/35 text-accent-11 rounded-md tracking-normal;
+    @apply font-mono text-[90%] [font-variant-ligatures:normal] border border-accent-7 py-[0.25%] px-[1%] bg-accent-6/35 text-accent-11 rounded-lg tracking-normal;
   }
 
   .typography :where(strong) {
@@ -73,11 +73,11 @@
   }
 
   .typography :where(a) {
-    @apply text-accent-11 cursor-pointer border-b border-transparent hover:border-current font-medium transition-colors;
+    @apply text-accent-11 cursor-pointer border-b border-transparent hover:border-current font-bold transition-colors;
   }
 
   .typography :where(ol, ul) {
-    @apply my-5 pl-6;
+    @apply my-7 pl-9;
   }
 
   .typography :where(ol) {

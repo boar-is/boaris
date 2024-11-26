@@ -4,10 +4,15 @@ import type { Extensions, JSONContent } from '@tiptap/react'
 export function StaticEditorContent({
   content,
   extensions,
-}: { content: JSONContent; extensions: Extensions }) {
+  className,
+}: {
+  content: JSONContent
+  extensions: Extensions
+  className?: string | undefined
+}) {
   return (
     // Emulating TipTap layout
-    <div>
+    <div className={className}>
       <div
         className="tiptap ProseMirror"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: It's okay here
