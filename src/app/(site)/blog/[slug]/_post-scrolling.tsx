@@ -46,12 +46,12 @@ export function PostScrollingHeader() {
   useBackgroundEffect(posterImageProps)
 
   return (
-    <header className="container flex flex-col justify-between lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5">
+    <header className="container flex flex-col justify-between lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5 drop-shadow-md">
       <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
         <Image
           {...posterImageProps}
           fill
-          className="object-cover rounded-4xl lg:rounded-4xl shadow-inner drop-shadow"
+          className="object-cover rounded-4xl lg:rounded-4xl shadow-inner"
         />
       </aside>
       <section className="flex-1 space-y-4 lg:space-y-6 lg:py-4">
@@ -59,7 +59,7 @@ export function PostScrollingHeader() {
           <small className="text-accent-11 font-bold tracking-wide text-sm lg:text-lg">
             {readableDate(vm.date)}
           </small>
-          <h1 className="text-4xl lg:text-5xl font-bold text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent drop-shadow">
+          <h1 className="text-4xl lg:text-5xl font-bold text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent">
             {vm.title}
           </h1>
         </div>
