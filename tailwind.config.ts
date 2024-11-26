@@ -1,4 +1,4 @@
-import { mintDark, redDark, sageDark } from '@radix-ui/colors'
+import { redDark, sageDark, tealDark } from '@radix-ui/colors'
 import type { Config } from 'tailwindcss'
 import tailwindAnimate from 'tailwindcss-animate'
 import tailwindRac from 'tailwindcss-react-aria-components'
@@ -16,7 +16,7 @@ const radixColor = (record: Record<`${string}${RadixColorScale}`, string>) =>
   )
 
 const gray = radixColor(sageDark)
-const accent = radixColor(mintDark)
+const accent = radixColor(tealDark)
 const destructive = radixColor(redDark)
 
 const tailwindConfig: Config = {
