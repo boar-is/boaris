@@ -31,7 +31,7 @@ export default async function SitePage() {
                     posterImageProps={posterImageProps}
                     className={cx(
                       shadowInsetStyles,
-                      'rounded-4xl after:rounded-4xl lg:rounded-5xl lg:after:rounded-5xl flex flex-col lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5 justify-between bg-clip-padding border border-white/10 bg-gradient-to-br from-bg/50 to-bg/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
+                      'rounded-4xl after:rounded-4xl lg:rounded-5xl lg:after:rounded-5xl flex flex-col lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5 justify-between bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
                     )}
                   >
                     <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
@@ -44,16 +44,16 @@ export default async function SitePage() {
                     <section className="flex-1 space-y-4 lg:space-y-6 lg:py-4">
                       <header>
                         <hgroup className="space-y-1">
-                          <small className="text-muted-fg/75 font-semibold tracking-wide text-sm lg:text-base">
+                          <small className="text-gray-11 font-semibold tracking-wide text-sm lg:text-base">
                             {readableDate(post.date)}
                           </small>
-                          <h3 className="text-3xl lg:text-4xl font-semibold tracking-tight text-balance bg-gradient-to-b from-fg to-muted-fg bg-clip-text text-transparent">
+                          <h3 className="text-3xl lg:text-4xl font-semibold tracking-tight text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent">
                             {post.title}
                           </h3>
                         </hgroup>
                       </header>
 
-                      <p className="text-muted-fg text-sm lg:text-lg font-medium text-pretty !leading-relaxed max-w-prose">
+                      <p className="text-gray-11 text-sm lg:text-lg font-medium text-pretty !leading-relaxed max-w-prose">
                         {post.lead}
                       </p>
 
@@ -61,13 +61,13 @@ export default async function SitePage() {
                         Option.filter((it) => it.length > 0),
                         Option.andThen((tags) => (
                           <footer className="flex justify-between gap-8 items-center">
-                            <ul className="flex flex-wrap gap-2 lg:gap-4 text-xs lg:text-sm font-semibold tracking-wide text-primary *:my-0.5">
+                            <ul className="flex flex-wrap gap-2 lg:gap-4 text-xs lg:text-sm font-semibold tracking-wide text-accent-11 *:my-0.5">
                               {tags.map((tag) => {
                                 const Icon = matchTagIcon(tag)
 
                                 return (
                                   <li key={tag}>
-                                    <div className="flex gap-1 lg:gap-1.5 items-center bg-primary/10 border border-primary rounded-full px-3 py-1">
+                                    <div className="flex gap-1 lg:gap-1.5 items-center bg-accent-8/35 border border-accent-6 rounded-full px-3 py-1">
                                       {Icon && (
                                         <Icon className="size-4 lg:size-5" />
                                       )}

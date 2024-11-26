@@ -35,7 +35,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
           className={cx(
             shadowInsetStyles,
             'bg-clip-padding border border-white/10 rounded-full after:rounded-full p-2.5 drop-shadow-lg',
-            'bg-gradient-to-br from-bg/50 to-bg/75 backdrop-blur-md backdrop-saturate-150',
+            'bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-blur-md backdrop-saturate-150',
           )}
         >
           <ul className="flex items-stretch justify-between gap-4">
@@ -44,7 +44,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                 href="/"
                 className={cx(
                   itemCx,
-                  'gap-2.5 select-none text-xl leading-tight break-all font-semibold text-fg',
+                  'gap-2.5 select-none text-xl leading-tight break-all font-semibold',
                 )}
               >
                 <Image
@@ -80,13 +80,13 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                 </Button>
                 <ModalOverlay
                   isDismissable
-                  className="isolate z-20 entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-bg/25 px-4 backdrop-blur-sm backdrop-saturate-150"
+                  className="isolate z-20 entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-black/25 px-4 backdrop-blur-sm backdrop-saturate-150"
                 >
                   <Modal className="exiting:fade-out-0 entering:fade-in-0 exiting:zoom-out-95 entering:zoom-in-95 max-w-md entering:animate-in exiting:animate-out md:max-w-lg">
                     <Dialog
                       className={cx(
                         shadowInsetStyles,
-                        'flex flex-col items-stretch gap-6 rounded-3xl after:rounded-3xl border border-white/15 bg-overlay/95 bg-clip-padding text-overlay-fg p-6 leading-relaxed md:rounded-3xl md:p-10 md:text-lg',
+                        'flex flex-col items-stretch gap-6 rounded-4xl after:rounded-4xl border border-white/15 bg-gray-2/95 bg-clip-padding p-6 leading-relaxed md:rounded-3xl md:p-10 md:text-lg',
                       )}
                     >
                       <header className="flex justify-between items-center">
@@ -97,13 +97,13 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                           Like the format?
                         </Heading>
                         <CloseDialogButtonProvider>
-                          <Button className="-mr-4 text-muted-fg/80">
+                          <Button className="-mr-4 text-gray-10">
                             <span className="sr-only">Close</span>
                             <CloseIcon className="size-6 md:size-8" />
                           </Button>
                         </CloseDialogButtonProvider>
                       </header>
-                      <section className="flex flex-col gap-4 text-muted-fg">
+                      <section className="flex flex-col gap-4 text-gray-11">
                         <p>
                           My goal with this blog is to create helpful content
                           for front-end web devs. I have a{' '}
@@ -130,17 +130,21 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                             autoFocus
                             className="flex w-full flex-col gap-1"
                           >
-                            <Label className="text-muted-fg text-xs md:text-sm">
+                            <Label className="text-gray-11 text-xs md:text-sm">
                               Email
                             </Label>
                             <Input
                               placeholder="person@cool-domain.com"
-                              className="rounded-lg border border-muted bg-input px-3 py-1 text-lg placeholder-muted-fg transition-colors focus:border-border md:rounded-xl md:px-4 md:py-2 md:text-xl"
+                              className="rounded-xl border border-accent-7 focus:border-accent-8 bg-accent-2 px-3 py-1 text-lg placeholder-accent-5 transition-colors md:px-4 md:py-2 md:text-xl"
                             />
-                            <FieldError className="text-error text-sm" />
+                            <FieldError className="text-destructive-9 text-sm" />
                           </TextField>
                           <PendingFormDisabledButtonProvider>
-                            <Button type="submit" intent="primary">
+                            <Button
+                              type="submit"
+                              intent="primary"
+                              className="rounded-xl text-xl"
+                            >
                               Subscribe
                             </Button>
                           </PendingFormDisabledButtonProvider>

@@ -8,7 +8,7 @@ export function ToastProvider() {
       toastOptions={{
         classNames: {
           toast: cx(
-            'bg-bg text-fg ring-1 ring-border dark:ring-inset font-sans rounded-xl',
+            'bg-gray-2 text-gray-12 outline-1 outline-gray-6 font-sans rounded-xl',
           ),
           title: cx('font-semibold'),
         },

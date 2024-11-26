@@ -14,7 +14,7 @@
   *,
   *::before,
   *::after {
-    @apply border-border;
+    @apply border-gray-6;
     font-variation-settings: "opsz" 32;
   }
 
@@ -23,7 +23,7 @@
   }
 
   .focus-visible :focus-visible {
-    @apply outline outline-ring/35 outline-offset-2;
+    @apply outline outline-accent-7/75 outline-offset-2;
   }
 }
 
@@ -32,7 +32,7 @@
 }
 
 .tiptap .is-editor-empty:first-child::before {
-  @apply text-muted-fg content-[attr(data-placeholder)] float-left h-0 pointer-events-none;
+  @apply text-gray-11 content-[attr(data-placeholder)] float-left h-0 pointer-events-none;
 }
 
 .cm-scroller {
@@ -65,7 +65,7 @@
   }
 
   .typography :where(code) {
-    @apply font-mono text-[80%] font-medium [font-variant-ligatures:normal] border border-fg/10 py-[0.25%] px-[1%] bg-muted text-muted-fg rounded-md tracking-normal;
+    @apply font-mono text-[80%] font-medium [font-variant-ligatures:normal] border border-accent-6 py-[0.25%] px-[1%] bg-accent-6/35 text-accent-11 rounded-md tracking-normal;
   }
 
   .typography :where(strong) {
@@ -73,7 +73,7 @@
   }
 
   .typography :where(a) {
-    @apply text-primary cursor-pointer border-b border-transparent hover:border-current font-medium transition-colors;
+    @apply text-accent-11 cursor-pointer border-b border-transparent hover:border-current font-medium transition-colors;
   }
 
   .typography :where(ol, ul) {
@@ -93,7 +93,7 @@
   }
 
   .typography :where(li) {
-    @apply marker:text-toggle;
+    @apply marker:text-accent-6;
   }
 
   .typography
