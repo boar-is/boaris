@@ -6,6 +6,7 @@ import { readableDate } from '~/lib/date/readable-date'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { Image, type ImageProps } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
+import { BlurFade } from '~/lib/motion/blur-fade'
 import { useBackgroundEffect } from '~/lib/surfaces/background'
 import { usePostVmAtomValue } from './page.client'
 
@@ -13,7 +14,9 @@ export function PostScrolling() {
   return (
     <PlaybackProgressAtomContext.Provider value={useConstAtom(0)}>
       <article className="relative flex-col items-center gap-16">
-        <PostScrollingHeader />
+        <BlurFade inView>
+          <PostScrollingHeader />
+        </BlurFade>
         <div id="container">
           <div
             id="content"
