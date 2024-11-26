@@ -9,8 +9,6 @@
 
   html {
     color-scheme: dark;
-    /*scrollbar-color: theme('colors.muted') theme('colors.transparent');*/
-    scrollbar-color: hsl(239.95 3% 16%) transparent;
   }
 
   *,
