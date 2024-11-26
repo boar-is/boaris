@@ -47,7 +47,7 @@ export default async function SitePage() {
                           <small className="text-accent-11 font-semibold tracking-wide text-sm lg:text-base">
                             {readableDate(post.date)}
                           </small>
-                          <h3 className="text-3xl lg:text-4xl font-semibold tracking-tight text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent !leading-normal">
+                          <h3 className="text-3xl lg:text-4xl font-semibold tracking-tight text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent !leading-[1.1]">
                             {post.title}
                           </h3>
                         </hgroup>

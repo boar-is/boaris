@@ -34,7 +34,7 @@ export function PostScrolling() {
         <BlurFade inView>
           <PostScrollingHeader />
         </BlurFade>
-        {false ? (
+        {editor ? (
           <div id="container">
             <div
               id="content"
@@ -87,7 +87,7 @@ export function PostScrollingHeader() {
           <small className="text-accent-11 font-bold tracking-wide text-sm lg:text-lg">
             {readableDate(vm.date)}
           </small>
-          <h1 className="text-4xl lg:text-5xl font-bold text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent !leading-normal">
+          <h1 className="text-4xl lg:text-5xl font-bold text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent !leading-[1.1]">
             {vm.title}
           </h1>
         </div>
