@@ -79,7 +79,7 @@ export function BackgroundProvider({
     ...imageProps,
     fill: true,
     alt: 'Background',
-    className: 'rounded-[50%] blur-[80px] opacity-60 transform-gpu',
+    className: 'rounded-[50%] blur-[80px] opacity-50 transform-gpu',
   } satisfies ImageProps
 
   return (
