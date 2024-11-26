@@ -64,7 +64,7 @@ export function PostScrollingHeader() {
           </h1>
         </div>
 
-        <p className="text-base lg:text-xl font-semibold tracking-wide text-pretty !leading-relaxed max-w-prose">
+        <p className="text-lg lg:text-xl font-medium tracking-wide text-pretty !leading-relaxed max-w-prose">
           {vm.lead}
         </p>
 
