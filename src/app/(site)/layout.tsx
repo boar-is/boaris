@@ -38,13 +38,13 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
             'bg-gradient-to-br from-bg/50 to-bg/75 backdrop-blur-md backdrop-saturate-150',
           )}
         >
-          <ul className="flex items-stretch justify-between gap-4 text-sm md:text-base">
+          <ul className="flex items-stretch justify-between gap-4">
             <li>
               <Link
                 href="/"
                 className={cx(
                   itemCx,
-                  'gap-2 select-none text-lg leading-tight break-all font-semibold text-fg',
+                  'gap-2.5 select-none text-xl leading-tight break-all font-semibold text-fg',
                 )}
               >
                 <Image
