@@ -8,6 +8,7 @@ import {
   usePlaybackProgressAtom,
 } from '~/features/playback-progress-atom-context'
 import { readableDate } from '~/lib/date/readable-date'
+import { getCenterToScrollElemTo } from '~/lib/dom/get-center-to-scroll-elem-to'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { Image, type ImageProps } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
@@ -154,29 +155,19 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
         setHighlightPositionByEditor(position)
 
         const $pos = editor.state.doc.resolve(position)
-        const depth = findBlockAncestorDepth($pos)
 
+        const depth = findBlockAncestorDepth($pos)
         if (depth === undefined) {
           return
         }
 
         const element = editor.view.nodeDOM($pos.before(depth))
-
         if (!(element instanceof HTMLElement)) {
           return
         }
 
         const scrollable = contentRef.current!
-
-        const scrollableRect = scrollable.getBoundingClientRect()
-        const elementRect = element.getBoundingClientRect()
-
-        const top =
-          scrollable.scrollTop +
-          (elementRect.top - scrollableRect.top) -
-          scrollable.clientHeight / 2 +
-          elementRect.height / 2
-
+        const top = getCenterToScrollElemTo(scrollable, element)
         scrollable.scrollTo({ top, behavior: 'smooth' })
       }),
     ),
