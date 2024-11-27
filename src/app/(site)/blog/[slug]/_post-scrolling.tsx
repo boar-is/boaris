@@ -230,10 +230,7 @@ function PostScrollingLayout() {
   return (
     <AnimatePresence mode="wait">
       {inProgress && (
-        <motion.div
-          key="layout"
-          className="overflow-y-hidden min-h-64 shrink-[9999]"
-        >
+        <motion.div className="overflow-y-hidden">
           <PostScrollingLayoutBody />
         </motion.div>
       )}
@@ -336,7 +333,7 @@ const MainLayerGridItem = memo(
       return (
         <JotaiMotionLi
           ref={ref}
-          className="bg-bg/80 backdrop-blur-md border rounded-xl overflow-hidden aspect-video"
+          className="bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md rounded-2xl overflow-hidden aspect-video"
           $style={styleAtom}
           initial={{ opacity: 0, filter: 'blur(16px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
@@ -502,7 +499,7 @@ const LayoutAssetText = memo(function LayoutAssetText({
 })
 
 const panelEdgeClassName = cx(
-  'bg-overlay/75 py-2 px-3.5 text-sm flex items-center gap-1.5 z-10 tracking-wide',
+  'bg-accent-2/80 py-2 px-3.5 text-sm flex items-center gap-1.5 z-10 tracking-wide',
 )
 
 function LayoutPanel({ children }: PropsWithChildren) {
@@ -518,7 +515,7 @@ function LayoutPanelHeader({ name }: { name: string }) {
 
   return (
     <header className={panelEdgeClassName}>
-      <FileTypeIcon className="size-4 text-muted-fg" />
+      <FileTypeIcon className="size-4 text-gray-11" />
       {name.split('/').pop()}
     </header>
   )
