@@ -52,6 +52,8 @@ import type { AssetImageStatic } from '~/model/assetImageStatic'
 import type { AssetText } from '~/model/assetText'
 import { usePostVmAtom, usePostVmAtomValue } from './page.client'
 
+const editorContentCx = cx('mx-auto typography w-full drop-shadow-md')
+
 export function PostScrolling() {
   const captions = usePostVmAtomValue((it) => it.captions)
 
@@ -78,7 +80,7 @@ export function PostScrolling() {
           <StaticEditorContent
             content={captions}
             extensions={extensions}
-            className="mx-auto typography w-full"
+            className={editorContentCx}
           />
         )}
       </article>
@@ -98,7 +100,7 @@ export function PostScrollingHeader() {
   useBackgroundEffect(posterImageProps)
 
   return (
-    <header className="container flex flex-col justify-between lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5">
+    <header className="container flex flex-col justify-between lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5 drop-shadow-md">
       <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
         <Image
           {...posterImageProps}
@@ -209,10 +211,7 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
           className="overflow-y-hidden fade-y-64 py-24"
           ref={contentRef}
         >
-          <EditorContent
-            editor={editor}
-            className="mx-auto typography w-full"
-          />
+          <EditorContent editor={editor} className={editorContentCx} />
         </motion.div>
         {/*<PostScrollingLayout />*/}
       </motion.div>
