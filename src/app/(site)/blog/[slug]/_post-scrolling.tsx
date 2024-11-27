@@ -205,7 +205,10 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
   return (
     <div className="relative container" ref={containerRef}>
       <motion.div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 p-1 pr-8">
-        <motion.div className="overflow-y-hidden" ref={contentRef}>
+        <motion.div
+          className="overflow-y-hidden fade-y-48 py-24"
+          ref={contentRef}
+        >
           <EditorContent
             editor={editor}
             className="mx-auto typography w-full"

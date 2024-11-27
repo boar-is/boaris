@@ -1,3 +1,4 @@
+import tailwindFade from '@eioluseyi/tailwind-fade'
 import { redDark, sageDark, tealDark } from '@radix-ui/colors'
 import type { Config } from 'tailwindcss'
 import tailwindAnimate from 'tailwindcss-animate'
@@ -60,7 +61,7 @@ const tailwindConfig: Config = {
       },
     },
   },
-  plugins: [tailwindAnimate, tailwindRac],
+  plugins: [tailwindAnimate, tailwindRac, tailwindFade],
 }
 
 export default tailwindConfig
