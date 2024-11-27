@@ -1,6 +1,7 @@
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 import { Decoration, DecorationSet } from '@tiptap/pm/view'
 import { type Editor, Extension } from '@tiptap/react'
+import { findBlockAncestorDepth } from './find-block-ancestor-depth'
 
 const name = 'PositionHighlight'
 
@@ -30,40 +31,20 @@ export const PositionHighlight = Extension.create({
             const { position } = key.getState(state)!
 
             const $pos = state.doc.resolve(position)
-            let depth = $pos.depth
-            let blockFound = false
 
-            while (depth > 0) {
-              const node = $pos.node(depth)
-              if (node.isBlock) {
-                blockFound = true
-                break
-              }
-              depth--
-            }
+            const depth = findBlockAncestorDepth($pos)
 
-            // If no block node was found, do not apply any decoration
-            if (!blockFound) {
+            if (depth === undefined) {
               return DecorationSet.empty
             }
 
             const blockStart = $pos.start(depth)
             const blockEnd = $pos.end(depth)
 
-            // Ensure position is within block boundaries
-            const clampedTargetPos = Math.min(
-              Math.max(position, blockStart),
-              blockEnd,
-            )
-
-            // Create a decoration from the block start to the target position
             const decorations = []
-            if (
-              blockStart <= clampedTargetPos &&
-              clampedTargetPos <= blockEnd
-            ) {
+            if (blockStart <= position && position <= blockEnd) {
               decorations.push(
-                Decoration.inline(blockStart, clampedTargetPos, {
+                Decoration.inline(blockStart, position, {
                   class: 'captions-active',
                 }),
               )

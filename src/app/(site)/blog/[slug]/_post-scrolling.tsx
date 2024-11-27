@@ -8,7 +8,6 @@ import {
   usePlaybackProgressAtom,
 } from '~/features/playback-progress-atom-context'
 import { readableDate } from '~/lib/date/readable-date'
-import { firstNonInlineAncestor } from '~/lib/dom/first-non-inline-ancestor'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { Image, type ImageProps } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
@@ -17,6 +16,7 @@ import { motion } from '~/lib/motion/motion'
 import { useAtomScrollSyncEffect } from '~/lib/motion/use-atom-scroll-sync-effect'
 import { defaultEditorOptions } from '~/lib/prosemirror/default-editor-options'
 import { defaultEditorExtensions } from '~/lib/prosemirror/defaultEditorExtensions'
+import { findBlockAncestorDepth } from '~/lib/prosemirror/find-block-ancestor-depth'
 import { getPositionByProgress } from '~/lib/prosemirror/get-position-by-progress'
 import { setHighlightPosition } from '~/lib/prosemirror/position-highlight'
 import { StaticEditorContent } from '~/lib/prosemirror/static-editor-content'
@@ -153,27 +153,31 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
 
         setHighlightPositionByEditor(position)
 
-        const elementAtPos = firstNonInlineAncestor(
-          editor.view.domAtPos(position).node,
-        )!
+        const $pos = editor.state.doc.resolve(position)
+        const depth = findBlockAncestorDepth($pos)
 
-        if (
-          !elementAtPos.classList.contains('ProseMirror') &&
-          !elementAtPos.classList.contains('typography')
-        ) {
-          const scrollable = contentRef.current!
-
-          const scrollableRect = scrollable.getBoundingClientRect()
-          const elementRect = elementAtPos.getBoundingClientRect()
-
-          const top =
-            scrollable.scrollTop +
-            (elementRect.top - scrollableRect.top) -
-            scrollable.clientHeight / 2 +
-            elementRect.height / 2
-
-          scrollable.scrollTo({ top, behavior: 'smooth' })
+        if (depth === undefined) {
+          return
         }
+
+        const element = editor.view.nodeDOM($pos.before(depth))
+
+        if (!(element instanceof HTMLElement)) {
+          return
+        }
+
+        const scrollable = contentRef.current!
+
+        const scrollableRect = scrollable.getBoundingClientRect()
+        const elementRect = element.getBoundingClientRect()
+
+        const top =
+          scrollable.scrollTop +
+          (elementRect.top - scrollableRect.top) -
+          scrollable.clientHeight / 2 +
+          elementRect.height / 2
+
+        scrollable.scrollTo({ top, behavior: 'smooth' })
       }),
     ),
   )
