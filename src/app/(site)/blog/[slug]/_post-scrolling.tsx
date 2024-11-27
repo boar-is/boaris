@@ -206,7 +206,7 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
     <div className="relative container" ref={containerRef}>
       <motion.div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 p-1 pr-8">
         <motion.div
-          className="overflow-y-hidden fade-y-48 py-24"
+          className="overflow-y-hidden fade-y-64 py-24"
           ref={contentRef}
         >
           <EditorContent
