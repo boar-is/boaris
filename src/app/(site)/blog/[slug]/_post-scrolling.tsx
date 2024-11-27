@@ -133,9 +133,13 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
   // })
 
   return (
-    <div className="relative container h-[500dvh]" ref={containerRef}>
+    <div className="relative container" ref={containerRef}>
       <div className="sticky top-0 h-dvh flex flex-col justify-center gap-8 border border-[white] border-dashed">
-        1
+        <motion.div className="border border-[skyblue]" ref={contentRef}>
+          <EditorContent editor={editor} className="typography" />
+          <EditorContent editor={editor} className="typography" />
+          <EditorContent editor={editor} className="typography" />
+        </motion.div>
       </div>
     </div>
   )
