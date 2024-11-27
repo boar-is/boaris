@@ -67,7 +67,12 @@ export default async function SitePage() {
 
                                 return (
                                   <li key={tag}>
-                                    <div className="flex gap-1 lg:gap-1.5 items-center bg-accent-8/25 border border-accent-8 rounded-full px-3 py-1">
+                                    <div
+                                      className={cx(
+                                        shadowInsetStyles,
+                                        'flex gap-1 lg:gap-1.5 items-center bg-accent-8/25 border border-accent-8 rounded-full after:rounded-full px-3 py-1',
+                                      )}
+                                    >
                                       {Icon && (
                                         <Icon className="size-4 lg:size-5" />
                                       )}

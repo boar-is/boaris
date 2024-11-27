@@ -20,9 +20,11 @@ import { defaultEditorExtensions } from '~/lib/prosemirror/defaultEditorExtensio
 import { getPositionByProgress } from '~/lib/prosemirror/get-position-by-progress'
 import { setHighlightPosition } from '~/lib/prosemirror/position-highlight'
 import { StaticEditorContent } from '~/lib/prosemirror/static-editor-content'
+import { cx } from '~/lib/react/cx'
 import { useConst } from '~/lib/react/use-const'
 import { useContainerHeightSync } from '~/lib/react/use-container-height-sync'
 import { useBackgroundEffect } from '~/lib/surfaces/background'
+import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 import { usePostVmAtomValue } from './page.client'
 
 export function PostScrolling() {
@@ -71,7 +73,7 @@ export function PostScrollingHeader() {
   useBackgroundEffect(posterImageProps)
 
   return (
-    <header className="container flex flex-col justify-between lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5 drop-shadow-md">
+    <header className="container flex flex-col justify-between lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5">
       <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
         <Image
           {...posterImageProps}
@@ -104,7 +106,12 @@ export function PostScrollingHeader() {
 
                   return (
                     <li key={tag}>
-                      <div className="flex gap-1 lg:gap-1.5 items-center bg-accent-7/35 border border-accent-8 border-primary rounded-full px-3 py-1">
+                      <div
+                        className={cx(
+                          shadowInsetStyles,
+                          'flex gap-1 lg:gap-1.5 items-center bg-accent-7/35 border border-accent-8 rounded-full after:rounded-full px-3 py-1',
+                        )}
+                      >
                         {Icon && <Icon className="size-4 lg:size-5" />}
                         {tag}
                       </div>
