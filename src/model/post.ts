@@ -463,8 +463,12 @@ const createPost = (
     },
     layoutChanges: [
       new LayoutChange({
-        offset: 0.001,
+        offset: 0,
         areas: "'GvsdhtasCVQN'",
+      }),
+      new LayoutChange({
+        offset: 0.1,
+        areas: '',
       }),
     ],
     assets: [

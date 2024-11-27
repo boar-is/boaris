@@ -178,6 +178,11 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
 
         setHighlightPositionByEditor(position)
 
+        const scrollable = contentRef.current!
+        if (position === 0) {
+          scrollable.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+
         const $pos = editor.state.doc.resolve(position)
 
         const depth = findBlockAncestorDepth($pos)
@@ -190,8 +195,8 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
           return
         }
 
-        const scrollable = contentRef.current!
-        const top = getCenterToScrollElemTo(scrollable, element)
+        const top =
+          position === 0 ? 0 : getCenterToScrollElemTo(scrollable, element)
         scrollable.scrollTo({ top, behavior: 'smooth' })
       }),
     ),
@@ -199,12 +204,15 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
 
   return (
     <div className="relative container" ref={containerRef}>
-      <div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 p-1 pr-8">
+      <motion.div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 p-1 pr-8">
         <motion.div className="overflow-y-hidden" ref={contentRef}>
-          <EditorContent editor={editor} className="typography" />
+          <EditorContent
+            editor={editor}
+            className="mx-auto typography w-full"
+          />
         </motion.div>
-        <PostScrollingLayout />
-      </div>
+        {/*<PostScrollingLayout />*/}
+      </motion.div>
     </div>
   )
 }
@@ -219,7 +227,18 @@ function PostScrollingLayout() {
     }),
   )
 
-  return inProgress && <PostScrollingLayoutBody />
+  return (
+    <AnimatePresence mode="wait">
+      {inProgress && (
+        <motion.div
+          key="layout"
+          className="overflow-y-hidden min-h-64 shrink-[9999]"
+        >
+          <PostScrollingLayoutBody />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
 }
 
 function PostScrollingLayoutBody() {
@@ -279,7 +298,7 @@ function LayerGrid({
   return (
     areas && (
       <motion.ul
-        className="overflow-y-auto min-h-64 shrink-[9999] grid gap-2 *:h-full"
+        className="grid gap-2 *:h-full"
         style={{
           gridTemplateAreas: areas,
           gridAutoColumns: 'minmax(0, 1fr)',
