@@ -1,16 +1,21 @@
-'use client'
-
-import { useEditor } from '@tiptap/react'
+import { type Editor, EditorContent, useEditor } from '@tiptap/react'
 import { Option, identity } from 'effect'
-import { PlaybackProgressAtomContext } from '~/features/playback-progress-atom-context'
+import { useRef } from 'react'
+import {
+  PlaybackProgressAtomContext,
+  usePlaybackProgressAtom,
+} from '~/features/playback-progress-atom-context'
 import { readableDate } from '~/lib/date/readable-date'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { Image, type ImageProps } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { BlurFade } from '~/lib/motion/blur-fade'
+import { motion } from '~/lib/motion/motion'
 import { defaultEditorOptions } from '~/lib/prosemirror/default-editor-options'
 import { defaultEditorExtensions } from '~/lib/prosemirror/defaultEditorExtensions'
+import { getPositionByProgress } from '~/lib/prosemirror/get-position-by-progress'
 import { StaticEditorContent } from '~/lib/prosemirror/static-editor-content'
+import { useContainerHeightSync } from '~/lib/react/use-container-height-sync'
 import { useBackgroundEffect } from '~/lib/surfaces/background'
 import { usePostVmAtomValue } from './page.client'
 
@@ -30,26 +35,12 @@ export function PostScrolling() {
 
   return (
     <PlaybackProgressAtomContext.Provider value={useConstAtom(0)}>
-      <article className="relative flex flex-col gap-16">
+      <article className="flex flex-col gap-16">
         <BlurFade inView>
           <PostScrollingHeader />
         </BlurFade>
         {editor ? (
-          <div id="container">
-            <div
-              id="content"
-              className="flex flex-col justify-center gap-8 border border-[white] border-dashed"
-            >
-              <div
-                id="captions"
-                className="overflow-hidden border border-[skyblue]"
-              />
-              <div
-                id="layout"
-                className="overflow-y-auto min-h-32 shrink-[9999] border border-[green]"
-              />
-            </div>
-          </div>
+          <PostScrollingBody editor={editor} />
         ) : (
           <StaticEditorContent
             content={captions}
@@ -80,6 +71,7 @@ export function PostScrollingHeader() {
           {...posterImageProps}
           fill
           className="object-cover rounded-4xl lg:rounded-4xl shadow-inner"
+          priority
         />
       </aside>
       <section className="flex-1 space-y-4 lg:space-y-6 lg:py-4">
@@ -120,5 +112,51 @@ export function PostScrollingHeader() {
         )}
       </section>
     </header>
+  )
+}
+
+export function PostScrollingBody({ editor }: { editor: Editor }) {
+  const progressAtom = usePlaybackProgressAtom()
+
+  const getPositionByStateProgress = getPositionByProgress(editor.state)
+  const positionAtom = useConstAtom((get) =>
+    getPositionByStateProgress(get(progressAtom)),
+  )
+
+  const contentRef = useRef<HTMLDivElement | null>(null)
+
+  const containerRef = useContainerHeightSync({ contentRef })
+
+  // useAtomScrollSyncEffect({
+  //   targetRef: containerRef,
+  //   progressAtom,
+  // })
+
+  return (
+    <div className="relative container h-[500dvh]" ref={containerRef}>
+      <div className="sticky top-0 h-dvh flex flex-col justify-center gap-8 border border-[white] border-dashed">
+        1
+      </div>
+    </div>
+  )
+
+  return (
+    <div
+      className="relative container flex flex-col justify-center gap-8 border border-[white] border-dashed"
+      ref={containerRef}
+    >
+      <div
+        id="captions"
+        className="sticky inset-x-0 h-0 overflow-hidden border border-[skyblue]"
+      >
+        <motion.div ref={contentRef}>
+          <EditorContent editor={editor} className="typography" />
+        </motion.div>
+      </div>
+      <div
+        id="layout"
+        className="overflow-y-auto min-h-32 shrink-[9999] border border-[green]"
+      />
+    </div>
   )
 }

@@ -33,7 +33,6 @@ export function PostScrollingCaptions({ editor }: { editor: Editor }) {
   })
 
   const getStateWordRangeAtPos = getWordRangeAtPos(editor.state)
-
   const wordRangeAtom = useConstAtom((get) =>
     getStateWordRangeAtPos(get(positionAtom)),
   )

@@ -41,7 +41,7 @@
 
 @layer components {
   .typography {
-    @apply max-w-[40ch] text-balance text-2xl text-gray-11 tracking-tight;
+    @apply max-w-[40ch] text-balance text-2xl text-gray-11 tracking-tight drop-shadow;
   }
 
   .typography .tiptap > *:first-child {
