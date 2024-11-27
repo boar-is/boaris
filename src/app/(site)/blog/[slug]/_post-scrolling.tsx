@@ -212,6 +212,19 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
 function PostScrollingLayout() {
   const progressAtom = usePlaybackProgressAtom()
 
+  const inProgress = useAtomValue(
+    useConstAtom((get) => {
+      const progress = get(progressAtom)
+      return 0 < progress && progress < 1
+    }),
+  )
+
+  return inProgress && <PostScrollingLayoutBody />
+}
+
+function PostScrollingLayoutBody() {
+  const progressAtom = usePlaybackProgressAtom()
+
   const changesAtom = usePostVmAtom((it) => it.layoutChanges)
 
   const indexAtom = useConstAtom((get) =>
