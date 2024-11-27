@@ -65,7 +65,7 @@
   }
 
   .typography :where(code) {
-    @apply font-mono text-[90%] [font-variant-ligatures:normal] border border-accent-7 py-[0.25%] px-[1%] bg-accent-6/35 text-accent-11 rounded-lg tracking-normal;
+    @apply font-mono text-[90%] [font-variant-ligatures:normal] border border-accent-7 py-[0.25%] px-[1%] bg-accent-6/35 text-accent-12 rounded-lg tracking-normal;
   }
 
   .typography :where(strong) {
@@ -73,7 +73,7 @@
   }
 
   .typography :where(a) {
-    @apply text-accent-11 cursor-pointer border-b border-transparent hover:border-current font-bold transition-colors;
+    @apply text-accent-12 cursor-pointer border-b border-transparent hover:text-accent-11 hover:border-current font-bold transition-colors;
   }
 
   .typography :where(ol, ul) {
@@ -103,5 +103,9 @@
 
   .typography :where(.captions-active) {
     @apply text-gray-12;
+  }
+
+  .typography :where(code .captions-active, a .captions-active) {
+    @apply text-accent-11;
   }
 }
