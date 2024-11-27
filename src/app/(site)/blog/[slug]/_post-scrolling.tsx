@@ -1,11 +1,14 @@
 import { type Editor, EditorContent, useEditor } from '@tiptap/react'
 import { Option, identity } from 'effect'
+import { atomEffect } from 'jotai-effect'
+import { useAtomValue } from 'jotai/index'
 import { useRef } from 'react'
 import {
   PlaybackProgressAtomContext,
   usePlaybackProgressAtom,
 } from '~/features/playback-progress-atom-context'
 import { readableDate } from '~/lib/date/readable-date'
+import { firstNonInlineAncestor } from '~/lib/dom/first-non-inline-ancestor'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { Image, type ImageProps } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
@@ -16,6 +19,7 @@ import { defaultEditorOptions } from '~/lib/prosemirror/default-editor-options'
 import { defaultEditorExtensions } from '~/lib/prosemirror/defaultEditorExtensions'
 import { getPositionByProgress } from '~/lib/prosemirror/get-position-by-progress'
 import { StaticEditorContent } from '~/lib/prosemirror/static-editor-content'
+import { useConst } from '~/lib/react/use-const'
 import { useContainerHeightSync } from '~/lib/react/use-container-height-sync'
 import { useBackgroundEffect } from '~/lib/surfaces/background'
 import { usePostVmAtomValue } from './page.client'
@@ -133,17 +137,45 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
     progressAtom,
   })
 
+  const elementAtPosAtom = useConstAtom((get) => {
+    const position = get(positionAtom)
+    return firstNonInlineAncestor(editor.view.domAtPos(position).node)!
+  })
+
+  useAtomValue(
+    useConst(() =>
+      atomEffect((get) => {
+        const elementAtPos = get(elementAtPosAtom)
+
+        if (
+          !elementAtPos.classList.contains('ProseMirror') &&
+          !elementAtPos.classList.contains('typography')
+        ) {
+          const scrollable = contentRef.current!
+
+          const scrollableRect = scrollable.getBoundingClientRect()
+          const elementRect = elementAtPos.getBoundingClientRect()
+
+          const top =
+            scrollable.scrollTop +
+            (elementRect.top - scrollableRect.top) -
+            scrollable.clientHeight / 2 +
+            elementRect.height / 2
+
+          scrollable.scrollTo({ top, behavior: 'smooth' })
+        }
+      }),
+    ),
+  )
+
   return (
     <div className="relative container" ref={containerRef}>
-      <div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 border border-[white] border-dashed p-1">
+      <div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 border border-[white] border-dashed p-1 pr-8">
         <motion.div
-          className="border border-[skyblue] overflow-y-auto snap-y snap-mandatory"
+          className="border border-[blue] overflow-y-hidden"
           ref={contentRef}
         >
-          <EditorContent
-            editor={editor}
-            className="typography [&_.ProseMirror>*]:snap-center"
-          />
+          <EditorContent editor={editor} className="typography" />
         </motion.div>
         <div
           id="layout"
