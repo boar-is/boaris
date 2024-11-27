@@ -11,6 +11,7 @@ import { Image, type ImageProps } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { BlurFade } from '~/lib/motion/blur-fade'
 import { motion } from '~/lib/motion/motion'
+import { useAtomScrollSyncEffect } from '~/lib/motion/use-atom-scroll-sync-effect'
 import { defaultEditorOptions } from '~/lib/prosemirror/default-editor-options'
 import { defaultEditorExtensions } from '~/lib/prosemirror/defaultEditorExtensions'
 import { getPositionByProgress } from '~/lib/prosemirror/get-position-by-progress'
@@ -127,40 +128,41 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
 
   const containerRef = useContainerHeightSync({ contentRef })
 
-  // useAtomScrollSyncEffect({
-  //   targetRef: containerRef,
-  //   progressAtom,
-  // })
+  useAtomScrollSyncEffect({
+    targetRef: containerRef,
+    progressAtom,
+  })
 
   return (
     <div className="relative container" ref={containerRef}>
-      <div className="sticky top-0 h-dvh flex flex-col justify-center gap-8 border border-[white] border-dashed">
-        <motion.div className="border border-[skyblue]" ref={contentRef}>
-          <EditorContent editor={editor} className="typography" />
-          <EditorContent editor={editor} className="typography" />
-          <EditorContent editor={editor} className="typography" />
+      <div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 border border-[white] border-dashed p-1">
+        <motion.div
+          className="border border-[skyblue] overflow-y-auto snap-y snap-mandatory"
+          ref={contentRef}
+        >
+          <EditorContent
+            editor={editor}
+            className="typography [&_.ProseMirror>*]:snap-center"
+          />
         </motion.div>
+        <div
+          id="layout"
+          className="overflow-y-auto min-h-64 shrink-[9999] border border-[green]"
+        >
+          <div className="bg-accent-1 rounded-lg font-mono">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cumque
+            harum, id, impedit in inventore itaque labore libero molestias
+            necessitatibus omnis provident quibusdam quis sint soluta tempore
+            vero, vitae voluptatibus. Lorem ipsum dolor sit amet, consectetur
+            adipisicing elit. Ab accusamus at commodi dignissimos, earum illo
+            incidunt magnam non, odit provident quaerat qui quia, repellat
+            reprehenderit sapiente suscipit temporibus unde? Quae? Lorem ipsum
+            dolor sit amet, consectetur adipisicing elit. Culpa harum ipsam iure
+            non obcaecati. Ad beatae blanditiis, consectetur consequatur ducimus
+            et laboriosam maxime minima, nemo optio rerum saepe sapiente ut?
+          </div>
+        </div>
       </div>
-    </div>
-  )
-
-  return (
-    <div
-      className="relative container flex flex-col justify-center gap-8 border border-[white] border-dashed"
-      ref={containerRef}
-    >
-      <div
-        id="captions"
-        className="sticky inset-x-0 h-0 overflow-hidden border border-[skyblue]"
-      >
-        <motion.div ref={contentRef}>
-          <EditorContent editor={editor} className="typography" />
-        </motion.div>
-      </div>
-      <div
-        id="layout"
-        className="overflow-y-auto min-h-32 shrink-[9999] border border-[green]"
-      />
     </div>
   )
 }
