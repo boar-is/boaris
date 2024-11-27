@@ -17,8 +17,10 @@ import { TextStyle } from '@tiptap/extension-text-style'
 import { Typography } from '@tiptap/extension-typography'
 import type { Extensions } from '@tiptap/react'
 import { Heading } from './heading'
+import { PositionHighlight } from './position-highlight'
 
 export const defaultEditorExtensions: Extensions = [
+  PositionHighlight,
   Bold,
   BulletList,
   CharacterCount,

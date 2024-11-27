@@ -18,6 +18,7 @@ import { useAtomScrollSyncEffect } from '~/lib/motion/use-atom-scroll-sync-effec
 import { defaultEditorOptions } from '~/lib/prosemirror/default-editor-options'
 import { defaultEditorExtensions } from '~/lib/prosemirror/defaultEditorExtensions'
 import { getPositionByProgress } from '~/lib/prosemirror/get-position-by-progress'
+import { setHighlightPosition } from '~/lib/prosemirror/position-highlight'
 import { StaticEditorContent } from '~/lib/prosemirror/static-editor-content'
 import { useConst } from '~/lib/react/use-const'
 import { useContainerHeightSync } from '~/lib/react/use-container-height-sync'
@@ -123,11 +124,6 @@ export function PostScrollingHeader() {
 export function PostScrollingBody({ editor }: { editor: Editor }) {
   const progressAtom = usePlaybackProgressAtom()
 
-  const getPositionByStateProgress = getPositionByProgress(editor.state)
-  const positionAtom = useConstAtom((get) =>
-    getPositionByStateProgress(get(progressAtom)),
-  )
-
   const contentRef = useRef<HTMLDivElement | null>(null)
 
   const containerRef = useContainerHeightSync({ contentRef })
@@ -137,15 +133,22 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
     progressAtom,
   })
 
-  const elementAtPosAtom = useConstAtom((get) => {
-    const position = get(positionAtom)
-    return firstNonInlineAncestor(editor.view.domAtPos(position).node)!
-  })
+  const getPositionByStateProgress = getPositionByProgress(editor.state)
+  const positionAtom = useConstAtom((get) =>
+    getPositionByStateProgress(get(progressAtom)),
+  )
 
+  const setHighlightPositionByEditor = setHighlightPosition(editor)
   useAtomValue(
     useConst(() =>
       atomEffect((get) => {
-        const elementAtPos = get(elementAtPosAtom)
+        const position = get(positionAtom)
+
+        setHighlightPositionByEditor(position)
+
+        const elementAtPos = firstNonInlineAncestor(
+          editor.view.domAtPos(position).node,
+        )!
 
         if (
           !elementAtPos.classList.contains('ProseMirror') &&

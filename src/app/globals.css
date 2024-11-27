@@ -100,4 +100,8 @@
     :where([data-slot~="heading"] + *, [data-slot~="subheading"] + *) {
     @apply mt-0;
   }
+
+  .typography :where(.captions-active) {
+    @apply text-gray-12;
+  }
 }
