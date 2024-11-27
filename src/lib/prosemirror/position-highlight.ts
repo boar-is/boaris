@@ -29,19 +29,41 @@ export const PositionHighlight = Extension.create({
           decorations(state) {
             const { position } = key.getState(state)!
 
-            // Resolve the position to find the block node
-            let $pos = state.doc.resolve(position)
-            while ($pos.depth > 0 && !$pos.node($pos.depth).isBlock) {
-              $pos = state.doc.resolve($pos.before($pos.depth))
+            const $pos = state.doc.resolve(position)
+            let depth = $pos.depth
+            let blockFound = false
+
+            while (depth > 0) {
+              const node = $pos.node(depth)
+              if (node.isBlock) {
+                blockFound = true
+                break
+              }
+              depth--
             }
-            const blockStart = $pos.start($pos.depth)
-            const blockEnd = $pos.end($pos.depth)
+
+            // If no block node was found, do not apply any decoration
+            if (!blockFound) {
+              return DecorationSet.empty
+            }
+
+            const blockStart = $pos.start(depth)
+            const blockEnd = $pos.end(depth)
+
+            // Ensure position is within block boundaries
+            const clampedTargetPos = Math.min(
+              Math.max(position, blockStart),
+              blockEnd,
+            )
 
             // Create a decoration from the block start to the target position
             const decorations = []
-            if (blockStart <= position && position <= blockEnd) {
+            if (
+              blockStart <= clampedTargetPos &&
+              clampedTargetPos <= blockEnd
+            ) {
               decorations.push(
-                Decoration.inline(blockStart, position, {
+                Decoration.inline(blockStart, clampedTargetPos, {
                   class: 'captions-active',
                 }),
               )
