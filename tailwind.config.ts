@@ -48,6 +48,9 @@ const tailwindConfig: Config = {
         DEFAULT: spacing['3'],
         lg: spacing['4'],
       },
+      screens: {
+        lg: screens.xl,
+      },
     },
     fontFamily: {
       sans: ['var(--font-sans)', ...fontFamily.sans],
