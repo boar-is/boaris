@@ -65,7 +65,7 @@
   }
 
   .typography :where(code) {
-    @apply font-mono text-[90%] [font-variant-ligatures:normal] border border-accent-7 py-[0.25%] px-[1%] bg-accent-6/35 text-accent-12 rounded-lg tracking-normal;
+    @apply font-mono text-[80%] [font-variant-ligatures:normal] border border-accent-7 py-[0.25%] px-[1%] bg-accent-6/35 text-accent-12 rounded-lg tracking-normal;
   }
 
   .typography :where(strong) {
