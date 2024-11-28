@@ -234,9 +234,14 @@ function PostScrollingLayout() {
   )
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="popLayout">
       {inProgress && (
-        <motion.div className="overflow-y-hidden">
+        <motion.div
+          initial={{ y: 300, opacity: 0, filter: 'blur(16px)' }}
+          animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+          exit={{ y: 300, opacity: 0, filter: 'blur(16px)' }}
+          className="overflow-y-hidden"
+        >
           <PostScrollingLayoutBody />
         </motion.div>
       )}

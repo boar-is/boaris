@@ -3,7 +3,7 @@ import { type MutableRefObject, useRef } from 'react'
 
 export const useContainerHeightSync = ({
   contentRef,
-  factor = 1 / 100,
+  factor = 1 / 50,
 }: {
   contentRef: MutableRefObject<HTMLElement | null>
   factor?: number | undefined
