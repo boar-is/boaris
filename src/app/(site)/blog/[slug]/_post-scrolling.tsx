@@ -158,8 +158,8 @@ export function PostScrollingHeader() {
 export function PostScrollingBody({ editor }: { editor: Editor }) {
   const progressAtom = usePlaybackProgressAtom()
 
+  const scrollableRef = useRef<HTMLDivElement | null>(null)
   const contentRef = useRef<HTMLDivElement | null>(null)
-
   const containerRef = useContainerHeightSync({ contentRef })
 
   useAtomScrollSyncEffect({
@@ -180,7 +180,7 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
 
         setHighlightPositionByEditor(position)
 
-        const scrollable = contentRef.current!
+        const scrollable = scrollableRef.current!
         if (position === 0) {
           scrollable.scrollTo({ top: 0, behavior: 'smooth' })
         }
@@ -209,11 +209,15 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
       <motion.div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 p-1 pr-8">
         <motion.div
           className="overflow-y-hidden fade-y-64 py-24"
-          ref={contentRef}
+          ref={scrollableRef}
         >
-          <EditorContent editor={editor} className={editorContentCx} />
+          <EditorContent
+            editor={editor}
+            className={editorContentCx}
+            ref={contentRef}
+          />
         </motion.div>
-        {/*<PostScrollingLayout />*/}
+        <PostScrollingLayout />
       </motion.div>
     </div>
   )
