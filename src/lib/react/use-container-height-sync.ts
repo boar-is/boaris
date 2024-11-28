@@ -13,7 +13,7 @@ export const useContainerHeightSync = ({
   useResizeObserver({
     ref: contentRef,
     onResize: () => {
-      // Without setTimeout, strange empty error is shown
+      // Without setTimeout, a strange empty error is shown
       setTimeout(() => {
         if (!(ref.current && contentRef.current)) {
           return
