@@ -17,6 +17,7 @@
     "@codemirror/lang-javascript": "6.2.2",
     "@codemirror/lang-json": "6.0.1",
     "@eioluseyi/tailwind-fade": "1.0.1",
+    "@fluid-tailwind/tailwind-merge": "0.0.3",
     "@lezer/highlight": "1.2.1",
     "@next/bundle-analyzer": "15.0.3",
     "@radix-ui/colors": "3.0.0",
