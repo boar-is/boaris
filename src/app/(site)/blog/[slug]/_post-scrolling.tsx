@@ -28,6 +28,7 @@ import { seekChanges } from '~/lib/codemirror/seek-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { readableDate } from '~/lib/date/readable-date'
 import { getCenterToScrollElemTo } from '~/lib/dom/get-center-to-scroll-elem-to'
+import { AtomEffect } from '~/lib/jotai/atom-effect'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { mono } from '~/lib/media/fonts/mono'
 import { Image, type ImageProps } from '~/lib/media/image'
@@ -174,51 +175,47 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
   )
 
   const setHighlightPositionByEditor = setHighlightPosition(editor)
-  useAtomValue(
-    useConst(() =>
-      atomEffect((get) => {
-        const position = get(positionAtom)
+  const scrollAtomEffect = useConst(() =>
+    atomEffect((get) => {
+      const position = get(positionAtom)
 
-        setHighlightPositionByEditor(position)
+      setHighlightPositionByEditor(position)
 
-        const scrollable = scrollableRef.current!
-        if (position === 0) {
-          scrollable.scrollTo({ top: 0, behavior: 'smooth' })
-        }
+      const scrollable = scrollableRef.current!
+      if (position === 0) {
+        scrollable.scrollTo({ top: 0, behavior: 'smooth' })
+      }
 
-        const $pos = editor.state.doc.resolve(position)
+      const $pos = editor.state.doc.resolve(position)
 
-        const depth = findBlockAncestorDepth($pos)
-        if (depth === undefined) {
-          return
-        }
+      const depth = findBlockAncestorDepth($pos)
+      if (depth === undefined) {
+        return
+      }
 
-        const element = editor.view.nodeDOM($pos.before(depth))
-        if (!(element instanceof HTMLElement)) {
-          return
-        }
+      const element = editor.view.nodeDOM($pos.before(depth))
+      if (!(element instanceof HTMLElement)) {
+        return
+      }
 
-        const top =
-          position === 0 ? 0 : getCenterToScrollElemTo(scrollable, element)
-        scrollable.scrollTo({ top, behavior: 'smooth' })
-      }),
-    ),
+      const top =
+        position === 0 ? 0 : getCenterToScrollElemTo(scrollable, element)
+      scrollable.scrollTo({ top, behavior: 'smooth' })
+    }),
   )
 
   return (
     <div className="relative container" ref={containerRef}>
+      <AtomEffect value={scrollAtomEffect} />
       <motion.div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 p-1 pr-8">
-        <div
-          className="overflow-y-hidden fade-y-64 py-24 basis-1/2"
-          ref={scrollableRef}
-        >
+        <div className="overflow-y-hidden fade-y-64 py-24" ref={scrollableRef}>
           <EditorContent
             editor={editor}
             className={editorContentCx}
             ref={contentRef}
           />
         </div>
-        <DevPostScrollingLayout />
+        {/*<DevPostScrollingLayout />*/}
       </motion.div>
     </div>
   )
@@ -229,7 +226,7 @@ function DevPostScrollingLayout() {
 
   return (
     <div
-      className="shrink-[9999] bg-accent-2/50 container rounded-4xl"
+      className="bbbbbbbasis-1/2 shrink-[9999] bg-accent-2/50 container rounded-4xl"
       style={{ height }}
     >
       <div className="fixed bottom-0 left-8">
