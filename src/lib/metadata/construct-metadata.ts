@@ -15,7 +15,6 @@ export const constructMetadata = ({
 } = {}): Metadata => {
   title = title ? `${title} • ${workspace.name}` : workspace.name
   const creator = '@MrBoaris'
-  // TODO edit image
   const images = ['/images/og.png']
 
   return {
