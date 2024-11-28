@@ -207,7 +207,7 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
   return (
     <div className="relative container" ref={containerRef}>
       <AtomEffect value={scrollAtomEffect} />
-      <motion.div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 p-1 pr-8">
+      <div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 p-1 pr-8">
         <div className="overflow-y-hidden fade-y-64 py-24" ref={scrollableRef}>
           <EditorContent
             editor={editor}
@@ -216,7 +216,7 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
           />
         </div>
         {/*<DevPostScrollingLayout />*/}
-      </motion.div>
+      </div>
     </div>
   )
 }
