@@ -166,7 +166,6 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
             href="/"
             className="text-lg font-semibold tracking-tight text-center"
           >
-            with <span className="animate-pulse">❤</span> by{' '}
             <SignatureIcon className="mx-4 inline-block h-16 opacity-95 drop-shadow" />
           </Link>
         </BlurFade>
