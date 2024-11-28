@@ -1,6 +1,11 @@
 import tailwindFade from '@eioluseyi/tailwind-fade'
 import { redDark, sageDark, tealDark } from '@radix-ui/colors'
-import tailwindFluid, { extract, fontSize, screens } from 'fluid-tailwind'
+import tailwindFluid, {
+  extract,
+  type FluidThemeConfig,
+  fontSize,
+  screens,
+} from 'fluid-tailwind'
 import type { Config } from 'tailwindcss'
 import tailwindAnimate from 'tailwindcss-animate'
 import tailwindRac from 'tailwindcss-react-aria-components'
@@ -37,17 +42,6 @@ const tailwindConfig: Config = {
       accent,
       destructive,
     },
-    borderRadius: {
-      full: '9999px',
-      '5xl': 'calc(var(--radius) + 20px)',
-      '4xl': 'calc(var(--radius) + 12px)',
-      '3xl': 'calc(var(--radius) + 6px)',
-      '2xl': 'calc(var(--radius) + 4px)',
-      xl: 'calc(var(--radius) + 2px)',
-      lg: 'calc(var(--radius))',
-      md: 'calc(var(--radius) - 2px)',
-      sm: 'calc(var(--radius) - 4px)',
-    },
     container: {
       center: true,
       padding: {
@@ -63,9 +57,14 @@ const tailwindConfig: Config = {
     screens: {
       lg: screens.lg,
     },
+    fluid: () =>
+      ({
+        defaultScreens: ['40rem', screens.lg],
+      }) satisfies FluidThemeConfig,
     extend: {
-      boxShadow: {
-        inset: 'inset 0 1px rgb(255 255 255 / 20%)',
+      borderRadius: {
+        '4xl': '2rem',
+        '5xl': '2.5rem',
       },
     },
   },

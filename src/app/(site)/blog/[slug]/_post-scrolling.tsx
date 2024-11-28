@@ -101,26 +101,26 @@ export function PostScrollingHeader() {
   useBackgroundEffect(posterImageProps)
 
   return (
-    <header className="container flex flex-col justify-between lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5 drop-shadow-md">
+    <header className="container flex flex-col justify-between lg:flex-row ~gap-6/10 ~p-4/5 drop-shadow-md">
       <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
         <Image
           {...posterImageProps}
           fill
-          className="object-cover rounded-4xl lg:rounded-4xl shadow-inner"
+          className="object-cover rounded-4xl shadow-inner"
           priority
         />
       </aside>
-      <section className="flex-1 space-y-4 lg:space-y-6 lg:py-4">
+      <section className="flex-1 ~space-y-4/6 ~py-0/4">
         <div className="space-y-1">
-          <small className="text-accent-11 font-bold tracking-wide text-sm lg:text-lg">
+          <small className="text-accent-11 font-bold tracking-wide ~text-sm/lg">
             {readableDate(vm.date)}
           </small>
-          <h1 className="text-4xl lg:text-5xl font-bold text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent !leading-[1.1]">
+          <h1 className="~text-4xl/5xl font-bold text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent !leading-[1.1]">
             {vm.title}
           </h1>
         </div>
 
-        <p className="text-lg lg:text-xl font-medium tracking-wide text-pretty !leading-relaxed max-w-prose">
+        <p className="~text-lg/xl font-medium tracking-wide text-pretty !leading-relaxed max-w-prose">
           {vm.lead}
         </p>
 
@@ -128,7 +128,7 @@ export function PostScrollingHeader() {
           Option.filter((it) => it.length > 0),
           Option.andThen((tags) => (
             <div className="flex justify-between gap-8 items-center">
-              <ul className="flex flex-wrap gap-2 lg:gap-4 text-sm lg:text-base font-bold tracking-wide text-accent-11 *:my-0.5">
+              <ul className="flex flex-wrap ~gap-2/4 ~text-sm/base font-bold tracking-wide text-accent-11 *:my-0.5">
                 {tags.map((tag) => {
                   const Icon = matchTagIcon(tag)
 
@@ -137,10 +137,10 @@ export function PostScrollingHeader() {
                       <div
                         className={cx(
                           shadowInsetStyles,
-                          'flex gap-1 lg:gap-1.5 items-center bg-accent-7/35 border border-accent-8 rounded-full after:rounded-full px-3 py-1',
+                          'flex ~gap-1/1.5 items-center bg-accent-7/35 border border-accent-8 rounded-full after:rounded-full px-3 py-1',
                         )}
                       >
-                        {Icon && <Icon className="size-4 lg:size-5" />}
+                        {Icon && <Icon className="~size-4/5" />}
                         {tag}
                       </div>
                     </li>
@@ -517,7 +517,7 @@ const LayoutAssetText = memo(function LayoutAssetText({
       <section className="flex-1 overflow-hidden">
         <ReactCodeMirror
           className={cx(
-            'h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!text-xs lg:[&_.cm-scroller]:!text-sm [&_.cm-line]:px-4',
+            'h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!~text-xs/sm [&_.cm-line]:px-4',
             '[&_.cm-scroller]:overflow-hidden',
           )}
           value={initialValue.toString()}

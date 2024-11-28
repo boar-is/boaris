@@ -31,29 +31,29 @@ export default async function SitePage() {
                     posterImageProps={posterImageProps}
                     className={cx(
                       shadowInsetStyles,
-                      'rounded-4xl after:rounded-4xl lg:rounded-5xl lg:after:rounded-5xl flex flex-col lg:flex-row gap-6 lg:gap-10 p-4 lg:p-5 justify-between bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
+                      '~rounded-4xl/5xl after:~rounded-4xl/5xl flex flex-col lg:flex-row ~gap-6/10 ~p-4/5 justify-between bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
                     )}
                   >
                     <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
                       <Image
                         {...posterImageProps}
                         fill
-                        className="object-cover rounded-3xl lg:rounded-4xl shadow-inner border border-white/10 bg-clip-border"
+                        className="object-cover ~rounded-3xl/4xl shadow-inner border border-white/10 bg-clip-border"
                       />
                     </aside>
-                    <section className="flex-1 space-y-4 lg:space-y-6 lg:py-4">
+                    <section className="flex-1 ~space-y-4/6 ~py-0/4">
                       <header>
                         <hgroup className="space-y-1">
-                          <small className="text-accent-11 font-semibold tracking-wide text-sm lg:text-base">
+                          <small className="text-accent-11 font-semibold tracking-wide ~text-sm/base">
                             {readableDate(post.date)}
                           </small>
-                          <h3 className="text-3xl lg:text-4xl font-semibold tracking-tight text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent !leading-[1.1]">
+                          <h3 className="~text-3xl/4xl font-semibold tracking-tight text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent !leading-[1.1]">
                             {post.title}
                           </h3>
                         </hgroup>
                       </header>
 
-                      <p className="text-gray-11 text-sm lg:text-lg font-medium text-pretty !leading-relaxed max-w-prose">
+                      <p className="text-gray-11 ~text-sm/lg font-medium text-pretty !leading-relaxed max-w-prose">
                         {post.lead}
                       </p>
 
@@ -61,7 +61,7 @@ export default async function SitePage() {
                         Option.filter((it) => it.length > 0),
                         Option.andThen((tags) => (
                           <footer className="flex justify-between gap-8 items-center">
-                            <ul className="flex flex-wrap gap-2 lg:gap-4 text-xs lg:text-sm font-semibold tracking-wide text-accent-11 *:my-0.5">
+                            <ul className="flex flex-wrap ~gap-2/4 ~text-xs/sm font-semibold tracking-wide text-accent-11 *:my-0.5">
                               {tags.map((tag) => {
                                 const Icon = matchTagIcon(tag)
 
@@ -70,12 +70,10 @@ export default async function SitePage() {
                                     <div
                                       className={cx(
                                         shadowInsetStyles,
-                                        'flex gap-1 lg:gap-1.5 items-center bg-accent-8/25 border border-accent-8 rounded-full after:rounded-full px-3 py-1',
+                                        'flex ~gap-1/1.5 items-center bg-accent-8/25 border border-accent-8 rounded-full after:rounded-full px-3 py-1',
                                       )}
                                     >
-                                      {Icon && (
-                                        <Icon className="size-4 lg:size-5" />
-                                      )}
+                                      {Icon && <Icon className="~size-4/5" />}
                                       {tag}
                                     </div>
                                   </li>
@@ -94,7 +92,7 @@ export default async function SitePage() {
           })}
         </div>
       ) : (
-        <div className="text-center text-2xl lg:text-4xl font-medium capitalize">
+        <div className="text-center ~text-2xl/4xl font-medium capitalize">
           No posts yet
         </div>
       )}
