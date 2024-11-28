@@ -15,6 +15,7 @@ import {
   memo,
   useMemo,
   useRef,
+  useState,
 } from 'react'
 import {
   PlaybackProgressAtomContext,
@@ -207,8 +208,8 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
   return (
     <div className="relative container" ref={containerRef}>
       <motion.div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 p-1 pr-8">
-        <motion.div
-          className="overflow-y-hidden fade-y-64 py-24"
+        <div
+          className="overflow-y-hidden fade-y-64 py-24 basis-1/2"
           ref={scrollableRef}
         >
           <EditorContent
@@ -216,9 +217,31 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
             className={editorContentCx}
             ref={contentRef}
           />
-        </motion.div>
-        <PostScrollingLayout />
+        </div>
+        <DevPostScrollingLayout />
       </motion.div>
+    </div>
+  )
+}
+
+function DevPostScrollingLayout() {
+  const [height, setHeight] = useState(600)
+
+  return (
+    <div
+      className="shrink-[9999] bg-accent-2/50 container rounded-4xl"
+      style={{ height }}
+    >
+      <div className="fixed bottom-0 left-8">
+        <input
+          type="number"
+          min={0}
+          step={32}
+          value={height}
+          onChange={(e) => setHeight(+e.target.value)}
+        />
+      </div>
+      layout
     </div>
   )
 }
@@ -240,7 +263,7 @@ function PostScrollingLayout() {
           initial={{ y: 300, opacity: 0, filter: 'blur(16px)' }}
           animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
           exit={{ y: 300, opacity: 0, filter: 'blur(16px)' }}
-          className="overflow-y-hidden"
+          className="overflow-y-hidden shrink-[9999]"
         >
           <PostScrollingLayoutBody />
         </motion.div>
