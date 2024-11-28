@@ -6,6 +6,9 @@
 
 # Images
 *.png binary
+*.webp binary
+*.webm binary
+*.mp4 binary
 
 # Fonts
 *.ttf binary
