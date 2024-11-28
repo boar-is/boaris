@@ -517,7 +517,7 @@ const LayoutAssetText = memo(function LayoutAssetText({
       <section className="flex-1 overflow-hidden">
         <ReactCodeMirror
           className={cx(
-            'h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!text-xs md:[&_.cm-scroller]:!text-sm [&_.cm-line]:px-4',
+            'h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!text-xs lg:[&_.cm-scroller]:!text-sm [&_.cm-line]:px-4',
             '[&_.cm-scroller]:overflow-hidden',
           )}
           value={initialValue.toString()}

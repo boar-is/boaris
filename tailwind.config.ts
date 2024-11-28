@@ -1,5 +1,6 @@
 import tailwindFade from '@eioluseyi/tailwind-fade'
 import { redDark, sageDark, tealDark } from '@radix-ui/colors'
+import tailwindFluid, { extract, fontSize, screens } from 'fluid-tailwind'
 import type { Config } from 'tailwindcss'
 import tailwindAnimate from 'tailwindcss-animate'
 import tailwindRac from 'tailwindcss-react-aria-components'
@@ -21,7 +22,10 @@ const accent = radixColor(tealDark)
 const destructive = radixColor(redDark)
 
 const tailwindConfig: Config = {
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: {
+    files: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+    extract,
+  },
   theme: {
     colors: {
       transparent: 'transparent',
@@ -48,12 +52,16 @@ const tailwindConfig: Config = {
       center: true,
       padding: {
         DEFAULT: spacing['3'],
-        md: spacing['4'],
+        lg: spacing['4'],
       },
     },
     fontFamily: {
       sans: ['var(--font-sans)', ...fontFamily.sans],
       mono: ['var(--font-mono)', ...fontFamily.mono],
+    },
+    fontSize,
+    screens: {
+      lg: screens.lg,
     },
     extend: {
       boxShadow: {
@@ -61,7 +69,7 @@ const tailwindConfig: Config = {
       },
     },
   },
-  plugins: [tailwindAnimate, tailwindRac, tailwindFade],
+  plugins: [tailwindAnimate, tailwindRac, tailwindFade, tailwindFluid],
 }
 
 export default tailwindConfig

@@ -30,7 +30,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
   }))
 
   return (
-    <div className="flex flex-col gap-4 md:gap-10 items-stretch min-h-dvh">
+    <div className="flex flex-col gap-4 lg:gap-10 items-stretch min-h-dvh">
       <header className="container sticky z-10 top-0 py-3">
         <nav
           className={cx(
@@ -83,24 +83,24 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                   isDismissable
                   className="isolate z-20 entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-black/25 px-4 backdrop-blur-sm backdrop-saturate-150"
                 >
-                  <Modal className="exiting:fade-out-0 entering:fade-in-0 exiting:zoom-out-95 entering:zoom-in-95 max-w-md entering:animate-in exiting:animate-out md:max-w-lg">
+                  <Modal className="exiting:fade-out-0 entering:fade-in-0 exiting:zoom-out-95 entering:zoom-in-95 max-w-md entering:animate-in exiting:animate-out lg:max-w-lg">
                     <Dialog
                       className={cx(
                         shadowInsetStyles,
-                        'flex flex-col items-stretch gap-6 rounded-4xl after:rounded-4xl border border-white/15 bg-gray-2/95 bg-clip-padding p-6 leading-relaxed md:p-10 md:text-lg',
+                        'flex flex-col items-stretch gap-6 rounded-4xl after:rounded-4xl border border-white/15 bg-gray-2/95 bg-clip-padding p-6 leading-relaxed lg:p-10 lg:text-lg',
                       )}
                     >
                       <header className="flex justify-between items-center">
                         <Heading
                           slot="title"
-                          className="font-semibold text-2xl md:text-4xl"
+                          className="font-semibold text-2xl lg:text-4xl"
                         >
                           Like the format?
                         </Heading>
                         <CloseDialogButtonProvider>
                           <Button className="-mr-4 text-gray-10">
                             <span className="sr-only">Close</span>
-                            <CloseIcon className="size-6 md:size-8" />
+                            <CloseIcon className="size-6 lg:size-8" />
                           </Button>
                         </CloseDialogButtonProvider>
                       </header>
@@ -131,12 +131,12 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                             autoFocus
                             className="flex w-full flex-col gap-1"
                           >
-                            <Label className="text-gray-11 text-sm md:text-base">
+                            <Label className="text-gray-11 text-sm lg:text-base">
                               Email
                             </Label>
                             <Input
                               placeholder="person@cool-domain.com"
-                              className="rounded-xl border border-accent-7 focus:border-accent-8 bg-accent-2 px-3 py-1 text-lg placeholder-accent-5 transition-colors md:px-4 md:py-2 md:text-xl"
+                              className="rounded-xl border border-accent-7 focus:border-accent-8 bg-accent-2 px-3 py-1 text-lg placeholder-accent-5 transition-colors lg:px-4 lg:py-2 lg:text-xl"
                             />
                             <FieldError className="text-destructive-9 text-sm" />
                           </TextField>
