@@ -13,6 +13,7 @@ import {
   type PropsWithChildren,
   forwardRef,
   memo,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -27,6 +28,7 @@ import { reversedChanges } from '~/lib/codemirror/reversed-changes'
 import { seekChanges } from '~/lib/codemirror/seek-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { readableDate } from '~/lib/date/readable-date'
+import { fixScrollUpdateSafariIos } from '~/lib/dom/fix-scroll-update-safari-ios'
 import { getCenterToScrollElemTo } from '~/lib/dom/get-center-to-scroll-elem-to'
 import { AtomEffect } from '~/lib/jotai/atom-effect'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
@@ -203,6 +205,8 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
       scrollable.scrollTo({ top, behavior: 'smooth' })
     }),
   )
+
+  useEffect(() => fixScrollUpdateSafariIos(), [])
 
   return (
     <div className="relative container" ref={containerRef}>
