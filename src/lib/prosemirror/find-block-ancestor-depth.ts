@@ -5,7 +5,7 @@ export const findBlockAncestorDepth = ($pos: ResolvedPos) => {
 
   while (depth > 0) {
     const node = $pos.node(depth)
-    if (node.isBlock && node.type.name !== 'doc') {
+    if (node.isBlock) {
       return depth
     }
     depth--

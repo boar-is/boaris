@@ -97,11 +97,11 @@
     @apply mt-0;
   }
 
-  .typography :where(.captions-active) {
-    @apply text-gray-12;
+  .typography :where(.h) {
+    @apply text-gray-12 transition-colors;
   }
 
-  .typography :where(code .captions-active, a .captions-active) {
+  .typography :where(code .h, a .h) {
     @apply text-accent-11;
   }
 }
