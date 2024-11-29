@@ -15,96 +15,94 @@ const key = new PluginKey<State>(name)
 
 export const PositionHighlight = Extension.create({
   name,
-  addProseMirrorPlugins() {
-    return [
-      new Plugin({
-        key,
-        state: {
-          init: (_, { doc }): State => {
-            const wrapDecorations: Array<Decoration> = []
+  addProseMirrorPlugins: () => [
+    new Plugin({
+      key,
+      state: {
+        init: (_, { doc }): State => {
+          const wrapDecorations: Array<Decoration> = []
 
-            doc.descendants((node, pos) => {
-              if (!node.isText || !node.text?.length) {
-                return
-              }
+          doc.descendants((node, pos) => {
+            if (!node.isText || !node.text?.length) {
+              return
+            }
 
-              for (let i = 0; i < node.text.length; i++) {
-                wrapDecorations.push(
-                  Decoration.inline(pos + i, pos + i + 1, {
-                    nodeName: 'span',
+            for (let i = 0; i < node.text.length; i++) {
+              wrapDecorations.push(
+                Decoration.inline(pos + i, pos + i + 1, {
+                  nodeName: 'span',
+                }),
+              )
+            }
+          })
+
+          return {
+            position: 0,
+            wrapDecorationSet: DecorationSet.create(doc, wrapDecorations),
+            highlightDecorationSet: DecorationSet.empty,
+          }
+        },
+        apply: (tr, state): State => {
+          const position = tr.getMeta(key)
+
+          if (typeof position !== 'number') {
+            return state
+          }
+
+          const $pos = tr.doc.resolve(position)
+          const depth = findBlockAncestorDepth($pos)
+
+          if (depth === undefined) {
+            return state
+          }
+
+          const blockNode = $pos.node(depth)
+          const blockStart = $pos.start(depth)
+
+          const highlightDecorations: Array<Decoration> = []
+          blockNode.descendants((node, localPos) => {
+            if (!node.isText || !node.text?.length) {
+              return
+            }
+
+            for (let i = 0; i < node.text.length; i++) {
+              const charPos = blockStart + localPos + i + 1
+
+              if (charPos - 1 < position) {
+                highlightDecorations.push(
+                  Decoration.inline(charPos - 1, charPos, {
+                    class: 'h',
                   }),
                 )
               }
-            })
-
-            return {
-              position: 0,
-              wrapDecorationSet: DecorationSet.create(doc, wrapDecorations),
-              highlightDecorationSet: DecorationSet.empty,
             }
-          },
-          apply: (tr, state): State => {
-            const position = tr.getMeta(key)
+          })
 
-            if (typeof position !== 'number') {
-              return state
-            }
-
-            const $pos = tr.doc.resolve(position)
-            const depth = findBlockAncestorDepth($pos)
-
-            if (depth === undefined) {
-              return state
-            }
-
-            const blockNode = $pos.node(depth)
-            const blockStart = $pos.start(depth)
-
-            const highlightDecorations: Array<Decoration> = []
-            blockNode.descendants((node, localPos) => {
-              if (!node.isText || !node.text?.length) {
-                return
-              }
-
-              for (let i = 0; i < node.text.length; i++) {
-                const charPos = blockStart + localPos + i + 1
-
-                if (charPos - 1 < position) {
-                  highlightDecorations.push(
-                    Decoration.inline(charPos - 1, charPos, {
-                      class: 'h',
-                    }),
-                  )
-                }
-              }
-            })
-
-            return {
-              position,
-              wrapDecorationSet: tr.docChanged
-                ? state.wrapDecorationSet.map(tr.mapping, tr.doc)
-                : state.wrapDecorationSet,
-              highlightDecorationSet: DecorationSet.create(
-                tr.doc,
-                highlightDecorations,
-              ),
-            }
-          },
+          return {
+            position,
+            wrapDecorationSet: tr.docChanged
+              ? state.wrapDecorationSet.map(tr.mapping, tr.doc)
+              : state.wrapDecorationSet,
+            highlightDecorationSet: DecorationSet.create(
+              tr.doc,
+              highlightDecorations,
+            ),
+          }
         },
-        props: {
-          decorations(state) {
-            const { wrapDecorationSet, highlightDecorationSet } =
-              key.getState(state)!
+      },
+      props: {
+        decorations: (state) => {
+          const { wrapDecorationSet, highlightDecorationSet } =
+            key.getState(state)!
 
-            return DecorationSet.create(state.doc, [
-              ...wrapDecorationSet.find(),
-              ...highlightDecorationSet.find(),
-            ])
-          },
+          return DecorationSet.create(state.doc, [
+            ...wrapDecorationSet.find(),
+            ...highlightDecorationSet.find(),
+          ])
         },
-      }),
-    ]
-  },
+      },
+    }),
+  ],
 })
 
 export const setHighlightPosition = (editor: Editor) => (position: number) => {
