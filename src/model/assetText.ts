@@ -1,6 +1,6 @@
 import { Schema } from 'effect'
-import { OffsetChange } from '~/lib/codemirror/offset-change'
-import { TextFromStringArray } from '~/lib/codemirror/text'
+import { OffsetChange } from '~/lib/cm/offset-change'
+import { TextFromStringArray } from '~/lib/cm/text'
 import { AssetBase } from './assetBase'
 
 /**

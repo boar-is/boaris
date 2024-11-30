@@ -10,14 +10,14 @@ export const useAtomScrollSyncEffect = ({
   progressAtom: PrimitiveAtom<number>
   targetRef: MutableRefObject<HTMLElement | null>
 }) => {
-  const setPlaybackProgress = useSetAtom(progressAtom)
+  const setProgress = useSetAtom(progressAtom)
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
   })
 
   useMotionValueEvent(scrollYProgress, 'change', (progress) =>
-    setPlaybackProgress(progress),
+    setProgress(progress),
   )
   /**
    * A hack to recalculate scrollYProgress

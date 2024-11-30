@@ -1,6 +1,6 @@
 import { ChangeSet, EditorSelection, Text } from '@uiw/react-codemirror'
 import { DateTime, Option, Schema } from 'effect'
-import { JsonContentFromJson } from '~/lib/prosemirror/json-content'
+import { JsonContentFromJson } from '~/lib/pm/json-content'
 import { Asset } from './asset'
 import { AssetText } from './assetText'
 import { LayoutChange } from './layoutChange'

@@ -1,7 +1,7 @@
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 import { Decoration, DecorationSet } from '@tiptap/pm/view'
 import { type Editor, Extension } from '@tiptap/react'
-import { findBlockAncestorDepth } from '~/lib/prosemirror/find-block-ancestor-depth'
+import { findBlockAncestorDepth } from '~/lib/pm/find-block-ancestor-depth'
 
 const name = 'PositionHighlight'
 
