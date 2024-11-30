@@ -4,9 +4,9 @@ import ReactCodeMirror, {
   type ReactCodeMirrorRef,
 } from '@uiw/react-codemirror'
 import { Array, Match, Option, identity } from 'effect'
+import { type Atom, atom, useAtomValue, useStore } from 'jotai'
 import { jotai } from 'jotai-components'
 import { atomEffect } from 'jotai-effect'
-import { type Atom, atom, useAtomValue } from 'jotai/index'
 import { splitAtom } from 'jotai/utils'
 import { AnimatePresence } from 'motion/react'
 import {
@@ -30,7 +30,6 @@ import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { readableDate } from '~/lib/date/readable-date'
 import { fixScrollUpdateSafariIos } from '~/lib/dom/fix-scroll-update-safari-ios'
 import { getCenterToScrollElemTo } from '~/lib/dom/get-center-to-scroll-elem-to'
-import { AtomEffect } from '~/lib/jotai/atom-effect'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { mono } from '~/lib/media/fonts/mono'
 import { Image, type ImageProps } from '~/lib/media/image'
@@ -176,10 +175,13 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
     getPositionByStateProgress(get(progressAtom)),
   )
 
-  const setHighlightPositionByEditor = setHighlightPosition(editor)
-  const scrollAtomEffect = useConst(() =>
-    atomEffect((get) => {
-      const position = get(positionAtom)
+  const store = useStore()
+
+  useEffect(() => {
+    const setHighlightPositionByEditor = setHighlightPosition(editor)
+
+    return store.sub(positionAtom, () => {
+      const position = store.get(positionAtom)
 
       setHighlightPositionByEditor(position)
 
@@ -203,14 +205,13 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
       const top =
         position === 0 ? 0 : getCenterToScrollElemTo(scrollable, element)
       scrollable.scrollTo({ top, behavior: 'smooth' })
-    }),
-  )
+    })
+  }, [store, positionAtom, editor])
 
   useEffect(() => fixScrollUpdateSafariIos(), [])
 
   return (
     <div className="relative container" ref={containerRef}>
-      <AtomEffect value={scrollAtomEffect} />
       <div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 p-1 pr-8">
         <div className="overflow-y-hidden fade-y-64 py-24" ref={scrollableRef}>
           <EditorContent
