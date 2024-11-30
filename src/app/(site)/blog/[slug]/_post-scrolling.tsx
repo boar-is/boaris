@@ -213,14 +213,17 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
   return (
     <div className="relative container" ref={containerRef}>
       <div className="sticky top-0 h-dvh flex flex-col justify-center gap-1 p-1 pr-8">
-        <div className="overflow-y-hidden fade-y-64 py-24" ref={scrollableRef}>
+        <div
+          className="flex-1 overflow-y-hidden fade-y-64 py-24"
+          ref={scrollableRef}
+        >
           <EditorContent
             editor={editor}
             className={editorContentCx}
             ref={contentRef}
           />
         </div>
-        {/*<DevPostScrollingLayout />*/}
+        <DevPostScrollingLayout />
       </div>
     </div>
   )
@@ -231,7 +234,7 @@ function DevPostScrollingLayout() {
 
   return (
     <div
-      className="bbbbbbbasis-1/2 shrink-[9999] bg-accent-2/50 container rounded-4xl"
+      className="shrink basis-auto max-h-[50%] bg-accent-2/50 container rounded-4xl"
       style={{ height }}
     >
       <div className="fixed bottom-0 left-8">
