@@ -16,7 +16,6 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState,
 } from 'react'
 import {
   PlaybackProgressAtomContext,
@@ -53,6 +52,7 @@ import type { Asset } from '~/model/asset'
 import type { AssetImageDynamic } from '~/model/assetImageDynamic'
 import type { AssetImageStatic } from '~/model/assetImageStatic'
 import type { AssetText } from '~/model/assetText'
+import { PostScrollingLayout } from './_post-scrolling-layout'
 import { usePostVmAtom, usePostVmAtomValue } from './page.client'
 
 const editorContentCx = cx('mx-auto typography w-full drop-shadow-md')
@@ -223,35 +223,13 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
             ref={contentRef}
           />
         </div>
-        <DevPostScrollingLayout />
+        <PostScrollingLayout className="shrink basis-auto max-h-[50%] container overflow-y-hidden" />
       </div>
     </div>
   )
 }
 
-function DevPostScrollingLayout() {
-  const [height, setHeight] = useState(600)
-
-  return (
-    <div
-      className="shrink basis-auto max-h-[50%] bg-accent-2/50 container rounded-4xl"
-      style={{ height }}
-    >
-      <div className="fixed bottom-0 left-8">
-        <input
-          type="number"
-          min={0}
-          step={32}
-          value={height}
-          onChange={(e) => setHeight(+e.target.value)}
-        />
-      </div>
-      layout
-    </div>
-  )
-}
-
-function PostScrollingLayout() {
+function PostScrollingLayoutttt() {
   const progressAtom = usePlaybackProgressAtom()
 
   const inProgress = useAtomValue(
