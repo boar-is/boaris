@@ -38,13 +38,13 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
             'bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-blur-md backdrop-saturate-150',
           )}
         >
-          <ul className="flex items-stretch justify-between gap-4">
+          <ul className="flex items-stretch justify-between ~gap-2/4">
             <li>
               <Link
                 href="/"
                 className={cx(
                   itemCx,
-                  'gap-2.5 select-none text-xl leading-tight break-all font-semibold',
+                  '~gap-1.5/2.5 select-none ~text-lg/xl leading-tight break-all font-semibold',
                 )}
               >
                 <Image
@@ -52,7 +52,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                   alt={`${name}'s logo`}
                   width={36}
                   height={36}
-                  className="rounded-[inherit] shadow-inner size-10"
+                  className="rounded-[inherit] shadow-inner ~size-8/10"
                 />
                 {name}
               </Link>
@@ -66,16 +66,23 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                   href={socialLink.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={cx(buttonStyles({ intent: 'tertiary' }), itemCx)}
+                  className={cx(
+                    buttonStyles({ intent: 'tertiary' }),
+                    itemCx,
+                    '~px-2/3 ~-mx-1/2  text-gray-10',
+                  )}
                 >
                   <span className="sr-only">{socialLink.label} Profile</span>
-                  <socialLink.Icon className="size-6" />
+                  <socialLink.Icon className="~size-4/6" />
                 </Link>
               </li>
             ))}
-            <li>
+            <li className="ml-2">
               <DialogTrigger>
-                <Button intent="primary" className={itemCx}>
+                <Button
+                  intent="primary"
+                  className={cx(itemCx, '~text-sm/base')}
+                >
                   Subscribe
                 </Button>
                 <ModalOverlay

@@ -4,7 +4,7 @@ import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 
 export const buttonStyles = tv({
   base: [
-    'relative isolate after:content-none transition',
+    'relative isolate after:content-none transition-colors',
     'inline-flex items-center justify-center',
     'border border-transparent font-medium no-underline rounded-lg after:rounded-lg',
     'hover:opacity-95 pressed:opacity-90 disabled:opacity-75 focus-visible:outline-accent-8/90 cursor-default',
@@ -14,7 +14,8 @@ export const buttonStyles = tv({
       primary: 'bg-white text-black',
       secondary:
         'bg-gray-3 hover:bg-gray-4 pressed:bg-gray-5 border-gray-6 text-gray-11',
-      tertiary: 'hover:bg-gray-3 pressed:bg-gray-5 text-gray-11',
+      tertiary:
+        'hover:bg-gray-3 pressed:bg-gray-5 text-gray-11 hover:text-gray-12',
       destructive:
         'bg-destructive-9 pressed:bg-destructive-10 text-destructive-12 border-destructive-6',
     },
