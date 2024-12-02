@@ -223,7 +223,7 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
             ref={contentRef}
           />
         </div>
-        <PostScrollingLayout className="shrink basis-auto max-h-[50%] container overflow-y-hidden" />
+        <PostScrollingLayout className="shrink basis-auto max-h-[50%] container" />
       </div>
     </div>
   )
