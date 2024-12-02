@@ -1,14 +1,16 @@
 import { Match } from 'effect'
 import { socialNetworkRegexes } from '~/lib/regexes/social-network-regexes'
-import { LinkIcon } from './icons'
-import { DiscordIcon } from './icons/discord'
-import { GitHubIcon } from './icons/github'
-import { LinkedInIcon } from './icons/linkedin'
-import { RedditIcon } from './icons/reddit'
-import { StackOverflowIcon } from './icons/stackoverflow'
-import { TelegramIcon } from './icons/telegram'
-import { XIcon } from './icons/x'
-import { YouTubeIcon } from './icons/youtube'
+import {
+  DiscordIcon,
+  GitHubIcon,
+  LinkIcon,
+  LinkedInIcon,
+  MailIcon,
+  RedditIcon,
+  StackOverflowIcon,
+  XIcon,
+  YouTubeIcon,
+} from './icons'
 
 export const matchSocialNetworkIcon = Match.type<string>().pipe(
   Match.when(
@@ -43,5 +45,5 @@ export const matchSocialNetworkIcon = Match.type<string>().pipe(
     (it) => socialNetworkRegexes.telegram.test(it),
     () => TelegramIcon,
   ),
-  Match.orElse(() => LinkIcon),
+  Match.orElse(() => MailIcon),
 )
