@@ -1,3 +1,4 @@
+import { Array, pipe } from 'effect'
 import type { PropsWithChildren } from 'react'
 import { NewsletterSubscriptionFormProvider } from '~/features/newsletter-subscription-form-provider'
 import { Button } from '~/lib/buttons/button'
@@ -23,10 +24,14 @@ const itemCx = cx('flex justify-center items-center rounded-full h-full')
 
 export default async function SiteLayout({ children }: PropsWithChildren) {
   const { name } = workspace
-  const socialLinks = workspace.socialLinks.map((it) => ({
-    ...it,
-    Icon: matchSocialNetworkIcon(it.href),
-  }))
+
+  const socialLinks = pipe(
+    workspace.socialLinks,
+    Array.map((it) => ({
+      ...it,
+      Icon: matchSocialNetworkIcon(it.href),
+    })),
+  )
 
   return (
     <div className="flex flex-col ~gap-4/10 items-stretch min-h-dvh">
