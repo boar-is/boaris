@@ -1,11 +1,13 @@
 'use client'
 
 import type { ResolvedPos } from '@tiptap/pm/model'
-import { Array, Option, Schema, pipe } from 'effect'
+import { Array, Match, Option, Schema, pipe } from 'effect'
 import type { NonEmptyReadonlyArray } from 'effect/Array'
 import { type Atom, useSetAtom, useStore } from 'jotai'
 import { splitAtom } from 'jotai/utils'
 import type { FC, PropsWithChildren } from 'react'
+import type { OffsetChange } from '~/lib/cm/offset-change'
+import type { TextFromSelf } from '~/lib/cm/text'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { readableDate } from '~/lib/date/readable-date'
 import { getCenterToScrollElemTo } from '~/lib/dom/get-center-to-scroll-elem-to'
@@ -14,11 +16,34 @@ import type { ImageIconProps } from '~/lib/media/icons/_base'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { betweenExclusive } from '~/lib/number/betweenExclusive'
 import { findBlockAncestorDepth } from '~/lib/pm/find-block-ancestor-depth'
-import type { JSONContent } from '~/lib/pm/json-content'
+import type { JsonContentFromJson } from '~/lib/pm/json-content'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 import { useConst } from '~/lib/react/use-const'
 import type { Asset } from '~/model/asset'
 import { Post } from '~/model/post'
+
+export type AssetStateImageDynamic = {
+  _id: string
+  name: string
+  href: string
+  caption: string | null
+}
+export type AssetStateImageStatic = {
+  _id: string
+  name: string
+  href: string
+  caption: string | null
+  alt: string | null
+}
+export type AssetStateText = {
+  _id: string
+  name: string
+  initialValue: typeof TextFromSelf.Type
+  advances: Array<typeof OffsetChange.Type>
+  reverses: AssetStateText['advances']
+  headIndexAtom: Atom<number>
+  anchorIndexAtom: Atom<number>
+}
 
 export type PostPageContextValue = {
   title: string
@@ -29,7 +54,7 @@ export type PostPageContextValue = {
     name: string
     Icon: FC<ImageIconProps> | null
   }> | null
-  captions: JSONContent
+  captions: typeof JsonContentFromJson.Type
   setDocSize: (value: number) => void
   setProgress: (progress: number) => void
   scrollableEffect: (options: {
@@ -96,6 +121,15 @@ export function PostPageProvider({
 
       return change.areas
     }),
+  )
+
+  const assetStates = assets.map(
+    Match.type<typeof Asset.Type>().pipe(
+      Match.when({ type: 'image-dynamic' }, (asset) => ({})),
+      Match.when({ type: 'image-static' }, (asset) => ({})),
+      Match.when({ type: 'text' }, (asset) => ({})),
+      Match.exhaustive,
+    ),
   )
 
   const layoutAssetsAtom = useConstAtom((get) =>

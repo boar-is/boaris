@@ -1,7 +1,5 @@
-import type { JSONContent as TipTapJsonContent } from '@tiptap/react'
+import type { JSONContent } from '@tiptap/react'
 import { Schema } from 'effect'
-
-export type JSONContent = TipTapJsonContent
 
 export const JsonContentFromSelf = Schema.declare(
   (input: unknown): input is JSONContent => !!input,
