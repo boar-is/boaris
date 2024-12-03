@@ -1,4 +1,5 @@
-import { Option, Schema } from 'effect'
+import { Array, Option, Schema, pipe } from 'effect'
+import { constant } from 'effect/Function'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { constructMetadata } from '~/lib/metadata/construct-metadata'
@@ -15,21 +16,24 @@ export async function generateMetadata({
 }: PropsWithStaticParams<typeof generateStaticParams>): Promise<Metadata> {
   const { slug } = await params
 
-  const post = posts.find((it) => it.slug === slug)
-
-  if (!post) {
-    return constructMetadata({
-      title: 'Post Not Found',
-    })
-  }
-
-  const { title, lead, description } = post
-
-  return constructMetadata({
-    title,
-    description: description.pipe(Option.getOrElse(() => lead)),
-    canonical: `/blog/${slug}`,
-  })
+  return pipe(
+    posts,
+    Array.findFirst((it) => it.slug === slug),
+    Option.andThen(({ title, lead, description }) =>
+      constructMetadata({
+        title,
+        description: Option.getOrElse(description, () => lead),
+        canonical: `/blog/${slug}`,
+      }),
+    ),
+    Option.getOrElse(
+      constant(
+        constructMetadata({
+          title: 'Post Not Found',
+        }),
+      ),
+    ),
+  )
 }
 
 export default async function PostPage({
