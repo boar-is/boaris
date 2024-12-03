@@ -3,7 +3,7 @@ import ReactCodeMirror, {
   type BasicSetupOptions,
   type ReactCodeMirrorRef,
 } from '@uiw/react-codemirror'
-import { Array, Match, Option, identity } from 'effect'
+import { Array, Match, Option, flow, identity } from 'effect'
 import { type Atom, atom, useAtomValue, useStore } from 'jotai'
 import { jotai } from 'jotai-components'
 import { atomEffect } from 'jotai-effect'
@@ -29,6 +29,7 @@ import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { readableDate } from '~/lib/date/readable-date'
 import { fixScrollUpdateSafariIos } from '~/lib/dom/fix-scroll-update-safari-ios'
 import { getCenterToScrollElemTo } from '~/lib/dom/get-center-to-scroll-elem-to'
+import { applyAtom } from '~/lib/jotai/apply-atom'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { mono } from '~/lib/media/fonts/mono'
 import { Image, type ImageProps } from '~/lib/media/image'
@@ -151,7 +152,7 @@ export function PostScrollingHeader() {
               </ul>
             </div>
           )),
-          Option.getOrThrow,
+          Option.getOrNull,
         )}
       </section>
     </header>
