@@ -27,9 +27,9 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
 
   const socialLinks = pipe(
     workspace.socialLinks,
-    Array.map((it) => ({
-      ...it,
-      Icon: matchSocialNetworkIcon(it.href),
+    Array.map((link) => ({
+      ...link,
+      Icon: matchSocialNetworkIcon(link.href),
     })),
   )
 
