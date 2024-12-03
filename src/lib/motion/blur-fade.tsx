@@ -6,24 +6,26 @@ import {
   type Variants,
   useInView,
 } from 'motion/react'
-import { useRef } from 'react'
+import { type ReactNode, useRef } from 'react'
 import { motion } from './motion'
 
 type MarginType = UseInViewOptions['margin']
 
 interface BlurFadeProps {
-  children: React.ReactNode
-  className?: string
-  variant?: {
-    hidden: { y: number }
-    visible: { y: number }
-  }
-  duration?: number
-  delay?: number
-  yOffset?: number
-  inView?: boolean
-  inViewMargin?: MarginType
-  blur?: string
+  children: ReactNode
+  className?: string | undefined
+  variant?:
+    | {
+        hidden: { y: number }
+        visible: { y: number }
+      }
+    | undefined
+  duration?: number | undefined
+  delay?: number | undefined
+  yOffset?: number | undefined
+  inView?: boolean | undefined
+  inViewMargin?: MarginType | undefined
+  blur?: string | undefined
 }
 
 export function BlurFade({
