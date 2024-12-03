@@ -170,9 +170,8 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
     progressAtom,
   })
 
-  const getPositionByStateProgress = getPositionByProgress(editor.state)
-  const positionAtom = useConstAtom((get) =>
-    getPositionByStateProgress(get(progressAtom)),
+  const positionAtom = useConstAtom(
+    flow(applyAtom(progressAtom), getPositionByProgress(editor.state)),
   )
 
   const store = useStore()
