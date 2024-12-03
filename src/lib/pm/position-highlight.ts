@@ -105,7 +105,7 @@ export const PositionHighlight = Extension.create({
   ],
 })
 
-export const setHighlightPosition = (editor: Editor) => (position: number) => {
+export const setHighlightPosition = (editor: Editor, position: number) => {
   const tr = editor.state.tr.setMeta(key, position)
 
   editor.view.dispatch(tr)

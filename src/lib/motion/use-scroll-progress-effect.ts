@@ -1,24 +1,19 @@
 import { useResizeObserver } from '@react-aria/utils'
-import { type PrimitiveAtom, useSetAtom } from 'jotai/index'
 import { useMotionValueEvent, useScroll } from 'motion/react'
 import type { MutableRefObject } from 'react'
 
-export const useAtomScrollSyncEffect = ({
-  progressAtom,
+export const useScrollProgressEffect = ({
   targetRef,
+  onUpdate,
 }: {
-  progressAtom: PrimitiveAtom<number>
   targetRef: MutableRefObject<HTMLElement | null>
+  onUpdate: (progress: number) => void
 }) => {
-  const setProgress = useSetAtom(progressAtom)
-
   const { scrollYProgress } = useScroll({
     target: targetRef,
   })
 
-  useMotionValueEvent(scrollYProgress, 'change', (progress) =>
-    setProgress(progress),
-  )
+  useMotionValueEvent(scrollYProgress, 'change', onUpdate)
   /**
    * A hack to recalculate scrollYProgress
    * @see https://github.com/motiondivision/motion/issues/2718

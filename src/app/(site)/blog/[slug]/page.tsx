@@ -5,7 +5,8 @@ import { notFound } from 'next/navigation'
 import { constructMetadata } from '~/lib/metadata/construct-metadata'
 import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
 import { Post, posts } from '~/model/post'
-import { PostPageClient } from './page.client'
+import { PostScrolling } from './_post-scrolling'
+import { PostPageProvider } from './provider'
 
 export async function generateStaticParams() {
   return posts.map(({ slug }) => ({ slug }))
@@ -45,7 +46,11 @@ export default async function PostPage({
     posts,
     Array.findFirst((it) => it.slug === slug),
     Option.andThen(Schema.encodeOption(Post)),
-    Option.andThen((post) => <PostPageClient post={post} />),
+    Option.andThen((postEncoded) => (
+      <PostPageProvider postEncoded={postEncoded}>
+        <PostScrolling />
+      </PostPageProvider>
+    )),
     Option.getOrElse(() => notFound()),
   )
 }

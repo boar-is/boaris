@@ -1,6 +1,6 @@
 export const getCenterToScrollElemTo = (
-  scrollable: HTMLElement,
-  element: HTMLElement,
+  scrollable: Element,
+  element: Element,
 ) => {
   const scrollableRect = scrollable.getBoundingClientRect()
   const elementRect = element.getBoundingClientRect()
