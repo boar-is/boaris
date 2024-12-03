@@ -14,15 +14,15 @@ import { newsletterSubscriptionAction } from './newsletter-subscription-action'
 export function NewsletterSubscriptionFormProvider({
   children,
 }: PropsWithChildren) {
-  const [state, action] = useActionState(newsletterSubscriptionAction, {
-    status: 'initial',
-  })
-
   const overlayState = useContext(OverlayTriggerStateContext)
 
   if (!overlayState) {
     throw new Error('OverlayTriggerStateContext is null')
   }
+
+  const [state, action] = useActionState(newsletterSubscriptionAction, {
+    status: 'initial',
+  })
 
   useEffect(() => {
     if (!overlayState.isOpen || state.status !== 'success') {
