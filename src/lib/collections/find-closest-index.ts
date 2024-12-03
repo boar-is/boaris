@@ -1,10 +1,12 @@
+import { Option } from 'effect'
+
 export const findClosestIndex = <T>(
   sortedArr: ReadonlyArray<T>,
   target: number,
   propFn: (t: T) => number,
 ) => {
   if (!sortedArr.length) {
-    return undefined
+    return Option.none()
   }
 
   let lowIndex = 0
@@ -13,7 +15,7 @@ export const findClosestIndex = <T>(
   const low = propFn(sortedArr[lowIndex]!)
 
   if (target < low) {
-    return undefined
+    return Option.none()
   }
 
   while (lowIndex <= highIndex) {
@@ -22,7 +24,7 @@ export const findClosestIndex = <T>(
     const mid = propFn(sortedArr[midIndex]!)
 
     if (mid === target) {
-      return midIndex
+      return Option.some(midIndex)
     }
 
     if (mid < target) {
@@ -32,5 +34,5 @@ export const findClosestIndex = <T>(
     }
   }
 
-  return highIndex
+  return Option.some(highIndex)
 }

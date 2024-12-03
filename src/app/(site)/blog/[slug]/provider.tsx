@@ -3,17 +3,21 @@
 import type { ResolvedPos } from '@tiptap/pm/model'
 import { Array, Option, Schema, pipe } from 'effect'
 import type { NonEmptyReadonlyArray } from 'effect/Array'
-import { useStore } from 'jotai'
-import { useSetAtom } from 'jotai/index'
+import { type Atom, useSetAtom, useStore } from 'jotai'
+import { splitAtom } from 'jotai/utils'
 import type { FC, PropsWithChildren } from 'react'
+import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { readableDate } from '~/lib/date/readable-date'
 import { getCenterToScrollElemTo } from '~/lib/dom/get-center-to-scroll-elem-to'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import type { ImageIconProps } from '~/lib/media/icons/_base'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
+import { betweenExclusive } from '~/lib/number/betweenExclusive'
 import { findBlockAncestorDepth } from '~/lib/pm/find-block-ancestor-depth'
 import type { JSONContent } from '~/lib/pm/json-content'
 import { createStrictContext } from '~/lib/react/create-strict-context'
+import { useConst } from '~/lib/react/use-const'
+import type { Asset } from '~/model/asset'
 import { Post } from '~/model/post'
 
 export type PostPageContextValue = {
@@ -34,6 +38,7 @@ export type PostPageContextValue = {
     resolvePosition: (position: number) => ResolvedPos
     nodeDom: (position: number) => Node | null
   }) => () => void
+  assetAtomsAtom: Atom<Array<Atom<typeof Asset.Type>>>
 }
 
 export const [PostPageContext, usePostPage] =
@@ -47,7 +52,7 @@ export function PostPageProvider({
 }: PropsWithChildren<{
   postEncoded: typeof Post.Encoded
 }>) {
-  const { title, lead, posterUrl, captions, ...post } =
+  const { title, lead, posterUrl, captions, layoutChanges, assets, ...post } =
     Schema.decodeSync(Post)(postEncoded)
 
   const date = readableDate(post.date)
@@ -69,11 +74,41 @@ export function PostPageProvider({
 
   const progressAtom = useConstAtom(0)
 
-  const positionAtom = useConstAtom((get) => {
-    const docSize = get(docSizeAtom)
-    const progress = get(progressAtom)
-    return Math.floor(docSize * progress)
-  })
+  const positionAtom = useConstAtom((get) =>
+    Math.floor(get(docSizeAtom) * get(progressAtom)),
+  )
+
+  const layoutAreasAtom = useConstAtom((get) =>
+    Option.gen(function* () {
+      const progress = get(progressAtom)
+
+      if (!betweenExclusive(progress, 0, 1)) {
+        return yield* Option.none()
+      }
+
+      const index = yield* findClosestIndex(
+        layoutChanges,
+        progress,
+        (it) => it.offset,
+      )
+
+      const change = yield* Array.get(layoutChanges, index)
+
+      return change.areas
+    }),
+  )
+
+  const layoutAssetsAtom = useConstAtom((get) =>
+    pipe(
+      get(layoutAreasAtom),
+      Option.andThen((areas) => assets.filter((it) => areas.includes(it._id))),
+      Option.getOrElse((): Array<typeof Asset.Type> => []),
+    ),
+  )
+
+  const assetAtomsAtom = useConst(() =>
+    splitAtom(layoutAssetsAtom, (it) => it._id),
+  )
 
   const store = useStore()
 
@@ -120,6 +155,7 @@ export function PostPageProvider({
               behavior: 'smooth',
             })
           }),
+        assetAtomsAtom,
       }}
     >
       {children}
