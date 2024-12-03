@@ -1,14 +1,16 @@
 'use client'
 
 import { mergeProps } from '@react-aria/utils'
-import { Array, Option } from 'effect'
+import { Array, Option, flow } from 'effect'
 import { type Atom, atom, useAtomValue } from 'jotai'
 import { splitAtom } from 'jotai/utils'
 import type { CSSProperties, ComponentPropsWithoutRef } from 'react'
 import { usePostVmAtom } from '~/app/(site)/blog/[slug]/page.client'
 import { usePlaybackProgressAtom } from '~/features/playback-progress-atom-context'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
+import { applyAtom } from '~/lib/jotai/apply-atom'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
+import { betweenExclusive } from '~/lib/number/betweenExclusive'
 import { cx } from '~/lib/react/cx'
 import { useConst } from '~/lib/react/use-const'
 
@@ -34,10 +36,9 @@ export function PostScrollingLayout({
 
   const assetsAtom = usePostVmAtom((it) => it.assets)
 
-  const inProgressAtom = useConstAtom((get) => {
-    const progress = get(progressAtom)
-    return 0 < progress && progress < 1
-  })
+  const inProgressAtom = useConstAtom(
+    flow(applyAtom(progressAtom), betweenExclusive(0, 1)),
+  )
 
   const currentAssetsAtoms = useAtomValue(
     useConst(() =>
