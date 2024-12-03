@@ -112,9 +112,10 @@ export function PostPageProvider({
           return
         }
 
-        const top =
-          position === 0 ? 0 : getCenterToScrollElemTo(element, blockElement)
-        element.scrollTo({ top, behavior: 'smooth' })
+        element.scrollTo({
+          top: getCenterToScrollElemTo(element, blockElement),
+          behavior: 'smooth',
+        })
       })
     },
   }
