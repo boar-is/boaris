@@ -3,11 +3,12 @@
 import type { ResolvedPos } from '@tiptap/pm/model'
 import { Array, Option, Schema, pipe } from 'effect'
 import type { NonEmptyReadonlyArray } from 'effect/Array'
-import { atom, useStore } from 'jotai'
+import { useStore } from 'jotai'
 import { useSetAtom } from 'jotai/index'
 import type { FC, PropsWithChildren } from 'react'
 import { readableDate } from '~/lib/date/readable-date'
 import { getCenterToScrollElemTo } from '~/lib/dom/get-center-to-scroll-elem-to'
+import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import type { ImageIconProps } from '~/lib/media/icons/_base'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { findBlockAncestorDepth } from '~/lib/pm/find-block-ancestor-depth'
@@ -64,11 +65,11 @@ export function PostPageProvider({
     Option.getOrNull,
   )
 
-  const docSizeAtom = atom(0)
+  const docSizeAtom = useConstAtom(0)
 
-  const progressAtom = atom(0)
+  const progressAtom = useConstAtom(0)
 
-  const positionAtom = atom((get) => {
+  const positionAtom = useConstAtom((get) => {
     const docSize = get(docSizeAtom)
     const progress = get(progressAtom)
     return Math.floor(docSize * progress)
@@ -92,8 +93,8 @@ export function PostPageProvider({
           dispatchPosition,
           resolvePosition,
           nodeDom,
-        }) => {
-          return store.sub(positionAtom, () => {
+        }) =>
+          store.sub(positionAtom, () => {
             const position = store.get(positionAtom)
 
             dispatchPosition(position)
@@ -118,8 +119,7 @@ export function PostPageProvider({
               top: getCenterToScrollElemTo(element, blockElement),
               behavior: 'smooth',
             })
-          })
-        },
+          }),
       }}
     >
       {children}

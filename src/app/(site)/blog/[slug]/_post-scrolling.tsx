@@ -29,7 +29,7 @@ export function PostScrolling() {
       ...defaultEditorOptions,
       content,
       extensions,
-      onUpdate: ({ editor }) => {
+      onCreate: ({ editor }) => {
         setDocSize(editor.state.doc.content.size - 1)
       },
     },
