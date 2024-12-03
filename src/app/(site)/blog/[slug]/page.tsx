@@ -41,11 +41,11 @@ export default async function PostPage({
 }: PropsWithStaticParams<typeof generateStaticParams>) {
   const { slug } = await params
 
-  const post = posts.find((it) => it.slug === slug)
-
-  if (!post) {
-    notFound()
-  }
-
-  return <PostPageClient post={Schema.encodeSync(Post)(post)} />
+  return pipe(
+    posts,
+    Array.findFirst((it) => it.slug === slug),
+    Option.andThen(Schema.encodeOption(Post)),
+    Option.andThen((post) => <PostPageClient post={post} />),
+    Option.getOrElse(() => notFound()),
+  )
 }
