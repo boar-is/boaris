@@ -56,15 +56,14 @@
     "@uiw/react-codemirror": "4.23.6",
     "@vitejs/plugin-react": "4.3.4",
     "clsx": "2.1.1",
-    "effect": "3.10.19",
+    "effect": "3.11.2",
     "fluid-tailwind": "1.0.4",
     "jotai": "2.10.3",
     "jotai-components": "0.2.0",
-    "jotai-effect": "1.0.4",
     "jsdom": "25.0.1",
-    "lefthook": "1.8.4",
-    "lucide-react": "0.462.0",
-    "motion": "11.12.0",
+    "lefthook": "1.8.5",
+    "lucide-react": "0.464.0",
+    "motion": "11.13.1",
     "next": "15.0.3",
     "postcss": "8.4.49",
     "react": "18.3.1",
@@ -79,6 +78,6 @@
     "typescript": "5.7.2",
     "usehooks-ts": "3.1.0",
     "vite-tsconfig-paths": "5.1.3",
-    "vitest": "2.1.6"
+    "vitest": "2.1.8"
   }
 }
