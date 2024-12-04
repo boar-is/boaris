@@ -1,15 +1,22 @@
 'use client'
 
+import ReactCodeMirror, {
+  type BasicSetupOptions,
+  type ReactCodeMirrorRef,
+} from '@uiw/react-codemirror'
 import { Match } from 'effect'
 import { useAtomValue } from 'jotai'
 import { AnimatePresence } from 'motion/react'
-import { memo } from 'react'
+import { memo, useMemo, useRef } from 'react'
 import {
   type AssetImageDynamicWithState,
   type AssetImageStaticWithState,
   type AssetTextWithState,
   usePostPage,
 } from '~/app/(site)/blog/[slug]/provider'
+import { codemirrorTheme } from '~/lib/cm/codemirror-theme'
+import { matchCodemirrorExtensions } from '~/lib/cm/match-codemirror-extensions'
+import { matchFileTypeIcon } from '~/lib/media/match-file-type-icon'
 import { motion } from '~/lib/motion/motion'
 import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
@@ -26,7 +33,7 @@ export function PostScrollingLayout({
 
   return (
     <ul
-      className={cx('grid gap-2', { 'min-h-[25vh]': assets.length }, className)}
+      className={cx('grid gap-2', { 'min-h-[40vh]': assets.length }, className)}
       style={{
         gridTemplateAreas,
         gridAutoColumns: 'minmax(0, 1fr)',
@@ -37,17 +44,19 @@ export function PostScrollingLayout({
         {assets.map((asset) => (
           <motion.li
             key={asset._id}
-            layout
             className={cx(
               shadowInsetStyles,
-              'bg-accent-1/90 ~rounded-2xl/3xl after:~rounded-2xl/3xl bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
+              '~rounded-xl/2xl after:~rounded-xl/2xl bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md  overflow-hidden',
             )}
             style={{ gridArea: asset._id }}
             initial={{ opacity: 0, filter: 'blur(16px)' }}
             animate={{ opacity: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, filter: 'blur(16px)' }}
           >
-            <motion.div layout>
+            <motion.article
+              layout="position"
+              className="flex flex-col justify-between relative h-full"
+            >
               {Match.value(asset).pipe(
                 Match.when({ type: 'image-dynamic' }, (asset) => (
                   <AssetImageDynamicView asset={asset} />
@@ -60,7 +69,7 @@ export function PostScrollingLayout({
                 )),
                 Match.exhaustive,
               )}
-            </motion.div>
+            </motion.article>
           </motion.li>
         ))}
       </AnimatePresence>
@@ -80,8 +89,46 @@ const AssetImageStaticView = memo(function AssetImageStaticView({
   return <p>AssetImageStaticView: {asset._id}</p>
 })
 
+const basicCmSetup: BasicSetupOptions = {
+  lineNumbers: false,
+  foldGutter: false,
+  highlightActiveLine: false,
+}
+
 const AssetTextView = memo(function AssetTextView({
-  asset,
+  asset: { name, initialValue, advances, reverses },
 }: { asset: AssetTextWithState }) {
-  return <p>AssetTextView: {asset._id}</p>
+  const cmRef = useRef<ReactCodeMirrorRef | null>(null)
+
+  const extensions = useMemo(() => matchCodemirrorExtensions(name), [name])
+
+  return (
+    <>
+      <LayoutPanelHeader name={name} />
+      <ReactCodeMirror
+        className="flex-1 h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!~text-xs/sm [&_.cm-line]:px-4 [&_.cm-scroller]:overflow-hidden"
+        value={initialValue.toString()}
+        extensions={extensions}
+        editable={false}
+        theme={codemirrorTheme}
+        basicSetup={basicCmSetup}
+        ref={cmRef}
+      />
+    </>
+  )
 })
+
+const panelEdgeClassName = cx(
+  'bg-accent-1/30 text-gray-10 font-medium py-2 px-3.5 text-xs flex items-center gap-1.5 z-10 tracking-wide',
+)
+
+function LayoutPanelHeader({ name }: { name: string }) {
+  const FileTypeIcon = matchFileTypeIcon(name)
+
+  return (
+    <header className={panelEdgeClassName}>
+      <FileTypeIcon className="size-4 text-accent-11" />
+      {name.split('/').pop()}
+    </header>
+  )
+}

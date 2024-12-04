@@ -156,36 +156,6 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
   )
 }
 
-// const MainLayerGridItem = memo(
-//   forwardRef<HTMLLIElement, { assetAtom: Atom<typeof Asset.Type> }>(
-//     function MainLayerGridItem({ assetAtom }, ref) {
-//       const idAtom = useConstAtom((get) => get(assetAtom)._id)
-//
-//       const styleAtom = useConstAtom((get) => ({ gridArea: get(idAtom) }))
-//
-//       const { _id, type } = useAtomValue(assetAtom)
-//
-//       return (
-//         <JotaiMotionLi
-//           ref={ref}
-//           className="bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md rounded-2xl overflow-hidden aspect-video"
-//           $style={styleAtom}
-//           initial={{ opacity: 0, filter: 'blur(16px)' }}
-//           animate={{ opacity: 1, filter: 'blur(0px)' }}
-//           exit={{ opacity: 0, filter: 'blur(16px)' }}
-//         >
-//           {matchLayoutAssetPanel({ _id, type })}
-//         </JotaiMotionLi>
-//       )
-//     },
-//   ),
-// )
-
-// type LayoutAssetProps = Pick<typeof Asset.Type, '_id'>
-
-// const useAsset = (_id: (typeof Asset.Type)['_id']) =>
-//   useAtomValue(usePostVmAtom((it) => it.assets)).find((it) => it._id === _id)
-
 // const LayoutAssetImageStatic = memo(function LayoutAssetImageStatic({
 //   _id,
 // }: LayoutAssetProps) {
@@ -332,30 +302,3 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
 //     </LayoutPanel>
 //   )
 // })
-
-// const panelEdgeClassName = cx(
-//   'bg-accent-2/80 py-2 px-3.5 text-sm flex items-center gap-1.5 z-10 tracking-wide',
-// )
-
-// function LayoutPanel({ children }: PropsWithChildren) {
-//   return (
-//     <article className="flex flex-col justify-between relative h-full">
-//       {children}
-//     </article>
-//   )
-// }
-
-// function LayoutPanelHeader({ name }: { name: string }) {
-//   const FileTypeIcon = matchFileTypeIcon(name)
-//
-//   return (
-//     <header className={panelEdgeClassName}>
-//       <FileTypeIcon className="size-4 text-gray-11" />
-//       {name.split('/').pop()}
-//     </header>
-//   )
-// }
-
-// function LayoutPanelFooter({ children }: PropsWithChildren) {
-//   return <footer className={panelEdgeClassName}>{children}</footer>
-// }

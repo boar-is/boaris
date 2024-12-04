@@ -3,11 +3,11 @@ import { socialNetworkRegexes } from '~/lib/regexes/social-network-regexes'
 import {
   DiscordIcon,
   GitHubIcon,
-  LinkIcon,
   LinkedInIcon,
   MailIcon,
   RedditIcon,
   StackOverflowIcon,
+  TelegramIcon,
   XIcon,
   YouTubeIcon,
 } from './icons'
