@@ -25,7 +25,11 @@ export default async function SitePage() {
             } satisfies ImageProps
 
             return (
-              <Link key={post.slug} href={`/blog/${post.slug}`}>
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="~rounded-4xl/5xl"
+              >
                 <BlurFade key={post.slug} delay={index * 0.05} inView>
                   <BlogPostArticle
                     posterImageProps={posterImageProps}
