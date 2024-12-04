@@ -38,10 +38,13 @@ export function PostScrollingLayout({
           <motion.li
             key={asset._id}
             layout
-            className={cx(shadowInsetStyles, 'bg-accent-1/90')}
+            className={cx(
+              shadowInsetStyles,
+              'bg-accent-1/90 ~rounded-2xl/3xl after:~rounded-2xl/3xl bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
+            )}
             style={{ gridArea: asset._id }}
             initial={{ opacity: 0, filter: 'blur(16px)' }}
-            animate={{ opacity: 1, borderRadius: 24, filter: 'blur(0px)' }}
+            animate={{ opacity: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, filter: 'blur(16px)' }}
           >
             <motion.div layout>
@@ -74,11 +77,11 @@ const AssetImageDynamicView = memo(function AssetImageDynamicView({
 const AssetImageStaticView = memo(function AssetImageStaticView({
   asset,
 }: { asset: AssetImageStaticWithState }) {
-  return <p className="w-16">AssetImageStaticView: {asset._id}</p>
+  return <p>AssetImageStaticView: {asset._id}</p>
 })
 
 const AssetTextView = memo(function AssetTextView({
   asset,
 }: { asset: AssetTextWithState }) {
-  return <p className="w-16">AssetTextView: {asset._id}</p>
+  return <p>AssetTextView: {asset._id}</p>
 })
