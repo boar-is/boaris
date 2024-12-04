@@ -65,17 +65,17 @@ export function PostScrollingLayout({
 const AssetImageDynamicView = memo(function AssetImageDynamicView({
   asset,
 }: { asset: AssetImageDynamicWithState }) {
-  return <div>AssetImageDynamicView: {asset._id}</div>
+  return <motion.div layout>AssetImageDynamicView: {asset._id}</motion.div>
 })
 
 const AssetImageStaticView = memo(function AssetImageStaticView({
   asset,
 }: { asset: AssetImageStaticWithState }) {
-  return <div>AssetImageStaticView: {asset._id}</div>
+  return <motion.div layout>AssetImageStaticView: {asset._id}</motion.div>
 })
 
 const AssetTextView = memo(function AssetTextView({
   asset,
 }: { asset: AssetTextWithState }) {
-  return <div>AssetTextView: {asset._id}</div>
+  return <motion.div layout>AssetTextView: {asset._id}</motion.div>
 })
