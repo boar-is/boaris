@@ -93,6 +93,25 @@ export function PostPageProvider({
     Math.floor(get(docSizeAtom) * get(progressAtom)),
   )
 
+  const assets = useConst(() =>
+    post.assets.map(
+      Match.type<typeof Asset.Type>().pipe(
+        Match.when({ type: 'image-dynamic' }, (it) => it),
+        Match.when({ type: 'image-static' }, (it) => it),
+        Match.when(
+          { type: 'text' },
+          (asset): AssetTextWithState => ({
+            ...asset,
+            reverses: reversedChanges(asset.initialValue, asset.advances),
+            anchorIndexAtom: atom(0),
+            headIndexAtom: atom(0),
+          }),
+        ),
+        Match.exhaustive,
+      ),
+    ),
+  )
+
   const layoutAreasAtom = useConstAtom((get) =>
     Option.gen(function* () {
       const progress = get(progressAtom)
@@ -111,25 +130,6 @@ export function PostPageProvider({
 
       return change.areas
     }).pipe(Option.getOrUndefined),
-  )
-
-  const assets = useConst(() =>
-    post.assets.map(
-      Match.type<typeof Asset.Type>().pipe(
-        Match.when({ type: 'image-dynamic' }, (it) => it),
-        Match.when({ type: 'image-static' }, (it) => it),
-        Match.when(
-          { type: 'text' },
-          (asset): AssetTextWithState => ({
-            ...asset,
-            reverses: reversedChanges(asset.initialValue, asset.advances),
-            anchorIndexAtom: atom(0),
-            headIndexAtom: atom(0),
-          }),
-        ),
-        Match.exhaustive,
-      ),
-    ),
   )
 
   const layoutAssetsAtom = useConstAtom((get) =>
