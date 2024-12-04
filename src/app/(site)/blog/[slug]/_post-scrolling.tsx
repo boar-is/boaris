@@ -156,15 +156,6 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
   )
 }
 
-// function PostScrollingLayoutttt() {
-//   const progressAtom = usePlaybackProgressAtom()
-//
-//   const inProgress = useAtomValue(
-//     useConstAtom((get) => {
-//       const progress = get(progressAtom)
-//       return 0 < progress && progress < 1
-//     }),
-//   )
 //
 //   return (
 //     <AnimatePresence mode="popLayout">

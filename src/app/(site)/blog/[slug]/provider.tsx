@@ -53,6 +53,7 @@ export type PostPageContextValue = {
     resolvePosition: (position: number) => ResolvedPos
     nodeDom: (position: number) => Node | null
   }) => () => void
+  areasAtom: Atom<string | undefined>
   assetsAtom: Atom<ReadonlyArray<AssetWithState>>
 }
 
@@ -112,7 +113,7 @@ export function PostPageProvider({
     ),
   )
 
-  const layoutAreasAtom = useConstAtom((get) =>
+  const areasAtom = useConstAtom((get) =>
     Option.gen(function* () {
       const progress = get(progressAtom)
 
@@ -132,8 +133,8 @@ export function PostPageProvider({
     }).pipe(Option.getOrUndefined),
   )
 
-  const layoutAssetsAtom = useConstAtom((get) =>
-    pipe(get(layoutAreasAtom), (areas) =>
+  const assetsAtom = useConstAtom((get) =>
+    pipe(get(areasAtom), (areas) =>
       areas ? assets.filter((it) => areas.includes(it._id)) : [],
     ),
   )
@@ -183,7 +184,8 @@ export function PostPageProvider({
               behavior: 'smooth',
             })
           }),
-        assetsAtom: layoutAssetsAtom,
+        areasAtom,
+        assetsAtom,
       }}
     >
       {children}
