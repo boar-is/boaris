@@ -24,7 +24,7 @@ export function PostScrollingLayout({
   const assets = useAtomValue(assetsAtom)
 
   return (
-    <motion.ul
+    <ul
       className={cx('grid gap-2 *:h-full', className)}
       style={{
         gridTemplateAreas,
@@ -36,6 +36,7 @@ export function PostScrollingLayout({
         {assets.map((asset) => (
           <motion.li
             key={asset._id}
+            layout
             className="bg-accent-3"
             style={{ gridArea: asset._id }}
             initial={{ opacity: 0, filter: 'blur(16px)' }}
@@ -57,7 +58,7 @@ export function PostScrollingLayout({
           </motion.li>
         ))}
       </AnimatePresence>
-    </motion.ul>
+    </ul>
   )
 }
 
