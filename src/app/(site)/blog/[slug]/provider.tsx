@@ -3,11 +3,9 @@
 import type { ResolvedPos } from '@tiptap/pm/model'
 import { Array, Match, Option, Schema, pipe } from 'effect'
 import type { NonEmptyReadonlyArray } from 'effect/Array'
-import { type Atom, useSetAtom, useStore } from 'jotai'
-import { splitAtom } from 'jotai/utils'
+import { type Atom, atom, useSetAtom, useStore } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
-import type { OffsetChange } from '~/lib/cm/offset-change'
-import type { TextFromSelf } from '~/lib/cm/text'
+import { reversedChanges } from '~/lib/cm/reversed-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { readableDate } from '~/lib/date/readable-date'
 import { getCenterToScrollElemTo } from '~/lib/dom/get-center-to-scroll-elem-to'
@@ -20,30 +18,22 @@ import type { JsonContentFromJson } from '~/lib/pm/json-content'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 import { useConst } from '~/lib/react/use-const'
 import type { Asset } from '~/model/asset'
+import type { AssetImageDynamic } from '~/model/assetImageDynamic'
+import type { AssetImageStatic } from '~/model/assetImageStatic'
+import type { AssetText } from '~/model/assetText'
 import { Post } from '~/model/post'
 
-export type AssetStateImageDynamic = {
-  _id: string
-  name: string
-  href: string
-  caption: string | null
-}
-export type AssetStateImageStatic = {
-  _id: string
-  name: string
-  href: string
-  caption: string | null
-  alt: string | null
-}
-export type AssetStateText = {
-  _id: string
-  name: string
-  initialValue: typeof TextFromSelf.Type
-  advances: Array<typeof OffsetChange.Type>
-  reverses: AssetStateText['advances']
+export type AssetImageDynamicWithState = typeof AssetImageDynamic.Type
+export type AssetImageStaticWithState = typeof AssetImageStatic.Type
+export type AssetTextWithState = typeof AssetText.Type & {
+  reverses: AssetTextWithState['advances']
   headIndexAtom: Atom<number>
   anchorIndexAtom: Atom<number>
 }
+export type AssetWithState =
+  | AssetImageDynamicWithState
+  | AssetImageStaticWithState
+  | AssetTextWithState
 
 export type PostPageContextValue = {
   title: string
@@ -63,7 +53,7 @@ export type PostPageContextValue = {
     resolvePosition: (position: number) => ResolvedPos
     nodeDom: (position: number) => Node | null
   }) => () => void
-  assetAtomsAtom: Atom<Array<Atom<typeof Asset.Type>>>
+  assets: ReadonlyArray<AssetWithState>
 }
 
 export const [PostPageContext, usePostPage] =
@@ -77,7 +67,7 @@ export function PostPageProvider({
 }: PropsWithChildren<{
   postEncoded: typeof Post.Encoded
 }>) {
-  const { title, lead, posterUrl, captions, layoutChanges, assets, ...post } =
+  const { title, lead, posterUrl, captions, layoutChanges, ...post } =
     Schema.decodeSync(Post)(postEncoded)
 
   const date = readableDate(post.date)
@@ -123,12 +113,22 @@ export function PostPageProvider({
     }),
   )
 
-  const assetStates = assets.map(
-    Match.type<typeof Asset.Type>().pipe(
-      Match.when({ type: 'image-dynamic' }, (asset) => ({})),
-      Match.when({ type: 'image-static' }, (asset) => ({})),
-      Match.when({ type: 'text' }, (asset) => ({})),
-      Match.exhaustive,
+  const assets = useConst(() =>
+    post.assets.map(
+      Match.type<typeof Asset.Type>().pipe(
+        Match.when({ type: 'image-dynamic' }, (it) => it),
+        Match.when({ type: 'image-static' }, (it) => it),
+        Match.when(
+          { type: 'text' },
+          (asset): AssetTextWithState => ({
+            ...asset,
+            reverses: reversedChanges(asset.initialValue, asset.advances),
+            anchorIndexAtom: atom(0),
+            headIndexAtom: atom(0),
+          }),
+        ),
+        Match.exhaustive,
+      ),
     ),
   )
 
@@ -136,12 +136,8 @@ export function PostPageProvider({
     pipe(
       get(layoutAreasAtom),
       Option.andThen((areas) => assets.filter((it) => areas.includes(it._id))),
-      Option.getOrElse((): Array<typeof Asset.Type> => []),
+      Option.getOrElse((): typeof assets => []),
     ),
-  )
-
-  const assetAtomsAtom = useConst(() =>
-    splitAtom(layoutAssetsAtom, (it) => it._id),
   )
 
   const store = useStore()
@@ -189,7 +185,7 @@ export function PostPageProvider({
               behavior: 'smooth',
             })
           }),
-        assetAtomsAtom,
+        assets,
       }}
     >
       {children}
