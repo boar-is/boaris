@@ -110,7 +110,7 @@ export function PostPageProvider({
       const change = yield* Array.get(layoutChanges, index)
 
       return change.areas
-    }),
+    }).pipe(Option.getOrUndefined),
   )
 
   const assets = useConst(() =>
@@ -133,10 +133,8 @@ export function PostPageProvider({
   )
 
   const layoutAssetsAtom = useConstAtom((get) =>
-    pipe(
-      get(layoutAreasAtom),
-      Option.andThen((areas) => assets.filter((it) => areas.includes(it._id))),
-      Option.getOrElse((): typeof assets => []),
+    pipe(get(layoutAreasAtom), (areas) =>
+      areas ? assets.filter((it) => areas.includes(it._id)) : [],
     ),
   )
 
