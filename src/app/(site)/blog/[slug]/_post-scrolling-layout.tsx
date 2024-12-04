@@ -1,20 +1,63 @@
 'use client'
 
+import { Match } from 'effect'
+import { useAtomValue } from 'jotai'
 import { AnimatePresence } from 'motion/react'
-import type { ComponentPropsWithoutRef } from 'react'
-import { usePostPage } from '~/app/(site)/blog/[slug]/provider'
+import { type ComponentPropsWithoutRef, memo } from 'react'
+import {
+  type AssetImageDynamicWithState,
+  type AssetImageStaticWithState,
+  type AssetTextWithState,
+  usePostPage,
+} from '~/app/(site)/blog/[slug]/provider'
+import { motion } from '~/lib/motion/motion'
 
 export function PostScrollingLayout({
   ...props
 }: ComponentPropsWithoutRef<'ul' & {}>) {
-  const { assets } = usePostPage()
+  const assets = useAtomValue(usePostPage().assetsAtom)
 
   return (
     <ul {...props}>
-      <AnimatePresence></AnimatePresence>
+      <AnimatePresence>
+        {assets.map((asset) => (
+          <motion.li key={asset._id}>
+            {Match.value(asset).pipe(
+              Match.when({ type: 'image-dynamic' }, (asset) => (
+                <AssetImageDynamicView asset={asset} />
+              )),
+              Match.when({ type: 'image-static' }, (asset) => (
+                <AssetImageStaticView asset={asset} />
+              )),
+              Match.when({ type: 'text' }, (asset) => (
+                <AssetTextView asset={asset} />
+              )),
+              Match.exhaustive,
+            )}
+          </motion.li>
+        ))}
+      </AnimatePresence>
     </ul>
   )
 }
+
+const AssetImageDynamicView = memo(function AssetImageDynamicView({
+  asset,
+}: { asset: AssetImageDynamicWithState }) {
+  return <div>AssetImageDynamicView: {asset._id}</div>
+})
+
+const AssetImageStaticView = memo(function AssetImageStaticView({
+  asset,
+}: { asset: AssetImageStaticWithState }) {
+  return <div>AssetImageStaticView: {asset._id}</div>
+})
+
+const AssetTextView = memo(function AssetTextView({
+  asset,
+}: { asset: AssetTextWithState }) {
+  return <div>AssetTextView: {asset._id}</div>
+})
 
 // 'use client'
 //

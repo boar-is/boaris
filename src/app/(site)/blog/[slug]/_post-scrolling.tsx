@@ -16,6 +16,7 @@ import { cx } from '~/lib/react/cx'
 import { useContainerHeightSync } from '~/lib/react/use-container-height-sync'
 import { useBackgroundEffect } from '~/lib/surfaces/background'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
+import { PostScrollingLayout } from './_post-scrolling-layout'
 
 const editorContentCx = cx('mx-auto typography w-full drop-shadow-md')
 
@@ -149,7 +150,7 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
             ref={contentRef}
           />
         </div>
-        {/*<PostScrollingLayout className="shrink basis-auto max-h-[50%] container" />*/}
+        <PostScrollingLayout className="shrink basis-auto max-h-[50%] container" />
       </div>
     </div>
   )

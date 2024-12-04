@@ -53,7 +53,7 @@ export type PostPageContextValue = {
     resolvePosition: (position: number) => ResolvedPos
     nodeDom: (position: number) => Node | null
   }) => () => void
-  assets: ReadonlyArray<AssetWithState>
+  assetsAtom: Atom<ReadonlyArray<AssetWithState>>
 }
 
 export const [PostPageContext, usePostPage] =
@@ -185,7 +185,7 @@ export function PostPageProvider({
               behavior: 'smooth',
             })
           }),
-        assets,
+        assetsAtom: layoutAssetsAtom,
       }}
     >
       {children}
