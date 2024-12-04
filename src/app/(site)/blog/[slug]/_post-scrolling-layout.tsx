@@ -1,10 +1,9 @@
 'use client'
 
-import { mergeProps } from '@react-aria/utils'
 import { Match } from 'effect'
 import { useAtomValue } from 'jotai'
 import { AnimatePresence } from 'motion/react'
-import { type ComponentPropsWithoutRef, memo } from 'react'
+import { memo } from 'react'
 import {
   type AssetImageDynamicWithState,
   type AssetImageStaticWithState,
@@ -16,23 +15,22 @@ import { cx } from '~/lib/react/cx'
 
 export function PostScrollingLayout({
   className,
-  ...props
-}: ComponentPropsWithoutRef<'ul' & {}>) {
+}: {
+  className?: string | undefined
+}) {
   const { areasAtom, assetsAtom } = usePostPage()
 
   const gridTemplateAreas = useAtomValue(areasAtom)
   const assets = useAtomValue(assetsAtom)
 
   return (
-    <ul
-      {...mergeProps(props, {
-        className: cx('grid gap-2 *:h-full', className),
-        style: {
-          gridTemplateAreas,
-          gridAutoColumns: 'minmax(0, 1fr)',
-          gridAutoRows: 'minmax(0, 1fr)',
-        },
-      })}
+    <motion.ul
+      className={cx('grid gap-2 *:h-full', className)}
+      style={{
+        gridTemplateAreas,
+        gridAutoColumns: 'minmax(0, 1fr)',
+        gridAutoRows: 'minmax(0, 1fr)',
+      }}
     >
       <AnimatePresence mode="popLayout">
         {assets.map((asset) => (
@@ -59,7 +57,7 @@ export function PostScrollingLayout({
           </motion.li>
         ))}
       </AnimatePresence>
-    </ul>
+    </motion.ul>
   )
 }
 

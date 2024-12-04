@@ -464,10 +464,25 @@ const createPost = (
     layoutChanges: [
       new LayoutChange({
         offset: 0,
+        areas: "'GvsdhtasCVQN' 'WvsdhtasCVQN' 'WvsdhtasCVQN'",
+      }),
+      new LayoutChange({
+        offset: 0.05,
+        areas: "'GvsdhtasCVQN' 'WvsdhtasCVQN'",
+      }),
+      new LayoutChange({
+        offset: 0.1,
         areas: "'GvsdhtasCVQN'",
       }),
     ],
     assets: [
+      new AssetText({
+        _id: 'WvsdhtasCVQN',
+        type: 'text',
+        name: 'README.md',
+        initialValue: Text.of(['# Hello, world']),
+        advances: [],
+      }),
       new AssetText({
         _id: 'GvsdhtasCVQN',
         type: 'text',
