@@ -150,111 +150,11 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
             ref={contentRef}
           />
         </div>
-        <PostScrollingLayout className="shrink basis-auto max-h-[50%] min-h-[25vh] container" />
+        <PostScrollingLayout className="shrink basis-auto max-h-[50%] container" />
       </div>
     </div>
   )
 }
-
-//
-//   return (
-//     <AnimatePresence mode="popLayout">
-//       {inProgress && (
-//         <motion.div
-//           initial={{ y: 300, opacity: 0, filter: 'blur(16px)' }}
-//           animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-//           exit={{ y: 300, opacity: 0, filter: 'blur(16px)' }}
-//           className="overflow-y-hidden shrink-[9999]"
-//         >
-//           <PostScrollingLayoutBody />
-//         </motion.div>
-//       )}
-//     </AnimatePresence>
-//   )
-// }
-
-// function PostScrollingLayoutBody() {
-//   const progressAtom = usePlaybackProgressAtom()
-//
-//   const changesAtom = usePostVmAtom((it) => it.layoutChanges)
-//
-//   const indexAtom = useConstAtom((get) =>
-//     Option.fromNullable(
-//       findClosestIndex(get(changesAtom), get(progressAtom), (it) => it.offset),
-//     ),
-//   )
-//
-//   const areasAtom = useConstAtom((get) =>
-//     get(indexAtom).pipe(
-//       Option.andThen((index) => Array.get(get(changesAtom), index)),
-//       Option.andThen((it) => it.areas),
-//     ),
-//   )
-//
-//   const assetsAtom = usePostVmAtom((it) => it.assets)
-//
-//   const currentAssetsAtoms = useAtomValue(
-//     useConst(() =>
-//       splitAtom(
-//         atom((get) =>
-//           get(areasAtom).pipe(
-//             Option.andThen((areas) =>
-//               get(assetsAtom).filter((it) => areas.includes(it._id)),
-//             ),
-//             Option.getOrElse(() => []),
-//           ),
-//         ),
-//       ),
-//     ),
-//   )
-//
-//   return (
-//     <LayerGrid areasAtom={areasAtom}>
-//       <AnimatePresence mode="popLayout">
-//         {currentAssetsAtoms.map((assetAtom) => (
-//           <MainLayerGridItem key={`${assetAtom}`} assetAtom={assetAtom} />
-//         ))}
-//       </AnimatePresence>
-//     </LayerGrid>
-//   )
-// }
-
-// function LayerGrid({
-//   children,
-//   areasAtom,
-// }: PropsWithChildren<{ areasAtom: Atom<Option.Option<string>> }>) {
-//   const areas = useAtomValue(
-//     useConstAtom((get) => Option.getOrUndefined(get(areasAtom))),
-//   )
-//
-//   return (
-//     areas && (
-//       <motion.ul
-//         className="grid gap-2 *:h-full"
-//         style={{
-//           gridTemplateAreas: areas,
-//           gridAutoColumns: 'minmax(0, 1fr)',
-//           gridAutoRows: 'minmax(0, 1fr)',
-//         }}
-//       >
-//         {children}
-//       </motion.ul>
-//     )
-//   )
-// }
-
-// const JotaiMotionLi = jotai.create(motion.li)
-
-// const matchLayoutAssetPanel = ({
-//   _id,
-//   type,
-// }: Pick<typeof Asset.Type, '_id' | 'type'>) =>
-//   Match.value(type).pipe(
-//     Match.when('image-static', () => <LayoutAssetImageStatic _id={_id} />),
-//     Match.when('image-dynamic', () => <LayoutAssetImageDynamic _id={_id} />),
-//     Match.when('text', () => <LayoutAssetText _id={_id} />),
-//     Match.exhaustive,
-//   )
 
 // const MainLayerGridItem = memo(
 //   forwardRef<HTMLLIElement, { assetAtom: Atom<typeof Asset.Type> }>(

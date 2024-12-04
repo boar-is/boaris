@@ -12,6 +12,7 @@ import {
 } from '~/app/(site)/blog/[slug]/provider'
 import { motion } from '~/lib/motion/motion'
 import { cx } from '~/lib/react/cx'
+import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 
 export function PostScrollingLayout({
   className,
@@ -25,7 +26,7 @@ export function PostScrollingLayout({
 
   return (
     <ul
-      className={cx('grid gap-2 *:h-full', className)}
+      className={cx('grid gap-2', { 'min-h-[25vh]': assets.length }, className)}
       style={{
         gridTemplateAreas,
         gridAutoColumns: 'minmax(0, 1fr)',
@@ -37,24 +38,26 @@ export function PostScrollingLayout({
           <motion.li
             key={asset._id}
             layout
-            className="bg-accent-3"
+            className={cx(shadowInsetStyles, 'bg-accent-1/90')}
             style={{ gridArea: asset._id }}
             initial={{ opacity: 0, filter: 'blur(16px)' }}
-            animate={{ opacity: 1, filter: 'blur(0px)' }}
+            animate={{ opacity: 1, borderRadius: 24, filter: 'blur(0px)' }}
             exit={{ opacity: 0, filter: 'blur(16px)' }}
           >
-            {Match.value(asset).pipe(
-              Match.when({ type: 'image-dynamic' }, (asset) => (
-                <AssetImageDynamicView asset={asset} />
-              )),
-              Match.when({ type: 'image-static' }, (asset) => (
-                <AssetImageStaticView asset={asset} />
-              )),
-              Match.when({ type: 'text' }, (asset) => (
-                <AssetTextView asset={asset} />
-              )),
-              Match.exhaustive,
-            )}
+            <motion.div layout>
+              {Match.value(asset).pipe(
+                Match.when({ type: 'image-dynamic' }, (asset) => (
+                  <AssetImageDynamicView asset={asset} />
+                )),
+                Match.when({ type: 'image-static' }, (asset) => (
+                  <AssetImageStaticView asset={asset} />
+                )),
+                Match.when({ type: 'text' }, (asset) => (
+                  <AssetTextView asset={asset} />
+                )),
+                Match.exhaustive,
+              )}
+            </motion.div>
           </motion.li>
         ))}
       </AnimatePresence>
@@ -65,17 +68,17 @@ export function PostScrollingLayout({
 const AssetImageDynamicView = memo(function AssetImageDynamicView({
   asset,
 }: { asset: AssetImageDynamicWithState }) {
-  return <motion.div layout>AssetImageDynamicView: {asset._id}</motion.div>
+  return <p>AssetImageDynamicView: {asset._id}</p>
 })
 
 const AssetImageStaticView = memo(function AssetImageStaticView({
   asset,
 }: { asset: AssetImageStaticWithState }) {
-  return <motion.div layout>AssetImageStaticView: {asset._id}</motion.div>
+  return <p className="w-16">AssetImageStaticView: {asset._id}</p>
 })
 
 const AssetTextView = memo(function AssetTextView({
   asset,
 }: { asset: AssetTextWithState }) {
-  return <motion.div layout>AssetTextView: {asset._id}</motion.div>
+  return <p className="w-16">AssetTextView: {asset._id}</p>
 })
