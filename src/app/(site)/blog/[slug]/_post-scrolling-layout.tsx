@@ -1,3 +1,21 @@
+'use client'
+
+import { AnimatePresence } from 'motion/react'
+import type { ComponentPropsWithoutRef } from 'react'
+import { usePostPage } from '~/app/(site)/blog/[slug]/provider'
+
+export function PostScrollingLayout({
+  ...props
+}: ComponentPropsWithoutRef<'ul' & {}>) {
+  const { assets } = usePostPage()
+
+  return (
+    <ul {...props}>
+      <AnimatePresence></AnimatePresence>
+    </ul>
+  )
+}
+
 // 'use client'
 //
 // import { mergeProps } from '@react-aria/utils'
