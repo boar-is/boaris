@@ -4,6 +4,7 @@ import type { ResolvedPos } from '@tiptap/pm/model'
 import { Array, Match, Option, Schema, pipe } from 'effect'
 import type { NonEmptyReadonlyArray } from 'effect/Array'
 import { type Atom, atom, useSetAtom, useStore } from 'jotai'
+import { animate } from 'motion/react'
 import type { FC, PropsWithChildren } from 'react'
 import { reversedChanges } from '~/lib/cm/reversed-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
@@ -48,7 +49,8 @@ export type PostPageContextValue = {
   setDocSize: (value: number) => void
   setProgress: (progress: number) => void
   scrollableEffect: (options: {
-    element: Element
+    scrollableElement: Element
+    contentElement: Element
     dispatchPosition: (position: number) => void
     resolvePosition: (position: number) => ResolvedPos
     nodeDom: (position: number) => Node | null
@@ -153,18 +155,31 @@ export function PostPageProvider({
         setDocSize: useSetAtom(docSizeAtom),
         setProgress: useSetAtom(progressAtom),
         scrollableEffect: ({
-          element,
+          scrollableElement,
+          contentElement,
           dispatchPosition,
           resolvePosition,
           nodeDom,
-        }) =>
-          store.sub(positionAtom, () => {
+        }) => {
+          let oldY: number | undefined
+
+          const animateContent = (y: number) => {
+            y = Math.round(y)
+            if (oldY === y) {
+              return
+            }
+
+            animate(contentElement, { y }, { duration: 0 })
+            oldY = y
+          }
+
+          return store.sub(positionAtom, () => {
             const position = store.get(positionAtom)
 
             dispatchPosition(position)
 
             if (position === 0) {
-              return element.scrollTo({ top: 0, behavior: 'smooth' })
+              return void animateContent(0)
             }
 
             const $pos = resolvePosition(position)
@@ -179,11 +194,10 @@ export function PostPageProvider({
               return
             }
 
-            element.scrollTo({
-              top: getCenterToScrollElemTo(element, blockElement),
-              behavior: 'smooth',
-            })
-          }),
+            const top = getCenterToScrollElemTo(scrollableElement, blockElement)
+            animateContent(-top)
+          })
+        },
         areasAtom,
         assetsAtom,
       }}

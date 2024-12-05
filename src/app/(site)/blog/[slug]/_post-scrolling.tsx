@@ -127,7 +127,8 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
   useEffect(
     () =>
       scrollableEffect({
-        element: scrollableRef.current!,
+        scrollableElement: scrollableRef.current!,
+        contentElement: contentRef.current!,
         dispatchPosition: (position) => setHighlightPosition(editor, position),
         resolvePosition: (position) => editor.state.doc.resolve(position),
         nodeDom: (position) => editor.view.nodeDOM(position),

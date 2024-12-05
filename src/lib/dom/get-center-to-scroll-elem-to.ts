@@ -5,10 +5,17 @@ export const getCenterToScrollElemTo = (
   const scrollableRect = scrollable.getBoundingClientRect()
   const elementRect = element.getBoundingClientRect()
 
-  return (
+  // Distance from the top of the scrollable container to the element
+  const elementOffsetTop = elementRect.top - scrollableRect.top
+
+  // Calculate the center position to scroll to
+  const centerScrollTop =
     scrollable.scrollTop +
-    (elementRect.top - scrollableRect.top) -
+    elementOffsetTop -
     scrollable.clientHeight / 2 +
     elementRect.height / 2
-  )
+
+  console.log(elementRect)
+
+  return centerScrollTop
 }
