@@ -9,7 +9,7 @@ import type { FC, PropsWithChildren } from 'react'
 import { reversedChanges } from '~/lib/cm/reversed-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { readableDate } from '~/lib/date/readable-date'
-import { getCenterToScrollElemTo } from '~/lib/dom/get-center-to-scroll-elem-to'
+import { calculateTranslateYToCenter } from '~/lib/dom/calculateTranslateYToCenter'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import type { ImageIconProps } from '~/lib/media/icons/_base'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
@@ -49,8 +49,8 @@ export type PostPageContextValue = {
   setDocSize: (value: number) => void
   setProgress: (progress: number) => void
   scrollableEffect: (options: {
-    scrollableElement: Element
-    contentElement: Element
+    scrollableElement: HTMLElement
+    contentElement: HTMLElement
     dispatchPosition: (position: number) => void
     resolvePosition: (position: number) => ResolvedPos
     nodeDom: (position: number) => Node | null
@@ -168,8 +168,11 @@ export function PostPageProvider({
             if (oldY === y) {
               return
             }
-
-            animate(contentElement, { y }, { duration: 0 })
+            animate(
+              contentElement,
+              { y },
+              { ease: 'easeInOut', duration: 0.35 },
+            )
             oldY = y
           }
 
@@ -190,11 +193,14 @@ export function PostPageProvider({
             }
 
             const blockElement = nodeDom($pos.before(depth))
-            if (!(blockElement instanceof Element)) {
+            if (!(blockElement instanceof HTMLElement)) {
               return
             }
 
-            const top = getCenterToScrollElemTo(scrollableElement, blockElement)
+            const top = calculateTranslateYToCenter(
+              scrollableElement,
+              blockElement,
+            )
             animateContent(-top)
           })
         },
