@@ -7,7 +7,7 @@ import {
 } from 'motion/react'
 import { usePathname } from 'next/navigation'
 import { type PropsWithChildren, useEffect, useMemo, useState } from 'react'
-import { type ImageProps, Image as NextImage } from '~/lib/media/image'
+import { Image, type ImageProps } from '~/lib/media/image'
 import { motion } from '~/lib/motion/motion'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 import { cx } from '~/lib/react/cx'
@@ -68,7 +68,7 @@ export function BackgroundProvider({
 
   const rotateProps = {
     transition: {
-      duration: 120,
+      duration: 90,
       ease: 'linear',
       repeat: Number.POSITIVE_INFINITY,
     },
@@ -98,18 +98,15 @@ export function BackgroundProvider({
             animate={{ rotate: shouldReduceMotion ? 0 : 360 }}
             className={cx(rotateProps.className, 'top-0 right-0')}
           >
-            <NextImage {...nextImageProps} />
+            <Image {...nextImageProps} />
           </motion.figure>
           <motion.figure
             {...rotateProps}
             initial={{ rotate: 360 }}
             animate={{ rotate: shouldReduceMotion ? 360 : 0 }}
-            className={cx(
-              rotateProps.className,
-              'bottom-0 left-0 mix-blend-luminosity',
-            )}
+            className={cx(rotateProps.className, 'bottom-0 left-0')}
           >
-            <NextImage {...nextImageProps} />
+            <Image {...nextImageProps} />
           </motion.figure>
         </motion.div>
       </AnimatePresence>
