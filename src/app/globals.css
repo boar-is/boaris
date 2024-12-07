@@ -98,7 +98,7 @@
   }
 
   .typography :where(.h) {
-    @apply text-gray-12 transition-colors duration-200;
+    @apply text-gray-12;
   }
 
   .typography :where(code .h, a .h) {
