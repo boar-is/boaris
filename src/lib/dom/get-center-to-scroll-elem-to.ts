@@ -5,19 +5,18 @@ export const getCenterToScrollElemTo = (
   const scrollableRect = scrollableElement.getBoundingClientRect()
   const targetRect = targetElement.getBoundingClientRect()
 
-  // Distance from the top of the scrollable container to the target element
+  // Calculate the top offset of the target element relative to the scrollable element
   const targetRelativeTop = targetRect.top - scrollableRect.top
 
-  // Midpoint of the scrollable container and target element
+  // Calculate the midpoint of the scrollable element's visible area
   const scrollableMidpoint = scrollableElement.clientHeight / 2
+
+  // Calculate the midpoint of the target element
   const targetMidpoint = targetRect.height / 2
 
-  // Calculate the center position to scroll to
+  // Calculate the vertical scroll position needed to center the target element
   const centerScrollTop =
-    scrollableElement.scrollTop +
-    targetRelativeTop -
-    scrollableMidpoint +
-    targetMidpoint
+    targetRelativeTop + targetMidpoint - scrollableMidpoint
 
   return centerScrollTop
 }
