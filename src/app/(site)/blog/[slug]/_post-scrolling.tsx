@@ -136,6 +136,7 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
     [scrollableEffect, editor],
   )
 
+  // TODO still need this?
   useEffect(() => fixScrollUpdateSafariIos(), [])
 
   return (
