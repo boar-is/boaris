@@ -13,7 +13,6 @@ import { calculateTranslateYToCenter } from '~/lib/dom/calculate-translate-y-to-
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import type { ImageIconProps } from '~/lib/media/icons/_base'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
-import { betweenExclusive } from '~/lib/number/betweenExclusive'
 import { findBlockAncestorDepth } from '~/lib/pm/find-block-ancestor-depth'
 import type { JsonContentFromJson } from '~/lib/pm/json-content'
 import { createStrictContext } from '~/lib/react/create-strict-context'
@@ -118,10 +117,6 @@ export function PostPageProvider({
   const areasAtom = useConstAtom((get) =>
     Option.gen(function* () {
       const progress = get(progressAtom)
-
-      if (!betweenExclusive(progress, 0, 1)) {
-        return yield* Option.none()
-      }
 
       const index = yield* findClosestIndex(
         layoutChanges,
