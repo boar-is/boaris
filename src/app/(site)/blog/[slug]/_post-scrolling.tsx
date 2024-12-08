@@ -143,9 +143,10 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
     <div className="relative container" ref={containerRef}>
       <div className="sticky top-0 h-dvh flex flex-col lg:flex-row lg:*:flex-1 justify-center">
         <div
-          className="flex-1 overflow-hidden fade-y-64 py-24"
+          className="flex-1 overflow-hidden fade-y-64 py-24 relative"
           ref={scrollableRef}
         >
+          <div className="absolute top-1/2 -translate-y-1/2 h-2 w-full bg-[red]" />
           <EditorContent
             editor={editor}
             className={editorContentCx}

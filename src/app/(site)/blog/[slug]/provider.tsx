@@ -9,7 +9,7 @@ import type { FC, PropsWithChildren } from 'react'
 import { reversedChanges } from '~/lib/cm/reversed-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { readableDate } from '~/lib/date/readable-date'
-import { calculateTranslateYToCenter } from '~/lib/dom/calculate-translate-y-to-center'
+import { calculateCenterY } from '~/lib/dom/calculate-center-y'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import type { ImageIconProps } from '~/lib/media/icons/_base'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
@@ -192,11 +192,8 @@ export function PostPageProvider({
               return
             }
 
-            const top = calculateTranslateYToCenter(
-              scrollableElement,
-              blockElement,
-            )
-            animateContent(-top)
+            const top = calculateCenterY(scrollableElement, blockElement)
+            animateContent(top)
           })
         },
         areasAtom,
