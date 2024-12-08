@@ -23,6 +23,10 @@
   }
 }
 
+.container {
+  @apply w-full mx-auto ~px-4/8 lg:max-w-7xl;
+}
+
 .tiptap {
   @apply rounded-xl;
 }

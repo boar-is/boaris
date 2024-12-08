@@ -9,7 +9,7 @@ import tailwindFluid, {
 import type { Config } from 'tailwindcss'
 import tailwindAnimate from 'tailwindcss-animate'
 import tailwindRac from 'tailwindcss-react-aria-components'
-import { fontFamily, spacing } from 'tailwindcss/defaultTheme'
+import { fontFamily } from 'tailwindcss/defaultTheme'
 
 type RadixColorScale = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
@@ -41,16 +41,6 @@ const tailwindConfig: Config = {
       gray,
       accent,
       destructive,
-    },
-    container: {
-      center: true,
-      padding: {
-        DEFAULT: spacing['3'],
-        lg: spacing['4'],
-      },
-      screens: {
-        lg: screens.xl,
-      },
     },
     fontFamily: {
       sans: ['var(--font-sans)', ...fontFamily.sans],
