@@ -66,7 +66,7 @@ export type PostPageContextValue = {
   }) => () => void
   assetTextEffect: (options: {
     asset: AssetTextWithState
-    view: EditorView | undefined
+    getView: () => EditorView | undefined
   }) => () => void
 }
 
@@ -121,7 +121,7 @@ export function PostPageProvider({
             headIndexAtom: atom((get) =>
               findClosestIndex(
                 asset.advances,
-                get(positionAtom),
+                get(progressAtom),
                 (it) => it[0],
               ).pipe(Option.getOrUndefined),
             ),
@@ -224,9 +224,11 @@ export function PostPageProvider({
             advances,
             reverses,
           },
-          view,
+          getView,
         }) =>
           store.sub(headIndexAtom, () => {
+            const view = getView()
+
             if (!view) {
               return
             }

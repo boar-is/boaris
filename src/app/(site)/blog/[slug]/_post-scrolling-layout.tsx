@@ -107,7 +107,7 @@ const AssetTextView = memo(function AssetTextView({
     () =>
       assetTextEffect({
         asset,
-        view: cmRef.current?.view,
+        getView: () => cmRef.current?.view,
       }),
     [assetTextEffect, asset],
   )
