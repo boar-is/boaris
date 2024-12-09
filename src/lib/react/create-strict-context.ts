@@ -1,7 +1,4 @@
-import {
-  createContext as _createContext,
-  useContext as _useContext,
-} from 'react'
+import { createContext, use } from 'react'
 
 export interface CreateContextOptions {
   errorMessage?: string | undefined
@@ -12,12 +9,12 @@ export function createStrictContext<ContextType>({
   errorMessage = 'useContext: `context` is undefined. Seems you forgot to wrap component within the Provider',
   name,
 }: CreateContextOptions = {}) {
-  const Context = _createContext<ContextType | undefined>(undefined)
+  const Context = createContext<ContextType | undefined>(undefined)
 
   Context.displayName = name
 
   function useContext() {
-    const context = _useContext(Context)
+    const context = use(Context)
 
     if (!context) {
       const error = new Error(errorMessage)

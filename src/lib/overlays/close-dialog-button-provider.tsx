@@ -13,7 +13,5 @@ export function CloseDialogButtonProvider({ children }: PropsWithChildren) {
 
   const value = useMemo(() => ({ onPress: state.close }), [state.close])
 
-  return (
-    <ButtonContext.Provider value={value}>{children}</ButtonContext.Provider>
-  )
+  return <ButtonContext value={value}>{children}</ButtonContext>
 }

@@ -161,7 +161,7 @@ export function PostPageProvider({
   const store = useStore()
 
   return (
-    <PostPageContext.Provider
+    <PostPageContext
       value={{
         title,
         lead,
@@ -260,6 +260,6 @@ export function PostPageProvider({
       }}
     >
       {children}
-    </PostPageContext.Provider>
+    </PostPageContext>
   )
 }

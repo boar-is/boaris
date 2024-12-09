@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  type PropsWithChildren,
-  useActionState,
-  useContext,
-  useEffect,
-} from 'react'
+import { type PropsWithChildren, use, useActionState, useEffect } from 'react'
 import { FormContext } from '~/lib/forms/form'
 import { OverlayTriggerStateContext } from '~/lib/overlays/dialog'
 import { toast } from '~/lib/toast/toast'
@@ -14,7 +9,7 @@ import { newsletterSubscriptionAction } from './newsletter-subscription-action'
 export function NewsletterSubscriptionFormProvider({
   children,
 }: PropsWithChildren) {
-  const overlayState = useContext(OverlayTriggerStateContext)
+  const overlayState = use(OverlayTriggerStateContext)
 
   if (!overlayState) {
     throw new Error('OverlayTriggerStateContext is null')
@@ -37,7 +32,7 @@ export function NewsletterSubscriptionFormProvider({
   }, [state, overlayState])
 
   return (
-    <FormContext.Provider
+    <FormContext
       value={{
         action,
         validationErrors:
@@ -45,6 +40,6 @@ export function NewsletterSubscriptionFormProvider({
       }}
     >
       {children}
-    </FormContext.Provider>
+    </FormContext>
   )
 }

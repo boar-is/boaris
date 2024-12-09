@@ -11,7 +11,5 @@ export function PendingFormDisabledButtonProvider({
 
   const value = useMemo(() => ({ isDisabled: pending }), [pending])
 
-  return (
-    <ButtonContext.Provider value={value}>{children}</ButtonContext.Provider>
-  )
+  return <ButtonContext value={value}>{children}</ButtonContext>
 }

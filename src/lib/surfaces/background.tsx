@@ -83,7 +83,7 @@ export function BackgroundProvider({
   } satisfies ImageProps
 
   return (
-    <BackgroundContext.Provider value={value}>
+    <BackgroundContext value={value}>
       <AnimatePresence>
         <motion.div
           className="fixed inset-0 -z-10 overflow-hidden pointer-events-none"
@@ -111,6 +111,6 @@ export function BackgroundProvider({
         </motion.div>
       </AnimatePresence>
       {children}
-    </BackgroundContext.Provider>
+    </BackgroundContext>
   )
 }
