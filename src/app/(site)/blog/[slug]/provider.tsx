@@ -1,7 +1,7 @@
 'use client'
 
 import type { ResolvedPos } from '@tiptap/pm/model'
-import { EditorState, type EditorView } from '@uiw/react-codemirror'
+import type { EditorView } from '@uiw/react-codemirror'
 import { Array, Match, Option, Schema, pipe } from 'effect'
 import type { NonEmptyReadonlyArray } from 'effect/Array'
 import {
@@ -15,6 +15,7 @@ import { animate } from 'motion/react'
 import type { FC, PropsWithChildren } from 'react'
 import { reversedChanges } from '~/lib/cm/reversed-changes'
 import { seekChanges } from '~/lib/cm/seek-changes'
+import type { Text } from '~/lib/cm/text'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { readableDate } from '~/lib/date/readable-date'
 import { calculateCenterY } from '~/lib/dom/calculate-center-y'
@@ -37,6 +38,7 @@ export type AssetTextWithState = typeof AssetText.Type & {
   reverses: AssetTextWithState['advances']
   anchorIndexAtom: PrimitiveAtom<number | undefined>
   headIndexAtom: Atom<number | undefined>
+  currentValueAtom: PrimitiveAtom<Text>
 }
 export type AssetWithState =
   | AssetImageDynamicWithState
@@ -64,7 +66,7 @@ export type PostPageContextValue = {
     resolvePosition: (position: number) => ResolvedPos
     nodeDom: (position: number) => Node | null
   }) => () => void
-  calculateInitialTextEffectValue: (asset: AssetTextWithState) => string
+  getCurrentAssetTextValue: (asset: AssetTextWithState) => string
   assetTextEffect: (options: {
     asset: AssetTextWithState
     getView: () => EditorView | undefined
@@ -126,6 +128,7 @@ export function PostPageProvider({
                 (it) => it[0],
               ).pipe(Option.getOrUndefined),
             ),
+            currentValueAtom: atom(asset.initialValue),
           }),
         ),
         Match.exhaustive,
@@ -217,26 +220,8 @@ export function PostPageProvider({
             animateContent(top)
           })
         },
-        calculateInitialTextEffectValue: ({
-          initialValue,
-          advances,
-          reverses,
-          headIndexAtom,
-        }) => {
-          const head = store.get(headIndexAtom)
-
-          const spec = seekChanges({
-            currentValue: initialValue,
-            initialValue,
-            advances,
-            reverses,
-            anchor: head,
-            head: undefined,
-          })
-
-          const state = EditorState.create({ doc: initialValue })
-          return state.update(spec).newDoc.toString()
-        },
+        getCurrentAssetTextValue: (asset) =>
+          store.get(asset.currentValueAtom).toString(),
         assetTextEffect: ({
           asset: {
             anchorIndexAtom,
@@ -244,6 +229,7 @@ export function PostPageProvider({
             initialValue,
             advances,
             reverses,
+            currentValueAtom,
           },
           getView,
         }) =>
@@ -266,11 +252,10 @@ export function PostPageProvider({
               head,
             })
 
-            console.log(view.state.doc)
-            console.log(spec)
             view.dispatch(spec)
 
             store.set(anchorIndexAtom, head)
+            store.set(currentValueAtom, view.state.doc)
           }),
       }}
     >

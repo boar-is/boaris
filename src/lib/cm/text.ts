@@ -18,3 +18,5 @@ export const TextFromStringArray = Schema.transform(
     encode: (text) => text.toJSON(),
   },
 )
+
+export { Text }
