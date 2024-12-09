@@ -3,6 +3,7 @@ import { DateTime, Option, Schema } from 'effect'
 import { JsonContentFromJson } from '~/lib/pm/json-content'
 import { AssetImageStatic } from '~/model/assetImageStatic'
 import { Asset } from './asset'
+import { AssetImageDynamic } from './assetImageDynamic'
 import { AssetText } from './assetText'
 import { LayoutChange } from './layoutChange'
 
@@ -473,7 +474,7 @@ const createPost = (
       }),
       new LayoutChange({
         offset: 0.1,
-        areas: "'GvsdhtasCVQN image1'",
+        areas: "'dynamic1 image1'",
       }),
       new LayoutChange({
         offset: 0.3,
@@ -483,8 +484,19 @@ const createPost = (
         offset: 0.5,
         areas: "'GvsdhtasCVQN'",
       }),
+      new LayoutChange({
+        offset: 0.6,
+        areas: "'dynamic1'",
+      }),
     ],
     assets: [
+      new AssetImageDynamic({
+        _id: 'dynamic1',
+        type: 'image-dynamic',
+        name: 'mcmahon.mp4',
+        href: '/assets/use-deferred-value/dynamic.mp4',
+        caption: Option.some('The captions of this video'),
+      }),
       new AssetImageStatic({
         _id: 'image1',
         type: 'image-static',

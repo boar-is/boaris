@@ -36,7 +36,7 @@ const baseNextConfig: NextConfig = {
   script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live va.vercel-scripts.com unpkg.com;
   style-src 'self' 'unsafe-inline';
   img-src 'self' blob: data:;
-  media-src 'none';
+  media-src 'self';
   font-src 'self';
   object-src 'none';
   base-uri 'self';

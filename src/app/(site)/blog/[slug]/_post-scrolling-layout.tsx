@@ -7,7 +7,14 @@ import ReactCodeMirror, {
 import { Match, Option } from 'effect'
 import { useAtomValue } from 'jotai'
 import { AnimatePresence } from 'motion/react'
-import { type PropsWithChildren, memo, useEffect, useMemo, useRef } from 'react'
+import {
+  type ComponentPropsWithoutRef,
+  type PropsWithChildren,
+  memo,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react'
 import {
   type AssetImageDynamicWithState,
   type AssetImageStaticWithState,
@@ -80,9 +87,36 @@ export function PostScrollingLayout({
 }
 
 const AssetImageDynamicView = memo(function AssetImageDynamicView({
-  asset,
+  asset: { name, href, caption },
 }: { asset: AssetImageDynamicWithState }) {
-  return <p>AssetImageDynamicView: {asset._id}</p>
+  const { className, ...videoProps }: ComponentPropsWithoutRef<'video'> = {
+    className: 'absolute inset-0 size-full',
+    src: href,
+    autoPlay: true,
+    playsInline: true,
+    muted: true,
+    loop: true,
+  }
+
+  return (
+    <>
+      <LayoutPanelHeader name={name} />
+      <video
+        {...videoProps}
+        className={cx(className, '-z-[2] object-cover blur-lg')}
+      />
+      <section className="flex-1 relative items-center">
+        <video
+          {...videoProps}
+          className={cx(className, 'object-contain object-center')}
+        />
+      </section>
+      {caption.pipe(
+        Option.andThen((c) => <LayoutPanelFooter>{c}</LayoutPanelFooter>),
+        Option.getOrNull,
+      )}
+    </>
+  )
 })
 
 const AssetImageStaticView = memo(function AssetImageStaticView({
