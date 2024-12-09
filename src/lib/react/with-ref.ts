@@ -1,3 +1,3 @@
 import type { RefObject } from 'react'
 
-export type WithRef<T> = { ref?: RefObject<T> }
+export type WithRef<T> = { ref?: RefObject<T> | undefined }
