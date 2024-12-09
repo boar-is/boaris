@@ -4,10 +4,10 @@ import ReactCodeMirror, {
   type BasicSetupOptions,
   type ReactCodeMirrorRef,
 } from '@uiw/react-codemirror'
-import { Match } from 'effect'
+import { Match, Option } from 'effect'
 import { useAtomValue } from 'jotai'
 import { AnimatePresence } from 'motion/react'
-import { memo, useEffect, useMemo, useRef } from 'react'
+import { type PropsWithChildren, memo, useEffect, useMemo, useRef } from 'react'
 import {
   type AssetImageDynamicWithState,
   type AssetImageStaticWithState,
@@ -16,6 +16,7 @@ import {
 } from '~/app/(site)/blog/[slug]/provider'
 import { codemirrorTheme } from '~/lib/cm/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/cm/match-codemirror-extensions'
+import { Image, type ImageProps } from '~/lib/media/image'
 import { matchFileTypeIcon } from '~/lib/media/match-file-type-icon'
 import { motion } from '~/lib/motion/motion'
 import { cx } from '~/lib/react/cx'
@@ -56,7 +57,7 @@ export function PostScrollingLayout({
           >
             <motion.article
               layout="position"
-              className="flex flex-col justify-between relative h-full"
+              className="relative flex flex-col justify-between h-full"
             >
               {Match.value(asset).pipe(
                 Match.when({ type: 'image-dynamic' }, (asset) => (
@@ -85,9 +86,37 @@ const AssetImageDynamicView = memo(function AssetImageDynamicView({
 })
 
 const AssetImageStaticView = memo(function AssetImageStaticView({
-  asset,
+  asset: { name, href, alt, caption },
 }: { asset: AssetImageStaticWithState }) {
-  return <p>AssetImageStaticView: {asset._id}</p>
+  const imageProps = {
+    src: href,
+    sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
+    alt: alt.pipe(
+      Option.orElse(() => caption),
+      Option.getOrElse(
+        () => 'The author did not provide any alt to this image',
+      ),
+    ),
+    fill: true,
+  } satisfies ImageProps
+
+  return (
+    <>
+      <LayoutPanelHeader name={name} />
+      <Image
+        {...imageProps}
+        className="object-cover blur-md"
+        alt="Image's backdrop blur"
+      />
+      <section className="flex-1 relative">
+        <Image {...imageProps} className="object-contain" />
+      </section>
+      {caption.pipe(
+        Option.andThen((c) => <LayoutPanelFooter>{c}</LayoutPanelFooter>),
+        Option.getOrNull,
+      )}
+    </>
+  )
 })
 
 const basicCmSetup: BasicSetupOptions = {
@@ -134,7 +163,7 @@ const AssetTextView = memo(function AssetTextView({
 })
 
 const panelEdgeClassName = cx(
-  'bg-accent-1/30 text-gray-11 font-medium py-2 px-3.5 text-xs flex items-center gap-1.5 z-10 tracking-wide',
+  'bg-accent-1/40 text-gray-11 font-medium py-2 px-3.5 text-xs flex items-center gap-1.5 z-10 tracking-wide',
 )
 
 function LayoutPanelHeader({ name }: { name: string }) {
@@ -146,4 +175,8 @@ function LayoutPanelHeader({ name }: { name: string }) {
       {name.split('/').pop()}
     </header>
   )
+}
+
+function LayoutPanelFooter({ children }: PropsWithChildren) {
+  return <footer className={panelEdgeClassName}>{children}</footer>
 }

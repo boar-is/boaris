@@ -1,6 +1,7 @@
 import { ChangeSet, EditorSelection, Text } from '@uiw/react-codemirror'
 import { DateTime, Option, Schema } from 'effect'
 import { JsonContentFromJson } from '~/lib/pm/json-content'
+import { AssetImageStatic } from '~/model/assetImageStatic'
 import { Asset } from './asset'
 import { AssetText } from './assetText'
 import { LayoutChange } from './layoutChange'
@@ -472,11 +473,11 @@ const createPost = (
       }),
       new LayoutChange({
         offset: 0.1,
-        areas: "'GvsdhtasCVQN WvsdhtasCVQN'",
+        areas: "'GvsdhtasCVQN image1'",
       }),
       new LayoutChange({
         offset: 0.3,
-        areas: '',
+        areas: "'image1'",
       }),
       new LayoutChange({
         offset: 0.5,
@@ -484,6 +485,14 @@ const createPost = (
       }),
     ],
     assets: [
+      new AssetImageStatic({
+        _id: 'image1',
+        type: 'image-static',
+        name: 'og.png',
+        href: '/images/og.png',
+        caption: Option.some('The captions of this image'),
+        alt: Option.some('My OG'),
+      }),
       new AssetText({
         _id: 'WvsdhtasCVQN',
         type: 'text',

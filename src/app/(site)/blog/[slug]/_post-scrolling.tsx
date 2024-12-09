@@ -152,7 +152,7 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
             ref={contentRef}
           />
         </div>
-        <PostScrollingLayout className="shrink basis-auto max-h-[50%] lg:max-h-full lg:self-center" />
+        <PostScrollingLayout className="shrink basis-auto max-h-[50%] lg:max-h-full lg:self-center ~pb-2/4" />
       </div>
     </div>
   )
@@ -223,84 +223,6 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
 //         Option.andThen((c) => <LayoutPanelFooter>{c}</LayoutPanelFooter>),
 //         Option.getOrNull,
 //       )}
-//     </LayoutPanel>
-//   )
-// })
-
-// const LayoutAssetText = memo(function LayoutAssetText({
-//   _id,
-// }: LayoutAssetProps) {
-//   const { name, initialValue, advances } = useAsset(_id) as AssetText
-//
-//   const reverses = useMemo(
-//     () => reversedChanges(initialValue, advances),
-//     [initialValue, advances],
-//   )
-//
-//   const cmRef = useRef<ReactCodeMirrorRef | null>(null)
-//
-//   const progressAtom = usePlaybackProgressAtom()
-//
-//   const headIndexAtom = useConstAtom((get) =>
-//     findClosestIndex(advances, get(progressAtom), (it) => it[0]),
-//   )
-//
-//   const anchorIndexAtom = useConstAtom<number | undefined>(undefined)
-//
-//   useAtomValue(
-//     useConst(() =>
-//       atomEffect((get, set) => {
-//         const view = cmRef.current?.view
-//         const state = view?.state
-//
-//         const anchor = get(anchorIndexAtom)
-//         const head = get(headIndexAtom)
-//
-//         if (!(state && view)) {
-//           return
-//         }
-//
-//         const spec = seekChanges({
-//           currentValue: state.doc,
-//           initialValue,
-//           advances,
-//           reverses,
-//           anchor,
-//           head,
-//         })
-//
-//         view.dispatch(spec)
-//
-//         set(anchorIndexAtom, head)
-//       }),
-//     ),
-//   )
-//
-//   const extensions = useMemo(() => matchCodemirrorExtensions(name), [name])
-//
-//   const basicSetup: BasicSetupOptions = useConst(() => ({
-//     lineNumbers: false,
-//     foldGutter: false,
-//     highlightActiveLine: false,
-//   }))
-//
-//   return (
-//     <LayoutPanel>
-//       <LayoutPanelHeader name={name} />
-//       <section className="flex-1 overflow-hidden">
-//         <ReactCodeMirror
-//           className={cx(
-//             'h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!~text-xs/sm [&_.cm-line]:px-4',
-//             '[&_.cm-scroller]:overflow-hidden',
-//           )}
-//           value={initialValue.toString()}
-//           extensions={extensions}
-//           editable={false}
-//           theme={codemirrorTheme}
-//           basicSetup={basicSetup}
-//           ref={cmRef}
-//         />
-//       </section>
 //     </LayoutPanel>
 //   )
 // })
