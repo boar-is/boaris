@@ -1,12 +1,12 @@
 'use client'
 
-import type { Ref } from 'react'
 import {
   Link as LinkPrimitive,
   type LinkProps as LinkPrimitiveProps,
 } from 'react-aria-components'
 import { type VariantProps, tv } from 'tailwind-variants'
 import { cr } from '~/lib/react/cr'
+import type { WithRef } from '~/lib/react/with-ref'
 
 export const linkStyles = tv({
   base: ['text-current'],
@@ -14,12 +14,10 @@ export const linkStyles = tv({
 
 export interface LinkProps
   extends LinkPrimitiveProps,
-    VariantProps<typeof linkStyles> {}
+    VariantProps<typeof linkStyles>,
+    WithRef<HTMLAnchorElement> {}
 
-export function Link(
-  { className, ...props }: LinkProps,
-  ref: Ref<HTMLAnchorElement>,
-) {
+export function Link({ className, ref, ...props }: LinkProps) {
   return (
     <LinkPrimitive
       ref={ref}

@@ -3,7 +3,7 @@ import { constant } from 'effect/Function'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { constructMetadata } from '~/lib/metadata/construct-metadata'
-import type { PropsWithStaticParams } from '~/lib/react/props-with-static-params'
+import type { WithStaticParams } from '~/lib/react/with-static-params'
 import { Post, posts } from '~/model/post'
 import { PostScrolling } from './_post-scrolling'
 import { PostPageProvider } from './provider'
@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PropsWithStaticParams<typeof generateStaticParams>): Promise<Metadata> {
+}: WithStaticParams<typeof generateStaticParams>): Promise<Metadata> {
   const { slug } = await params
 
   return pipe(
@@ -39,7 +39,7 @@ export async function generateMetadata({
 
 export default async function PostPage({
   params,
-}: PropsWithStaticParams<typeof generateStaticParams>) {
+}: WithStaticParams<typeof generateStaticParams>) {
   const { slug } = await params
 
   return pipe(

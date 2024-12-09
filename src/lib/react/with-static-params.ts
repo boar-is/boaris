@@ -1,4 +1,4 @@
-export type PropsWithStaticParams<
+export type WithStaticParams<
   F extends () => Promise<ReadonlyArray<T>>,
   T = Awaited<ReturnType<F>>[number],
 > = {
