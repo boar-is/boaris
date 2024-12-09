@@ -1,7 +1,7 @@
 'use client'
 
 import type { ResolvedPos } from '@tiptap/pm/model'
-import type { EditorView } from '@uiw/react-codemirror'
+import { EditorState, type EditorView } from '@uiw/react-codemirror'
 import { Array, Match, Option, Schema, pipe } from 'effect'
 import type { NonEmptyReadonlyArray } from 'effect/Array'
 import {
@@ -64,6 +64,7 @@ export type PostPageContextValue = {
     resolvePosition: (position: number) => ResolvedPos
     nodeDom: (position: number) => Node | null
   }) => () => void
+  calculateInitialTextEffectValue: (asset: AssetTextWithState) => string
   assetTextEffect: (options: {
     asset: AssetTextWithState
     getView: () => EditorView | undefined
@@ -216,6 +217,26 @@ export function PostPageProvider({
             animateContent(top)
           })
         },
+        calculateInitialTextEffectValue: ({
+          initialValue,
+          advances,
+          reverses,
+          headIndexAtom,
+        }) => {
+          const head = store.get(headIndexAtom)
+
+          const spec = seekChanges({
+            currentValue: initialValue,
+            initialValue,
+            advances,
+            reverses,
+            anchor: head,
+            head: undefined,
+          })
+
+          const state = EditorState.create({ doc: initialValue })
+          return state.update(spec).newDoc.toString()
+        },
         assetTextEffect: ({
           asset: {
             anchorIndexAtom,
@@ -245,6 +266,8 @@ export function PostPageProvider({
               head,
             })
 
+            console.log(view.state.doc)
+            console.log(spec)
             view.dispatch(spec)
 
             store.set(anchorIndexAtom, head)

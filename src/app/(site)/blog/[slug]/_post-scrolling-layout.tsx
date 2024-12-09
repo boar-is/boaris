@@ -99,7 +99,7 @@ const basicCmSetup: BasicSetupOptions = {
 const AssetTextView = memo(function AssetTextView({
   asset,
 }: { asset: AssetTextWithState }) {
-  const { assetTextEffect } = usePostPage()
+  const { assetTextEffect, calculateInitialTextEffectValue } = usePostPage()
 
   const cmRef = useRef<ReactCodeMirrorRef | null>(null)
 
@@ -117,12 +117,14 @@ const AssetTextView = memo(function AssetTextView({
     [asset.name],
   )
 
+  const initialValue = calculateInitialTextEffectValue(asset)
+
   return (
     <>
       <LayoutPanelHeader name={asset.name} />
       <ReactCodeMirror
         className="flex-1 h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!~text-xs/sm [&_.cm-line]:px-4 [&_.cm-scroller]:overflow-hidden"
-        value={asset.initialValue.toString()}
+        value={initialValue}
         extensions={extensions}
         editable={false}
         theme={codemirrorTheme}
