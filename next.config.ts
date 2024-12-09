@@ -5,7 +5,12 @@ import { isLocalhost } from '~/lib/metadata/base-url'
 
 const baseNextConfig: NextConfig = {
   experimental: {
-    optimizePackageImports: ['react-aria-components', 'effect'],
+    optimizePackageImports: [
+      'react-aria-components',
+      'effect',
+      'motion',
+      'motion/react',
+    ],
   },
   webpack(config) {
     config.plugins.push(
