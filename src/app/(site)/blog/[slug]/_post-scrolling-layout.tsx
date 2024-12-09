@@ -7,7 +7,7 @@ import ReactCodeMirror, {
 import { Match } from 'effect'
 import { useAtomValue } from 'jotai'
 import { AnimatePresence } from 'motion/react'
-import { memo, useMemo, useRef } from 'react'
+import { memo, useEffect, useMemo, useRef } from 'react'
 import {
   type AssetImageDynamicWithState,
   type AssetImageStaticWithState,
@@ -97,18 +97,32 @@ const basicCmSetup: BasicSetupOptions = {
 }
 
 const AssetTextView = memo(function AssetTextView({
-  asset: { name, initialValue, advances, reverses },
+  asset,
 }: { asset: AssetTextWithState }) {
+  const { assetTextEffect } = usePostPage()
+
   const cmRef = useRef<ReactCodeMirrorRef | null>(null)
 
-  const extensions = useMemo(() => matchCodemirrorExtensions(name), [name])
+  useEffect(
+    () =>
+      assetTextEffect({
+        asset,
+        view: cmRef.current?.view,
+      }),
+    [assetTextEffect, asset],
+  )
+
+  const extensions = useMemo(
+    () => matchCodemirrorExtensions(asset.name),
+    [asset.name],
+  )
 
   return (
     <>
-      <LayoutPanelHeader name={name} />
+      <LayoutPanelHeader name={asset.name} />
       <ReactCodeMirror
         className="flex-1 h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!~text-xs/sm [&_.cm-line]:px-4 [&_.cm-scroller]:overflow-hidden"
-        value={initialValue.toString()}
+        value={asset.initialValue.toString()}
         extensions={extensions}
         editable={false}
         theme={codemirrorTheme}
@@ -120,7 +134,7 @@ const AssetTextView = memo(function AssetTextView({
 })
 
 const panelEdgeClassName = cx(
-  'bg-accent-1/30 text-gray-10 font-medium py-2 px-3.5 text-xs flex items-center gap-1.5 z-10 tracking-wide',
+  'bg-accent-1/30 text-gray-11 font-medium py-2 px-3.5 text-xs flex items-center gap-1.5 z-10 tracking-wide',
 )
 
 function LayoutPanelHeader({ name }: { name: string }) {

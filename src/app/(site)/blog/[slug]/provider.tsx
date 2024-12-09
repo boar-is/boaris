@@ -1,12 +1,20 @@
 'use client'
 
 import type { ResolvedPos } from '@tiptap/pm/model'
+import type { EditorView } from '@uiw/react-codemirror'
 import { Array, Match, Option, Schema, pipe } from 'effect'
 import type { NonEmptyReadonlyArray } from 'effect/Array'
-import { type Atom, atom, useSetAtom, useStore } from 'jotai'
+import {
+  type Atom,
+  type PrimitiveAtom,
+  atom,
+  useSetAtom,
+  useStore,
+} from 'jotai'
 import { animate } from 'motion/react'
 import type { FC, PropsWithChildren } from 'react'
 import { reversedChanges } from '~/lib/cm/reversed-changes'
+import { seekChanges } from '~/lib/cm/seek-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { readableDate } from '~/lib/date/readable-date'
 import { calculateCenterY } from '~/lib/dom/calculate-center-y'
@@ -27,8 +35,8 @@ export type AssetImageDynamicWithState = typeof AssetImageDynamic.Type
 export type AssetImageStaticWithState = typeof AssetImageStatic.Type
 export type AssetTextWithState = typeof AssetText.Type & {
   reverses: AssetTextWithState['advances']
-  headIndexAtom: Atom<number>
-  anchorIndexAtom: Atom<number>
+  anchorIndexAtom: PrimitiveAtom<number | undefined>
+  headIndexAtom: Atom<number | undefined>
 }
 export type AssetWithState =
   | AssetImageDynamicWithState
@@ -47,6 +55,8 @@ export type PostPageContextValue = {
   captions: typeof JsonContentFromJson.Type
   setDocSize: (value: number) => void
   setProgress: (progress: number) => void
+  areasAtom: Atom<string | undefined>
+  assetsAtom: Atom<ReadonlyArray<AssetWithState>>
   scrollableEffect: (options: {
     scrollableElement: HTMLElement
     contentElement: HTMLElement
@@ -54,8 +64,10 @@ export type PostPageContextValue = {
     resolvePosition: (position: number) => ResolvedPos
     nodeDom: (position: number) => Node | null
   }) => () => void
-  areasAtom: Atom<string | undefined>
-  assetsAtom: Atom<ReadonlyArray<AssetWithState>>
+  assetTextEffect: (options: {
+    asset: AssetTextWithState
+    view: EditorView | undefined
+  }) => () => void
 }
 
 export const [PostPageContext, usePostPage] =
@@ -105,8 +117,14 @@ export function PostPageProvider({
           (asset): AssetTextWithState => ({
             ...asset,
             reverses: reversedChanges(asset.initialValue, asset.advances),
-            anchorIndexAtom: atom(0),
-            headIndexAtom: atom(0),
+            anchorIndexAtom: atom<number | undefined>(undefined),
+            headIndexAtom: atom((get) =>
+              findClosestIndex(
+                asset.advances,
+                get(positionAtom),
+                (it) => it[0],
+              ).pipe(Option.getOrUndefined),
+            ),
           }),
         ),
         Match.exhaustive,
@@ -149,6 +167,8 @@ export function PostPageProvider({
         captions,
         setDocSize: useSetAtom(docSizeAtom),
         setProgress: useSetAtom(progressAtom),
+        areasAtom,
+        assetsAtom,
         scrollableEffect: ({
           scrollableElement,
           contentElement,
@@ -196,8 +216,37 @@ export function PostPageProvider({
             animateContent(top)
           })
         },
-        areasAtom,
-        assetsAtom,
+        assetTextEffect: ({
+          asset: {
+            anchorIndexAtom,
+            headIndexAtom,
+            initialValue,
+            advances,
+            reverses,
+          },
+          view,
+        }) =>
+          store.sub(headIndexAtom, () => {
+            if (!view) {
+              return
+            }
+
+            const anchor = store.get(anchorIndexAtom)
+            const head = store.get(headIndexAtom)
+
+            const spec = seekChanges({
+              currentValue: view.state.doc,
+              initialValue,
+              advances,
+              reverses,
+              anchor,
+              head,
+            })
+
+            view.dispatch(spec)
+
+            store.set(anchorIndexAtom, head)
+          }),
       }}
     >
       {children}
