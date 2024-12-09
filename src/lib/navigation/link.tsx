@@ -1,6 +1,6 @@
 'use client'
 
-import { forwardRef } from 'react'
+import type { Ref } from 'react'
 import {
   Link as LinkPrimitive,
   type LinkProps as LinkPrimitiveProps,
@@ -16,18 +16,19 @@ export interface LinkProps
   extends LinkPrimitiveProps,
     VariantProps<typeof linkStyles> {}
 
-export const Link = forwardRef<HTMLAnchorElement, LinkPrimitiveProps>(
-  function Link({ className, ...props }, ref) {
-    return (
-      <LinkPrimitive
-        ref={ref}
-        {...props}
-        className={cr(className, (className, renderProps) =>
-          linkStyles({ ...renderProps, className }),
-        )}
-      />
-    )
-  },
-)
+export function Link(
+  { className, ...props }: LinkProps,
+  ref: Ref<HTMLAnchorElement>,
+) {
+  return (
+    <LinkPrimitive
+      ref={ref}
+      {...props}
+      className={cr(className, (className, renderProps) =>
+        linkStyles({ ...renderProps, className }),
+      )}
+    />
+  )
+}
 
 export { LinkContext } from 'react-aria-components'
