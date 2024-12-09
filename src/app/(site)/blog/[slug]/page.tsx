@@ -1,5 +1,4 @@
-import { Array, Option, Schema, pipe } from 'effect'
-import { constant } from 'effect/Function'
+import { Array, Function, Option, Schema, pipe } from 'effect'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { constructMetadata } from '~/lib/metadata/construct-metadata'
@@ -28,7 +27,7 @@ export async function generateMetadata({
       }),
     ),
     Option.getOrElse(
-      constant(
+      Function.constant(
         constructMetadata({
           title: 'Post Not Found',
         }),

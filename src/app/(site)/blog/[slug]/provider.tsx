@@ -3,7 +3,6 @@
 import type { ResolvedPos } from '@tiptap/pm/model'
 import type { EditorView } from '@uiw/react-codemirror'
 import { Array, Match, Option, Schema, pipe } from 'effect'
-import type { NonEmptyReadonlyArray } from 'effect/Array'
 import {
   type Atom,
   type PrimitiveAtom,
@@ -50,7 +49,7 @@ export type PostPageContextValue = {
   lead: string
   posterUrl: string
   date: string
-  tags: NonEmptyReadonlyArray<{
+  tags: Array.NonEmptyReadonlyArray<{
     name: string
     Icon: FC<ImageIconProps> | null
   }> | null
