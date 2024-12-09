@@ -7,7 +7,7 @@ import {
 } from 'motion/react'
 import { usePathname } from 'next/navigation'
 import { type PropsWithChildren, useEffect, useMemo, useState } from 'react'
-import { Image, type ImageProps } from '~/lib/media/image'
+import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { motion } from '~/lib/motion/motion'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 import { cx } from '~/lib/react/cx'
@@ -38,7 +38,7 @@ export const useBackgroundEffect = (props: BackgroundImageProps | null) => {
 
 export const defaultImagePropsConst: BackgroundImageProps = {
   src: '/images/icon-512.png',
-  sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
+  sizes: defaultImageSizes,
 } as const
 
 export function BackgroundProvider({

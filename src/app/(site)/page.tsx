@@ -1,6 +1,6 @@
 import { Option } from 'effect'
 import { readableDate } from '~/lib/date/readable-date'
-import { Image, type ImageProps } from '~/lib/media/image'
+import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { BlurFade } from '~/lib/motion/blur-fade'
 import { Link } from '~/lib/navigation/link'
@@ -20,7 +20,7 @@ export default async function SitePage() {
           {posts.map((post, index) => {
             const posterImageProps = {
               src: post.posterUrl,
-              sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
+              sizes: defaultImageSizes,
               alt: `${post.title}'s poster`,
             } satisfies ImageProps
 

@@ -16,7 +16,7 @@ import {
 } from '~/app/(site)/blog/[slug]/provider'
 import { codemirrorTheme } from '~/lib/cm/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/cm/match-codemirror-extensions'
-import { Image, type ImageProps } from '~/lib/media/image'
+import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { matchFileTypeIcon } from '~/lib/media/match-file-type-icon'
 import { motion } from '~/lib/motion/motion'
 import { cx } from '~/lib/react/cx'
@@ -90,7 +90,7 @@ const AssetImageStaticView = memo(function AssetImageStaticView({
 }: { asset: AssetImageStaticWithState }) {
   const imageProps = {
     src: href,
-    sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
+    sizes: defaultImageSizes,
     alt: alt.pipe(
       Option.orElse(() => caption),
       Option.getOrElse(

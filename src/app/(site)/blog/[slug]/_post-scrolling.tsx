@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
 import { usePostPage } from '~/app/(site)/blog/[slug]/provider'
 import { fixScrollUpdateSafariIos } from '~/lib/dom/fix-scroll-update-safari-ios'
 import { mono } from '~/lib/media/fonts/mono'
-import { Image, type ImageProps } from '~/lib/media/image'
+import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { BlurFade } from '~/lib/motion/blur-fade'
 import { useScrollProgressEffect } from '~/lib/motion/use-scroll-progress-effect'
 import { defaultEditorExtensions } from '~/lib/pm/default-editor-extensions'
@@ -58,7 +58,7 @@ export function PostScrollingHeader() {
 
   const posterImageProps = {
     src: posterUrl,
-    sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
+    sizes: defaultImageSizes,
     alt: `${title}'s poster`,
   } satisfies ImageProps
 
