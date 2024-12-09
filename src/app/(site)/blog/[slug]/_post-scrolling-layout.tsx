@@ -52,6 +52,7 @@ export function PostScrollingLayout({
             initial={{ opacity: 0, filter: 'blur(16px)' }}
             animate={{ opacity: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, filter: 'blur(16px)' }}
+            layout
           >
             <motion.article
               layout="position"
