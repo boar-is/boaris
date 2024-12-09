@@ -486,7 +486,7 @@ const createPost = (
       }),
       new LayoutChange({
         offset: 0.6,
-        areas: "'dynamic1'",
+        areas: "'image1 dynamic1'",
       }),
     ],
     assets: [
