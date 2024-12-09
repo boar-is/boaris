@@ -121,7 +121,9 @@ export function PostScrollingBody({ editor }: { editor: Editor }) {
 
   useScrollProgressEffect({
     targetRef: containerRef,
-    onUpdate: setProgress,
+    onUpdate: (progress) => {
+      containerRef.current?.style.height && setProgress(progress)
+    },
   })
 
   useEffect(
