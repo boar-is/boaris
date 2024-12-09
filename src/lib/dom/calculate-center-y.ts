@@ -1,22 +1,15 @@
 export const calculateCenterY = (
   containerElement: HTMLElement,
   targetElement: HTMLElement,
-): number => {
-  const targetStyle = getComputedStyle(targetElement)
-  const targetMarginTop = Number.parseFloat(targetStyle.marginTop)
-  const targetTop = targetElement.offsetTop + targetMarginTop
-  const targetHeight = targetElement.clientHeight
+) => {
+  const targetTop = targetElement.offsetTop
+  const targetHeight = targetElement.offsetHeight
 
-  const containerHeight = containerElement.clientHeight
+  const containerStyle = getComputedStyle(containerElement)
+  const containerHeight =
+    containerElement.offsetHeight -
+    Number.parseFloat(containerStyle.paddingTop) -
+    Number.parseFloat(containerStyle.paddingBottom)
 
-  const ans = -targetHeight - targetTop + containerHeight / 2
-
-  console.log({
-    containerHeight,
-    targetHeight,
-    targetTop,
-    ans,
-  })
-
-  return ans
+  return containerHeight / 2 - targetHeight / 2 - targetTop
 }
