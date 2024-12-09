@@ -11,5 +11,8 @@ export const calculateCenterY = (
     Number.parseFloat(containerStyle.paddingTop) -
     Number.parseFloat(containerStyle.paddingBottom)
 
-  return containerHeight / 2 - targetHeight / 2 - targetTop
+  const adjustmentY =
+    targetHeight < containerHeight * 0.35 ? containerHeight * 0.15 : 0
+
+  return containerHeight / 2 - targetHeight / 2 - targetTop - adjustmentY
 }
