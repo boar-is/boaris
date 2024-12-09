@@ -5,7 +5,7 @@ import { isLocalhost } from '~/lib/metadata/base-url'
 
 const baseNextConfig: NextConfig = {
   experimental: {
-    optimizePackageImports: ['react-aria-components', 'usehooks-ts'],
+    optimizePackageImports: ['react-aria-components'],
   },
   webpack(config) {
     config.plugins.push(
