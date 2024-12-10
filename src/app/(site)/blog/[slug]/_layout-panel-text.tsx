@@ -1,5 +1,6 @@
 import ReactCodeMirror, {
   type BasicSetupOptions,
+  EditorState,
   type ReactCodeMirrorRef,
 } from '@uiw/react-codemirror'
 import { Option } from 'effect'
@@ -72,12 +73,35 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
     [store, anchorIndex$, headIndex$, initialValue, advances, reverses],
   )
 
+  const value = useMemo(() => {
+    const state = EditorState.create({ doc: initialValue, extensions })
+    const head = store.get(headIndex$)
+    const spec = seekChanges({
+      currentValue: state.doc,
+      initialValue,
+      advances,
+      reverses,
+      anchor: store.get(anchorIndex$),
+      head,
+    })
+    store.set(anchorIndex$, head)
+    return state.update(spec).newDoc.toString()
+  }, [
+    store,
+    anchorIndex$,
+    headIndex$,
+    initialValue,
+    advances,
+    reverses,
+    extensions,
+  ])
+
   return (
     <>
       <PostLayoutPanelHeader name={name} />
       <ReactCodeMirror
         className="flex-1 h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!~text-xs/sm [&_.cm-line]:px-4 [&_.cm-scroller]:overflow-hidden"
-        value={initialValue.toString()}
+        value={value}
         extensions={extensions}
         editable={false}
         theme={codemirrorTheme}
