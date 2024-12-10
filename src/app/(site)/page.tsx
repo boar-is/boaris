@@ -13,7 +13,8 @@ export default async function SitePage() {
   return (
     <article className="container">
       <header className="sr-only">
-        <h1>Blog</h1>
+        <h1>Boar.is</h1>
+        <h2>Recent Posts</h2>
       </header>
       {posts.length ? (
         <div className="flex flex-col gap-4">

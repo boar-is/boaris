@@ -7,7 +7,6 @@ import { mono } from '~/lib/media/fonts/mono'
 import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { constructMetadata } from '~/lib/metadata/construct-metadata'
-import { BlurFade } from '~/lib/motion/blur-fade'
 import { defaultEditorExtensions } from '~/lib/pm/default-editor-extensions'
 import { StaticEditorContent } from '~/lib/pm/static-editor-content'
 import { cx } from '~/lib/react/cx'
@@ -90,62 +89,60 @@ export default async function PostPage({
     <PostPageProvider postEncoded={Schema.encodeSync(Post)(post)}>
       <article className={cx(mono.variable, 'flex flex-col gap-16')}>
         <BackgroundEffect {...posterImageProps} />
-        <BlurFade inView>
-          <header className="container flex flex-col justify-between lg:flex-row ~gap-6/10 ~p-4/5 drop-shadow-md">
-            <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
-              <Image
-                {...posterImageProps}
-                fill
-                className="object-cover rounded-4xl shadow-inner"
-                priority
-              />
-            </aside>
-            <section className="flex-1 ~space-y-4/6 ~py-0/4">
-              <div className="space-y-1">
-                <small className="text-accent-11 font-bold tracking-wide ~text-sm/lg">
-                  {readableDate(date)}
-                </small>
-                <h1 className="~text-4xl/5xl font-bold text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent !leading-[1.1]">
-                  {title}
-                </h1>
-              </div>
+        <header className="container flex flex-col justify-between lg:flex-row ~gap-6/10 ~p-4/5 drop-shadow-md">
+          <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
+            <Image
+              {...posterImageProps}
+              fill
+              className="object-cover rounded-4xl shadow-inner"
+              priority
+            />
+          </aside>
+          <section className="flex-1 ~space-y-4/6 ~py-0/4">
+            <div className="space-y-1">
+              <small className="text-accent-11 font-bold tracking-wide ~text-sm/lg">
+                {readableDate(date)}
+              </small>
+              <h1 className="~text-4xl/5xl font-bold text-balance bg-gradient-to-b from-gray-12 to-gray-11 bg-clip-text text-transparent !leading-[1.1]">
+                {title}
+              </h1>
+            </div>
 
-              <p className="~text-lg/xl font-medium tracking-wide text-pretty !leading-relaxed max-w-prose">
-                {lead}
-              </p>
+            <p className="~text-lg/xl font-medium tracking-wide text-pretty !leading-relaxed max-w-prose">
+              {lead}
+            </p>
 
-              {Option.some(tags).pipe(
-                Option.filter(Array.isNonEmptyReadonlyArray),
-                Option.andThen(
-                  Array.map((tag) => ({
-                    name: tag,
-                    Icon: matchTagIcon(tag),
-                  })),
-                ),
-                Option.andThen((tags) => (
-                  <div className="flex justify-between gap-8 items-center">
-                    <ul className="flex flex-wrap ~gap-2/4 ~text-sm/base font-bold tracking-wide text-accent-11 *:my-0.5">
-                      {tags.map((tag) => (
-                        <li key={tag.name}>
-                          <div
-                            className={cx(
-                              shadowInsetStyles,
-                              'flex ~gap-1/1.5 items-center bg-accent-7/35 border border-accent-8 rounded-full after:rounded-full px-3 py-1',
-                            )}
-                          >
-                            {tag.Icon && <tag.Icon className="~size-4/5" />}
-                            {tag.name}
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )),
-                Option.getOrNull,
-              )}
-            </section>
-          </header>
-        </BlurFade>
+            {Option.some(tags).pipe(
+              Option.filter(Array.isNonEmptyReadonlyArray),
+              Option.andThen(
+                Array.map((tag) => ({
+                  name: tag,
+                  Icon: matchTagIcon(tag),
+                })),
+              ),
+              Option.andThen((tags) => (
+                <div className="flex justify-between gap-8 items-center">
+                  <ul className="flex flex-wrap ~gap-2/4 ~text-sm/base font-bold tracking-wide text-accent-11 *:my-0.5">
+                    {tags.map((tag) => (
+                      <li key={tag.name}>
+                        <div
+                          className={cx(
+                            shadowInsetStyles,
+                            'flex ~gap-1/1.5 items-center bg-accent-7/35 border border-accent-8 rounded-full after:rounded-full px-3 py-1',
+                          )}
+                        >
+                          {tag.Icon && <tag.Icon className="~size-4/5" />}
+                          {tag.name}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )),
+              Option.getOrNull,
+            )}
+          </section>
+        </header>
         <PostContent
           captions={<PostCaptions className={captionsCx} />}
           layout={<PostLayout />}

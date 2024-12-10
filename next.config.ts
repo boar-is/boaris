@@ -3,7 +3,10 @@ import optimizeLocales from '@react-aria/optimize-locales-plugin'
 import type { NextConfig } from 'next'
 import { isLocalhost } from '~/lib/metadata/base-url'
 
+const isAnalyze = globalThis.process.env['ANALYZE'] === 'true'
+
 const baseNextConfig: NextConfig = {
+  productionBrowserSourceMaps: isAnalyze,
   experimental: {
     optimizePackageImports: [
       'react-aria-components',
@@ -73,7 +76,7 @@ const baseNextConfig: NextConfig = {
 }
 
 const nextConfig = withBundleAnalyzer({
-  enabled: globalThis.process.env['ANALYZE'] === 'true',
+  enabled: isAnalyze,
   openAnalyzer: true,
 })(baseNextConfig)
 
