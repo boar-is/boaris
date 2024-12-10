@@ -1,16 +1,11 @@
 'use client'
 
-import {
-  AnimatePresence,
-  type HTMLMotionProps,
-  useReducedMotion,
-} from 'motion/react'
+import { AnimatePresence } from 'motion/react'
 import { usePathname } from 'next/navigation'
 import { type PropsWithChildren, useEffect, useMemo, useState } from 'react'
-import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
+import { Image, defaultImageSizes } from '~/lib/media/image'
 import { motion } from '~/lib/motion/motion'
 import { createStrictContext } from '~/lib/react/create-strict-context'
-import { cx } from '~/lib/react/cx'
 
 export type BackgroundImageProps = {
   src: string
@@ -43,7 +38,7 @@ export function BackgroundEffect(props: BackgroundImageProps | null) {
 }
 
 export const defaultImagePropsConst: BackgroundImageProps = {
-  src: '/images/icon-512.png',
+  src: '/images/og.png',
   sizes: defaultImageSizes,
 } as const
 
@@ -70,50 +65,22 @@ export function BackgroundProvider({
     }
   }, [pathname, defaultImageProps])
 
-  const shouldReduceMotion = useReducedMotion()
-
-  const rotateProps = {
-    transition: {
-      duration: 90,
-      ease: 'linear',
-      repeat: Number.POSITIVE_INFINITY,
-    },
-    className: 'absolute w-[200%] aspect-square transform-gpu',
-  } satisfies HTMLMotionProps<'div'>
-
-  const nextImageProps = {
-    ...imageProps,
-    fill: true,
-    alt: 'Background',
-    className: 'rounded-[50%] blur-[80px] opacity-35 transform-gpu',
-  } satisfies ImageProps
-
   return (
     <BackgroundContext value={value}>
       <AnimatePresence>
         <motion.div
-          className="fixed inset-0 -z-10 overflow-hidden pointer-events-none"
+          className="fixed inset-0 -z-10 overflow-hidden pointer-events-none isolate"
           key={imageProps.src}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <motion.figure
-            {...rotateProps}
-            initial={{ rotate: 0 }}
-            animate={{ rotate: shouldReduceMotion ? 0 : 360 }}
-            className={cx(rotateProps.className, 'top-0 right-0')}
-          >
-            <Image {...nextImageProps} />
-          </motion.figure>
-          <motion.figure
-            {...rotateProps}
-            initial={{ rotate: 360 }}
-            animate={{ rotate: shouldReduceMotion ? 360 : 0 }}
-            className={cx(rotateProps.className, 'bottom-0 left-0')}
-          >
-            <Image {...nextImageProps} />
-          </motion.figure>
+          <Image
+            {...imageProps}
+            fill
+            alt="Background"
+            className="blur-[120px] opacity-75 transform-gpu size-full object-cover"
+          />
         </motion.div>
       </AnimatePresence>
       {children}
