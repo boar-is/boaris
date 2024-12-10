@@ -1,3 +1,7 @@
 'use client'
 
-export { Modal, ModalOverlay } from 'react-aria-components'
+export {
+  Modal,
+  ModalOverlay,
+  type ModalOverlayProps,
+} from 'react-aria-components'
