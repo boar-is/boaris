@@ -78,16 +78,12 @@ export default async function PostPage({
   const PostCaptions = dynamic(
     () => import('./_captions').then((m) => m.PostCaptions),
     {
-      ssr: false,
       loading: () => postCaptionsLoading,
     },
   )
 
-  const PostLayout = dynamic(
-    () => import('./_layout').then((m) => m.PostLayout),
-    {
-      ssr: false,
-    },
+  const PostLayout = dynamic(() =>
+    import('./_layout').then((m) => m.PostLayout),
   )
 
   return (

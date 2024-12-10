@@ -62,7 +62,7 @@ export function PostCaptions({
       if (oldY === y) {
         return
       }
-      animate(scrollableElement, { y }, { ease: 'easeInOut', duration: 0.35 })
+      animate(contentElement, { y }, { ease: 'easeInOut', duration: 0.35 })
       oldY = y
     }
 
