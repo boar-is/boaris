@@ -1,5 +1,4 @@
-import { type Atom, type Getter, atom } from 'jotai'
-import type { PrimitiveAtom } from 'jotai/index'
+import { type Atom, type Getter, type PrimitiveAtom, atom } from 'jotai'
 import { useConst } from '~/lib/react/use-const'
 
 export function useConstAtom<T>(read: (get: Getter) => T): Atom<T>

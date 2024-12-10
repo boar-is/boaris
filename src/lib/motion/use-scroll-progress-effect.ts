@@ -1,16 +1,16 @@
 import { useResizeObserver } from '@react-aria/utils'
 import { useMotionValueEvent, useScroll } from 'motion/react'
-import type { MutableRefObject } from 'react'
+import type { RefObject } from 'react'
 
 export const useScrollProgressEffect = ({
-  targetRef,
+  ref,
   onUpdate,
 }: {
-  targetRef: MutableRefObject<HTMLElement | null>
+  ref: RefObject<HTMLElement | null>
   onUpdate: (progress: number) => void
 }) => {
   const { scrollYProgress } = useScroll({
-    target: targetRef,
+    target: ref,
   })
 
   useMotionValueEvent(scrollYProgress, 'change', onUpdate)
@@ -19,7 +19,7 @@ export const useScrollProgressEffect = ({
    * @see https://github.com/motiondivision/motion/issues/2718
    */
   useResizeObserver({
-    ref: targetRef,
+    ref,
     onResize: () => window.scrollTo({ top: window.scrollY + 1 }),
   })
 }

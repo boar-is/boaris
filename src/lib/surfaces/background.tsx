@@ -36,6 +36,12 @@ export const useBackgroundEffect = (props: BackgroundImageProps | null) => {
   }, [setBackground, props])
 }
 
+export function BackgroundEffect(props: BackgroundImageProps | null) {
+  useBackgroundEffect(props)
+
+  return null
+}
+
 export const defaultImagePropsConst: BackgroundImageProps = {
   src: '/images/icon-512.png',
   sizes: defaultImageSizes,

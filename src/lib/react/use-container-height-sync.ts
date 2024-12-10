@@ -1,11 +1,11 @@
 import { useResizeObserver } from '@react-aria/utils'
-import { type MutableRefObject, useRef } from 'react'
+import { type RefObject, useRef } from 'react'
 
 export const useContainerHeightSync = ({
   contentRef,
   factor = 1 / 15,
 }: {
-  contentRef: MutableRefObject<HTMLElement | null>
+  contentRef: RefObject<HTMLElement | null>
   factor?: number | undefined
 }) => {
   const ref = useRef<HTMLDivElement>(null)
