@@ -96,7 +96,7 @@ export default async function PostPage({
             <Image
               {...posterImageProps}
               fill
-              className="object-cover rounded-4xl shadow-inner"
+              className="object-cover ~rounded-2xl/4xl shadow-inner"
               priority
             />
           </aside>
