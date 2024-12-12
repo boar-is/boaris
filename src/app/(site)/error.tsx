@@ -24,7 +24,7 @@ export default function SiteError({
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
         aperiam, blanditiis corporis dolores dolorum impedit in ipsum iste
         magnam officia, officiis omnis placeat, rem reprehenderit sed sunt
-        veritatis? Ea, id. ({error.digest})
+        veritatis? Ea, id. {error.digest && <code>({error.digest})</code>}
       </p>
       <footer className="space-x-4 *:~px-4/8">
         <Link

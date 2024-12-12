@@ -66,9 +66,10 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
           head,
         })
 
-        view.dispatch(spec)
-
-        store.set(anchorIndex$, head)
+        try {
+          view.dispatch(spec)
+          store.set(anchorIndex$, head)
+        } catch (error) {}
       }),
     [store, anchorIndex$, headIndex$, initialValue, advances, reverses],
   )

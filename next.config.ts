@@ -46,7 +46,7 @@ const baseNextConfig: NextConfig = {
   img-src 'self' blob: data:;
   media-src 'self';
   font-src 'self';
-  object-src 'none';
+  object-src data:;
   base-uri 'self';
   form-action 'self';
   frame-ancestors 'none';
