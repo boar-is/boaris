@@ -79,7 +79,7 @@ export function BackgroundProvider({
             {...imageProps}
             fill
             alt="Background"
-            className="blur-[120px] opacity-75 transform-gpu size-full object-cover"
+            className="blur-[80px] saturate-150 scale-125 opacity-50 transform-gpu size-full object-cover"
           />
         </motion.div>
       </AnimatePresence>
