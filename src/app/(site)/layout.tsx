@@ -81,7 +81,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
         </nav>
       </header>
       <main className="flex-1">{children}</main>
-      <footer className="container pb-24 pt-12 flex justify-center items-center">
+      <footer className="container ~pb-12/24 ~pt-6/12 flex justify-center items-center">
         <BlurFade inView>
           <Link
             href="/"
