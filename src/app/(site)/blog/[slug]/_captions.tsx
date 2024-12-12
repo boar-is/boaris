@@ -75,6 +75,18 @@ export function PostCaptions({
         return void animateContent(0)
       }
 
+      if (position === store.get(docSize$)) {
+        const scrollableStyle = getComputedStyle(scrollableElement)
+        const scrollablePt = Number.parseFloat(scrollableStyle.paddingTop)
+        const scrollablePb = Number.parseFloat(scrollableStyle.paddingBottom)
+        const top =
+          scrollableElement.offsetHeight -
+          contentElement.offsetHeight -
+          scrollablePt -
+          scrollablePb
+        return void animateContent(top)
+      }
+
       const $pos = editor.state.doc.resolve(position)
 
       const depth = findBlockAncestorDepth($pos)
@@ -90,7 +102,14 @@ export function PostCaptions({
       const top = calculateCenterY(scrollableElement, blockElement)
       animateContent(top)
     })
-  }, [store, position$, editor, scrollableRef.current, contentRef.current])
+  }, [
+    store,
+    position$,
+    docSize$,
+    editor,
+    scrollableRef.current,
+    contentRef.current,
+  ])
 
   if (!editor) {
     return loading

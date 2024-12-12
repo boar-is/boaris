@@ -19,7 +19,7 @@ export function PostSubscriptionSection() {
       <header>
         <h2 className="~text-3xl/4xl font-semibold">Like the format?</h2>
       </header>
-      <section className="text-gray-11 font-medium text-pretty ~space-y-6/8">
+      <section className="text-gray-11 font-medium text-pretty ~space-y-4/6">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse,
           eveniet hic laudantium nam nesciunt nisi odit qui sapiente velit
