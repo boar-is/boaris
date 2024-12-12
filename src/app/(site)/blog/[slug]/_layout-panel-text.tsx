@@ -6,7 +6,6 @@ import ReactCodeMirror, {
 import { Option } from 'effect'
 import { useStore } from 'jotai/index'
 import { memo, useEffect, useMemo, useRef } from 'react'
-import { usePostContent } from '~/app/(site)/blog/[slug]/_content'
 import { codemirrorTheme } from '~/lib/cm/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/cm/match-codemirror-extensions'
 import { reversedChanges } from '~/lib/cm/reversed-changes'
@@ -14,6 +13,7 @@ import { seekChanges } from '~/lib/cm/seek-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import type { AssetText } from '~/model/assetText'
+import { usePostContent } from './_content'
 import { PostLayoutPanelHeader } from './_layout-panel'
 
 const basicCmSetup: BasicSetupOptions = {
