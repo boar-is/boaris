@@ -13,11 +13,11 @@ export function PostSubscriptionSection() {
     <article
       className={cx(
         shadowInsetStyles,
-        '~space-y-8/10 max-w-xl ~text-base/xl mx-auto ~rounded-4xl/5xl after:~rounded-4xl/5xl ~p-6/8 bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
+        '~space-y-6/8 max-w-xl ~text-base/lg mx-auto ~rounded-4xl/5xl after:~rounded-4xl/5xl ~p-6/8 bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
       )}
     >
       <header>
-        <h2 className="~text-3xl/5xl font-semibold">Like the format?</h2>
+        <h2 className="~text-3xl/4xl font-semibold">Like the format?</h2>
       </header>
       <section className="text-gray-11 font-medium text-pretty ~space-y-6/8">
         <p>
@@ -45,7 +45,7 @@ export function PostSubscriptionSection() {
             <Label className="text-gray-11">Email</Label>
             <Input
               placeholder="person@cool-domain.com"
-              className="rounded-xl border border-accent-7 focus:border-accent-8 bg-accent-2 ~px-3/4 ~py-1/2 ~text-lg/xl placeholder-accent-5 transition-colors"
+              className="rounded-xl border border-accent-7 focus:border-accent-8 text-accent-11 bg-accent-2 ~px-3/4 ~py-1/2 ~text-lg/xl placeholder-accent-5 transition-colors"
             />
             <FieldError className="text-destructive-9 text-sm" />
           </TextField>
@@ -53,7 +53,7 @@ export function PostSubscriptionSection() {
             <Button
               type="submit"
               intent="primary"
-              className="rounded-xl ~text-base/xl"
+              className="rounded-xl ~text-base/lg"
             >
               Subscribe
             </Button>

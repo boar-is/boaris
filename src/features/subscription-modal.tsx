@@ -68,7 +68,7 @@ export function SubscriptionModal({ className, ...props }: ModalOverlayProps) {
                 <Label className="text-gray-11 ~text-sm/base">Email</Label>
                 <Input
                   placeholder="person@cool-domain.com"
-                  className="rounded-xl border border-accent-7 focus:border-accent-8 bg-accent-2 ~px-3/4 ~py-1/2 ~text-lg/xl placeholder-accent-5 transition-colors"
+                  className="rounded-xl border border-accent-7 focus:border-accent-8 text-accent-11 bg-accent-2 ~px-3/4 ~py-1/2 ~text-lg/xl placeholder-accent-5 transition-colors"
                 />
                 <FieldError className="text-destructive-9 text-sm" />
               </TextField>
