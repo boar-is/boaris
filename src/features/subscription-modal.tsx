@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '~/lib/buttons/button'
 import { Heading } from '~/lib/content/heading'
 import { FieldError, Form } from '~/lib/forms/form'
@@ -15,9 +13,9 @@ import {
 import { cr } from '~/lib/react/cr'
 import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
-import { NewsletterSubscriptionFormProvider } from './newsletter-subscription-form-provider'
+import { SubscriptionModalFormProvider } from './subscription-modal-form-provider'
 
-export function NewsletterModal({ className, ...props }: ModalOverlayProps) {
+export function SubscriptionModal({ className, ...props }: ModalOverlayProps) {
   return (
     <ModalOverlay
       isDismissable
@@ -58,7 +56,7 @@ export function NewsletterModal({ className, ...props }: ModalOverlayProps) {
             </p>
             <p>If you're not into it, you can unsubscribe instantly. 💨</p>
           </section>
-          <NewsletterSubscriptionFormProvider>
+          <SubscriptionModalFormProvider>
             <Form className="flex flex-col gap-4">
               <TextField
                 name="email"
@@ -84,7 +82,7 @@ export function NewsletterModal({ className, ...props }: ModalOverlayProps) {
                 </Button>
               </PendingFormDisabledButtonProvider>
             </Form>
-          </NewsletterSubscriptionFormProvider>
+          </SubscriptionModalFormProvider>
         </Dialog>
       </Modal>
     </ModalOverlay>

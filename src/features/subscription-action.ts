@@ -3,7 +3,7 @@
 import { Schema } from 'effect'
 import { Email } from '~/model/email'
 
-type SubscribeState =
+type SubscriptionState =
   | {
       status: 'initial'
     }
@@ -16,10 +16,10 @@ type SubscribeState =
       error: string
     }
 
-export async function newsletterSubscriptionAction(
-  _: SubscribeState,
+export async function subscriptionAction(
+  _: SubscriptionState,
   formData: FormData,
-): Promise<SubscribeState> {
+): Promise<SubscriptionState> {
   const email = formData.get('email') as string
 
   if (!Schema.is(Email)(email)) {

@@ -4,18 +4,16 @@ import { type PropsWithChildren, use, useActionState, useEffect } from 'react'
 import { FormContext } from '~/lib/forms/form'
 import { OverlayTriggerStateContext } from '~/lib/overlays/dialog'
 import { toast } from '~/lib/toast/toast'
-import { newsletterSubscriptionAction } from './newsletter-subscription-action'
+import { subscriptionAction } from './subscription-action'
 
-export function NewsletterSubscriptionFormProvider({
-  children,
-}: PropsWithChildren) {
+export function SubscriptionModalFormProvider({ children }: PropsWithChildren) {
   const overlayState = use(OverlayTriggerStateContext)
 
   if (!overlayState) {
     throw new Error('OverlayTriggerStateContext is null')
   }
 
-  const [state, action] = useActionState(newsletterSubscriptionAction, {
+  const [state, action] = useActionState(subscriptionAction, {
     status: 'initial',
   })
 

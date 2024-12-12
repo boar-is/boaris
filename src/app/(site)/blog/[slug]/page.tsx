@@ -2,11 +2,13 @@ import { Array, Function, Option, Schema, pipe } from 'effect'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
+import { PostSubscriptionSection } from '~/app/(site)/blog/[slug]/_subscription-section'
 import { readableDate } from '~/lib/date/readable-date'
 import { mono } from '~/lib/media/fonts/mono'
 import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { constructMetadata } from '~/lib/metadata/construct-metadata'
+import { BlurFade } from '~/lib/motion/blur-fade'
 import { defaultEditorExtensions } from '~/lib/pm/default-editor-extensions'
 import { StaticEditorContent } from '~/lib/pm/static-editor-content'
 import { cx } from '~/lib/react/cx'
@@ -147,6 +149,11 @@ export default async function PostPage({
           captions={<PostCaptions className={captionsCx} />}
           layout={<PostLayout />}
         />
+        <BlurFade inView>
+          <div className="container">
+            <PostSubscriptionSection />
+          </div>
+        </BlurFade>
       </article>
     </PostPageProvider>
   )

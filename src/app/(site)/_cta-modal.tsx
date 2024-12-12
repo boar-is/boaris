@@ -4,8 +4,9 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { Button } from '~/lib/buttons/button'
 
-const NewsletterModal = dynamic(
-  () => import('~/features/newsletter-modal').then((m) => m.NewsletterModal),
+const SubscriptionModal = dynamic(
+  () =>
+    import('~/features/subscription-modal').then((m) => m.SubscriptionModal),
   {
     ssr: false,
   },
@@ -23,7 +24,7 @@ export function CtaModal() {
       >
         Subscribe
       </Button>
-      {isOpen && <NewsletterModal isOpen={isOpen} onOpenChange={setIsOpen} />}
+      {isOpen && <SubscriptionModal isOpen={isOpen} onOpenChange={setIsOpen} />}
     </>
   )
 }
