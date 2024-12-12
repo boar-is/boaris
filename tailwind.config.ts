@@ -51,7 +51,7 @@ const tailwindConfig: Config = {
       lg: screens.lg,
     },
     fluid: (): FluidThemeConfig => ({
-      defaultScreens: ['40rem', screens.lg],
+      defaultScreens: ['20rem', screens.lg],
     }),
     extend: {
       borderRadius: {

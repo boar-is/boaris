@@ -26,7 +26,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
   )
 
   return (
-    <div className="flex flex-col ~gap-12/24 items-stretch min-h-dvh">
+    <div className="flex flex-col ~gap-8/24 items-stretch min-h-dvh">
       <header className="container sticky z-10 top-0 py-3">
         <nav
           className={cx(
@@ -35,13 +35,13 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
             'bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-blur-md backdrop-saturate-150',
           )}
         >
-          <ul className="flex items-stretch justify-between ~gap-2/4">
+          <ul className="flex items-stretch justify-between ~gap-1/4">
             <li>
               <Link
                 href="/"
                 className={cx(
                   itemCx,
-                  '~gap-1.5/2.5 select-none ~text-lg/xl leading-tight break-all font-semibold',
+                  '~gap-1/2.5 select-none ~text-base/xl leading-tight break-all font-semibold',
                 )}
               >
                 <Image
