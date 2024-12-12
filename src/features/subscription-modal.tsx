@@ -21,7 +21,7 @@ export function SubscriptionModal({ className, ...props }: ModalOverlayProps) {
       isDismissable
       className={cr(className, (className) =>
         cx(
-          'isolate z-20 entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-black',
+          'isolate z-20 entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-black/35 backdrop-blur',
           className,
         ),
       )}
