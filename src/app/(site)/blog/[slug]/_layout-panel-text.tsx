@@ -101,7 +101,7 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
     <>
       <PostLayoutPanelHeader name={name} />
       <ReactCodeMirror
-        className="flex-1 h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!~text-xs/sm [&_.cm-line]:px-4 [&_.cm-scroller]:overflow-hidden"
+        className="flex-1 h-full [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!~text-sm/base [&_.cm-line]:px-4 [&_.cm-scroller]:overflow-hidden"
         value={value}
         extensions={extensions}
         editable={false}
