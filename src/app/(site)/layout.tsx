@@ -26,7 +26,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
   )
 
   return (
-    <div className="flex flex-col ~gap-4/10 items-stretch min-h-dvh">
+    <div className="flex flex-col ~gap-12/24 items-stretch min-h-dvh">
       <header className="container sticky z-10 top-0 py-3">
         <nav
           className={cx(

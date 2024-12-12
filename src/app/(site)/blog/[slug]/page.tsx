@@ -89,7 +89,7 @@ export default async function PostPage({
 
   return (
     <PostPageProvider postEncoded={Schema.encodeSync(Post)(post)}>
-      <article className={cx(mono.variable, 'flex flex-col gap-16')}>
+      <article className={cx(mono.variable, 'flex flex-col ~gap-6/8')}>
         <BackgroundEffect {...posterImageProps} />
         <header className="container flex flex-col justify-between lg:flex-row ~gap-6/10 ~p-4/5 drop-shadow-md">
           <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">

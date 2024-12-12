@@ -52,7 +52,7 @@ export function PostContent({
   return (
     <PostContentContext value={contextValue}>
       <div className="relative container" ref={containerRef}>
-        <div className="sticky top-0 h-dvh flex flex-col lg:flex-row lg:*:flex-1 justify-center">
+        <div className="sticky top-0 h-dvh flex flex-col lg:flex-row lg:*:flex-1 justify-center gap-4">
           <div
             className="flex-1 overflow-hidden fade-y-64 py-24"
             ref={scrollableRef}
