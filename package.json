@@ -48,6 +48,7 @@
     "@tiptap/html": "2.10.3",
     "@tiptap/pm": "2.10.3",
     "@tiptap/react": "2.10.3",
+    "@tldraw/assets": "3.6.0",
     "@total-typescript/ts-reset": "0.6.1",
     "@types/node": "22.10.2",
     "@types/react": "19.0.1",
@@ -75,8 +76,15 @@
     "tailwindcss": "3.4.16",
     "tailwindcss-animate": "1.0.7",
     "tailwindcss-react-aria-components": "1.2.0",
+    "tldraw": "3.6.0",
     "typescript": "5.7.2",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "2.1.8"
+  },
+  "resolutions": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "@types/react": "19.0.1",
+    "@types/react-dom": "19.0.2"
   }
 }

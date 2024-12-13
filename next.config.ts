@@ -43,13 +43,14 @@ const baseNextConfig: NextConfig = {
   default-src 'self' vercel.live;
   script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live va.vercel-scripts.com unpkg.com;
   style-src 'self' 'unsafe-inline';
-  img-src 'self' blob: data:;
+  img-src 'self' blob: data: cdn.tldraw.com;
   media-src 'self';
-  font-src 'self';
+  font-src 'self' cdn.tldraw.com;
   object-src data:;
   base-uri 'self';
   form-action 'self';
   frame-ancestors 'none';
+  connect-src 'self' cdn.tldraw.com;
   ${isLocalhost ? '' : 'upgrade-insecure-requests;'}
 `.replace(/\n/g, ''),
           },
