@@ -13,25 +13,7 @@ const assetUrls = getAssetUrlsByMetaUrl()
 export default function TldrawLabsPage() {
   return (
     <div className="container h-[400px]">
-      <Tldraw
-        assetUrls={assetUrls}
-        onMount={(editor) => {
-          editor.createShape({
-            type: 'text',
-            x: 200,
-            y: 200,
-            props: {
-              text: 'Hello world!',
-            },
-          })
-
-          editor.selectAll()
-
-          editor.zoomToSelection({
-            animation: { duration: 200 },
-          })
-        }}
-      />
+      <Tldraw assetUrls={assetUrls} />
     </div>
   )
 }
