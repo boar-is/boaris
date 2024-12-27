@@ -15,6 +15,10 @@ export class Post extends Schema.Class<Post>('Post')({
   posterUrl: Schema.NonEmptyTrimmedString,
   tags: Schema.Array(Schema.NonEmptyTrimmedString),
   captions: JsonContentFromJson,
+  interpolation: Schema.Struct({
+    input: Schema.NonEmptyArray(Schema.Number),
+    output: Schema.NonEmptyArray(Schema.Number),
+  }),
   layoutChanges: Schema.Array(LayoutChange),
   assets: Schema.Array(Asset),
   date: Schema.DateTimeUtcFromNumber,
@@ -462,6 +466,10 @@ const createPost = (
         },
       ],
       type: 'doc',
+    },
+    interpolation: {
+      input: [0, 1],
+      output: [0, 1],
     },
     layoutChanges: [
       new LayoutChange({

@@ -1,6 +1,7 @@
 'use client'
 
 import { type PrimitiveAtom, useSetAtom } from 'jotai'
+import { transform } from 'motion'
 import {
   type ReactNode,
   type RefObject,
@@ -28,17 +29,29 @@ export const [PostContentContext, usePostContent] =
 export function PostContent({
   captions,
   layout,
-}: { captions: ReactNode; layout: ReactNode }) {
+  interpolation,
+}: {
+  captions: ReactNode
+  layout: ReactNode
+  interpolation: { input: ReadonlyArray<number>; output: ReadonlyArray<number> }
+}) {
   const scrollableRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const containerRef = useContainerHeightSync({ contentRef })
 
   const progress$ = useConstAtom(0)
   const setProgress = useSetAtom(progress$)
+
+  const transformProgress = transform(
+    [...interpolation.input],
+    [...interpolation.output],
+  )
+
   useScrollProgressEffect({
     ref: containerRef,
     onUpdate: (progress) => {
-      containerRef.current?.style.height && setProgress(progress)
+      containerRef.current?.style.height &&
+        setProgress(transformProgress(progress))
     },
   })
   // TODO still need this?

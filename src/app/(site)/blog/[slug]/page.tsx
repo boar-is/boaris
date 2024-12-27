@@ -59,7 +59,7 @@ export default async function PostPage({
     return notFound()
   }
 
-  const { title, lead, date, tags, posterUrl, captions } = post
+  const { title, lead, date, tags, posterUrl, captions, interpolation } = post
 
   const posterImageProps = {
     src: posterUrl,
@@ -148,6 +148,7 @@ export default async function PostPage({
         <PostContent
           captions={<PostCaptions className={captionsCx} />}
           layout={<PostLayout />}
+          interpolation={interpolation}
         />
         <BlurFade inView>
           <div className="container">
