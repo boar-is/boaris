@@ -122,9 +122,6 @@ importers:
       '@tiptap/react':
         specifier: 2.10.3
         version: 2.10.3(@tiptap/core@2.10.3(@tiptap/pm@2.10.3))(@tiptap/pm@2.10.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@tldraw/assets':
-        specifier: 3.6.0
-        version: 3.6.0
       '@total-typescript/ts-reset':
         specifier: 0.6.1
         version: 0.6.1
@@ -1973,9 +1970,6 @@ packages:
       '@tiptap/pm': ^2.7.0
       react: 19.0.0
       react-dom: 19.0.0
-
-  '@tldraw/assets@3.6.0':
-    resolution: {integrity: sha512-g4IRq1s9ViehXkJ4i14Qip5ccYeEkFRas8Bo+Ibph0mOvg0XLr2c+TdaBwlU9R9jynRXFGlL8klNsrrauyi3TQ==}
 
   '@tldraw/editor@3.6.0':
     resolution: {integrity: sha512-fDuVinRxChGryzUW6AaP7QWoYLV8R23XO7HhwGAgvV+1Gv/hixy52r1hI2W6Im7R/IjeilEoJhvoOOXb6oECIg==}
@@ -5630,10 +5624,6 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       use-sync-external-store: 1.4.0(react@19.0.0)
-
-  '@tldraw/assets@3.6.0':
-    dependencies:
-      '@tldraw/utils': 3.6.0
 
   '@tldraw/editor@3.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
