@@ -35,7 +35,7 @@ export const constructMetadata = ({
     authors: [
       {
         name: creator,
-        url: workspace.socialLinks.find((it) => it.label === 'GitHub')!.href,
+        url: workspace.socialLinks.find((it) => it.label === 'GitHub')?.href,
       },
     ],
     ...(canonical && {
