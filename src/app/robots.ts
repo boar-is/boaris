@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { baseUrl } from '~/lib/metadata/base-url'
+import { resolveUrl } from '~/lib/metadata/resolvers'
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: ['/'],
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: resolveUrl('sitemap.xml'),
   }
 }

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { baseUrl } from '~/lib/metadata/base-url'
 import { workspace } from '~/model/workspace'
 
 export const constructMetadata = ({
@@ -15,10 +14,9 @@ export const constructMetadata = ({
 } = {}): Metadata => {
   title = title ? `${title} • ${workspace.name}` : workspace.name
   const creator = '@MrBoaris'
-  const images = ['/images/og.png']
+  const images = '/images/og.png'
 
   return {
-    metadataBase: new URL(baseUrl),
     title,
     description,
     openGraph: { title, description, images, type: 'website' },

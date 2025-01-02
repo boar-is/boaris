@@ -1,15 +1,15 @@
 import { DateTime } from 'effect'
 import type { MetadataRoute } from 'next'
-import { baseUrl } from '~/lib/metadata/base-url'
+import { resolveUrl } from '~/lib/metadata/resolvers'
 import { posts } from '~/model/post'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: baseUrl,
+      url: resolveUrl(),
     },
     ...posts.map((it) => ({
-      url: `${baseUrl}/blog/${it.slug}`,
+      url: resolveUrl(`/blog/${it.slug}`),
       lastModified: it.updateDate.pipe(DateTime.toDate),
     })),
   ]

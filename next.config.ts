@@ -1,8 +1,9 @@
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import optimizeLocales from '@react-aria/optimize-locales-plugin'
 import type { NextConfig } from 'next'
-import { isLocalhost } from '~/lib/metadata/base-url'
+import { resolveUrl } from '~/lib/metadata/resolvers'
 
+const isLocalhost = resolveUrl().startsWith('http://localhost:')
 const isAnalyze = globalThis.process.env['ANALYZE'] === 'true'
 
 const baseNextConfig: NextConfig = {
