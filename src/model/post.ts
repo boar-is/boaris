@@ -4478,24 +4478,80 @@ export const posts: ReadonlyArray<Post> = [
         areas: '"app/blog/[slug]/page.tsx"',
       }),
       new LayoutChange({
+        offset: 0.2145,
+        areas: '"lib/react/with-static-params.ts"',
+      }),
+      new LayoutChange({
+        offset: 0.2228,
+        areas: '"app/blog/[slug]/page.tsx"',
+      }),
+      new LayoutChange({
         offset: 0.2547,
         areas: '"nextjs-docs-deduplication"',
+      }),
+      new LayoutChange({
+        offset: 0.273,
+        areas: '"app/blog/[slug]/page.tsx"',
       }),
       new LayoutChange({
         offset: 0.2861,
         areas: '"metadata-fields"',
       }),
       new LayoutChange({
-        offset: 0.3309,
+        offset: 0.3032,
+        areas: '"app/blog/[slug]/page.tsx"',
+      }),
+      new LayoutChange({
+        offset: 0.326,
         areas: '"rich-results"',
+      }),
+      new LayoutChange({
+        offset: 0.3368,
+        areas: '"examples/json-ld.tsx"',
+      }),
+      new LayoutChange({
+        offset: 0.3447,
+        areas: '"app/blog/[slug]/page.tsx"',
+      }),
+      new LayoutChange({
+        offset: 0.428,
+        areas: '"lib/metadata/construct-metadata.ts"',
+      }),
+      new LayoutChange({
+        offset: 0.4833,
+        areas: '"app/blog/[slug]/page.tsx"',
+      }),
+      new LayoutChange({
+        offset: 0.499,
+        areas: '"lib/metadata/construct-metadata.ts"',
       }),
       new LayoutChange({
         offset: 0.5514,
         areas: '"nextjs-docs-metadata-base"',
       }),
       new LayoutChange({
+        offset: 0.559,
+        areas: '"lib/metadata/resolvers.ts"',
+      }),
+      new LayoutChange({
+        offset: 0.5812,
+        areas: '"app/sitemap.ts"',
+      }),
+      new LayoutChange({
+        offset: 0.72,
+        areas: '"app/robots.ts"',
+      }),
+      new LayoutChange({
+        offset: 0.739,
+        areas: '"lib/metadata/construct-metadata.ts"',
+      }),
+      new LayoutChange({
         offset: 0.7672,
         areas: '"og-framing"',
+      }),
+      new LayoutChange({
+        offset: 0.841,
+        areas: '"lib/metadata/construct-metadata.ts"',
       }),
       new LayoutChange({
         offset: 0.8643,
@@ -4512,6 +4568,10 @@ export const posts: ReadonlyArray<Post> = [
       new LayoutChange({
         offset: 0.9225,
         areas: '"icons-app-folder"',
+      }),
+      new LayoutChange({
+        offset: 0.9625,
+        areas: '',
       }),
     ],
     assets: [
