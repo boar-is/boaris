@@ -53,11 +53,11 @@
   }
 
   .typography :where([data-slot~="heading"]) {
-    @apply mt-16 mb-8 text-5xl font-bold;
+    @apply mt-16 mb-8 text-5xl font-extrabold;
   }
 
   .typography :where([data-slot~="subheading"]) {
-    @apply mt-12 mb-6 text-4xl font-semibold;
+    @apply mt-12 mb-6 text-4xl font-bold;
   }
 
   .typography :where(p) {
@@ -69,7 +69,7 @@
   }
 
   .typography :where(strong) {
-    @apply font-bold
+    @apply font-extrabold;
   }
 
   .typography :where(a) {
@@ -77,7 +77,11 @@
   }
 
   .typography :where(ol, ul) {
-    @apply my-7 pl-9;
+    @apply my-4 pl-7;
+
+    p {
+      @apply my-4;
+    }
   }
 
   .typography :where(ol) {
@@ -93,7 +97,11 @@
   }
 
   .typography :where(li) {
-    @apply marker:text-accent-6;
+    @apply marker:text-gray-10 marker:font-semibold marker:transition-colors;
+  }
+
+  .typography :where(li):has(.h) {
+    @apply marker:text-accent-10;
   }
 
   .typography
