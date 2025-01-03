@@ -45,9 +45,9 @@ export function SubscriptionModal({ className, ...props }: ModalOverlayProps) {
           </header>
           <section className="flex flex-col gap-4 text-gray-11">
             <p>
-              My goal with this blog is to create helpful content for front-end
-              web devs. I have a <strong>new and improved</strong> newsletter,
-              and it shares the same goal!
+              OR CONTACT ME My goal with this blog is to create helpful content
+              for front-end web devs. I have a <strong>new and improved</strong>{' '}
+              newsletter, and it shares the same goal!
             </p>
             <p>
               I'll let you know when I publish new content, and I'll also send

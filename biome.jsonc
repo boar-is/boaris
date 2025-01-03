@@ -6,7 +6,9 @@
     "useIgnoreFile": true,
     "defaultBranch": "master"
   },
-  "formatter": { "indentStyle": "space" },
+  "formatter": {
+    "indentStyle": "space"
+  },
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
@@ -36,7 +38,10 @@
         "useFilenamingConvention": {
           "level": "error",
           "options": {
-            "filenameCases": ["kebab-case", "camelCase"]
+            "filenameCases": [
+              "kebab-case",
+              "camelCase"
+            ]
           }
         },
         "useForOf": "error",
@@ -45,7 +50,12 @@
         "useShorthandAssign": "error",
         "useSingleCaseStatement": "error"
       },
-      "suspicious": { "noShadowRestrictedNames": "off" }
+      "suspicious": {
+        "noShadowRestrictedNames": "off"
+      },
+      "nursery": {
+        "useConsistentCurlyBraces": "error"
+      }
     }
   }
 }

@@ -21,9 +21,9 @@ export function PostSubscriptionSection() {
       </header>
       <section className="text-gray-11 font-medium text-pretty ~space-y-4/6">
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse,
-          eveniet hic laudantium nam nesciunt nisi odit qui sapiente velit
-          voluptates? Ad aperiam consequatur culpa dolor ipsum neque quia
+          OR CONTACT ME Lorem ipsum dolor sit amet, consectetur adipisicing
+          elit. Esse, eveniet hic laudantium nam nesciunt nisi odit qui sapiente
+          velit voluptates? Ad aperiam consequatur culpa dolor ipsum neque quia
           similique vitae?
         </p>
         <p>
