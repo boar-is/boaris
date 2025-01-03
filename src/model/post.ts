@@ -1007,7 +1007,7 @@ export const posts: ReadonlyArray<Post> = [
             },
             {
               type: 'text',
-              text: "But they don't help.",
+              text: 'But they don’t help.',
             },
             {
               type: 'hardBreak',
@@ -4472,8 +4472,128 @@ export const posts: ReadonlyArray<Post> = [
       input: [0, 1],
       output: [0, 1],
     },
-    layoutChanges: [],
-    assets: [],
+    layoutChanges: [
+      new LayoutChange({
+        offset: 0.2547,
+        areas: '"nextjs-docs-deduplication"',
+      }),
+      new LayoutChange({
+        offset: 0.2861,
+        areas: '"metadata-fields"',
+      }),
+      new LayoutChange({
+        offset: 0.3309,
+        areas: '"rich-results"',
+      }),
+      new LayoutChange({
+        offset: 0.5514,
+        areas: '"nextjs-docs-metadata-base"',
+      }),
+      new LayoutChange({
+        offset: 0.7672,
+        areas: '"og-framing"',
+      }),
+      new LayoutChange({
+        offset: 0.8643,
+        areas: '"icons-too-much"',
+      }),
+      new LayoutChange({
+        offset: 0.905,
+        areas: '"icon-180"',
+      }),
+      new LayoutChange({
+        offset: 0.9136,
+        areas: '"real-favicon-generator-download"',
+      }),
+      new LayoutChange({
+        offset: 0.9225,
+        areas: '"icons-app-folder"',
+      }),
+    ],
+    assets: [
+      new AssetImageStatic({
+        _id: 'icon-180',
+        type: 'image-static',
+        name: 'icon-180.webp',
+        href: '/assets/nextjs-metadata/icon-180.webp',
+        caption: Option.none(),
+        alt: Option.some('An icon in a 180x180 frame'),
+      }),
+      new AssetImageStatic({
+        _id: 'icons-app-folder',
+        type: 'image-static',
+        name: 'icons-app-folder.webp',
+        href: '/assets/nextjs-metadata/icons-app-folder.webp',
+        caption: Option.none(),
+        alt: Option.some('A file tree with selected icons'),
+      }),
+      new AssetImageStatic({
+        _id: 'icons-too-much',
+        type: 'image-static',
+        name: 'icons-too-much.webp',
+        href: '/assets/nextjs-metadata/icons-too-much.webp',
+        caption: Option.none(),
+        alt: Option.some('An archive with a lot of redundant icons'),
+      }),
+      new AssetImageStatic({
+        _id: 'metadata-fields',
+        type: 'image-static',
+        name: 'metadata-fields.webp',
+        href: '/assets/nextjs-metadata/metadata-fields.webp',
+        caption: Option.none(),
+        alt: Option.some('An intellisense of the Metadata fields'),
+      }),
+      new AssetImageStatic({
+        _id: 'nextjs-docs-deduplication',
+        type: 'image-static',
+        name: 'nextjs-docs-deduplication.webp',
+        href: '/assets/nextjs-metadata/nextjs-docs-deduplication.webp',
+        caption: Option.some(
+          'An excerpt from “Benefits of Server Rendering” part of Next.js docs.',
+        ),
+        alt: Option.some('An excerpt from Next.js docs about deduplication.'),
+      }),
+      new AssetImageStatic({
+        _id: 'nextjs-docs-metadata-base',
+        type: 'image-static',
+        name: 'nextjs-docs-metadata-base.webp',
+        href: '/assets/nextjs-metadata/nextjs-docs-metadata-base.webp',
+        caption: Option.some(
+          'An excerpt from “metadataBase’ default value” part of Next.js docs.',
+        ),
+        alt: Option.some(
+          'An excerpt from Next.js docs about metadataBase default value.',
+        ),
+      }),
+      new AssetImageStatic({
+        _id: 'og-framing',
+        type: 'image-static',
+        name: 'og-framing.webp',
+        href: '/assets/nextjs-metadata/og-framing.webp',
+        caption: Option.none(),
+        alt: Option.some(
+          'An example of an Open Graph image with a centered frame',
+        ),
+      }),
+      new AssetImageStatic({
+        _id: 'real-favicon-generator-download',
+        type: 'image-static',
+        name: 'real-favicon-generator-download.webp',
+        href: '/assets/nextjs-metadata/real-favicon-generator-download.webp',
+        caption: Option.some('Download the app files'),
+        alt: Option.some(
+          'A screenshot from the download page of RealFaviconGenerator',
+        ),
+      }),
+      new AssetImageStatic({
+        _id: 'rich-results',
+        type: 'image-static',
+        name: 'rich-results.webp',
+        href: '/assets/nextjs-metadata/rich-results.webp',
+        caption: Option.some('Google Rich Results Carousel'),
+        alt: Option.some('Google Rich Results Carousel.'),
+      }),
+    ],
     date: DateTime.make({ year: 2025, month: 1, day: 7 }).pipe(
       Option.getOrThrow,
     ),
