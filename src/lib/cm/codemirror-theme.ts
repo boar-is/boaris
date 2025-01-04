@@ -4,6 +4,7 @@ import { createTheme } from '@uiw/codemirror-themes'
 export const codemirrorTheme = createTheme({
   theme: 'dark',
   settings: {
+    fontFamily: 'var(--font-mono)',
     background: 'transparent',
     foreground: '#f0f6fc',
     caret: '#c9d1d9',
