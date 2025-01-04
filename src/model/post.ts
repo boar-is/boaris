@@ -1,5 +1,8 @@
 import { DateTime, Option, Schema } from 'effect'
-import { createOffsetChangesShifter } from '~/lib/cm/offset-change'
+import {
+  type OffsetChange,
+  createOffsetChangesShifter,
+} from '~/lib/cm/offset-change'
 import { textFromTemplate } from '~/lib/cm/text'
 import { JsonContentFromJson } from '~/lib/pm/json-content'
 import { AssetImageStatic } from '~/model/assetImageStatic'
@@ -26,6 +29,18 @@ export class Post extends Schema.Class<Post>('Post')({
 }) {}
 
 const shiftChanges = createOffsetChangesShifter()
+
+const createPositionToProgress = (docSize: number) => (pos: number) =>
+  pos / docSize
+
+const pp1 = createPositionToProgress(10844)
+const lc1 = (pos: number, areas: string) =>
+  new LayoutChange({ offset: pp1(pos), areas })
+const ch1 = (
+  from: number,
+  to: number,
+  changes: ReadonlyArray<typeof OffsetChange.Encoded>,
+) => shiftChanges(changes)(pp1(from), pp1(to))
 
 export const posts: ReadonlyArray<Post> = [
   new Post({
@@ -1270,9 +1285,6 @@ export const posts: ReadonlyArray<Post> = [
               type: 'text',
               text: ' if yours does.',
             },
-            {
-              type: 'hardBreak',
-            },
           ],
         },
         {
@@ -1581,7 +1593,7 @@ export const posts: ReadonlyArray<Post> = [
             },
             {
               type: 'text',
-              text: 'Instead, let’s create a utility function…',
+              text: 'Instead, let’s create a utility function called…',
             },
           ],
         },
@@ -2181,9 +2193,6 @@ export const posts: ReadonlyArray<Post> = [
             {
               type: 'text',
               text: 'Thank me later!',
-            },
-            {
-              type: 'hardBreak',
             },
           ],
         },
@@ -3628,106 +3637,35 @@ export const posts: ReadonlyArray<Post> = [
       output: [0, 1],
     },
     layoutChanges: [
-      new LayoutChange({
-        offset: 0.1484,
-        areas: '"app/blog/[slug]/page.tsx"',
-      }),
-      new LayoutChange({
-        offset: 0.2145,
-        areas: '"lib/react/with-static-params.ts"',
-      }),
-      new LayoutChange({
-        offset: 0.2228,
-        areas: '"app/blog/[slug]/page.tsx"',
-      }),
-      new LayoutChange({
-        offset: 0.2547,
-        areas: '"nextjs-docs-deduplication"',
-      }),
-      new LayoutChange({
-        offset: 0.273,
-        areas: '"app/blog/[slug]/page.tsx"',
-      }),
-      new LayoutChange({
-        offset: 0.2861,
-        areas: '"metadata-fields"',
-      }),
-      new LayoutChange({
-        offset: 0.3032,
-        areas: '"app/blog/[slug]/page.tsx"',
-      }),
-      new LayoutChange({
-        offset: 0.326,
-        areas: '"rich-results"',
-      }),
-      new LayoutChange({
-        offset: 0.3368,
-        areas: '"examples/json-ld.tsx"',
-      }),
-      new LayoutChange({
-        offset: 0.3447,
-        areas: '"app/blog/[slug]/page.tsx"',
-      }),
-      new LayoutChange({
-        offset: 0.428,
-        areas: '"lib/metadata/construct-metadata.ts"',
-      }),
-      new LayoutChange({
-        offset: 0.4833,
-        areas: '"app/blog/[slug]/page.tsx"',
-      }),
-      new LayoutChange({
-        offset: 0.499,
-        areas: '"lib/metadata/construct-metadata.ts"',
-      }),
-      new LayoutChange({
-        offset: 0.5514,
-        areas: '"nextjs-docs-metadata-base"',
-      }),
-      new LayoutChange({
-        offset: 0.559,
-        areas: '"lib/metadata/resolvers.ts"',
-      }),
-      new LayoutChange({
-        offset: 0.5812,
-        areas: '"app/sitemap.ts"',
-      }),
-      new LayoutChange({
-        offset: 0.72,
-        areas: '"app/robots.ts"',
-      }),
-      new LayoutChange({
-        offset: 0.739,
-        areas: '"lib/metadata/construct-metadata.ts"',
-      }),
-      new LayoutChange({
-        offset: 0.7672,
-        areas: '"og-framing"',
-      }),
-      new LayoutChange({
-        offset: 0.841,
-        areas: '"lib/metadata/construct-metadata.ts"',
-      }),
-      new LayoutChange({
-        offset: 0.8643,
-        areas: '"icons-too-much"',
-      }),
-      new LayoutChange({
-        offset: 0.905,
-        areas: '"icon-180"',
-      }),
-      new LayoutChange({
-        offset: 0.9136,
-        areas: '"real-favicon-generator-download"',
-      }),
-      new LayoutChange({
-        offset: 0.9225,
-        areas: '"icons-app-folder"',
-      }),
-      new LayoutChange({
-        offset: 0.9625,
-        areas: '',
-      }),
+      lc1(1608, '"app/blog/[slug]/page.tsx"'),
+      lc1(2320, '"lib/react/with-static-params.ts"'),
+      lc1(2410, '"app/blog/[slug]/page.tsx"'),
+      lc1(2762, '"nextjs-docs-deduplication"'),
+      lc1(2958, '"app/blog/[slug]/page.tsx"'),
+      lc1(3067, '"metadata-fields"'),
+      lc1(3147, '"app/blog/[slug]/page.tsx"'),
+      lc1(3534, '"examples/json-ld.tsx"'),
+      lc1(3652, '"rich-results"'),
+      lc1(3735, '"app/blog/[slug]/page.tsx"'),
+      lc1(4627, '"lib/metadata/construct-metadata.ts"'),
+      lc1(5244, '"app/blog/[slug]/page.tsx"'),
+      lc1(5412, '"lib/metadata/construct-metadata.ts"'),
+      lc1(5656, '"app/sitemap.ts"'),
+      lc1(5947, '"nextjs-docs-metadata-base"'),
+      lc1(6065, '"lib/metadata/resolvers.ts"'),
+      lc1(6305, '"app/sitemap.ts"'),
+      lc1(7024, ''),
+      lc1(7771, '"app/robots.ts"'),
+      lc1(8015, '"lib/metadata/construct-metadata.ts"'),
+      lc1(8274, '"og-framing"'),
+      lc1(8735, ''),
+      lc1(9120, '"lib/metadata/construct-metadata.ts"'),
+      lc1(9232, ''),
+      lc1(9350, '"icons-too-much"'),
+      lc1(9767, '"icon-180"'),
+      lc1(9873, '"real-favicon-generator-download"'),
+      lc1(9957, '"icons-app-folder"'),
+      lc1(10437, ''),
     ],
     assets: [
       new AssetImageStatic({
@@ -3827,121 +3765,37 @@ export async function generateMetadata({
 }
 `),
         advances: [
-          ...shiftChanges([
-            [
-              647,
-              [
-                [156, [0, 'await params'], 3],
-                [[[168, 156]], null],
-              ],
-            ],
-            [
-              986,
-              [
-                [156, [0, 'const { slug } = '], 15],
-                [[[173, 156]], null],
-              ],
-            ],
-            [
-              1494,
-              [
-                [185, [0, '', '', '  const post'], 3],
-                [[[199, 185]], null],
-              ],
-            ],
-            [
-              2051,
-              [
-                [199, [0, ' = await fetchPostBySlug(slug)'], 3],
-                [[[229, 199]], null],
-              ],
-            ],
-          ])(0.1535, 0.156),
-          ...shiftChanges([
-            [
-              2594,
-              [
-                [229, [0, '', '', '  if (!post) {', '  }'], 3],
-                [[[249, 229]], null],
-              ],
-            ],
-            [
-              3079,
-              [
-                [
-                  245,
-                  [
-                    0,
-                    '',
-                    '    return {',
-                    "      title: 'Post Not Found',",
-                    '      openGraph: {',
-                    "        title: 'Post Not Found',",
-                    '      },',
-                    '    }',
-                  ],
-                  7,
-                ],
-                [[[356, 245]], null],
-              ],
-            ],
-          ])(0.1571, 0.1585),
-          ...shiftChanges([
-            [
-              3582,
-              [
-                [
-                  360,
-                  [
-                    0,
-                    '',
-                    '',
-                    '  const { title, description, thumbnailUrl } = post',
-                  ],
-                  3,
-                ],
-                [[[413, 360]], null],
-              ],
-            ],
-            [
-              4098,
-              [
-                [
-                  413,
-                  [
-                    0,
-                    '',
-                    '',
-                    '  return {',
-                    '    title,',
-                    '    description,',
-                    '  }',
-                  ],
-                  3,
-                ],
-                [[[457, 413]], null],
-              ],
-            ],
-            [
-              4614,
-              [
-                [
-                  453,
-                  [
-                    0,
-                    '',
-                    '    openGraph: {',
-                    '      title,',
-                    '      description,',
-                    '      images: thumbnailUrl,',
-                    '    },',
-                  ],
-                  7,
-                ],
-                [[[537, 453]], null],
-              ],
-            ],
-          ])(0.161, 0.163),
+          ...ch1(1665, 1702, []),
+          ...ch1(1703, 1744, []),
+          ...ch1(1745, 1786, []),
+          ...ch1(1788, 1818, []),
+          ...ch1(1819, 1849, []),
+          ...ch1(1850, 1888, []),
+          ...ch1(1889, 1936, []),
+          ...ch1(1938, 1994, []),
+          ...ch1(1995, 2055, []),
+          ...ch1(2056, 2114, []),
+          ...ch1(2131, 2274, []),
+          ...ch1(2276, 2319, []),
+          ...ch1(2410, 2464, []),
+          ...ch1(2628, 2738, []),
+          ...ch1(2958, 2958, []),
+          ...ch1(2990, 3065, []),
+          ...ch1(3147, 3287, []),
+          ...ch1(3293, 3293, []),
+          ...ch1(3316, 3429, []),
+          ...ch1(3491, 3491, []),
+          ...ch1(3735, 3869, []),
+          ...ch1(3871, 3963, []),
+          ...ch1(4180, 4252, []),
+          ...ch1(4304, 4304, []),
+          ...ch1(4346, 4416, []),
+          ...ch1(4417, 4417, []),
+          ...ch1(4450, 4520, []),
+          ...ch1(5244, 5317, []),
+          ...ch1(5334, 5378, []),
+          ...ch1(5379, 5391, []),
+          ...ch1(5392, 5410, []),
         ],
       }),
       new AssetText({
@@ -3954,7 +3808,7 @@ export async function generateMetadata({
 type Props = WithStaticParams<typeof generateStaticParams>
 
 `),
-        advances: shiftChanges([])(),
+        advances: [...ch1(2320, 2409, [])],
       }),
       new AssetText({
         _id: 'examples/json-ld.tsx',
@@ -3987,7 +3841,7 @@ export default async function Page({ params }) {
 }
 
 `),
-        advances: shiftChanges([])(),
+        advances: [...ch1(3534, 3651, [])],
       }),
       new AssetText({
         _id: 'lib/metadata/construct-metadata.ts',
@@ -4002,7 +3856,16 @@ export default async function Page({ params }) {
 }
 
 `),
-        advances: shiftChanges([])(),
+        advances: [
+          ...ch1(4645, 4722, []),
+          ...ch1(4757, 4840, []),
+          ...ch1(4953, 5023, []),
+          ...ch1(5024, 5102, []),
+          ...ch1(5104, 5243, []),
+          ...ch1(5412, 5506, []),
+          ...ch1(8015, 8015, []),
+          ...ch1(9120, 9120, []),
+        ],
       }),
       new AssetText({
         _id: 'app/sitemap.ts',
@@ -4013,7 +3876,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 }
 `),
-        advances: shiftChanges([])(),
+        advances: [
+          ...ch1(5656, 5774, []),
+          ...ch1(6307, 6366, []),
+          ...ch1(6542, 6730, []),
+        ],
       }),
       new AssetText({
         _id: 'lib/metadata/resolvers.ts',
@@ -4037,7 +3904,7 @@ export const resolveUrl = (url = '/') =>
   )
 
 `),
-        advances: shiftChanges([])(),
+        advances: [...ch1(6065, 6204, [])],
       }),
       new AssetText({
         _id: 'app/robots.ts',
@@ -4051,7 +3918,11 @@ export default function robots(): MetadataRoute.Robots {
 }
 
 `),
-        advances: shiftChanges([])(),
+        advances: [
+          ...ch1(7771, 7847, []),
+          ...ch1(7848, 7884, []),
+          ...ch1(7884, 7959, []),
+        ],
       }),
     ],
     date: DateTime.make({ year: 2025, month: 1, day: 7 }).pipe(
