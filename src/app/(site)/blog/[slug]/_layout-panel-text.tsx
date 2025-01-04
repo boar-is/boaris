@@ -71,7 +71,7 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
           store.set(anchorIndex$, head)
 
           view.scrollDOM.scrollTo({
-            top: view.lineBlockAt(view.state.selection.main.head).from,
+            top: view.lineBlockAt(view.state.selection.main.head).from - 16,
             behavior: 'smooth',
           })
         } catch (error) {}
