@@ -75,7 +75,9 @@ export function PostCaptions({
         return void animateContent(0)
       }
 
-      if (position === store.get(docSize$)) {
+      const docSize = store.get(docSize$)
+
+      if (position === docSize) {
         const scrollableStyle = getComputedStyle(scrollableElement)
         const scrollablePt = Number.parseFloat(scrollableStyle.paddingTop)
         const scrollablePb = Number.parseFloat(scrollableStyle.paddingBottom)
