@@ -1,7 +1,6 @@
 import {
   ChangeSet,
   type EditorSelection,
-  EditorView,
   type Text,
   type TransactionSpec,
 } from '@uiw/react-codemirror'
@@ -56,14 +55,5 @@ export const seekChanges = ({
   return {
     changes,
     selection,
-    sequential: true,
-    ...(selection
-      ? ({
-          effects: EditorView.scrollIntoView(selection?.main, {
-            x: 'center',
-            y: 'center',
-          }),
-        } satisfies Pick<TransactionSpec, 'effects'>)
-      : {}),
   }
 }
