@@ -8,9 +8,7 @@ import ReactCodeMirror, {
 } from '@uiw/react-codemirror'
 import { Option, Schema } from 'effect'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ChangeSetFromJson } from '~/lib/cm/change-set'
 import { codemirrorTheme } from '~/lib/cm/codemirror-theme'
-import { EditorSelectionFromSerialized } from '~/lib/cm/editor-selection'
 import { matchCodemirrorExtensions } from '~/lib/cm/match-codemirror-extensions'
 import { OffsetChange } from '~/lib/cm/offset-change'
 import { reversedChanges } from '~/lib/cm/reversed-changes'
@@ -21,11 +19,8 @@ import { cx } from '~/lib/react/cx'
 import type { AssetText } from '~/model/assetText'
 import { posts } from '~/model/post'
 
+const encodeChange = Schema.encodeSync(OffsetChange)
 const decodeChange = Schema.decodeUnknownSync(OffsetChange)
-const encodeChangeSet = Schema.encodeUnknownSync(ChangeSetFromJson)
-const encodeEditorSelection = Schema.encodeUnknownSync(
-  EditorSelectionFromSerialized,
-)
 
 type Recording = {
   name: string
@@ -43,17 +38,23 @@ class RecordingManager {
     this.view.dispatch({
       effects: StateEffect.appendConfig.of(
         EditorView.updateListener.of((update) => {
-          if (!this.#offset || !update.docChanged || !this.#recording) {
+          if (
+            !this.#offset ||
+            !(update.docChanged || update.selectionSet) ||
+            !this.#recording
+          ) {
             return
           }
 
-          this.#recording.offsetChanges.push([
-            Math.floor(performance.now() - this.#offset),
-            [
-              encodeChangeSet(update.changes),
-              encodeEditorSelection(update.state.selection),
-            ],
-          ])
+          this.#recording.offsetChanges.push(
+            encodeChange([
+              Math.floor(performance.now() - this.#offset),
+              [
+                update.changes,
+                update.selectionSet ? update.state.selection : undefined,
+              ],
+            ]),
+          )
         }),
       ),
     })
