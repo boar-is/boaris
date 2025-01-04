@@ -114,7 +114,7 @@ class RecordingManager {
         (it) => it[0],
       ).pipe(Option.getOrUndefined)
 
-      if (!head) {
+      if (head === undefined) {
         this.#rafId = requestAnimationFrame(tick)
         return
       }
