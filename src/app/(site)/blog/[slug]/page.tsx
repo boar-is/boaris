@@ -1,6 +1,5 @@
 import { Array, Function, Option, Schema, pipe } from 'effect'
 import type { Metadata } from 'next'
-import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 import { readableDate } from '~/lib/date/readable-date'
 import { mono } from '~/lib/media/fonts/mono'
@@ -8,8 +7,6 @@ import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { constructMetadata } from '~/lib/metadata/construct-metadata'
 import { BlurFade } from '~/lib/motion/blur-fade'
-import { defaultEditorExtensions } from '~/lib/pm/default-editor-extensions'
-import { StaticEditorContent } from '~/lib/pm/static-editor-content'
 import { cx } from '~/lib/react/cx'
 import type { WithStaticParams } from '~/lib/react/with-static-params'
 import { BackgroundEffect } from '~/lib/surfaces/background'
@@ -59,33 +56,13 @@ export default async function PostPage({
     return notFound()
   }
 
-  const { title, lead, date, tags, posterUrl, captions, interpolation } = post
+  const { title, lead, date, tags, posterUrl, interpolation } = post
 
   const posterImageProps = {
     src: posterUrl,
     sizes: defaultImageSizes,
     alt: `${title}'s poster`,
   } satisfies ImageProps
-
-  const captionsCx = cx('mx-auto typography w-full drop-shadow-md')
-
-  const postCaptionsLoading = (
-    <StaticEditorContent
-      className={captionsCx}
-      content={captions}
-      extensions={defaultEditorExtensions}
-    />
-  )
-  const PostCaptions = dynamic(
-    () => import('./_captions').then((m) => m.PostCaptions),
-    {
-      loading: () => postCaptionsLoading,
-    },
-  )
-
-  const PostLayout = dynamic(() =>
-    import('./_layout').then((m) => m.PostLayout),
-  )
 
   return (
     <PostPageProvider postEncoded={Schema.encodeSync(Post)(post)}>
@@ -145,11 +122,7 @@ export default async function PostPage({
             )}
           </section>
         </header>
-        <PostContent
-          captions={<PostCaptions className={captionsCx} />}
-          layout={<PostLayout />}
-          interpolation={interpolation}
-        />
+        <PostContent interpolation={interpolation} />
         <BlurFade inView>
           <div className="container">
             <PostSubscriptionSection />

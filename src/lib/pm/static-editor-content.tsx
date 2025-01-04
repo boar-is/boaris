@@ -1,13 +1,14 @@
 import { generateHTML } from '@tiptap/html'
 import type { Extensions, JSONContent } from '@tiptap/react'
+import { defaultEditorExtensions } from '~/lib/pm/default-editor-extensions'
 
 export function StaticEditorContent({
   content,
-  extensions,
+  extensions = defaultEditorExtensions,
   className,
 }: {
   content: JSONContent
-  extensions: Extensions
+  extensions?: Extensions | undefined
   className?: string | undefined
 }) {
   return (

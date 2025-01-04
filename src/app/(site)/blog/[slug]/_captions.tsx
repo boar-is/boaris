@@ -1,9 +1,14 @@
 'use client'
 
-import { EditorContent, type Extensions, useEditor } from '@tiptap/react'
+import {
+  type Editor,
+  EditorContent,
+  type Extensions,
+  useEditor,
+} from '@tiptap/react'
 import { useSetAtom, useStore } from 'jotai'
 import { animate } from 'motion/react'
-import { type ReactNode, useEffect } from 'react'
+import { useEffect } from 'react'
 import { calculateCenterY } from '~/lib/dom/calculate-center-y'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { defaultEditorExtensions } from '~/lib/pm/default-editor-extensions'
@@ -17,11 +22,11 @@ import { usePostPage } from './provider'
 export function PostCaptions({
   className,
   extensions = defaultEditorExtensions,
-  loading = null,
+  onEditor,
 }: WithRef<HTMLDivElement> & {
   className?: string | undefined
   extensions?: Extensions | undefined
-  loading?: ReactNode | undefined
+  onEditor?: (editor: Editor | null) => void
 }) {
   const {
     post: { captions },
@@ -46,6 +51,8 @@ export function PostCaptions({
     },
     [captions, extensions],
   )
+
+  useEffect(() => onEditor?.(editor), [editor, onEditor])
 
   useEffect(() => {
     const scrollableElement = scrollableRef.current
@@ -112,10 +119,6 @@ export function PostCaptions({
     scrollableRef.current,
     contentRef.current,
   ])
-
-  if (!editor) {
-    return loading
-  }
 
   return <EditorContent editor={editor} className={className} />
 }
