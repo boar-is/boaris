@@ -19,4 +19,7 @@ export const TextFromStringArray = Schema.transform(
   },
 )
 
+export const textFromTemplate = (template: string) =>
+  Text.of(template.split('\n'))
+
 export { Text }
