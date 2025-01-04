@@ -1,5 +1,6 @@
 'use client'
 
+import { history } from '@codemirror/commands'
 import ReactCodeMirror, {
   EditorSelection,
   EditorView,
@@ -179,7 +180,10 @@ export function SandboxText() {
   )! as AssetText
 
   const extensions = useMemo(
-    () => matchCodemirrorExtensions(asset.name),
+    () => [
+      history({ minDepth: 500, newGroupDelay: 0 }),
+      ...matchCodemirrorExtensions(asset.name),
+    ],
     [asset.name],
   )
 
