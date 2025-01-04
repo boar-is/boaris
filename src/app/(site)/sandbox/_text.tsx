@@ -79,6 +79,7 @@ class RecordingManager {
   }
 
   play(name: string) {
+    this.stop()
     this.#anchor = undefined
     this.#recording = RecordingManager.loadRecording(name)
 

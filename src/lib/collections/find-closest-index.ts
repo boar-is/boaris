@@ -4,7 +4,7 @@ export const findClosestIndex = <T>(
   sortedArr: ReadonlyArray<T>,
   target: number,
   propFn: (t: T) => number,
-) => {
+): Option.Option<number> => {
   if (!sortedArr.length) {
     return Option.none()
   }
