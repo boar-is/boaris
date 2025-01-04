@@ -56,7 +56,6 @@ export const seekChanges = ({
   return {
     changes,
     selection,
-    scrollIntoView: true,
     sequential: true,
     ...(selection
       ? ({
