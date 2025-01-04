@@ -3823,10 +3823,126 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
-
+  
 }
 `),
-        advances: shiftChanges([])(),
+        advances: [
+          ...shiftChanges([
+            [
+              647,
+              [
+                [156, [0, 'await params'], 3],
+                [[[168, 156]], null],
+              ],
+            ],
+            [
+              986,
+              [
+                [156, [0, 'const { slug } = '], 15],
+                [[[173, 156]], null],
+              ],
+            ],
+            [
+              1494,
+              [
+                [185, [0, '', '', '  const post'], 3],
+                [[[199, 185]], null],
+              ],
+            ],
+            [
+              2051,
+              [
+                [199, [0, ' = await fetchPostBySlug(slug)'], 3],
+                [[[229, 199]], null],
+              ],
+            ],
+          ])(0.1535, 0.156),
+          ...shiftChanges([
+            [
+              2594,
+              [
+                [229, [0, '', '', '  if (!post) {', '  }'], 3],
+                [[[249, 229]], null],
+              ],
+            ],
+            [
+              3079,
+              [
+                [
+                  245,
+                  [
+                    0,
+                    '',
+                    '    return {',
+                    "      title: 'Post Not Found',",
+                    '      openGraph: {',
+                    "        title: 'Post Not Found',",
+                    '      },',
+                    '    }',
+                  ],
+                  7,
+                ],
+                [[[356, 245]], null],
+              ],
+            ],
+          ])(0.1571, 0.1585),
+          ...shiftChanges([
+            [
+              3582,
+              [
+                [
+                  360,
+                  [
+                    0,
+                    '',
+                    '',
+                    '  const { title, description, thumbnailUrl } = post',
+                  ],
+                  3,
+                ],
+                [[[413, 360]], null],
+              ],
+            ],
+            [
+              4098,
+              [
+                [
+                  413,
+                  [
+                    0,
+                    '',
+                    '',
+                    '  return {',
+                    '    title,',
+                    '    description,',
+                    '  }',
+                  ],
+                  3,
+                ],
+                [[[457, 413]], null],
+              ],
+            ],
+            [
+              4614,
+              [
+                [
+                  453,
+                  [
+                    0,
+                    '',
+                    '    openGraph: {',
+                    '      title,',
+                    '      description,',
+                    '      images: thumbnailUrl,',
+                    '    },',
+                  ],
+                  7,
+                ],
+                [[[537, 453]], null],
+              ],
+            ],
+          ])(0.161, 0.163),
+        ],
       }),
       new AssetText({
         _id: 'lib/react/with-static-params.ts',
