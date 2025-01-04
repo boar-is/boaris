@@ -185,7 +185,7 @@ export function SandboxText() {
 
   const [view, setView] = useState<EditorView>()
 
-  const recordingNameRef = useRef('qqq')
+  const recordingNameRef = useRef('Untitled')
   const [manager, setManager] = useState<RecordingManager>()
   useEffect(() => {
     if (!view) {
@@ -199,13 +199,6 @@ export function SandboxText() {
 
   return (
     <div className={cx(mono.variable, 'container')}>
-      <ReactCodeMirror
-        ref={(editor) => setView(editor?.view)}
-        value={asset.initialValue.toString()}
-        theme={codemirrorTheme}
-        extensions={extensions}
-        className="bg-gray-1"
-      />
       <div>
         <input
           type="text"
@@ -235,6 +228,13 @@ export function SandboxText() {
           </div>
         </div>
       )}
+      <ReactCodeMirror
+        ref={(editor) => setView(editor?.view)}
+        value={asset.initialValue.toString()}
+        theme={codemirrorTheme}
+        extensions={extensions}
+        className="bg-gray-1"
+      />
     </div>
   )
 }
