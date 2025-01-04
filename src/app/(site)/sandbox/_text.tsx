@@ -1,9 +1,10 @@
 'use client'
 
-import { history } from '@codemirror/commands'
+import { deleteToLineStart, history } from '@codemirror/commands'
 import ReactCodeMirror, {
   EditorSelection,
   EditorView,
+  keymap,
   StateEffect,
   Text,
 } from '@uiw/react-codemirror'
@@ -182,6 +183,12 @@ export function SandboxText() {
   const extensions = useMemo(
     () => [
       history({ minDepth: 500, newGroupDelay: 0 }),
+      keymap.of([
+        {
+          key: 'Alt-Backspace',
+          run: deleteToLineStart,
+        },
+      ]),
       ...matchCodemirrorExtensions(asset.name),
     ],
     [asset.name],
