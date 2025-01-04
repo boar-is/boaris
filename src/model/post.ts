@@ -33,7 +33,8 @@ const shiftChanges = createOffsetChangesShifter()
 const createPositionToProgress = (docSize: number) => (pos: number) =>
   pos / docSize
 
-const pp1 = createPositionToProgress(10844)
+const s1 = 10844
+const pp1 = createPositionToProgress(s1)
 const lc1 = (pos: number, areas: string) =>
   new LayoutChange({ offset: pp1(pos), areas })
 const ch1 = (
@@ -3633,8 +3634,10 @@ export const posts: ReadonlyArray<Post> = [
       ],
     },
     interpolation: {
-      input: [0, 1],
-      output: [0, 1],
+      // @ts-expect-error
+      input: [0, 300, 7024, 7400, 8372, 9100, 10700, s1].map(pp1),
+      // @ts-expect-error
+      output: [0, 1599, 7024, 7763, 8372, 9767, 10437, s1].map(pp1),
     },
     layoutChanges: [
       lc1(1608, '"app/blog/[slug]/page.tsx"'),
