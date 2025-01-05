@@ -4015,7 +4015,52 @@ export const posts: ReadonlyArray<Post> = [
             ],
           ]),
           ...ch1(2276, 2276, [[7777, [[1086], [[[377, 263]], null]]]]),
-          ...ch1(2410, 2464, []),
+          ...ch1(2410, 2464, [
+            [
+              1432,
+              [
+                [79, [0, '', ''], 1007],
+                [[[80, null]], null],
+              ],
+            ],
+            [
+              2006,
+              [
+                [
+                  80,
+                  [
+                    0,
+                    "import type { WithStaticParams } from '~/lib/react/with-static-params'",
+                  ],
+                  1007,
+                ],
+                [[[150, null]], null],
+              ],
+            ],
+            [5106, [[1157], [[[448, 334]], null]]],
+            [
+              6013,
+              [
+                [
+                  334,
+                  [
+                    114,
+                    'type Props = WithStaticParams<typeof generateStaticParams>',
+                  ],
+                  709,
+                ],
+                [[[392, null]], null],
+              ],
+            ],
+            [7804, [[1101], [[[242, 196]], null]]],
+            [
+              8988,
+              [
+                [196, [46], 859],
+                [[[196, null]], null],
+              ],
+            ],
+          ]),
           ...ch1(2628, 2738, []),
           ...ch1(2958, 2958, []),
           ...ch1(2990, 3065, []),
@@ -4040,13 +4085,28 @@ export const posts: ReadonlyArray<Post> = [
         _id: 'lib/react/with-static-params.ts',
         type: 'text',
         name: 'lib/react/with-static-params.ts',
-        initialValue:
-          textFromTemplate(`import type { WithStaticParams } from '~/lib/react/with-static-params'
-
-type Props = WithStaticParams<typeof generateStaticParams>
-
-`),
-        advances: [...ch1(2320, 2409, [])],
+        initialValue: textFromTemplate(''),
+        advances: [
+          ...ch1(2350, 2350, [
+            [
+              841,
+              [
+                [
+                  [
+                    0,
+                    'export type WithStaticParams<F> = F extends () => Promise<',
+                    '  ReadonlyArray<infer T>',
+                    '>',
+                    '  ? { params: Promise<T> }',
+                    '  : never',
+                    '',
+                  ],
+                ],
+                [[[123, 0]], null],
+              ],
+            ],
+          ]),
+        ],
       }),
       new AssetText({
         _id: 'examples/json-ld.tsx',
