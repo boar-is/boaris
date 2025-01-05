@@ -19,7 +19,6 @@ import { PostLayoutPanelHeader } from './_layout-panel'
 const basicCmSetup: BasicSetupOptions = {
   lineNumbers: false,
   foldGutter: false,
-  highlightActiveLine: false,
 }
 
 export const PostLayoutPanelText = memo(function PostLayoutPanelText({
@@ -123,7 +122,7 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
     <>
       <PostLayoutPanelHeader name={name} />
       <ReactCodeMirror
-        className="flex-1 overflow-hidden [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!~text-sm/base [&_.cm-line]:px-4 [&_.cm-scroller]:overflow-hidden"
+        className="flex-1 overflow-hidden [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!~text-sm/base [&_.cm-line]:px-4 [&_.cm-scroller]:overflow-hidden [&_.cm-activeLine]:bg-accent-11/15 [&_.cm-selectionBackground]:!bg-accent-11/20 [&_.cm-selectionMatch]:!bg-accent-11/20"
         value={value}
         extensions={extensions}
         editable={false}
