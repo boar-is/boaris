@@ -30,7 +30,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       )}
     >
       <head>
-        {process.env.NODE_ENV === 'development' && (
+        {process.env.NODE_ENV === 'development' && false && (
           <script
             src="https://unpkg.com/react-scan/dist/auto.global.js"
             async

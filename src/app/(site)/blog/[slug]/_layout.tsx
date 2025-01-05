@@ -72,7 +72,9 @@ export function PostLayout() {
 
   return (
     <ul
-      className={cx('grid gap-2 h-full', { 'min-h-[40vh]': assets.length })}
+      className={cx('grid gap-2 h-full', {
+        'min-h-[40vh]': areasAssets.length,
+      })}
       style={{
         gridTemplateAreas,
         gridAutoColumns: 'minmax(0, 1fr)',

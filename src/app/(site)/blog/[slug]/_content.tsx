@@ -86,16 +86,16 @@ export function PostContent({
   return (
     <PostContentContext value={contextValue}>
       <div className="relative container" ref={containerRef}>
-        <div className="sticky top-0 h-dvh flex flex-col lg:flex-row lg:*:flex-1 justify-center gap-4">
+        <div className="sticky top-0 h-dvh flex flex-col lg:flex-row lg:*:flex-1 justify-center gap-0 lg:gap-4">
           <div
-            className="flex-1 overflow-hidden fade-y-64 py-24"
+            className="flex-1 overflow-hidden ~fade-y-24/64 lg:py-24"
             ref={scrollableRef}
           >
             <div ref={contentRef}>
               <PostCaptionsWrapper />
             </div>
           </div>
-          <div className="shrink basis-auto max-h-[50%] lg:max-h-[80%] h-full lg:self-center ~pb-2/4">
+          <div className="shrink basis-auto max-h-[50%] lg:max-h-[80%] lg:h-full lg:self-center ~pb-2/4">
             <PostLayout />
           </div>
         </div>
