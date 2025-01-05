@@ -5161,53 +5161,310 @@ export default async function Page({ params }) {
               ],
             ],
           ]),
-          ...ch1(8015, 8015, []),
-          ...ch1(9120, 9120, []),
+          ...ch1(8050, 8050, [[1285, [[595], [[[115, 89]], null]]]]),
+          ...ch1(9150, 9150, [[1285, [[595], [[[115, 89]], null]]]]),
         ],
       }),
       new AssetText({
         _id: 'app/sitemap.ts',
         type: 'text',
         name: 'app/sitemap.ts',
-        initialValue: textFromTemplate(''),
+        initialValue:
+          textFromTemplate(`export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+}
+`),
         advances: [
-          ...ch1(5656, 5774, []),
-          ...ch1(6307, 6366, []),
-          ...ch1(6542, 6730, []),
+          ...ch1(5700, 5774, [
+            [
+              606,
+              [
+                [
+                  73,
+                  [0, '', '  const posts = await fetchAllPostSlugsWithDates()'],
+                  3,
+                ],
+                [[[124, 73]], null],
+              ],
+            ],
+            [
+              1577,
+              [
+                [
+                  124,
+                  [
+                    0,
+                    '',
+                    '',
+                    '  return [',
+                    '    {',
+                    "      url: 'https://example.com',",
+                    '    },',
+                    '    {',
+                    "      url: 'https://example.com/about',",
+                    '    },',
+                    '    {',
+                    "      url: 'https://example.com/blog',",
+                    '    },',
+                    '    ...posts.map(({ slug, updatedAt }) => ({',
+                    '      url: `https://example.com/blog/${slug}`,',
+                    '      lastModified: updatedAt,',
+                    '    })),',
+                    '  ]',
+                  ],
+                  3,
+                ],
+                [[[424, 124]], null],
+              ],
+            ],
+          ]),
+          ...ch1(6307, 6366, [
+            [
+              429,
+              [
+                [[0, '', ''], 427],
+                [[[1, null]], null],
+              ],
+            ],
+            [
+              749,
+              [
+                [1, [0, '', ''], 427],
+                [[[2, null]], null],
+              ],
+            ],
+            [
+              1113,
+              [
+                [
+                  [
+                    0,
+                    "import type { MetadataRoute } from 'next'",
+                    "import { resolveUrl } from '~/lib/metadata/resolvers'",
+                  ],
+                  429,
+                ],
+                [[[95, null]], null],
+              ],
+            ],
+            [
+              1456,
+              [
+                [251, [21, 'resolveUrl()'], 252],
+                [[[263, null]], null],
+              ],
+            ],
+            [
+              1845,
+              [
+                [289, [27, "resolveUrl('about')"], 199],
+                [[[308, null]], null],
+              ],
+            ],
+            [
+              2218,
+              [
+                [334, [26, "resolveUrl('blog')"], 147],
+                [[[352, null]], null],
+              ],
+            ],
+            [
+              2571,
+              [
+                [417, [34, "resolveUrl('blog/${slug}')"], 48],
+                [[[443, null]], null],
+              ],
+            ],
+          ]),
+          ...ch1(6542, 6730, [
+            [981, [[491], [[[451, 463]], null]]],
+            [2773, [[491], [[[458, null]], null]]],
+          ]),
         ],
       }),
       new AssetText({
         _id: 'lib/metadata/resolvers.ts',
         type: 'text',
         name: 'lib/metadata/resolvers.ts',
-        initialValue: textFromTemplate(`
-import {
-  getSocialImageMetadataBaseFallback,
-  resolveAbsoluteUrlWithPathname,
-} from 'next/dist/lib/metadata/resolvers/resolve-url'
-
-export const resolveUrl = (url = '/') =>
-  resolveAbsoluteUrlWithPathname(
-    url,
-    getSocialImageMetadataBaseFallback(null),
-    {
-      trailingSlash: false,
-      pathname: '/',
-      isStaticMetadataRouteFile: false,
-    },
-  )
-`),
-        advances: [...ch1(6065, 6204, [])],
+        initialValue: textFromTemplate(''),
+        advances: [
+          ...ch1(6065, 6204, [
+            [
+              550,
+              [
+                [
+                  [
+                    0,
+                    "import {} from 'next/dist/lib/metadata/resolvers/resolve-url'",
+                    '',
+                  ],
+                ],
+                [[[0, 62]], null],
+              ],
+            ],
+            [
+              1173,
+              [
+                [
+                  8,
+                  [
+                    0,
+                    '',
+                    '  getSocialImageMetadataBaseFallback,',
+                    '  resolveAbsoluteUrlWithPathname,',
+                    '',
+                  ],
+                  54,
+                ],
+                [[[81, 8]], null],
+              ],
+            ],
+            [
+              1809,
+              [
+                [
+                  134,
+                  [
+                    0,
+                    '',
+                    '',
+                    "export const resolveUrl = (url = '/') =>",
+                    '  resolveAbsoluteUrlWithPathname()',
+                  ],
+                  1,
+                ],
+                [[[211, 134]], null],
+              ],
+            ],
+            [
+              2717,
+              [
+                [
+                  210,
+                  [
+                    0,
+                    '',
+                    '    url,',
+                    '    getSocialImageMetadataBaseFallback(null),',
+                    '    {',
+                    '      trailingSlash: false,',
+                    "      pathname: '/',",
+                    '      isStaticMetadataRouteFile: false,',
+                    '    },',
+                    '  ',
+                  ],
+                  2,
+                ],
+                [[[370, 210]], null],
+              ],
+            ],
+          ]),
+        ],
       }),
       new AssetText({
         _id: 'app/robots.ts',
         type: 'text',
         name: 'app/robots.ts',
-        initialValue: textFromTemplate(''),
+        initialValue:
+          textFromTemplate(`import type { MetadataRoute } from 'next'
+
+export default function robots(): MetadataRoute.Robots {
+  return {}
+}
+`),
         advances: [
-          ...ch1(7771, 7847, []),
-          ...ch1(7848, 7884, []),
-          ...ch1(7884, 7959, []),
+          ...ch1(7771, 7847, [
+            [
+              606,
+              [
+                [110, [0, '', '    ', '  '], 4],
+                [[[115, null]], null],
+              ],
+            ],
+            [
+              927,
+              [
+                [
+                  115,
+                  [
+                    0,
+                    'rules: [',
+                    '      {',
+                    "        userAgent: '*',",
+                    "        allow: ['/'],",
+                    '      },',
+                    '    ],',
+                  ],
+                  7,
+                ],
+                [[[193, null]], null],
+              ],
+            ],
+          ]),
+          ...ch1(7848, 7884, [
+            [639, [[200], [[[177, null]], null]]],
+            [
+              300,
+              [
+                [177, [0, '', '        '], 23],
+                [[[186, null]], null],
+              ],
+            ],
+            [
+              600,
+              [
+                [186, [0, "disallow: ['/api/*']"], 23],
+                [[[206, null]], null],
+              ],
+            ],
+            [
+              910,
+              [
+                [178, [28], 23],
+                [[[178, null]], null],
+              ],
+            ],
+            [
+              1200,
+              [
+                [177, [1], 23],
+                [[[177, null]], null],
+              ],
+            ],
+          ]),
+          ...ch1(7884, 7959, [
+            [
+              481,
+              [
+                [41, [0, '', ''], 159],
+                [[[42, null]], null],
+              ],
+            ],
+            [
+              1206,
+              [
+                [
+                  42,
+                  [0, "import { resolveUrl } from '~/lib/metadata/resolvers'"],
+                  159,
+                ],
+                [[[95, null]], null],
+              ],
+            ],
+            [
+              1641,
+              [
+                [247, [0, '', '    '], 7],
+                [[[252, null]], null],
+              ],
+            ],
+            [
+              2213,
+              [
+                [252, [0, "sitemap: resolveUrl('sitemap.xml'),"], 7],
+                [[[287, null]], null],
+              ],
+            ],
+          ]),
         ],
       }),
     ],
