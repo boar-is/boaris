@@ -30,6 +30,7 @@ export class Post extends Schema.Class<Post>('Post')({
 
 const shiftChanges = createOffsetChangesShifter()
 
+// to fixed 4
 const createPositionToProgress = (docSize: number) => (pos: number) =>
   pos / docSize
 
@@ -43,6 +44,7 @@ const ch1 = (
   changes: ReadonlyArray<typeof OffsetChange.Encoded>,
 ) => shiftChanges(changes)(pp1(from), pp1(to))
 
+// todo not lazy loaded
 export const posts: ReadonlyArray<Post> = [
   new Post({
     slug: 'nextjs-metadata',
@@ -3913,10 +3915,98 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(1938, 1994, []),
-          ...ch1(1995, 2055, []),
-          ...ch1(2056, 2114, []),
-          ...ch1(2131, 2274, []),
+          ...ch1(1938, 1994, [
+            [952, [[1038], [[[169, 138]], null]]],
+            [4163, [[1038], [[[354, 321]], null]]],
+            [6664, [[1038], [[[857, 824]], null]]],
+          ]),
+          ...ch1(1995, 2050, [
+            [
+              492,
+              [
+                [261, [0, '', ''], 777],
+                [[[262, null]], null],
+              ],
+            ],
+            [
+              850,
+              [
+                [262, [0, '', ''], 777],
+                [[[263, null]], null],
+              ],
+            ],
+            [
+              1258,
+              [
+                [
+                  263,
+                  [
+                    0,
+                    'type Props = {',
+                    '  params: Promise<{ slug: string }>',
+                    '}',
+                  ],
+                  777,
+                ],
+                [[[315, null]], null],
+              ],
+            ],
+            [2362, [[1092], [[[315, 263]], null]]],
+            [
+              3218,
+              [
+                [371, [39, 'Props'], 682],
+                [[[376, null]], null],
+              ],
+            ],
+            [4059, [[1058], [[[371, 376]], null]]],
+            [
+              4478,
+              [
+                [840, [39, 'Props'], 179],
+                [[[845, null]], null],
+              ],
+            ],
+            [5707, [[1024], [[[840, 845]], null]]],
+          ]),
+          ...ch1(2058, 2058, [[1307, [[1024], [[[169, 138]], null]]]]),
+          ...ch1(2131, 2274, [
+            [
+              557,
+              [
+                [261, [0, '', '', 'type Params = '], 763],
+                [[[277, 261]], null],
+              ],
+            ],
+            [
+              1146,
+              [
+                [277, [0, 'Awaited<>'], 763],
+                [[[286, 277]], null],
+              ],
+            ],
+            [
+              1650,
+              [
+                [285, [0, 'ReturnType<>'], 764],
+                [[[297, 285]], null],
+              ],
+            ],
+            [
+              2229,
+              [
+                [296, [0, 'typeof generateStaticParams'], 765],
+                [[[323, 296]], null],
+              ],
+            ],
+            [
+              3031,
+              [
+                [325, [0, '[number]'], 763],
+                [[[333, 325]], null],
+              ],
+            ],
+          ]),
           ...ch1(2276, 2319, []),
           ...ch1(2410, 2464, []),
           ...ch1(2628, 2738, []),
