@@ -70,8 +70,13 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
           view.dispatch(spec)
           store.set(anchorIndex$, head)
 
+          const lineBlock = view.lineBlockAt(view.state.selection.main.head)
+          const top = lineBlock.top
+          const viewportHeight = view.scrollDOM.clientHeight
+          const centeredOffset = top - viewportHeight / 2 + lineBlock.height / 2
+
           view.scrollDOM.scrollTo({
-            top: view.lineBlockAt(view.state.selection.main.head).from - 16,
+            top: centeredOffset,
             behavior: 'smooth',
           })
         } catch (error) {}

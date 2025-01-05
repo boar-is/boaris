@@ -95,7 +95,7 @@ export function PostContent({
               <PostCaptionsWrapper />
             </div>
           </div>
-          <div className="shrink basis-auto max-h-[50%] lg:max-h-[80%] lg:self-center ~pb-2/4">
+          <div className="shrink basis-auto max-h-[50%] lg:max-h-[80%] h-full lg:self-center ~pb-2/4">
             <PostLayout />
           </div>
         </div>
