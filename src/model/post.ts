@@ -3761,7 +3761,7 @@ export const posts: ReadonlyArray<Post> = [
         name: 'app/blog/[slug]/page.tsx',
         initialValue: textFromTemplate(''),
         advances: [
-          ...ch1(1608, 1608, [
+          ...ch1(1620, 1620, [
             [
               695,
               [
@@ -3784,7 +3784,7 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(1665, 1665, [
+          ...ch1(1670, 1670, [
             [
               1643,
               [
@@ -3803,7 +3803,7 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(1703, 1703, [
+          ...ch1(1710, 1710, [
             [
               3472,
               [
@@ -3828,7 +3828,7 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(1745, 1745, [
+          ...ch1(1750, 1750, [
             [
               5249,
               [
@@ -3856,9 +3856,9 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(1788, 1788, [[8855, [[587], [[[124, 130]], null]]]]),
-          ...ch1(1819, 1819, [[10765, [[587], [[[157, 161]], null]]]]),
-          ...ch1(1850, 1850, [
+          ...ch1(1800, 1800, [[8855, [[587], [[[124, 130]], null]]]]),
+          ...ch1(1825, 1825, [[10765, [[587], [[[157, 161]], null]]]]),
+          ...ch1(1857, 1857, [
             [
               12578,
               [
@@ -3892,7 +3892,7 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(1889, 1889, [
+          ...ch1(1893, 1893, [
             [
               14136,
               [
@@ -3915,12 +3915,12 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(1938, 1994, [
+          ...ch1(1940, 1980, [
             [952, [[1038], [[[169, 138]], null]]],
             [4163, [[1038], [[[354, 321]], null]]],
             [6664, [[1038], [[[857, 824]], null]]],
           ]),
-          ...ch1(1995, 2050, [
+          ...ch1(2000, 2045, [
             [
               492,
               [
@@ -3969,8 +3969,8 @@ export const posts: ReadonlyArray<Post> = [
             ],
             [5707, [[1024], [[[840, 845]], null]]],
           ]),
-          ...ch1(2058, 2058, [[1307, [[1024], [[[169, 138]], null]]]]),
-          ...ch1(2131, 2274, [
+          ...ch1(2065, 2065, [[1307, [[1024], [[[169, 138]], null]]]]),
+          ...ch1(2205, 2233, [
             [
               780,
               [
@@ -4014,8 +4014,8 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(2276, 2276, [[7777, [[1086], [[[377, 263]], null]]]]),
-          ...ch1(2410, 2464, [
+          ...ch1(2282, 2282, [[7777, [[1086], [[[377, 263]], null]]]]),
+          ...ch1(2420, 2466, [
             [
               1432,
               [
@@ -4061,12 +4061,12 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(2628, 2738, [
+          ...ch1(2640, 2700, [
             [2464, [[1055], [[[505, 430]], null]]],
             [5756, [[1055], [[[955, 880]], null]]],
           ]),
-          ...ch1(2960, 2960, [[1147, [[1055], [[[648, 653]], null]]]]),
-          ...ch1(2990, 3065, [
+          ...ch1(2967, 2967, [[1147, [[1055], [[[648, 653]], null]]]]),
+          ...ch1(3000, 3044, [
             [
               4046,
               [
@@ -4103,7 +4103,7 @@ export const posts: ReadonlyArray<Post> = [
             ],
             [7000, [[1103], [[[737, 685]], null]]],
           ]),
-          ...ch1(3147, 3287, [
+          ...ch1(3147, 3250, [
             [
               403,
               [
@@ -4274,7 +4274,7 @@ export const posts: ReadonlyArray<Post> = [
             ],
           ]),
           ...ch1(3293, 3293, [[1239, [[1459], [[[782, 790]], null]]]]),
-          ...ch1(3316, 3429, [
+          ...ch1(3330, 3387, [
             [
               651,
               [
@@ -4325,11 +4325,11 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(3492, 3510, [
+          ...ch1(3500, 3525, [
             [1197, [[1459], [[[847, 854]], null]]],
             [2466, [[1459], [[[909, 917]], null]]],
           ]),
-          ...ch1(3735, 3869, [
+          ...ch1(3766, 3825, [
             [
               417,
               [
@@ -4499,7 +4499,7 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(3871, 3963, [
+          ...ch1(3880, 3935, [
             [
               631,
               [
@@ -4571,7 +4571,7 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(4180, 4252, [
+          ...ch1(4188, 4240, [
             [
               465,
               [
@@ -4643,14 +4643,14 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(4304, 4304, [[2200, [[1103], [[[865, 748]], null]]]]),
-          ...ch1(4346, 4416, [
+          ...ch1(4294, 4294, [[2200, [[1103], [[[865, 748]], null]]]]),
+          ...ch1(4355, 4390, [
             [2662, [[1103], [[[754, 759]], null]]],
             [3939, [[1103], [[[765, 776]], null]]],
           ]),
-          ...ch1(4417, 4417, [[7465, [[1103], [[[713, 736]], null]]]]),
-          ...ch1(4450, 4450, [[10675, [[1103], [[[865, 748]], null]]]]),
-          ...ch1(5244, 5317, [
+          ...ch1(4422, 4422, [[7465, [[1103], [[[713, 736]], null]]]]),
+          ...ch1(4456, 4456, [[10675, [[1103], [[[865, 748]], null]]]]),
+          ...ch1(5254, 5295, [
             [
               727,
               [
@@ -4731,7 +4731,7 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(5379, 5379, [
+          ...ch1(5381, 5381, [
             [
               1569,
               [
@@ -4740,7 +4740,7 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(5392, 5392, [
+          ...ch1(5394, 5394, [
             [
               2188,
               [
@@ -4758,7 +4758,7 @@ export const posts: ReadonlyArray<Post> = [
               ],
             ],
           ]),
-          ...ch1(5410, 5410, [
+          ...ch1(5404, 5404, [
             [
               2755,
               [
@@ -4786,7 +4786,7 @@ export const posts: ReadonlyArray<Post> = [
         name: 'lib/react/with-static-params.ts',
         initialValue: textFromTemplate(''),
         advances: [
-          ...ch1(2350, 2350, [
+          ...ch1(2334, 2334, [
             [
               841,
               [
@@ -4852,7 +4852,7 @@ export default async function Page({ params }) {
 }
 `),
         advances: [
-          ...ch1(4645, 4722, [
+          ...ch1(4655, 4695, [
             [
               654,
               [
@@ -4966,7 +4966,7 @@ export default async function Page({ params }) {
               ],
             ],
           ]),
-          ...ch1(4757, 4840, [
+          ...ch1(4764, 4825, [
             [
               342,
               [
@@ -4996,7 +4996,7 @@ export default async function Page({ params }) {
               ],
             ],
           ]),
-          ...ch1(4842, 4900, [
+          ...ch1(4848, 4862, [
             [
               658,
               [
@@ -5033,7 +5033,7 @@ export default async function Page({ params }) {
               ],
             ],
           ]),
-          ...ch1(4953, 5023, [
+          ...ch1(4960, 5010, [
             [
               3025,
               [
@@ -5049,7 +5049,7 @@ export default async function Page({ params }) {
               ],
             ],
           ]),
-          ...ch1(5024, 5102, [
+          ...ch1(5030, 5075, [
             [
               558,
               [
@@ -5065,7 +5065,7 @@ export default async function Page({ params }) {
               ],
             ],
           ]),
-          ...ch1(5104, 5243, [
+          ...ch1(5120, 5207, [
             [
               489,
               [
@@ -5100,7 +5100,7 @@ export default async function Page({ params }) {
             ],
             [1260, [[385], [[[189, 191]], null]]],
           ]),
-          ...ch1(5412, 5506, [
+          ...ch1(5424, 5475, [
             [
               383,
               [
@@ -5161,8 +5161,8 @@ export default async function Page({ params }) {
               ],
             ],
           ]),
-          ...ch1(8050, 8050, [[1285, [[595], [[[115, 89]], null]]]]),
-          ...ch1(9150, 9150, [[1285, [[595], [[[115, 89]], null]]]]),
+          ...ch1(8015, 8015, [[1285, [[595], [[[115, 89]], null]]]]),
+          ...ch1(8028, 8028, [[1285, [[595], [[[115, 89]], null]]]]),
         ],
       }),
       new AssetText({
@@ -5174,7 +5174,7 @@ export default async function Page({ params }) {
 }
 `),
         advances: [
-          ...ch1(5700, 5774, [
+          ...ch1(5712, 5749, [
             [
               606,
               [
@@ -5217,7 +5217,7 @@ export default async function Page({ params }) {
               ],
             ],
           ]),
-          ...ch1(6307, 6366, [
+          ...ch1(6312, 6340, [
             [
               429,
               [
@@ -5275,7 +5275,7 @@ export default async function Page({ params }) {
               ],
             ],
           ]),
-          ...ch1(6542, 6730, [
+          ...ch1(6566, 6723, [
             [981, [[491], [[[451, 463]], null]]],
             [2773, [[491], [[[458, null]], null]]],
           ]),
@@ -5287,7 +5287,7 @@ export default async function Page({ params }) {
         name: 'lib/metadata/resolvers.ts',
         initialValue: textFromTemplate(''),
         advances: [
-          ...ch1(6065, 6204, [
+          ...ch1(6081, 6204, [
             [
               550,
               [
@@ -5372,7 +5372,7 @@ export default function robots(): MetadataRoute.Robots {
 }
 `),
         advances: [
-          ...ch1(7771, 7847, [
+          ...ch1(7799, 7824, [
             [
               606,
               [
@@ -5400,7 +5400,7 @@ export default function robots(): MetadataRoute.Robots {
               ],
             ],
           ]),
-          ...ch1(7848, 7884, [
+          ...ch1(7854, 7878, [
             [639, [[200], [[[177, null]], null]]],
             [
               300,
@@ -5431,7 +5431,7 @@ export default function robots(): MetadataRoute.Robots {
               ],
             ],
           ]),
-          ...ch1(7884, 7959, [
+          ...ch1(7894, 7930, [
             [
               481,
               [
