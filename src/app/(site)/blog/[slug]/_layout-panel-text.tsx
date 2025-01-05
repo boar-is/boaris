@@ -88,7 +88,7 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
 
           view.scrollDOM.scrollTo({
             top: centeredOffsetY,
-            left: centeredOffsetX,
+            // left: centeredOffsetX,
             behavior: 'smooth',
           })
         } catch (error) {}
