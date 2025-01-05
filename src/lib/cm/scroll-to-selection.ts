@@ -17,8 +17,6 @@ export const scrollToSelection = (view: EditorView) => {
   const left = Math.min(anchorCoords.left, headCoords.left)
   const right = Math.max(anchorCoords.right, headCoords.right)
 
-  console.log(anchorCoords, headCoords)
-
   const scrollRect = scrollDOM.getBoundingClientRect()
 
   const scrollTopOffset =
