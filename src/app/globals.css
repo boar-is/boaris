@@ -35,8 +35,32 @@
   @apply text-gray-10 content-[attr(data-placeholder)] float-left h-0 pointer-events-none;
 }
 
+.cm-editor {
+  @apply h-full;
+}
+
 .cm-scroller {
-  @apply font-mono;
+  @apply font-mono [scrollbar-width:thin] !~text-xs/sm !overflow-hidden;
+}
+
+.cm-line {
+  @apply !~px-2/4;
+}
+
+.cm-scroller:has(.cm-selectionBackground) .cm-activeLine {
+  @apply !bg-transparent !border-none;
+}
+
+.cm-activeLine {
+  @apply !bg-accent-11/10 border-y border-accent-11/20;
+}
+
+.cm-selectionBackground {
+  @apply !bg-accent-11/15;
+}
+
+.cm-selectionMatch {
+  @apply !bg-accent-11/15;
 }
 
 @layer components {

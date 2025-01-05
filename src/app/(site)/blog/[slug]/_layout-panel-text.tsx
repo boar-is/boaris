@@ -9,6 +9,7 @@ import { memo, useEffect, useMemo, useRef } from 'react'
 import { codemirrorTheme } from '~/lib/cm/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/cm/match-codemirror-extensions'
 import { reversedChanges } from '~/lib/cm/reversed-changes'
+import { scrollToSelection } from '~/lib/cm/scroll-to-selection'
 import { seekChanges } from '~/lib/cm/seek-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
@@ -69,27 +70,7 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
           view.dispatch(spec)
           store.set(anchorIndex$, head)
 
-          const lineBlock = view.lineBlockAt(view.state.selection.main.head)
-
-          const top = lineBlock.top
-          const viewportHeight = view.scrollDOM.clientHeight
-          const centeredOffsetY =
-            top - viewportHeight / 2 + lineBlock.height / 2
-
-          const selectionPos = view.coordsAtPos(view.state.selection.main.head)
-          const viewportWidth = view.scrollDOM.clientWidth
-          let centeredOffsetX = 0
-
-          if (selectionPos) {
-            const selectionCenter = (selectionPos.left + selectionPos.right) / 2
-            centeredOffsetX = selectionCenter - viewportWidth / 2
-          }
-
-          view.scrollDOM.scrollTo({
-            top: centeredOffsetY,
-            // left: centeredOffsetX,
-            behavior: 'smooth',
-          })
+          scrollToSelection(view)
         } catch (error) {}
       }),
     [store, anchorIndex$, headIndex$, initialValue, advances, reverses],
@@ -122,7 +103,7 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
     <>
       <PostLayoutPanelHeader name={name} />
       <ReactCodeMirror
-        className="flex-1 overflow-hidden [&_.cm-editor]:h-full [&_.cm-scroller]:[scrollbar-width:thin] [&_.cm-scroller]:!~text-xs/sm [&_.cm-line]:px-4 [&_.cm-scroller]:overflow-hidden [&_.cm-activeLine]:bg-accent-11/15 [&_.cm-selectionBackground]:!bg-accent-11/20 [&_.cm-selectionMatch]:!bg-accent-11/20"
+        className="flex-1 overflow-hidden"
         value={value}
         extensions={extensions}
         editable={false}
