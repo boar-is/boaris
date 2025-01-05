@@ -1,24 +1,46 @@
 import type { EditorView } from '@uiw/react-codemirror'
 
 export const scrollToSelection = (view: EditorView) => {
-  const lineBlock = view.lineBlockAt(view.state.selection.main.head)
+  const { anchor, head } = view.state.selection.main
 
-  const top = lineBlock.top
-  const viewportHeight = view.scrollDOM.clientHeight
-  const centeredOffsetY = top - viewportHeight / 2 + lineBlock.height / 2
+  const anchorCoords = view.coordsAtPos(anchor)
+  const headCoords = view.coordsAtPos(head)
 
-  const selectionPos = view.coordsAtPos(view.state.selection.main.head)
-  const viewportWidth = view.scrollDOM.clientWidth
-  let centeredOffsetX = 0
-
-  if (selectionPos) {
-    const selectionCenter = (selectionPos.left + selectionPos.right) / 2
-    centeredOffsetX = selectionCenter - viewportWidth / 2
+  if (!(anchorCoords && headCoords)) {
+    return
   }
 
-  view.scrollDOM.scrollTo({
-    top: centeredOffsetY,
-    left: centeredOffsetX,
+  const { scrollDOM } = view
+
+  const top = Math.min(anchorCoords.top, headCoords.top)
+  const bottom = Math.max(anchorCoords.bottom, headCoords.bottom)
+  const left = Math.min(anchorCoords.left, headCoords.left)
+  const right = Math.max(anchorCoords.right, headCoords.right)
+
+  console.log(anchorCoords, headCoords)
+
+  const scrollRect = scrollDOM.getBoundingClientRect()
+
+  const scrollTopOffset =
+    top -
+    scrollRect.top +
+    scrollDOM.scrollTop -
+    scrollDOM.clientHeight / 2 +
+    (bottom - top) / 2
+
+  const scrollLeftOffset =
+    anchorCoords.left === headCoords.left &&
+    anchorCoords.left < scrollDOM.clientWidth
+      ? 0
+      : left -
+        scrollRect.left +
+        scrollDOM.scrollLeft -
+        scrollDOM.clientWidth / 2 +
+        (right - left) / 2
+
+  scrollDOM.scrollTo({
+    top: scrollTopOffset,
+    left: scrollLeftOffset,
     behavior: 'smooth',
   })
 }
