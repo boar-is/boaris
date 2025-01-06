@@ -1,8 +1,8 @@
 import { Array, Function, Option, Schema, pipe } from 'effect'
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 import { Suspense, lazy } from 'react'
-import { PostLayout } from '~/app/(site)/p/[slug]/_layout'
 import { readableDate } from '~/lib/date/readable-date'
 import { mono } from '~/lib/media/fonts/mono'
 import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
@@ -23,6 +23,9 @@ import { PostContent } from './_page-content'
 import { PostSubscriptionSection } from './_subscription-section'
 
 const PostCaptions = lazy(() => import('./_captions'))
+const PostLayout = dynamic(() => import('./_layout').then((m) => m.PostLayout))
+
+const captionsCx = cx('mx-auto typography w-full drop-shadow-md')
 
 export const experimental_ppr = true
 
@@ -68,13 +71,11 @@ export default async function PostPage({
     return notFound()
   }
 
-  const captions = await simulateReq(() =>
-    captionsRepository.find((it) => it.postSlug === slug),
+  const captionsEncoded = simulateReq(() =>
+    Schema.encodeSync(Captions)(
+      captionsRepository.find((it) => it.postSlug === slug)!,
+    ),
   )
-
-  if (!captions) {
-    return notFound()
-  }
 
   const assetsEncoded = simulateReq(() =>
     Schema.encodeSync(Schema.Array(Asset))(
@@ -95,8 +96,6 @@ export default async function PostPage({
     sizes: defaultImageSizes,
     alt: `${title}'s poster`,
   } satisfies ImageProps
-
-  const captionsCx = cx('mx-auto typography w-full drop-shadow-md')
 
   return (
     <article className={cx(mono.variable, 'flex flex-col ~gap-6/8')}>
@@ -160,14 +159,11 @@ export default async function PostPage({
         captionsSlot={
           <Suspense
             fallback={
-              <StaticEditorContent
-                content={captions.content}
-                className={captionsCx}
-              />
+              <PostCaptionsFallback captionsEncoded={captionsEncoded} />
             }
           >
             <PostCaptions
-              captionsEncoded={Schema.encodeSync(Captions)(captions)}
+              captionsEncoded={captionsEncoded}
               className={captionsCx}
             />
           </Suspense>
@@ -188,4 +184,12 @@ export default async function PostPage({
       </BlurFade>
     </article>
   )
+}
+
+async function PostCaptionsFallback({
+  captionsEncoded,
+}: { captionsEncoded: Promise<typeof Captions.Encoded> }) {
+  const { content } = Schema.decodeSync(Captions)(await captionsEncoded)
+
+  return <StaticEditorContent content={content} className={captionsCx} />
 }

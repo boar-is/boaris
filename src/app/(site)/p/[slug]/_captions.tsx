@@ -4,7 +4,7 @@ import { EditorContent, useEditor } from '@tiptap/react'
 import { Schema } from 'effect'
 import { useSetAtom, useStore } from 'jotai/index'
 import { animate } from 'motion/react'
-import { useEffect } from 'react'
+import { use, useEffect } from 'react'
 import { usePostContent } from '~/app/(site)/p/[slug]/_page-content'
 import { calculateCenterY } from '~/lib/dom/calculate-center-y'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
@@ -17,10 +17,10 @@ export default function PostCaptions({
   captionsEncoded,
   className,
 }: {
-  captionsEncoded: typeof Captions.Encoded
+  captionsEncoded: Promise<typeof Captions.Encoded>
   className?: string | undefined
 }) {
-  const { content } = Schema.decodeSync(Captions)(captionsEncoded)
+  const { content } = Schema.decodeSync(Captions)(use(captionsEncoded))
 
   const { progress$, scrollableRef, contentRef } = usePostContent()
 
