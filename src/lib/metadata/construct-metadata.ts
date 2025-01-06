@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { workspace } from '~/model/data/workspace'
+import { resolveUrl } from './resolvers'
 
 export const constructMetadata = ({
   title,
@@ -21,7 +22,7 @@ export const constructMetadata = ({
     openGraph: { title, description, images },
     ...(canonical && {
       alternates: {
-        canonical,
+        canonical: resolveUrl(canonical),
       },
     }),
     ...(noIndex && {

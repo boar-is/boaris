@@ -8,7 +8,6 @@ import { mono } from '~/lib/media/fonts/mono'
 import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { constructMetadata } from '~/lib/metadata/construct-metadata'
-import { resolveUrl } from '~/lib/metadata/resolvers'
 import { BlurFade } from '~/lib/motion/blur-fade'
 import { cx } from '~/lib/react/cx'
 import type { WithStaticParams } from '~/lib/react/with-static-params'
@@ -45,7 +44,7 @@ export async function generateMetadata({
         title,
         description: Option.getOrElse(description, () => lead),
         images: posterUrl,
-        canonical: resolveUrl(`/p/${slug}`),
+        canonical: `/p/${slug}`,
       }),
     ),
     Option.getOrElse(
