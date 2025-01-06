@@ -2,14 +2,13 @@ import { Array, Function, Option, Schema, pipe } from 'effect'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
-import { Suspense, lazy } from 'react'
+import { Suspense } from 'react'
 import { readableDate } from '~/lib/date/readable-date'
 import { mono } from '~/lib/media/fonts/mono'
 import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { constructMetadata } from '~/lib/metadata/construct-metadata'
 import { BlurFade } from '~/lib/motion/blur-fade'
-import { StaticEditorContent } from '~/lib/pm/static-editor-content'
 import { cx } from '~/lib/react/cx'
 import type { WithStaticParams } from '~/lib/react/with-static-params'
 import { BackgroundEffect } from '~/lib/surfaces/background'
@@ -19,15 +18,11 @@ import { Asset, assetRepository } from '~/model/asset'
 import { Captions, captionsRepository } from '~/model/captions'
 import { LayoutChange, layoutChangeRepository } from '~/model/layoutChange'
 import { postRepository } from '~/model/post'
+import PostCaptions from './_captions'
 import { PostContent } from './_page-content'
 import { PostSubscriptionSection } from './_subscription-section'
 
-const PostCaptions = lazy(() => import('./_captions'))
 const PostLayout = dynamic(() => import('./_layout').then((m) => m.PostLayout))
-
-const captionsCx = cx('mx-auto typography w-full drop-shadow-md')
-
-export const experimental_ppr = true
 
 export async function generateStaticParams() {
   return postRepository.map(({ slug }) => ({ slug }))
@@ -153,19 +148,9 @@ export default async function PostPage({
       <PostContent
         interpolation={interpolation}
         captionsSlot={
-          <Suspense
-            fallback={
-              <StaticEditorContent
-                content={captions.content}
-                className={captionsCx}
-              />
-            }
-          >
-            <PostCaptions
-              captionsEncoded={Schema.encodeSync(Captions)(captions)}
-              className={captionsCx}
-            />
-          </Suspense>
+          <PostCaptions
+            captionsEncoded={Schema.encodeSync(Captions)(captions)}
+          />
         }
         layoutSlot={
           <Suspense fallback={null}>

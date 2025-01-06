@@ -11,14 +11,16 @@ import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { defaultEditorOptions } from '~/lib/pm/default-editor-options'
 import { findBlockAncestorDepth } from '~/lib/pm/find-block-ancestor-depth'
 import { setHighlightPosition } from '~/lib/pm/position-highlight'
+import { StaticEditorContent } from '~/lib/pm/static-editor-content'
+import { cx } from '~/lib/react/cx'
 import { Captions } from '~/model/captions'
+
+const captionsCx = cx('mx-auto typography w-full drop-shadow-md')
 
 export default function PostCaptions({
   captionsEncoded,
-  className,
 }: {
   captionsEncoded: typeof Captions.Encoded
-  className?: string | undefined
 }) {
   const { content } = Schema.decodeSync(Captions)(captionsEncoded)
 
@@ -108,5 +110,9 @@ export default function PostCaptions({
     contentRef.current,
   ])
 
-  return <EditorContent editor={editor} className={className} />
+  return editor ? (
+    <EditorContent editor={editor} className={captionsCx} />
+  ) : (
+    <StaticEditorContent content={content} className={captionsCx} />
+  )
 }
