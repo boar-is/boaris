@@ -1396,7 +1396,7 @@ export const captionsRepository: ReadonlyArray<typeof Captions.Type> = [
             },
             {
               type: 'text',
-              text: ' think Twitter won’t fall back to Open Graph tags if needed?  ',
+              text: ' think Next.js won’t fall back to Open Graph tags if needed?  ',
             },
             {
               type: 'hardBreak',
