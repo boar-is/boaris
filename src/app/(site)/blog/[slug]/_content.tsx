@@ -88,7 +88,7 @@ export function PostContent({
       <div className="relative container" ref={containerRef}>
         <div className="sticky top-0 h-dvh flex flex-col lg:flex-row lg:*:flex-1 justify-center gap-0 lg:gap-4">
           <div
-            className="flex-1 overflow-hidden ~fade-y-24/64 lg:py-24"
+            className="flex-1 overflow-hidden ~fade-y-12/64 ~py-8/24"
             ref={scrollableRef}
           >
             <div ref={contentRef}>

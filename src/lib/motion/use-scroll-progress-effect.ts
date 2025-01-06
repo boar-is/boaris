@@ -11,6 +11,7 @@ export const useScrollProgressEffect = ({
 }) => {
   const { scrollYProgress } = useScroll({
     target: ref,
+    offset: ['start center', 'end end'],
   })
 
   useMotionValueEvent(scrollYProgress, 'change', onUpdate)
