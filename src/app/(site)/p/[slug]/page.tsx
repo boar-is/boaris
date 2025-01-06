@@ -1,8 +1,7 @@
-import { Array, Function, Option, pipe } from 'effect'
+import { Array, Function, Option, Schema, pipe } from 'effect'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
-import { PostCaptions } from '~/app/(site)/p/[slug]/_captions'
+import { Suspense, lazy } from 'react'
 import { PostLayout } from '~/app/(site)/p/[slug]/_layout'
 import { readableDate } from '~/lib/date/readable-date'
 import { mono } from '~/lib/media/fonts/mono'
@@ -15,10 +14,16 @@ import { cx } from '~/lib/react/cx'
 import type { WithStaticParams } from '~/lib/react/with-static-params'
 import { BackgroundEffect } from '~/lib/surfaces/background'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
-import { captionsRepository } from '~/model/captions'
+import { Asset, assetRepository } from '~/model/asset'
+import { Captions, captionsRepository } from '~/model/captions'
+import { LayoutChange, layoutChangeRepository } from '~/model/layoutChange'
 import { postRepository } from '~/model/post'
 import { PostContent } from './_page-content'
 import { PostSubscriptionSection } from './_subscription-section'
+
+const PostCaptions = lazy(() => import('./_captions'))
+
+export const experimental_ppr = true
 
 export async function generateStaticParams() {
   return postRepository.map(({ slug }) => ({ slug }))
@@ -65,6 +70,23 @@ export default async function PostPage({
   if (!captions) {
     return notFound()
   }
+
+  const assetsEncoded = new Promise(
+    (resolve: (value: ReadonlyArray<typeof Asset.Encoded>) => void) =>
+      resolve(
+        Schema.encodeSync(Schema.Array(Asset))(
+          assetRepository.filter((it) => it.postSlug === slug),
+        ),
+      ),
+  )
+  const layoutChangesEncoded = new Promise(
+    (resolve: (value: ReadonlyArray<typeof LayoutChange.Encoded>) => void) =>
+      resolve(
+        Schema.encodeSync(Schema.Array(LayoutChange))(
+          layoutChangeRepository.filter((it) => it.postSlug === slug),
+        ),
+      ),
+  )
 
   const { title, lead, date, tags, posterUrl, interpolation } = post
 
@@ -144,12 +166,18 @@ export default async function PostPage({
               />
             }
           >
-            <PostCaptions slug={slug} className={captionsCx} />
+            <PostCaptions
+              captionsEncoded={Schema.encodeSync(Captions)(captions)}
+              className={captionsCx}
+            />
           </Suspense>
         }
         layoutSlot={
           <Suspense fallback={null}>
-            <PostLayout slug={slug} />
+            <PostLayout
+              assetsEncoded={assetsEncoded}
+              layoutChangesEncoded={layoutChangesEncoded}
+            />
           </Suspense>
         }
       />
