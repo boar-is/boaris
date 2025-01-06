@@ -1,36 +1,27 @@
 'use client'
 
-import {
-  type Editor,
-  EditorContent,
-  type Extensions,
-  useEditor,
-} from '@tiptap/react'
-import { useSetAtom, useStore } from 'jotai'
+import { EditorContent, useEditor } from '@tiptap/react'
+import { Schema } from 'effect'
+import { useSetAtom, useStore } from 'jotai/index'
 import { animate } from 'motion/react'
 import { useEffect } from 'react'
 import { calculateCenterY } from '~/lib/dom/calculate-center-y'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
-import { defaultEditorExtensions } from '~/lib/pm/default-editor-extensions'
 import { defaultEditorOptions } from '~/lib/pm/default-editor-options'
 import { findBlockAncestorDepth } from '~/lib/pm/find-block-ancestor-depth'
 import { setHighlightPosition } from '~/lib/pm/position-highlight'
-import type { WithRef } from '~/lib/react/with-ref'
-import { usePostContent } from './_content'
-import { usePostPage } from './provider'
+import { Captions } from '~/model/captions'
+import { usePostContent } from './_page-content'
 
-export function PostCaptions({
+export function PostCaptionsContent({
+  contentEncoded,
   className,
-  extensions = defaultEditorExtensions,
-  onEditor,
-}: WithRef<HTMLDivElement> & {
+}: {
+  contentEncoded: typeof Captions.Encoded
   className?: string | undefined
-  extensions?: Extensions | undefined
-  onEditor?: (editor: Editor | null) => void
 }) {
-  const {
-    post: { captions },
-  } = usePostPage()
+  const { content } = Schema.decodeSync(Captions)(contentEncoded)
+
   const { progress$, scrollableRef, contentRef } = usePostContent()
 
   const docSize$ = useConstAtom(0)
@@ -45,14 +36,11 @@ export function PostCaptions({
   const editor = useEditor(
     {
       ...defaultEditorOptions,
-      content: captions,
-      extensions,
+      content,
       onCreate: ({ editor }) => setDocSize(editor.state.doc.content.size - 1),
     },
-    [captions, extensions],
+    [content],
   )
-
-  useEffect(() => onEditor?.(editor), [editor, onEditor])
 
   useEffect(() => {
     const scrollableElement = scrollableRef.current

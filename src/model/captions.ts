@@ -6,7 +6,7 @@ export class Captions extends Schema.Class<Captions>('Captions')({
   content: JsonContentFromJson,
 }) {}
 
-export const captions: ReadonlyArray<typeof Captions.Type> = [
+export const captionsRepository: ReadonlyArray<typeof Captions.Type> = [
   {
     postSlug: 'nextjs-metadata',
     content: {

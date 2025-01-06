@@ -13,9 +13,9 @@ import { scrollToSelection } from '~/lib/cm/scroll-to-selection'
 import { seekChanges } from '~/lib/cm/seek-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
-import type { AssetText } from '~/model/assetText'
-import { usePostContent } from './_content'
+import type { AssetContentText } from '~/model/asset'
 import { PostLayoutPanelHeader } from './_layout-panel'
+import { usePostContent } from './_page-content'
 
 const basicCmSetup: BasicSetupOptions = {
   lineNumbers: false,
@@ -23,8 +23,9 @@ const basicCmSetup: BasicSetupOptions = {
 }
 
 export const PostLayoutPanelText = memo(function PostLayoutPanelText({
-  asset: { name, initialValue, advances },
-}: { asset: AssetText }) {
+  name,
+  content: { initialValue, advances },
+}: { name: string; content: AssetContentText }) {
   const cmRef = useRef<ReactCodeMirrorRef>(null)
 
   const extensions = useMemo(() => matchCodemirrorExtensions(name), [name])

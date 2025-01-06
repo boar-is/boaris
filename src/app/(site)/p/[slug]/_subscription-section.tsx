@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '~/lib/buttons/button'
 import { FieldError, Form } from '~/lib/forms/form'
 import { PendingFormDisabledButtonProvider } from '~/lib/forms/pending-form-disabled-button-provider'

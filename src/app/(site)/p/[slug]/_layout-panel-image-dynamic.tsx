@@ -1,13 +1,14 @@
 import { Option } from 'effect'
 import { type ComponentPropsWithoutRef, memo } from 'react'
 import { cx } from '~/lib/react/cx'
-import type { AssetImageDynamic } from '~/model/assetImageDynamic'
+import type { AssetContentImageDynamic } from '~/model/asset'
 import { PostLayoutPanelFooter, PostLayoutPanelHeader } from './_layout-panel'
 
 export const PostLayoutPanelImageDynamic = memo(
   function PostLayoutPanelImageDynamic({
-    asset: { name, href, caption },
-  }: { asset: AssetImageDynamic }) {
+    name,
+    content: { href, caption },
+  }: { name: string; content: AssetContentImageDynamic }) {
     const { className, ...videoProps }: ComponentPropsWithoutRef<'video'> = {
       className: 'absolute inset-0 size-full',
       src: href,

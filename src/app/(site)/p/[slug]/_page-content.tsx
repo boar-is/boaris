@@ -1,44 +1,20 @@
 'use client'
 
-import { type PrimitiveAtom, useSetAtom } from 'jotai'
+import type { PrimitiveAtom } from 'jotai'
+import { useSetAtom } from 'jotai/index'
 import { transform } from 'motion'
-import dynamic from 'next/dynamic'
-import { type RefObject, useEffect, useMemo, useRef, useState } from 'react'
-import { usePostPage } from '~/app/(site)/blog/[slug]/provider'
+import {
+  type ReactNode,
+  type RefObject,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react'
 import { fixScrollUpdateSafariIos } from '~/lib/dom/fix-scroll-update-safari-ios'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { useScrollProgressEffect } from '~/lib/motion/use-scroll-progress-effect'
-import { StaticEditorContent } from '~/lib/pm/static-editor-content'
 import { createStrictContext } from '~/lib/react/create-strict-context'
-import { cx } from '~/lib/react/cx'
 import { useContainerHeightSync } from '~/lib/react/use-container-height-sync'
-
-const PostCaptions = dynamic(() =>
-  import('./_captions').then((m) => m.PostCaptions),
-)
-
-const captionsCx = cx('mx-auto typography w-full drop-shadow-md')
-function PostCaptionsWrapper() {
-  const [initialized, setInitialized] = useState(false)
-
-  const {
-    post: { captions },
-  } = usePostPage()
-
-  return (
-    <>
-      {!initialized && (
-        <StaticEditorContent className={captionsCx} content={captions} />
-      )}
-      <PostCaptions
-        className={captionsCx}
-        onEditor={(editor) => setInitialized(!!editor)}
-      />
-    </>
-  )
-}
-
-const PostLayout = dynamic(() => import('./_layout').then((m) => m.PostLayout))
 
 export type PostContentContextValue = {
   progress$: PrimitiveAtom<number>
@@ -52,8 +28,12 @@ export const [PostContentContext, usePostContent] =
   })
 
 export function PostContent({
+  captionsSlot,
+  layoutSlot,
   interpolation,
 }: {
+  captionsSlot: ReactNode
+  layoutSlot: ReactNode
   interpolation: { input: ReadonlyArray<number>; output: ReadonlyArray<number> }
 }) {
   const scrollableRef = useRef<HTMLDivElement>(null)
@@ -91,12 +71,10 @@ export function PostContent({
             className="flex-1 overflow-hidden ~fade-y-12/64 ~py-8/24"
             ref={scrollableRef}
           >
-            <div ref={contentRef}>
-              <PostCaptionsWrapper />
-            </div>
+            <div ref={contentRef}>{captionsSlot}</div>
           </div>
           <div className="shrink basis-auto max-h-[50%] lg:max-h-[80%] lg:h-full lg:self-center ~pb-2/4">
-            <PostLayout />
+            {layoutSlot}
           </div>
         </div>
       </div>

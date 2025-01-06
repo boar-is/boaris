@@ -10,7 +10,7 @@ export class LayoutChange extends Schema.Class<LayoutChange>('LayoutChange')({
 const lc1 = (pos: number, areas: string) =>
   new LayoutChange({ postSlug: 'nextjs-metadata', offset: pp1(pos), areas })
 
-export const layoutChanges: ReadonlyArray<LayoutChange> = [
+export const layoutChangeRepository: ReadonlyArray<LayoutChange> = [
   lc1(1608, '"app/blog/[slug]/page.tsx"'),
   lc1(2320, '"lib/react/with-static-params.ts"'),
   lc1(2410, '"app/blog/[slug]/page.tsx"'),

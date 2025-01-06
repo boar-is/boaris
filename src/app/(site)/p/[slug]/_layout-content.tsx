@@ -1,7 +1,7 @@
 'use client'
 
-import { Array, Match, Option, pipe } from 'effect'
-import { useAtomValue } from 'jotai'
+import { Array, Match, Option, Schema, pipe } from 'effect'
+import { useAtomValue } from 'jotai/index'
 import { AnimatePresence } from 'motion/react'
 import dynamic from 'next/dynamic'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
@@ -9,8 +9,9 @@ import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { motion } from '~/lib/motion/motion'
 import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
-import { usePostContent } from './_content'
-import { usePostPage } from './provider'
+import { Asset } from '~/model/asset'
+import { LayoutChange } from '~/model/layoutChange'
+import { usePostContent } from './_page-content'
 
 const PostLayoutPanelImageDynamic = dynamic(
   () =>
@@ -39,10 +40,18 @@ const PostLayoutPanelText = dynamic(
   },
 )
 
-export function PostLayout() {
-  const {
-    post: { assets, layoutChanges },
-  } = usePostPage()
+export function PostLayoutContent({
+  assetsEncoded,
+  layoutChangesEncoded,
+}: {
+  assetsEncoded: ReadonlyArray<typeof Asset.Encoded>
+  layoutChangesEncoded: ReadonlyArray<typeof LayoutChange.Encoded>
+}) {
+  const assets = Schema.decodeSync(Schema.Array(Asset))(assetsEncoded)
+  const layoutChanges = Schema.decodeSync(Schema.Array(LayoutChange))(
+    layoutChangesEncoded,
+  )
+
   const { progress$ } = usePostContent()
 
   const areas$ = useConstAtom((get) =>
@@ -99,15 +108,21 @@ export function PostLayout() {
               layout="position"
               className="relative flex flex-col justify-between h-full"
             >
-              {Match.value(asset).pipe(
-                Match.when({ type: 'image-dynamic' }, (asset) => (
-                  <PostLayoutPanelImageDynamic asset={asset} />
+              {Match.value(asset.content).pipe(
+                Match.tag('AssetContentImageDynamic', (content) => (
+                  <PostLayoutPanelImageDynamic
+                    name={asset.name}
+                    content={content}
+                  />
                 )),
-                Match.when({ type: 'image-static' }, (asset) => (
-                  <PostLayoutPanelImageStatic asset={asset} />
+                Match.tag('AssetContentImageStatic', (content) => (
+                  <PostLayoutPanelImageStatic
+                    name={asset.name}
+                    content={content}
+                  />
                 )),
-                Match.when({ type: 'text' }, (asset) => (
-                  <PostLayoutPanelText asset={asset} />
+                Match.tag('AssetContentText', (content) => (
+                  <PostLayoutPanelText name={asset.name} content={content} />
                 )),
                 Match.exhaustive,
               )}

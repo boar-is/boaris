@@ -55,7 +55,7 @@ const ch1 = (
   changes: ReadonlyArray<typeof OffsetChange.Encoded>,
 ) => shiftChanges(changes)(pp1(from), pp1(to))
 
-export const assets: ReadonlyArray<Asset> = [
+export const assetRepository: ReadonlyArray<Asset> = [
   new Asset({
     _id: 'icon-180',
     postSlug: 'nextjs-metadata',

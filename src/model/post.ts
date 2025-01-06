@@ -15,7 +15,7 @@ export class Post extends Schema.Class<Post>('Post')({
   updateDate: Schema.DateTimeUtcFromNumber,
 }) {}
 
-export const posts: ReadonlyArray<Post> = [
+export const postRepository: ReadonlyArray<Post> = [
   new Post({
     slug: 'nextjs-metadata',
     title: 'The Ultimate Next.js Metadata Guide for 2025',

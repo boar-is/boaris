@@ -1,13 +1,14 @@
 import { Option } from 'effect'
 import { memo } from 'react'
 import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
-import type { AssetImageStatic } from '~/model/assetImageStatic'
+import type { AssetContentImageStatic } from '~/model/asset'
 import { PostLayoutPanelFooter, PostLayoutPanelHeader } from './_layout-panel'
 
 export const PostLayoutPanelImageStatic = memo(
   function PostLayoutPanelImageStatic({
-    asset: { name, href, alt, caption },
-  }: { asset: AssetImageStatic }) {
+    name,
+    content: { href, alt, caption },
+  }: { name: string; content: AssetContentImageStatic }) {
     const imageProps = {
       src: href,
       sizes: defaultImageSizes,
