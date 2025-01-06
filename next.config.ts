@@ -9,6 +9,7 @@ const isAnalyze = globalThis.process.env['ANALYZE'] === 'true'
 const baseNextConfig: NextConfig = {
   productionBrowserSourceMaps: isAnalyze,
   experimental: {
+    ppr: 'incremental',
     optimizePackageImports: [
       'react-aria-components',
       'effect',
