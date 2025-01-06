@@ -39,7 +39,7 @@ export function PostCaptionsContent({
       content,
       onCreate: ({ editor }) => setDocSize(editor.state.doc.content.size - 1),
     },
-    [content],
+    [],
   )
 
   useEffect(() => {
