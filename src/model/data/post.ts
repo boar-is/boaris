@@ -24,5 +24,6 @@ export const postRepository: ReadonlyArray<Post> = [
     updateDate: DateTime.make({ year: 2025, month: 1, day: 7 }).pipe(
       Option.getOrThrow,
     ),
+    twitterUrl: Option.some('https://x.com'),
   }),
 ]

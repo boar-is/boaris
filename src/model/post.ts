@@ -13,4 +13,5 @@ export class Post extends Schema.Class<Post>('Post')({
   }),
   date: Schema.DateTimeUtcFromNumber,
   updateDate: Schema.DateTimeUtcFromNumber,
+  twitterUrl: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
 }) {}

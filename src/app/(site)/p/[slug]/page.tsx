@@ -22,6 +22,7 @@ import { layoutChangeRepository } from '~/model/data/layoutChange'
 import { postRepository } from '~/model/data/post'
 import { LayoutChange } from '~/model/layoutChange'
 import PostCaptions from './_captions'
+import { DisclaimerSection } from './_disclaimer-section'
 import { PostContent } from './_page-content'
 import { PostSubscriptionSection } from './_subscription-section'
 
@@ -84,7 +85,7 @@ export default async function PostPage({
     ),
   )
 
-  const { title, lead, date, tags, posterUrl, interpolation } = post
+  const { title, lead, date, tags, posterUrl, interpolation, twitterUrl } = post
 
   const posterImageProps = {
     src: posterUrl,
@@ -149,6 +150,9 @@ export default async function PostPage({
           )}
         </section>
       </header>
+      <div className="container">
+        <DisclaimerSection slug={slug} twitterUrl={twitterUrl} />
+      </div>
       <PostContent
         interpolation={interpolation}
         captionsSlot={
