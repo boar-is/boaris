@@ -14,6 +14,7 @@ import { cx } from '~/lib/react/cx'
 import type { WithStaticParams } from '~/lib/react/with-static-params'
 import { BackgroundEffect } from '~/lib/surfaces/background'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
+import { simulateReq } from '~/model/_no-db-helpers'
 import { Asset, assetRepository } from '~/model/asset'
 import { Captions, captionsRepository } from '~/model/captions'
 import { LayoutChange, layoutChangeRepository } from '~/model/layoutChange'
@@ -59,33 +60,32 @@ export default async function PostPage({
 }: WithStaticParams<typeof generateStaticParams>) {
   const { slug } = await params
 
-  const post = postRepository.find((it) => it.slug === slug)
+  const post = await simulateReq(() =>
+    postRepository.find((it) => it.slug === slug),
+  )
 
   if (!post) {
     return notFound()
   }
 
-  const captions = captionsRepository.find((it) => it.postSlug === slug)
+  const captions = await simulateReq(() =>
+    captionsRepository.find((it) => it.postSlug === slug),
+  )
 
   if (!captions) {
     return notFound()
   }
 
-  const assetsEncoded = new Promise(
-    (resolve: (value: ReadonlyArray<typeof Asset.Encoded>) => void) =>
-      resolve(
-        Schema.encodeSync(Schema.Array(Asset))(
-          assetRepository.filter((it) => it.postSlug === slug),
-        ),
-      ),
+  const assetsEncoded = simulateReq(() =>
+    Schema.encodeSync(Schema.Array(Asset))(
+      assetRepository.filter((it) => it.postSlug === slug),
+    ),
   )
-  const layoutChangesEncoded = new Promise(
-    (resolve: (value: ReadonlyArray<typeof LayoutChange.Encoded>) => void) =>
-      resolve(
-        Schema.encodeSync(Schema.Array(LayoutChange))(
-          layoutChangeRepository.filter((it) => it.postSlug === slug),
-        ),
-      ),
+
+  const layoutChangesEncoded = simulateReq(() =>
+    Schema.encodeSync(Schema.Array(LayoutChange))(
+      layoutChangeRepository.filter((it) => it.postSlug === slug),
+    ),
   )
 
   const { title, lead, date, tags, posterUrl, interpolation } = post

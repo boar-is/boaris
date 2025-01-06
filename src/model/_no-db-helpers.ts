@@ -5,3 +5,8 @@ const createPositionToProgress = (docSize: number) => (pos: number) => {
 
 export const s1 = 10844
 export const pp1 = createPositionToProgress(s1)
+
+export const simulateReq = <T>(thunk: () => T, ms = 75) =>
+  new Promise((resolve: (value: T) => void) =>
+    setTimeout(() => resolve(thunk()), ms),
+  )
