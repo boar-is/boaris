@@ -71,11 +71,7 @@ export default async function PostPage({
     return notFound()
   }
 
-  const captionsEncoded = simulateReq(() =>
-    Schema.encodeSync(Captions)(
-      captionsRepository.find((it) => it.postSlug === slug)!,
-    ),
-  )
+  const captions = captionsRepository.find((it) => it.postSlug === slug)!
 
   const assetsEncoded = simulateReq(() =>
     Schema.encodeSync(Schema.Array(Asset))(
@@ -159,11 +155,14 @@ export default async function PostPage({
         captionsSlot={
           <Suspense
             fallback={
-              <PostCaptionsFallback captionsEncoded={captionsEncoded} />
+              <StaticEditorContent
+                content={captions.content}
+                className={captionsCx}
+              />
             }
           >
             <PostCaptions
-              captionsEncoded={captionsEncoded}
+              captionsEncoded={Schema.encodeSync(Captions)(captions)}
               className={captionsCx}
             />
           </Suspense>
@@ -184,12 +183,4 @@ export default async function PostPage({
       </BlurFade>
     </article>
   )
-}
-
-async function PostCaptionsFallback({
-  captionsEncoded,
-}: { captionsEncoded: Promise<typeof Captions.Encoded> }) {
-  const { content } = Schema.decodeSync(Captions)(await captionsEncoded)
-
-  return <StaticEditorContent content={content} className={captionsCx} />
 }
