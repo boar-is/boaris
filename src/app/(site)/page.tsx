@@ -6,7 +6,7 @@ import { BlurFade } from '~/lib/motion/blur-fade'
 import { Link } from '~/lib/navigation/link'
 import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
-import { posts } from '~/model/post'
+import { postRepository } from '~/model/post'
 import { BlogPostArticle } from './_blog-post-article'
 
 export default async function SitePage() {
@@ -16,9 +16,9 @@ export default async function SitePage() {
         <h1>Boar.is</h1>
         <h2>Recent Posts</h2>
       </header>
-      {posts.length ? (
+      {postRepository.length ? (
         <div className="flex flex-col gap-4">
-          {posts.map((post, index) => {
+          {postRepository.map((post, index) => {
             const posterImageProps = {
               src: post.posterUrl,
               sizes: defaultImageSizes,

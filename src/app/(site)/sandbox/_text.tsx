@@ -18,8 +18,7 @@ import { seekChanges } from '~/lib/cm/seek-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { mono } from '~/lib/media/fonts/mono'
 import { cx } from '~/lib/react/cx'
-import type { AssetText } from '~/model/assetText'
-import { posts } from '~/model/post'
+import { assetRepository } from '~/model/asset'
 
 const encodeChange = Schema.encodeSync(OffsetChange)
 const decodeChange = Schema.decodeUnknownSync(OffsetChange)
@@ -176,9 +175,13 @@ class RecordingManager {
 }
 
 export function SandboxText() {
-  const asset = posts[0]?.assets?.find(
+  const { name, content } = assetRepository?.find(
     (asset) => asset.name === 'app/blog/[slug]/page.tsx',
-  )! as AssetText
+  )!
+
+  if (content._tag !== 'AssetContentText') {
+    throw new Error('Not a text')
+  }
 
   const extensions = useMemo(
     () => [
@@ -189,9 +192,9 @@ export function SandboxText() {
           run: deleteToLineStart,
         },
       ]),
-      ...matchCodemirrorExtensions(asset.name),
+      ...matchCodemirrorExtensions(name),
     ],
-    [asset.name],
+    [name],
   )
 
   const [view, setView] = useState<EditorView>()
@@ -241,7 +244,7 @@ export function SandboxText() {
       )}
       <ReactCodeMirror
         ref={(editor) => setView(editor?.view)}
-        value={asset.initialValue.toString()}
+        value={content.initialValue.toString()}
         theme={codemirrorTheme}
         extensions={extensions}
         className="bg-gray-1"
