@@ -28,7 +28,7 @@ export default async function SitePage() {
             return (
               <Link
                 key={post.slug}
-                href={`/blog/${post.slug}`}
+                href={`/p/${post.slug}`}
                 className="~rounded-4xl/5xl"
               >
                 <BlurFade key={post.slug} delay={index * 0.05} inView>

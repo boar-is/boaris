@@ -1,4 +1,5 @@
 import { DateTime, Option, Schema } from 'effect'
+import { pp1, s1 } from './_no-db-helpers'
 
 export class Post extends Schema.Class<Post>('Post')({
   slug: Schema.NonEmptyTrimmedString,

@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: resolveUrl(),
     },
     ...postRepository.map((it) => ({
-      url: resolveUrl(`/blog/${it.slug}`),
+      url: resolveUrl(`/p/${it.slug}`),
       lastModified: it.updateDate.pipe(DateTime.toDate),
     })),
   ]

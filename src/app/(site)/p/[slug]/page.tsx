@@ -36,7 +36,7 @@ export async function generateMetadata({
       constructMetadata({
         title,
         description: Option.getOrElse(description, () => lead),
-        canonical: `/blog/${slug}`,
+        canonical: `/p/${slug}`,
       }),
     ),
     Option.getOrElse(
