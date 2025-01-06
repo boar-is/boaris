@@ -6,7 +6,7 @@ import { BlurFade } from '~/lib/motion/blur-fade'
 import { Link } from '~/lib/navigation/link'
 import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
-import { postRepository } from '~/model/post'
+import { postRepository } from '~/model/data/post'
 import { BlogPostArticle } from './_blog-post-article'
 
 export default async function SitePage() {

@@ -9,7 +9,7 @@ import { BlurFade } from '~/lib/motion/blur-fade'
 import { Link } from '~/lib/navigation/link'
 import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
-import { workspace } from '~/model/workspace'
+import { workspace } from '~/model/data/workspace'
 import { CtaModal } from './_cta-modal'
 
 const itemCx = cx('flex justify-center items-center rounded-full h-full')

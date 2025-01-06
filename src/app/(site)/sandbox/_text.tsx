@@ -18,7 +18,7 @@ import { seekChanges } from '~/lib/cm/seek-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { mono } from '~/lib/media/fonts/mono'
 import { cx } from '~/lib/react/cx'
-import { assetRepository } from '~/model/asset'
+import { assetRepository } from '~/model/data/asset'
 
 const encodeChange = Schema.encodeSync(OffsetChange)
 const decodeChange = Schema.decodeUnknownSync(OffsetChange)

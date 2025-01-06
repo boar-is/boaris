@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { workspace } from '~/model/workspace'
+import { workspace } from '~/model/data/workspace'
 
 export const constructMetadata = ({
   title,
