@@ -4,8 +4,10 @@ import ReactCodeMirror, {
   type ReactCodeMirrorRef,
 } from '@uiw/react-codemirror'
 import { Option } from 'effect'
-import { useStore } from 'jotai/index'
-import { memo, useEffect, useMemo, useRef } from 'react'
+import { useAtom, useAtomValue, useStore } from 'jotai'
+import { type PropsWithChildren, memo, useEffect, useMemo, useRef } from 'react'
+import { useAssetScrollLockedAtom } from '~/app/(site)/p/[slug]/_layout'
+import { Button } from '~/lib/buttons/button'
 import { codemirrorTheme } from '~/lib/cm/codemirror-theme'
 import { matchCodemirrorExtensions } from '~/lib/cm/match-codemirror-extensions'
 import { reversedChanges } from '~/lib/cm/reversed-changes'
@@ -13,6 +15,7 @@ import { scrollToSelection } from '~/lib/cm/scroll-to-selection'
 import { seekChanges } from '~/lib/cm/seek-changes'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
+import { cx } from '~/lib/react/cx'
 import type { AssetContentText } from '~/model/asset'
 import { PostLayoutPanelHeader } from './_layout-panel'
 import { usePostContent } from './_page-content'
@@ -20,6 +23,31 @@ import { usePostContent } from './_page-content'
 const basicCmSetup: BasicSetupOptions = {
   lineNumbers: false,
   foldGutter: false,
+}
+
+function ScrollLockButton() {
+  const [locked, setLocked] = useAtom(useAssetScrollLockedAtom())
+
+  return (
+    <Button intent="tertiary" size="xs" onPress={() => setLocked((it) => !it)}>
+      {locked ? 'Unlock Scrolling' : 'Lock Scrolling'}
+    </Button>
+  )
+}
+
+function ScrollLocker({ children }: PropsWithChildren) {
+  const locked = useAtomValue(useAssetScrollLockedAtom())
+
+  return (
+    <div
+      className={cx(
+        'flex-1 [scrollbar-width:thin]',
+        locked ? 'overflow-hidden' : 'overflow-auto',
+      )}
+    >
+      {children}
+    </div>
+  )
 }
 
 export const PostLayoutPanelText = memo(function PostLayoutPanelText({
@@ -102,16 +130,19 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
 
   return (
     <>
-      <PostLayoutPanelHeader name={name} />
-      <ReactCodeMirror
-        className="flex-1 overflow-hidden"
-        value={value}
-        extensions={extensions}
-        editable={false}
-        theme={codemirrorTheme}
-        basicSetup={basicCmSetup}
-        ref={cmRef}
-      />
+      <PostLayoutPanelHeader name={name}>
+        <ScrollLockButton />
+      </PostLayoutPanelHeader>
+      <ScrollLocker>
+        <ReactCodeMirror
+          value={value}
+          extensions={extensions}
+          editable={false}
+          theme={codemirrorTheme}
+          basicSetup={basicCmSetup}
+          ref={cmRef}
+        />
+      </ScrollLocker>
     </>
   )
 })

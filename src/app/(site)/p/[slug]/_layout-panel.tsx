@@ -6,13 +6,17 @@ const edgeCx = cx(
   'bg-accent-1/60 font-medium ~py-2/2.5 ~px-3.5/4  flex items-center ~gap-1/1.5 z-10 tracking-wide',
 )
 
-export function PostLayoutPanelHeader({ name }: { name: string }) {
+export function PostLayoutPanelHeader({
+  name,
+  children,
+}: PropsWithChildren<{ name: string }>) {
   const FileTypeIcon = matchFileTypeIcon(name)
 
   return (
     <header className={cx(edgeCx, 'text-accent-10 ~text-xs/sm')}>
       <FileTypeIcon className="~size-4/5 text-accent-11" />
       {name.split('/').pop()}
+      <div className="ml-auto">{children}</div>
     </header>
   )
 }

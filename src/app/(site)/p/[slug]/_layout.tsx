@@ -1,13 +1,14 @@
 'use client'
 
 import { Array, Match, Option, Schema, pipe } from 'effect'
-import { useAtomValue } from 'jotai/index'
+import { type PrimitiveAtom, useAtomValue } from 'jotai'
 import { AnimatePresence } from 'motion/react'
 import { use } from 'react'
 import { usePostContent } from '~/app/(site)/p/[slug]/_page-content'
 import { findClosestIndex } from '~/lib/collections/find-closest-index'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { motion } from '~/lib/motion/motion'
+import { createStrictContext } from '~/lib/react/create-strict-context'
 import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 import { Asset } from '~/model/asset'
@@ -15,6 +16,11 @@ import { LayoutChange } from '~/model/layoutChange'
 import { PostLayoutPanelImageDynamic } from './_layout-panel-image-dynamic'
 import { PostLayoutPanelImageStatic } from './_layout-panel-image-static'
 import { PostLayoutPanelText } from './_layout-panel-text'
+
+export const [AssetScrollLockedAtomContext, useAssetScrollLockedAtom] =
+  createStrictContext<PrimitiveAtom<boolean>>({
+    name: 'AssetScrollLockedAtomContext',
+  })
 
 export function PostLayout({
   assetsEncoded,
@@ -55,6 +61,8 @@ export function PostLayout({
   const gridTemplateAreas = useAtomValue(areas$)
   const areasAssets = useAtomValue(areasAssets$)
 
+  const scrollLocked$ = useConstAtom(true)
+
   return (
     <ul
       className={cx('grid gap-2 h-full', {
@@ -80,29 +88,31 @@ export function PostLayout({
             exit={{ opacity: 0, filter: 'blur(16px)' }}
             layout
           >
-            <motion.article
-              layout="position"
-              className="relative flex flex-col justify-between h-full"
-            >
-              {Match.value(asset.content).pipe(
-                Match.tag('AssetContentImageDynamic', (content) => (
-                  <PostLayoutPanelImageDynamic
-                    name={asset.name}
-                    content={content}
-                  />
-                )),
-                Match.tag('AssetContentImageStatic', (content) => (
-                  <PostLayoutPanelImageStatic
-                    name={asset.name}
-                    content={content}
-                  />
-                )),
-                Match.tag('AssetContentText', (content) => (
-                  <PostLayoutPanelText name={asset.name} content={content} />
-                )),
-                Match.exhaustive,
-              )}
-            </motion.article>
+            <AssetScrollLockedAtomContext value={scrollLocked$}>
+              <motion.article
+                layout="position"
+                className="relative flex flex-col justify-between h-full"
+              >
+                {Match.value(asset.content).pipe(
+                  Match.tag('AssetContentImageDynamic', (content) => (
+                    <PostLayoutPanelImageDynamic
+                      name={asset.name}
+                      content={content}
+                    />
+                  )),
+                  Match.tag('AssetContentImageStatic', (content) => (
+                    <PostLayoutPanelImageStatic
+                      name={asset.name}
+                      content={content}
+                    />
+                  )),
+                  Match.tag('AssetContentText', (content) => (
+                    <PostLayoutPanelText name={asset.name} content={content} />
+                  )),
+                  Match.exhaustive,
+                )}
+              </motion.article>
+            </AssetScrollLockedAtomContext>
           </motion.li>
         ))}
       </AnimatePresence>

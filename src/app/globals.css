@@ -40,7 +40,7 @@
 }
 
 .cm-scroller {
-  @apply font-mono [scrollbar-width:thin] !~text-xs/sm !overflow-hidden;
+  @apply font-mono !~text-xs/sm !overflow-hidden !w-fit;
 }
 
 .cm-line {
@@ -51,14 +51,8 @@
   @apply !bg-transparent !border-none;
 }
 
-.cm-activeLine {
-  @apply !bg-accent-11/10 border-y border-accent-11/20;
-}
-
-.cm-selectionBackground {
-  @apply !bg-accent-11/15;
-}
-
+.cm-activeLine,
+.cm-selectionBackground,
 .cm-selectionMatch {
   @apply !bg-accent-11/15;
 }
