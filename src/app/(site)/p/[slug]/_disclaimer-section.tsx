@@ -27,7 +27,7 @@ export function PostDisclaimerSection({
     <article
       className={cx(
         shadowInsetStyles,
-        'space-y-4 font-medium ~text-base/xl max-w-[80ch] bg-accent-4/30 bg-clip-padding border border-accent-9/50 ~rounded-2xl/4xl after:~rounded-2xl/4xl ~p-5/8 leading-relaxed drop-shadow-lg [&_em]:underline [&_em]:decoration-accent-11 [&_em]:decoration-wavy [&_em]:not-italic',
+        'mx-auto space-y-4 font-medium ~text-base/xl max-w-[80ch] bg-accent-4/30 bg-clip-padding border border-accent-9/50 ~rounded-2xl/4xl after:~rounded-2xl/4xl ~p-5/8 leading-relaxed drop-shadow-lg [&_em]:underline [&_em]:decoration-accent-11 [&_em]:decoration-wavy [&_em]:not-italic',
       )}
     >
       <p className="~text-lg/2xl font-semibold tracking-tight text-accent-12">

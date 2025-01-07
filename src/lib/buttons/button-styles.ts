@@ -15,7 +15,7 @@ export const buttonStyles = tv({
       secondary:
         'bg-gray-3 hover:bg-gray-4 pressed:bg-gray-5 border-gray-6 text-gray-11',
       tertiary:
-        'hover:bg-gray-3 pressed:bg-gray-5 text-gray-11 hover:text-gray-12',
+        'hover:bg-gray-3/35 pressed:bg-gray-5/35 text-gray-11 hover:text-gray-12',
       destructive:
         'bg-destructive-9 pressed:bg-destructive-10 text-destructive-12 border-destructive-6',
     },

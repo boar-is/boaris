@@ -1,3 +1,4 @@
+export * from './icons/arrow-up-from-dot'
 export * from './icons/close'
 export * from './icons/css-file-type'
 export * from './icons/default-file-type'

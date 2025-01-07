@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
+import { ButtonJumpToTop } from '~/app/(site)/p/[slug]/_button-jump-to-top'
 import { readableDate } from '~/lib/date/readable-date'
 import { mono } from '~/lib/media/fonts/mono'
 import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
@@ -94,7 +95,7 @@ export default async function PostPage({
   } satisfies ImageProps
 
   return (
-    <article className={cx(mono.variable, 'flex flex-col ~gap-8/12')}>
+    <article className={cx(mono.variable, 'flex flex-col ~gap-10/16')}>
       <BackgroundEffect {...posterImageProps} />
       <header className="container flex flex-col justify-between lg:flex-row ~gap-6/10 ~p-4/5 drop-shadow-md">
         <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
@@ -185,6 +186,18 @@ export default async function PostPage({
           <PostSubscriptionSection />
         </div>
       </BlurFade>
+      <BlurFade inView>
+        <div className="container">
+          <PostDisclaimerSection
+            slug={slug}
+            intent="Check out this interactive blog post from @MrBoaris 🤯:"
+            twitterUrl={twitterUrl}
+          />
+        </div>
+      </BlurFade>
+      <div>
+        <ButtonJumpToTop />
+      </div>
     </article>
   )
 }

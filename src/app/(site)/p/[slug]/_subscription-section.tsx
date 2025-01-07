@@ -11,7 +11,7 @@ export function PostSubscriptionSection() {
     <article
       className={cx(
         shadowInsetStyles,
-        'space-y-4 font-medium ~text-base/xl max-w-[80ch] bg-gray-4/30 bg-clip-padding border border-gray-9/50 ~rounded-2xl/4xl after:~rounded-2xl/4xl ~p-5/8 leading-relaxed drop-shadow-lg',
+        'mx-auto space-y-4 font-medium ~text-base/xl max-w-[80ch] bg-gray-4/30 bg-clip-padding border border-gray-9/50 ~rounded-2xl/4xl after:~rounded-2xl/4xl ~p-5/8 leading-relaxed drop-shadow-lg',
       )}
     >
       <p className="~text-lg/2xl font-semibold tracking-tight">
@@ -23,7 +23,7 @@ export function PostSubscriptionSection() {
         journey. Subscribe to stay updated on new posts and format refinements.
       </p>
       <PostSubscriptionSectionFormProvider>
-        <Form className="max-w-lg flex gap-2 items-center">
+        <Form className="max-w-lg flex gap-2 items-stretch">
           <TextField name="email" type="email" isRequired className="basis-3/5">
             <Label className="sr-only">Email</Label>
             <Input
