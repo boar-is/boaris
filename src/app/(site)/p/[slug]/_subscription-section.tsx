@@ -35,7 +35,7 @@ export function PostSubscriptionSection() {
             <Button
               type="submit"
               intent="primary"
-              className="rounded-xl ~text-base/lg basis-2/5"
+              className="rounded-xl basis-2/5"
             >
               Subscribe
             </Button>
