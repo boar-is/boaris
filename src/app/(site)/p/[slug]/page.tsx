@@ -94,7 +94,7 @@ export default async function PostPage({
   } satisfies ImageProps
 
   return (
-    <article className={cx(mono.variable, 'flex flex-col ~gap-6/8')}>
+    <article className={cx(mono.variable, 'flex flex-col ~gap-8/12')}>
       <BackgroundEffect {...posterImageProps} />
       <header className="container flex flex-col justify-between lg:flex-row ~gap-6/10 ~p-4/5 drop-shadow-md">
         <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
@@ -151,7 +151,11 @@ export default async function PostPage({
         </section>
       </header>
       <div className="container">
-        <DisclaimerSection slug={slug} twitterUrl={twitterUrl} />
+        <DisclaimerSection
+          slug={slug}
+          intent="Check out this interactive blog post from @MrBoaris 🤯:"
+          twitterUrl={twitterUrl}
+        />
       </div>
       <PostContent
         interpolation={interpolation}

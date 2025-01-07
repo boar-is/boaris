@@ -39,6 +39,7 @@
   @apply h-full;
 }
 
+/* todo fit bug */
 .cm-scroller {
   @apply font-mono !~text-xs/sm !overflow-hidden !w-fit;
 }
