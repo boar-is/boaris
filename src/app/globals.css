@@ -39,13 +39,12 @@
   @apply h-full;
 }
 
-/* todo fit bug */
 .cm-scroller {
-  @apply font-mono !~text-xs/sm !overflow-hidden !w-fit;
+  @apply font-mono !~text-xs/sm !overflow-visible !w-full;
 }
 
 .cm-line {
-  @apply !~px-2/4;
+  @apply !~pl-2/4;
 }
 
 .cm-scroller:has(.cm-selectionBackground) .cm-activeLine {
@@ -85,6 +84,10 @@
 
   .typography :where(code) {
     @apply font-mono text-[80%] [font-variant-ligatures:normal] border border-accent-7 py-[0.25%] px-[1%] bg-accent-6/35 text-accent-12 ~rounded-md/lg tracking-normal;
+  }
+
+  .typography :where(em) {
+    @apply underline decoration-accent-11 decoration-wavy not-italic;
   }
 
   .typography :where(strong) {
