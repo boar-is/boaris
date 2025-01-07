@@ -2,8 +2,8 @@ import { Workspace } from '~/model/workspace'
 
 export const workspace = new Workspace({
   name: 'Boaris',
-  // TODO fill up
-  description: 'Boaris description',
+  description:
+    'I’m sharing my personal approach to learning — an interactive format with step-by-step coding guides and clear, practical explanations.',
   logoUrl: '/logo.webp',
   socialLinks: [
     {

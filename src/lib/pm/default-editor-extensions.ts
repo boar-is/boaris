@@ -38,10 +38,6 @@ export const defaultEditorExtensions: Extensions = [
   Italic,
   Link.configure({
     defaultProtocol: 'https',
-    // TODO Only href should go to attrs
-    // HTMLAttributes: {
-    //   rel: 'noopener noreferrer ugc',
-    // },
   }),
   ListItem,
   OrderedList,
@@ -51,7 +47,6 @@ export const defaultEditorExtensions: Extensions = [
   }),
   Strike,
   Text,
-  // TODO occasional textStyle on copy
   TextStyle,
   Typography,
 ]
