@@ -6,7 +6,7 @@ import { subscriptionAction } from '~/features/subscription-action'
 import { FormContext } from '~/lib/forms/form'
 import { toast } from '~/lib/toast/toast'
 
-export function PostSubscriptionSectionFormProvider({
+export function SubscriptionSectionFormProvider({
   children,
 }: PropsWithChildren) {
   const [state, action] = useActionState(subscriptionAction, {
