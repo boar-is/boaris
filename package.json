@@ -52,20 +52,19 @@
     "@tiptap/react": "2.11.0",
     "@total-typescript/ts-reset": "0.6.1",
     "@types/node": "22.10.5",
-    "@types/react": "19.0.2",
+    "@types/react": "19.0.3",
     "@types/react-dom": "19.0.2",
     "@uiw/codemirror-themes": "4.23.7",
     "@uiw/react-codemirror": "4.23.7",
     "@vitejs/plugin-react": "4.3.4",
     "clsx": "2.1.1",
-    "effect": "3.12.0",
+    "effect": "3.12.1",
     "fluid-tailwind": "1.0.4",
     "jotai": "2.11.0",
     "jotai-components": "0.2.0",
     "jsdom": "25.0.1",
-    "lefthook": "1.10.1",
     "lucide-react": "0.469.0",
-    "motion": "11.15.0",
+    "motion": "11.16.0",
     "next": "15.1.3",
     "postcss": "8.4.49",
     "react": "19.0.0",
@@ -84,7 +83,7 @@
   "resolutions": {
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "@types/react": "19.0.2",
+    "@types/react": "19.0.3",
     "@types/react-dom": "19.0.2"
   }
 }
