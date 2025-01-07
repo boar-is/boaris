@@ -4,7 +4,7 @@ export const workspace = new Workspace({
   name: 'Boaris',
   // TODO fill up
   description: 'Boaris description',
-  logoUrl: '/logo.png',
+  logoUrl: '/logo.webp',
   socialLinks: [
     {
       href: 'https://github.com/boar-is',
