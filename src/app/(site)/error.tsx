@@ -6,6 +6,8 @@ import { Button } from '~/lib/buttons/button'
 import { buttonStyles } from '~/lib/buttons/button-styles'
 import { Link } from '~/lib/navigation/link'
 
+const whitespace = ' '
+
 export default function SiteError({
   error,
   reset,
@@ -16,17 +18,20 @@ export default function SiteError({
   const router = useRouter()
 
   return (
-    <article className="mx-auto max-w-xl ~px-8/12 ~py-8/12 ~space-y-8/12 ~text-base/xl leading-relaxed">
+    <article className="mx-auto max-w-xl ~px-8/12 ~py-8/12 ~space-y-8/12 ~text-base/xl leading-relaxed text-pretty font-medium">
       <header>
-        <h1 className="~text-3xl/5xl font-semibold">Something went wrong :/</h1>
+        <h1 className="~text-3xl/5xl font-semibold">
+          Oops! Something went wrong :/
+        </h1>
       </header>
-      <p className="text-gray-11 font-medium text-pretty ~space-y-6">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-        aperiam, blanditiis corporis dolores dolorum impedit in ipsum iste
-        magnam officia, officiis omnis placeat, rem reprehenderit sed sunt
-        veritatis? Ea, id. {error.digest && <code>({error.digest})</code>}
+      <p>
+        I’m experimenting with a new format, and, well, sometimes things break.
+        Don’t worry, though—I’ll get this fixed as soon as possible.{whitespace}
+        {error.digest && (
+          <code className="text-gray-11">(digest {error.digest})</code>
+        )}
       </p>
-      <footer className="space-x-4 *:~px-4/8">
+      <footer className="flex flex-wrap gap-4 *:~px-4/8">
         <Link
           href="https://google.com"
           target="_blank"
@@ -46,6 +51,7 @@ export default function SiteError({
           Try again
         </Button>
       </footer>
+      <p>Thanks for your patience as I refine this experience!</p>
     </article>
   )
 }
