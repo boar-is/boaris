@@ -11,8 +11,8 @@ export const workspace = new Workspace({
       label: 'GitHub',
     },
     {
-      href: process.env['CONTACT_ME_FORM_URL']!,
-      label: 'Contact Me',
+      href: 'https://x.com/MrBoaris',
+      label: 'X',
     },
   ],
 })
