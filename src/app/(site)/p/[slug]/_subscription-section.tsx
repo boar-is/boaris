@@ -1,5 +1,5 @@
 import { Button } from '~/lib/buttons/button'
-import { FieldError, Form } from '~/lib/forms/form'
+import { Form } from '~/lib/forms/form'
 import { PendingFormDisabledButtonProvider } from '~/lib/forms/pending-form-disabled-button-provider'
 import { Input, Label, TextField } from '~/lib/forms/text-field'
 import { cx } from '~/lib/react/cx'
@@ -11,53 +11,38 @@ export function PostSubscriptionSection() {
     <article
       className={cx(
         shadowInsetStyles,
-        '~space-y-6/8 max-w-xl ~text-base/lg mx-auto ~rounded-4xl/5xl after:~rounded-4xl/5xl ~p-6/8 bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
+        'space-y-4 font-medium ~text-base/xl max-w-[80ch] bg-gray-4/30 bg-clip-padding border border-gray-9/50 ~rounded-2xl/4xl after:~rounded-2xl/4xl ~p-5/8 leading-relaxed drop-shadow-lg',
       )}
     >
-      <header>
-        <h2 className="~text-3xl/4xl font-semibold">Like the format?</h2>
-      </header>
-      <section className="text-gray-11 font-medium text-pretty ~space-y-4/6">
-        <p>
-          OR CONTACT ME Lorem ipsum dolor sit amet, consectetur adipisicing
-          elit. Esse, eveniet hic laudantium nam nesciunt nisi odit qui sapiente
-          velit voluptates? Ad aperiam consequatur culpa dolor ipsum neque quia
-          similique vitae?
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-          aliquid delectus deserunt ducimus eius illum odio optio provident
-          reprehenderit velit. Aliquam amet cupiditate delectus dolor, dolore
-          dolores numquam officiis quia.
-        </p>
-      </section>
+      <p className="~text-lg/2xl font-semibold tracking-tight">
+        Enjoyed the format?
+      </p>
+      <p>
+        I’m on a mission to make learning more thoughtful and effective. This
+        format is just the beginning, and I’d love for you to join me on this
+        journey. Subscribe to stay updated on new posts and format refinements.
+      </p>
       <PostSubscriptionSectionFormProvider>
-        <Form className="flex flex-col gap-4">
-          <TextField
-            name="email"
-            type="email"
-            isRequired
-            autoFocus
-            className="flex w-full flex-col gap-1"
-          >
-            <Label className="text-gray-11">Email</Label>
+        <Form className="max-w-lg flex gap-2 items-center">
+          <TextField name="email" type="email" isRequired className="basis-3/5">
+            <Label className="sr-only">Email</Label>
             <Input
-              placeholder="person@cool-domain.com"
-              className="rounded-xl border border-accent-7 focus:border-accent-8 text-accent-11 bg-accent-2 ~px-3/4 ~py-1/2 ~text-lg/xl placeholder-accent-5 transition-colors"
+              placeholder="wow-person@domain.com"
+              className="rounded-xl border border-accent-8 focus:border-accent-11 text-accent-11 bg-accent-3 ~px-3/4 ~py-1/2 ~text-lg/xl placeholder-accent-7 transition-colors w-full"
             />
-            <FieldError className="text-destructive-9 text-sm" />
           </TextField>
           <PendingFormDisabledButtonProvider>
             <Button
               type="submit"
               intent="primary"
-              className="rounded-xl ~text-base/lg"
+              className="rounded-xl ~text-base/lg basis-2/5"
             >
               Subscribe
             </Button>
           </PendingFormDisabledButtonProvider>
         </Form>
       </PostSubscriptionSectionFormProvider>
+      <p>Let’s make learning better — together.</p>
     </article>
   )
 }

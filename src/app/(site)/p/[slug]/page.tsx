@@ -22,7 +22,7 @@ import { layoutChangeRepository } from '~/model/data/layoutChange'
 import { postRepository } from '~/model/data/post'
 import { LayoutChange } from '~/model/layoutChange'
 import PostCaptions from './_captions'
-import { DisclaimerSection } from './_disclaimer-section'
+import { PostDisclaimerSection } from './_disclaimer-section'
 import { PostContent } from './_page-content'
 import { PostSubscriptionSection } from './_subscription-section'
 
@@ -150,13 +150,20 @@ export default async function PostPage({
           )}
         </section>
       </header>
-      <div className="container">
-        <DisclaimerSection
-          slug={slug}
-          intent="Check out this interactive blog post from @MrBoaris 🤯:"
-          twitterUrl={twitterUrl}
-        />
-      </div>
+      <BlurFade inView>
+        <div className="container">
+          <PostDisclaimerSection
+            slug={slug}
+            intent="Check out this interactive blog post from @MrBoaris 🤯:"
+            twitterUrl={twitterUrl}
+          />
+        </div>
+      </BlurFade>
+      <BlurFade inView>
+        <div className="container">
+          <PostSubscriptionSection />
+        </div>
+      </BlurFade>
       <PostContent
         interpolation={interpolation}
         captionsSlot={

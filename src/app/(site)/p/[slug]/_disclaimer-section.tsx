@@ -18,13 +18,13 @@ const linkProps: LinkProps = {
   target: '_blank',
 }
 
-export function DisclaimerSection({
+export function PostDisclaimerSection({
   slug,
   intent,
   twitterUrl,
 }: { slug: string; intent: string; twitterUrl: Option.Option<string> }) {
   return (
-    <div
+    <article
       className={cx(
         shadowInsetStyles,
         'space-y-4 font-medium ~text-base/xl max-w-[80ch] bg-accent-4/30 bg-clip-padding border border-accent-9/50 ~rounded-2xl/4xl after:~rounded-2xl/4xl ~p-5/8 leading-relaxed drop-shadow-lg [&_em]:underline [&_em]:decoration-accent-11 [&_em]:decoration-wavy [&_em]:not-italic',
@@ -75,6 +75,6 @@ export function DisclaimerSection({
         </Link>
         {whitespace}— it would mean a lot!
       </p>
-    </div>
+    </article>
   )
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { Function, Match } from 'effect'
 import { type PropsWithChildren, useActionState, useEffect } from 'react'
 import { subscriptionAction } from '~/features/subscription-action'
 import { FormContext } from '~/lib/forms/form'
@@ -13,14 +14,16 @@ export function PostSubscriptionSectionFormProvider({
   })
 
   useEffect(() => {
-    if (state.status !== 'success') {
-      return
-    }
-
-    toast.success(`Confirmation email sent to ${state.email}`, {
-      description: 'Please, check your inbox and a spam folder',
-      duration: 10e3,
-    })
+    Match.value(state).pipe(
+      Match.when({ status: 'initial' }, Function.constVoid),
+      Match.when({ status: 'error' }, (state) => toast.error(state.error)),
+      Match.when({ status: 'success' }, (state) =>
+        toast.success(`Confirmation email sent to ${state.email}`, {
+          description: 'Please, check your inbox and a spam folder',
+          duration: 10e3,
+        }),
+      ),
+    )
   }, [state])
 
   return (
