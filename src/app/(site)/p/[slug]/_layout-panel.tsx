@@ -3,7 +3,7 @@ import { matchFileTypeIcon } from '~/lib/media/match-file-type-icon'
 import { cx } from '~/lib/react/cx'
 
 const edgeCx = cx(
-  'bg-accent-1/60 font-medium ~py-2/2.5 ~px-3.5/4  flex items-center ~gap-1/1.5 z-10 tracking-wide',
+  'bg-accent-1/60 font-medium ~py-1/2.5 ~px-3.5/4  flex items-center ~gap-1/1.5 z-10 tracking-wide',
 )
 
 export function PostLayoutPanelHeader({
