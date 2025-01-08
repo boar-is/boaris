@@ -41,11 +41,10 @@ export async function generateMetadata({
   return pipe(
     postRepository,
     Array.findFirst((it) => it.slug === slug),
-    Option.andThen(({ title, lead, description, posterUrl }) =>
+    Option.andThen(({ title, lead, description }) =>
       constructMetadata({
         title,
         description: Option.getOrElse(description, () => lead),
-        images: posterUrl,
         canonical: `/p/${slug}`,
       }),
     ),

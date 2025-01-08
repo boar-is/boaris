@@ -4,6 +4,7 @@ import type { NextConfig } from 'next'
 import { resolveUrl } from '~/lib/metadata/resolvers'
 
 const isLocalhost = resolveUrl().startsWith('http://localhost:')
+const isProduction = globalThis.process.env['NODE_ENV'] === 'production'
 const isAnalyze = globalThis.process.env['ANALYZE'] === 'true'
 
 const baseNextConfig: NextConfig = {
@@ -74,6 +75,19 @@ const baseNextConfig: NextConfig = {
           },
         ],
       },
+      ...(isProduction
+        ? [
+            {
+              source: '/favicon.ico',
+              headers: [
+                {
+                  key: 'Cache-Control',
+                  value: 'public, max-age=3600, must-revalidate',
+                },
+              ],
+            },
+          ]
+        : []),
     ]
   },
 }

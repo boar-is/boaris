@@ -5,13 +5,11 @@ import { resolveUrl } from './resolvers'
 export const constructMetadata = ({
   title,
   description = workspace.description,
-  images = '/images/og.webp',
   canonical,
   noIndex,
 }: Partial<{
   title: string
   description: string
-  images: string
   canonical: string
   noIndex: boolean
 }> = {}): Metadata => {
@@ -19,7 +17,7 @@ export const constructMetadata = ({
   return {
     title,
     description,
-    openGraph: { title, description, images },
+    openGraph: { title, description },
     ...(canonical && {
       alternates: {
         canonical: resolveUrl(canonical),
