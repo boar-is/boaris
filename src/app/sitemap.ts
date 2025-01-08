@@ -1,6 +1,6 @@
 import { DateTime } from 'effect'
 import type { MetadataRoute } from 'next'
-import { resolveUrl } from '~/lib/metadata/resolvers'
+import { resolveUrl } from '~/lib/routing/resolvers'
 import { postRepository } from '~/model/data/post'
 
 export default function sitemap(): MetadataRoute.Sitemap {

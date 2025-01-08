@@ -1,10 +1,10 @@
 import { Option } from 'effect'
 import { buttonStyles } from '~/lib/buttons/button-styles'
 import { XIcon } from '~/lib/media/icons'
-import { resolveUrl } from '~/lib/metadata/resolvers'
 import { constructXIntent } from '~/lib/navigation/construct-x-intent'
 import { Link, type LinkProps } from '~/lib/navigation/link'
 import { cx } from '~/lib/react/cx'
+import { resolveUrl } from '~/lib/routing/resolvers'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 
 const whitespace = ' '

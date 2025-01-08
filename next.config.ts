@@ -1,7 +1,7 @@
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import optimizeLocales from '@react-aria/optimize-locales-plugin'
 import type { NextConfig } from 'next'
-import { resolveUrl } from '~/lib/metadata/resolvers'
+import { resolveUrl } from '~/lib/routing/resolvers'
 
 const isLocalhost = resolveUrl().startsWith('http://localhost:')
 const isProduction = globalThis.process.env['NODE_ENV'] === 'production'

@@ -1,4 +1,4 @@
-import { Array, Function, Option, Schema, pipe } from 'effect'
+import { Array, Option, Schema } from 'effect'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
@@ -8,10 +8,10 @@ import { readableDate } from '~/lib/date/readable-date'
 import { mono } from '~/lib/media/fonts/mono'
 import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
-import { constructMetadata } from '~/lib/metadata/construct-metadata'
 import { BlurFade } from '~/lib/motion/blur-fade'
 import { cx } from '~/lib/react/cx'
 import type { WithStaticParams } from '~/lib/react/with-static-params'
+import { resolveUrl } from '~/lib/routing/resolvers'
 import { BackgroundEffect } from '~/lib/surfaces/background'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 import { simulateReq } from '~/model/_no-db-helpers'
@@ -38,24 +38,21 @@ export async function generateMetadata({
 }: WithStaticParams<typeof generateStaticParams>): Promise<Metadata> {
   const { slug } = await params
 
-  return pipe(
-    postRepository,
-    Array.findFirst((it) => it.slug === slug),
-    Option.andThen(({ title, lead, description }) =>
-      constructMetadata({
-        title,
-        description: Option.getOrElse(description, () => lead),
-        canonical: `/p/${slug}`,
-      }),
-    ),
-    Option.getOrElse(
-      Function.constant(
-        constructMetadata({
-          title: 'Post Not Found',
-        }),
-      ),
-    ),
+  const post = await simulateReq(() =>
+    postRepository.find((it) => it.slug === slug),
   )
+
+  if (!post) {
+    return notFound()
+  }
+
+  return {
+    title: post.title,
+    description: Option.getOrElse(post.description, () => post.lead),
+    alternates: {
+      canonical: resolveUrl(`/p/${slug}`),
+    },
+  }
 }
 
 export default async function PostPage({

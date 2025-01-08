@@ -9,16 +9,22 @@ import { cx } from '~/lib/react/cx'
 import { AriaRouterProvider } from '~/lib/routing/aria-router-provider'
 import { ToastProvider } from '~/lib/toast/toast-provider'
 import './globals.css'
-import type { Viewport } from 'next'
-import { constructMetadata } from '~/lib/metadata/construct-metadata'
+import type { Metadata, Viewport } from 'next'
 import { BackgroundProvider } from '~/lib/surfaces/background'
+import { workspace } from '~/model/data/workspace'
 
 export const viewport: Viewport = {
   themeColor: '#101211',
   colorScheme: 'dark',
 }
 
-export const metadata = constructMetadata()
+export const metadata: Metadata = {
+  title: {
+    template: `%s • ${workspace.name}`,
+    default: workspace.name,
+  },
+  description: workspace.description,
+}
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (

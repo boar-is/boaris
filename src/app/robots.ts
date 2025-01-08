@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { resolveUrl } from '~/lib/metadata/resolvers'
+import { resolveUrl } from '~/lib/routing/resolvers'
 
 export default function robots(): MetadataRoute.Robots {
   return {
