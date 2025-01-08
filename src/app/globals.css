@@ -12,6 +12,8 @@
   *::after {
     @apply border-gray-6;
     font-variation-settings: "opsz" 32;
+    font-feature-settings: "liga", "calt", "dlig", "zero", "ss01", "cv06",
+      "cv11";
   }
 
   :focus-visible {

@@ -1,7 +1,6 @@
-import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
 
-export const sans = Inter({
+export const sans = localFont({
+  src: './files/InterVariable.woff2',
   variable: '--font-sans',
-  subsets: ['latin'],
-  axes: ['opsz'],
 })
