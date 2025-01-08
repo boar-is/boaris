@@ -30,7 +30,7 @@ export const layoutChangeRepository: ReadonlyArray<
   lc1(7024, ''),
   lc1(7771, '"app/robots.ts"'),
   lc1(8015, '"lib/metadata/construct-metadata.ts"'),
-  lc1(8274, '"og-framing"'),
+  lc1(8274, ''),
   lc1(8735, ''),
   lc1(9120, '"lib/metadata/construct-metadata.ts"'),
   lc1(9232, ''),

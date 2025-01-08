@@ -1,8 +1,8 @@
 import { Array, pipe } from 'effect'
 import type { PropsWithChildren } from 'react'
+import icon from '~/app/icon.png'
 import { buttonStyles } from '~/lib/buttons/button-styles'
 import { SignatureIcon } from '~/lib/media/icons'
-import logo from '~/lib/media/icons/logo.webp'
 import { Image } from '~/lib/media/image'
 import { matchSocialNetworkIcon } from '~/lib/media/match-social-network-icon'
 import { BlurFade } from '~/lib/motion/blur-fade'
@@ -45,8 +45,8 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                 )}
               >
                 <Image
-                  src={logo}
-                  alt={`${name}'s logo`}
+                  src={icon}
+                  alt={`${name}'s icon`}
                   width={36}
                   height={36}
                   className="rounded-[inherit] shadow-inner ~size-8/10"

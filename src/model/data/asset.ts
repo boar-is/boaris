@@ -17,10 +17,10 @@ export const assetRepository: ReadonlyArray<typeof Asset.Encoded> = [
   {
     _id: 'icon-180',
     postSlug: 'nextjs-metadata',
-    name: 'icon-180.webp',
+    name: 'icon-180.png',
     content: {
       _tag: 'AssetContentImageStatic',
-      href: '/assets/nextjs-metadata/icon-180.webp',
+      href: '/assets/nextjs-metadata/icon-180.png',
       caption: undefined,
       alt: 'An icon in a 180x180 frame',
     },
@@ -28,10 +28,10 @@ export const assetRepository: ReadonlyArray<typeof Asset.Encoded> = [
   {
     _id: 'icons-app-folder',
     postSlug: 'nextjs-metadata',
-    name: 'icons-app-folder.webp',
+    name: 'icons-app-folder.png',
     content: {
       _tag: 'AssetContentImageStatic',
-      href: '/assets/nextjs-metadata/icons-app-folder.webp',
+      href: '/assets/nextjs-metadata/icons-app-folder.png',
       caption: undefined,
       alt: 'A file tree with selected icons',
     },
@@ -39,10 +39,10 @@ export const assetRepository: ReadonlyArray<typeof Asset.Encoded> = [
   {
     _id: 'icons-too-much',
     postSlug: 'nextjs-metadata',
-    name: 'icons-too-much.webp',
+    name: 'icons-too-much.png',
     content: {
       _tag: 'AssetContentImageStatic',
-      href: '/assets/nextjs-metadata/icons-too-much.webp',
+      href: '/assets/nextjs-metadata/icons-too-much.png',
       caption: undefined,
       alt: 'An archive with a lot of redundant icons',
     },
@@ -50,10 +50,10 @@ export const assetRepository: ReadonlyArray<typeof Asset.Encoded> = [
   {
     _id: 'metadata-fields',
     postSlug: 'nextjs-metadata',
-    name: 'metadata-fields.webp',
+    name: 'metadata-fields.png',
     content: {
       _tag: 'AssetContentImageStatic',
-      href: '/assets/nextjs-metadata/metadata-fields.webp',
+      href: '/assets/nextjs-metadata/metadata-fields.png',
       caption: undefined,
       alt: 'An intellisense of the Metadata fields',
     },
@@ -61,10 +61,10 @@ export const assetRepository: ReadonlyArray<typeof Asset.Encoded> = [
   {
     _id: 'nextjs-docs-deduplication',
     postSlug: 'nextjs-metadata',
-    name: 'nextjs-docs-deduplication.webp',
+    name: 'nextjs-docs-deduplication.png',
     content: {
       _tag: 'AssetContentImageStatic',
-      href: '/assets/nextjs-metadata/nextjs-docs-deduplication.webp',
+      href: '/assets/nextjs-metadata/nextjs-docs-deduplication.png',
       caption:
         'An excerpt from “Benefits of Server Rendering” part of Next.js docs.',
       alt: 'An excerpt from Next.js docs about deduplication.',
@@ -73,44 +73,44 @@ export const assetRepository: ReadonlyArray<typeof Asset.Encoded> = [
   {
     _id: 'nextjs-docs-metadata-base',
     postSlug: 'nextjs-metadata',
-    name: 'nextjs-docs-metadata-base.webp',
+    name: 'nextjs-docs-metadata-base.png',
     content: {
       _tag: 'AssetContentImageStatic',
-      href: '/assets/nextjs-metadata/nextjs-docs-metadata-base.webp',
+      href: '/assets/nextjs-metadata/nextjs-docs-metadata-base.png',
       caption:
         'An excerpt from “metadataBase’ default value” part of Next.js docs.',
       alt: 'An excerpt from Next.js docs about metadataBase default value.',
     },
   },
   {
-    _id: 'og-framing',
+    _id: 'real-favicon-generator',
     postSlug: 'nextjs-metadata',
-    name: 'og-framing.webp',
+    name: 'real-favicon-generator.png',
     content: {
       _tag: 'AssetContentImageStatic',
-      href: '/assets/nextjs-metadata/og-framing.webp',
-      caption: undefined,
-      alt: 'An example of an Open Graph image with a centered frame',
+      href: '/assets/nextjs-metadata/real-favicon-generator.png',
+      caption: 'RealFaviconGenerator',
+      alt: 'A screenshot of RealFaviconGenerator',
     },
   },
   {
     _id: 'real-favicon-generator-download',
     postSlug: 'nextjs-metadata',
-    name: 'real-favicon-generator-download.webp',
+    name: 'real-favicon-generator-download.png',
     content: {
       _tag: 'AssetContentImageStatic',
-      href: '/assets/nextjs-metadata/real-favicon-generator-download.webp',
+      href: '/assets/nextjs-metadata/real-favicon-generator-download.png',
       caption: 'Download the app files',
-      alt: 'A screenshot from the download page of RealFaviconGenerator',
+      alt: 'A screenshot of the download page of RealFaviconGenerator',
     },
   },
   {
     _id: 'rich-results',
     postSlug: 'nextjs-metadata',
-    name: 'rich-results.webp',
+    name: 'rich-results.png',
     content: {
       _tag: 'AssetContentImageStatic',
-      href: '/assets/nextjs-metadata/rich-results.webp',
+      href: '/assets/nextjs-metadata/rich-results.png',
       caption: 'Google Rich Results Carousel',
       alt: 'Google Rich Results Carousel.',
     },
