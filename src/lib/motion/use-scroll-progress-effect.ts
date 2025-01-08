@@ -1,6 +1,7 @@
 import { useResizeObserver } from '@react-aria/utils'
 import { useMotionValueEvent, useScroll } from 'motion/react'
 import type { RefObject } from 'react'
+import { useManualScrollRestoration } from '~/lib/react/use-manual-scroll-restoration'
 
 export const useScrollProgressEffect = ({
   ref,
@@ -14,6 +15,8 @@ export const useScrollProgressEffect = ({
     offset: ['start center', 'end end'],
   })
 
+  useManualScrollRestoration()
+
   useMotionValueEvent(scrollYProgress, 'change', onUpdate)
   /**
    * A hack to recalculate scrollYProgress
@@ -21,6 +24,6 @@ export const useScrollProgressEffect = ({
    */
   useResizeObserver({
     ref,
-    onResize: () => window.scrollTo({ top: window.scrollY + 1 }),
+    onResize: () => window.scrollBy({ top: 1 }),
   })
 }
