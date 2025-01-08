@@ -15,13 +15,11 @@ import { resolveUrl } from '~/lib/routing/resolvers'
 import { BackgroundEffect } from '~/lib/surfaces/background'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 import { simulateReq } from '~/model/_no-db-helpers'
-import { Asset } from '~/model/asset'
-import { Captions } from '~/model/captions'
 import { assetRepository } from '~/model/data/asset'
 import { captionsRepository } from '~/model/data/captions'
 import { layoutChangeRepository } from '~/model/data/layoutChange'
 import { postRepository } from '~/model/data/post'
-import { LayoutChange } from '~/model/layoutChange'
+import { Post } from '~/model/post'
 import PostCaptions from './_captions'
 import { PostDisclaimerSection } from './_disclaimer-section'
 import { PostContent } from './_page-content'
@@ -38,17 +36,17 @@ export async function generateMetadata({
 }: WithStaticParams<typeof generateStaticParams>): Promise<Metadata> {
   const { slug } = await params
 
-  const post = await simulateReq(() =>
+  const postEncoded = await simulateReq(() =>
     postRepository.find((it) => it.slug === slug),
   )
 
-  if (!post) {
+  if (!postEncoded) {
     return notFound()
   }
 
   return {
-    title: post.title,
-    description: Option.getOrElse(post.description, () => post.lead),
+    title: postEncoded.title,
+    description: postEncoded.description ?? postEncoded.lead,
     alternates: {
       canonical: resolveUrl(`/p/${slug}`),
     },
@@ -60,29 +58,26 @@ export default async function PostPage({
 }: WithStaticParams<typeof generateStaticParams>) {
   const { slug } = await params
 
-  const post = await simulateReq(() =>
+  const postEncoded = await simulateReq(() =>
     postRepository.find((it) => it.slug === slug),
   )
 
-  if (!post) {
+  if (!postEncoded) {
     return notFound()
   }
 
-  const captions = captionsRepository.find((it) => it.postSlug === slug)!
+  const captionsEncoded = captionsRepository.find((it) => it.postSlug === slug)!
 
   const assetsEncoded = simulateReq(() =>
-    Schema.encodeSync(Schema.Array(Asset))(
-      assetRepository.filter((it) => it.postSlug === slug),
-    ),
+    assetRepository.filter((it) => it.postSlug === slug),
   )
 
   const layoutChangesEncoded = simulateReq(() =>
-    Schema.encodeSync(Schema.Array(LayoutChange))(
-      layoutChangeRepository.filter((it) => it.postSlug === slug),
-    ),
+    layoutChangeRepository.filter((it) => it.postSlug === slug),
   )
 
-  const { title, lead, date, tags, posterUrl, interpolation, twitterUrl } = post
+  const { title, lead, date, tags, posterUrl, interpolation, twitterUrl } =
+    Schema.decodeSync(Post)(postEncoded)
 
   const posterImageProps = {
     src: posterUrl,
@@ -164,11 +159,7 @@ export default async function PostPage({
       </BlurFade>
       <PostContent
         interpolation={interpolation}
-        captionsSlot={
-          <PostCaptions
-            captionsEncoded={Schema.encodeSync(Captions)(captions)}
-          />
-        }
+        captionsSlot={<PostCaptions captionsEncoded={captionsEncoded} />}
         layoutSlot={
           <Suspense fallback={null}>
             <PostLayout

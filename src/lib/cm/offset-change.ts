@@ -17,14 +17,14 @@ export const OffsetChange = Schema.Tuple(
   ),
 )
 
-export const createOffsetChangesShifter = () => {
-  const decode = Schema.decodeSync(OffsetChange)
-  return (changes: ReadonlyArray<typeof OffsetChange.Encoded>) => {
-    const min = changes[0]?.[0] ?? 0
-    const max = changes[changes.length - 1]?.[0] ?? 0
-    return (from = 0, to = from) =>
-      changes.map(([offset, tuple]) =>
-        decode([transform(offset, [min, max], [from, to]), tuple]),
-      )
-  }
+export const shiftedOffsetChanges = (
+  changes: ReadonlyArray<typeof OffsetChange.Encoded>,
+) => {
+  const min = changes[0]?.[0] ?? 0
+  const max = changes[changes.length - 1]?.[0] ?? 0
+  return (from = 0, to = from) =>
+    changes.map(
+      ([offset, tuple]) =>
+        [transform(offset, [min, max], [from, to]), tuple] as const,
+    )
 }

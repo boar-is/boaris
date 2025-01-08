@@ -1,9 +1,9 @@
 import type { Captions } from '~/model/captions'
 
-export const captionsRepository: ReadonlyArray<typeof Captions.Type> = [
+export const captionsRepository: ReadonlyArray<typeof Captions.Encoded> = [
   {
     postSlug: 'nextjs-metadata',
-    content: {
+    content: JSON.stringify({
       type: 'doc',
       content: [
         {
@@ -3582,6 +3582,6 @@ export const captionsRepository: ReadonlyArray<typeof Captions.Type> = [
           ],
         },
       ],
-    },
+    }),
   },
 ]

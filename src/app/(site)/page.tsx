@@ -1,4 +1,4 @@
-import { Option } from 'effect'
+import { Option, Schema } from 'effect'
 import { readableDate } from '~/lib/date/readable-date'
 import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
@@ -7,18 +7,21 @@ import { Link } from '~/lib/navigation/link'
 import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 import { postRepository } from '~/model/data/post'
+import { Post } from '~/model/post'
 import { BlogPostArticle } from './_blog-post-article'
 
 export default async function SitePage() {
+  const posts = Schema.decodeSync(Schema.Array(Post))(postRepository)
+
   return (
     <article className="container">
       <header className="sr-only">
         <h1>Boar.is</h1>
         <h2>Recent Posts</h2>
       </header>
-      {postRepository.length ? (
+      {posts.length ? (
         <div className="flex flex-col gap-4">
-          {postRepository.map((post, index) => {
+          {posts.map((post, index) => {
             const posterImageProps = {
               src: post.posterUrl,
               sizes: defaultImageSizes,

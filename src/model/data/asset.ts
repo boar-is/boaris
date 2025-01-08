@@ -1,126 +1,126 @@
-import { Option } from 'effect'
-import {
-  type OffsetChange,
-  createOffsetChangesShifter,
-} from '~/lib/cm/offset-change'
+import { type OffsetChange, shiftedOffsetChanges } from '~/lib/cm/offset-change'
 import { textFromTemplate } from '~/lib/cm/text'
 import { pp1 } from '~/model/_no-db-helpers'
-import { Asset, AssetContentImageStatic, AssetContentText } from '~/model/asset'
-
-const shiftChanges = createOffsetChangesShifter()
+import {
+  type Asset,
+  AssetContentImageStatic,
+  AssetContentText,
+} from '~/model/asset'
 
 const ch1 = (
   from: number,
   to: number,
   changes: ReadonlyArray<typeof OffsetChange.Encoded>,
-) => shiftChanges(changes)(pp1(from), pp1(to))
+) => shiftedOffsetChanges(changes)(pp1(from), pp1(to))
 
-export const assetRepository: ReadonlyArray<Asset> = [
-  new Asset({
+export const assetRepository: ReadonlyArray<typeof Asset.Encoded> = [
+  {
     _id: 'icon-180',
     postSlug: 'nextjs-metadata',
     name: 'icon-180.webp',
-    content: new AssetContentImageStatic({
+    content: {
+      _tag: 'AssetContentImageStatic',
       href: '/assets/nextjs-metadata/icon-180.webp',
-      caption: Option.none(),
-      alt: Option.some('An icon in a 180x180 frame'),
-    }),
-  }),
-  new Asset({
+      caption: undefined,
+      alt: 'An icon in a 180x180 frame',
+    },
+  },
+  {
     _id: 'icons-app-folder',
     postSlug: 'nextjs-metadata',
     name: 'icons-app-folder.webp',
-    content: new AssetContentImageStatic({
+    content: {
+      _tag: 'AssetContentImageStatic',
       href: '/assets/nextjs-metadata/icons-app-folder.webp',
-      caption: Option.none(),
-      alt: Option.some('A file tree with selected icons'),
-    }),
-  }),
-  new Asset({
+      caption: undefined,
+      alt: 'A file tree with selected icons',
+    },
+  },
+  {
     _id: 'icons-too-much',
     postSlug: 'nextjs-metadata',
     name: 'icons-too-much.webp',
-    content: new AssetContentImageStatic({
+    content: {
+      _tag: 'AssetContentImageStatic',
       href: '/assets/nextjs-metadata/icons-too-much.webp',
-      caption: Option.none(),
-      alt: Option.some('An archive with a lot of redundant icons'),
-    }),
-  }),
-  new Asset({
+      caption: undefined,
+      alt: 'An archive with a lot of redundant icons',
+    },
+  },
+  {
     _id: 'metadata-fields',
     postSlug: 'nextjs-metadata',
     name: 'metadata-fields.webp',
-    content: new AssetContentImageStatic({
+    content: {
+      _tag: 'AssetContentImageStatic',
       href: '/assets/nextjs-metadata/metadata-fields.webp',
-      caption: Option.none(),
-      alt: Option.some('An intellisense of the Metadata fields'),
-    }),
-  }),
-  new Asset({
+      caption: undefined,
+      alt: 'An intellisense of the Metadata fields',
+    },
+  },
+  {
     _id: 'nextjs-docs-deduplication',
     postSlug: 'nextjs-metadata',
     name: 'nextjs-docs-deduplication.webp',
-    content: new AssetContentImageStatic({
+    content: {
+      _tag: 'AssetContentImageStatic',
       href: '/assets/nextjs-metadata/nextjs-docs-deduplication.webp',
-      caption: Option.some(
+      caption:
         'An excerpt from “Benefits of Server Rendering” part of Next.js docs.',
-      ),
-      alt: Option.some('An excerpt from Next.js docs about deduplication.'),
-    }),
-  }),
-  new Asset({
+      alt: 'An excerpt from Next.js docs about deduplication.',
+    },
+  },
+  {
     _id: 'nextjs-docs-metadata-base',
     postSlug: 'nextjs-metadata',
     name: 'nextjs-docs-metadata-base.webp',
-    content: new AssetContentImageStatic({
+    content: {
+      _tag: 'AssetContentImageStatic',
       href: '/assets/nextjs-metadata/nextjs-docs-metadata-base.webp',
-      caption: Option.some(
+      caption:
         'An excerpt from “metadataBase’ default value” part of Next.js docs.',
-      ),
-      alt: Option.some(
-        'An excerpt from Next.js docs about metadataBase default value.',
-      ),
-    }),
-  }),
-  new Asset({
+      alt: 'An excerpt from Next.js docs about metadataBase default value.',
+    },
+  },
+  {
     _id: 'og-framing',
     postSlug: 'nextjs-metadata',
     name: 'og-framing.webp',
-    content: new AssetContentImageStatic({
+    content: {
+      _tag: 'AssetContentImageStatic',
       href: '/assets/nextjs-metadata/og-framing.webp',
-      caption: Option.none(),
-      alt: Option.some(
-        'An example of an Open Graph image with a centered frame',
-      ),
-    }),
-  }),
-  new Asset({
+      caption: undefined,
+      alt: 'An example of an Open Graph image with a centered frame',
+    },
+  },
+  {
     _id: 'real-favicon-generator-download',
     postSlug: 'nextjs-metadata',
     name: 'real-favicon-generator-download.webp',
-    content: new AssetContentImageStatic({
+    content: {
+      _tag: 'AssetContentImageStatic',
       href: '/assets/nextjs-metadata/real-favicon-generator-download.webp',
-      caption: Option.some('Download the app files'),
-      alt: Option.some(
-        'A screenshot from the download page of RealFaviconGenerator',
-      ),
-    }),
-  }),
-  new Asset({
+      caption: 'Download the app files',
+      alt: 'A screenshot from the download page of RealFaviconGenerator',
+    },
+  },
+  {
     _id: 'rich-results',
     postSlug: 'nextjs-metadata',
     name: 'rich-results.webp',
-    content: new AssetContentImageStatic({
+    content: {
+      _tag: 'AssetContentImageStatic',
       href: '/assets/nextjs-metadata/rich-results.webp',
-      caption: Option.some('Google Rich Results Carousel'),
-      alt: Option.some('Google Rich Results Carousel.'),
-    }),
-  }),
-  new Asset({
+      caption: 'Google Rich Results Carousel',
+      alt: 'Google Rich Results Carousel.',
+    },
+  },
+  {
     _id: 'app/blog/[slug]/page.tsx',
     postSlug: 'nextjs-metadata',
     name: 'app/blog/[slug]/page.tsx',
-    content: new AssetContentText({
+    content: {
+      _tag: 'AssetContentText',
       initialValue: textFromTemplate(''),
       advances: [
         ...ch1(1620, 1620, [
@@ -1138,13 +1138,14 @@ export const assetRepository: ReadonlyArray<Asset> = [
           ],
         ]),
       ],
-    }),
-  }),
-  new Asset({
+    },
+  },
+  {
     _id: 'lib/react/with-static-params.ts',
     postSlug: 'nextjs-metadata',
     name: 'lib/react/with-static-params.ts',
-    content: new AssetContentText({
+    content: {
+      _tag: 'AssetContentText',
       initialValue: textFromTemplate(''),
       advances: [
         ...ch1(2334, 2334, [
@@ -1167,13 +1168,14 @@ export const assetRepository: ReadonlyArray<Asset> = [
           ],
         ]),
       ],
-    }),
-  }),
-  new Asset({
+    },
+  },
+  {
     _id: 'examples/json-ld.tsx',
     postSlug: 'nextjs-metadata',
     name: 'examples/json-ld.tsx',
-    content: new AssetContentText({
+    content: {
+      _tag: 'AssetContentText',
       initialValue:
         textFromTemplate(`import type { Product, WithContext } from 'schema-dts'
 
@@ -1201,13 +1203,14 @@ export default async function Page({ params }) {
 }
 `),
       advances: [],
-    }),
-  }),
-  new Asset({
+    },
+  },
+  {
     _id: 'lib/metadata/construct-metadata.ts',
     postSlug: 'nextjs-metadata',
     name: 'lib/metadata/construct-metadata.ts',
-    content: new AssetContentText({
+    content: {
+      _tag: 'AssetContentText',
       initialValue: textFromTemplate(`export const constructMetadata = ({
   title,
   description,
@@ -1529,13 +1532,14 @@ export default async function Page({ params }) {
         ...ch1(8015, 8015, [[1285, [[595], [[[115, 89]], null]]]]),
         ...ch1(8028, 8028, [[1285, [[595], [[[115, 89]], null]]]]),
       ],
-    }),
-  }),
-  new Asset({
+    },
+  },
+  {
     _id: 'app/sitemap.ts',
     postSlug: 'nextjs-metadata',
     name: 'app/sitemap.ts',
-    content: new AssetContentText({
+    content: {
+      _tag: 'AssetContentText',
       initialValue:
         textFromTemplate(`export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }
@@ -1647,13 +1651,14 @@ export default async function Page({ params }) {
           [2773, [[491], [[[458, null]], null]]],
         ]),
       ],
-    }),
-  }),
-  new Asset({
+    },
+  },
+  {
     _id: 'lib/metadata/resolvers.ts',
     postSlug: 'nextjs-metadata',
     name: 'lib/metadata/resolvers.ts',
-    content: new AssetContentText({
+    content: {
+      _tag: 'AssetContentText',
       initialValue: textFromTemplate(''),
       advances: [
         ...ch1(6130, 6163, [
@@ -1728,13 +1733,14 @@ export default async function Page({ params }) {
           ],
         ]),
       ],
-    }),
-  }),
-  new Asset({
+    },
+  },
+  {
     _id: 'app/robots.ts',
     postSlug: 'nextjs-metadata',
     name: 'app/robots.ts',
-    content: new AssetContentText({
+    content: {
+      _tag: 'AssetContentText',
       initialValue: textFromTemplate(`import type { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
@@ -1836,6 +1842,6 @@ export default function robots(): MetadataRoute.Robots {
           ],
         ]),
       ],
-    }),
-  }),
+    },
+  },
 ]
