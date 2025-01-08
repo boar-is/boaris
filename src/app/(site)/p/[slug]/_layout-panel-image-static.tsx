@@ -19,6 +19,7 @@ export const PostLayoutPanelImageStatic = memo(
         ),
       ),
       fill: true,
+      quality: 80,
     } satisfies ImageProps
 
     return (

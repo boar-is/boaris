@@ -10,6 +10,7 @@ import { createStrictContext } from '~/lib/react/create-strict-context'
 export type BackgroundImageProps = {
   src: string
   sizes: string
+  quality: number
 }
 
 export type BackgroundContextValue = {
@@ -40,6 +41,7 @@ export function BackgroundEffect(props: BackgroundImageProps | null) {
 export const defaultImagePropsConst: BackgroundImageProps = {
   src: '/images/og.webp',
   sizes: defaultImageSizes,
+  quality: 1,
 } as const
 
 export function BackgroundProvider({
@@ -77,9 +79,6 @@ export function BackgroundProvider({
         >
           <Image
             {...imageProps}
-            {...(imageProps.src === defaultImageProps.src
-              ? { quality: 1 }
-              : {})}
             fill
             alt="Background"
             className="blur-[80px] saturate-150 scale-125 opacity-50 transform-gpu size-full object-cover"

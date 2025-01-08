@@ -92,6 +92,7 @@ export default async function PostPage({
     src: posterUrl,
     sizes: defaultImageSizes,
     alt: `${title}'s poster`,
+    quality: 80,
   } satisfies ImageProps
 
   return (
