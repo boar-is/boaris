@@ -5,7 +5,7 @@ import { resolveUrl } from './resolvers'
 export const constructMetadata = ({
   title,
   description = workspace.description,
-  images = '/images/og.png',
+  images = '/images/og.webp',
   canonical,
   noIndex,
 }: Partial<{

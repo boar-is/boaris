@@ -25,6 +25,7 @@ const baseNextConfig: NextConfig = {
     return config
   },
   images: {
+    minimumCacheTTL: 60 * 60, // 1 hour
     remotePatterns: [
       {
         protocol: 'https',

@@ -38,7 +38,7 @@ export function BackgroundEffect(props: BackgroundImageProps | null) {
 }
 
 export const defaultImagePropsConst: BackgroundImageProps = {
-  src: '/images/og.png',
+  src: '/images/og.webp',
   sizes: defaultImageSizes,
 } as const
 
@@ -77,6 +77,9 @@ export function BackgroundProvider({
         >
           <Image
             {...imageProps}
+            {...(imageProps.src === defaultImageProps.src
+              ? { quality: 1 }
+              : {})}
             fill
             alt="Background"
             className="blur-[80px] saturate-150 scale-125 opacity-50 transform-gpu size-full object-cover"
