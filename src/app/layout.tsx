@@ -26,7 +26,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       lang="en"
       className={cx(
         sans.variable,
-        'relative dark antialiased bg-gray-1 text-gray-12',
+        'relative dark antialiased bg-gray-1 text-gray-12 [&_*]:!font-redacted',
       )}
     >
       <head>

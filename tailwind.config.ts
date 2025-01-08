@@ -45,6 +45,7 @@ const tailwindConfig: Config = {
     fontFamily: {
       sans: ['var(--font-sans)', ...fontFamily.sans],
       mono: ['var(--font-mono)', ...fontFamily.mono],
+      redacted: ['var(--font-redacted)'],
     },
     fontSize,
     screens: {
