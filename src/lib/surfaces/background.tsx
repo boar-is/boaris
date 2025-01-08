@@ -3,15 +3,21 @@
 import { AnimatePresence } from 'motion/react'
 import { usePathname } from 'next/navigation'
 import { type PropsWithChildren, useEffect, useMemo, useState } from 'react'
+import opengraphImage from '~/app/opengraph-image.png'
 import { Image, defaultImageSizes } from '~/lib/media/image'
 import { motion } from '~/lib/motion/motion'
 import { createStrictContext } from '~/lib/react/create-strict-context'
 
 export type BackgroundImageProps = {
-  src: string
   sizes: string
   quality: number
-}
+} & (
+  | {
+      src: typeof opengraphImage
+      'data-key': string
+    }
+  | { src: string }
+)
 
 export type BackgroundContextValue = {
   setBackground: (props: BackgroundImageProps | null) => void
@@ -39,7 +45,8 @@ export function BackgroundEffect(props: BackgroundImageProps | null) {
 }
 
 export const defaultImagePropsConst: BackgroundImageProps = {
-  src: '/images/og.webp',
+  'data-key': 'opengraph',
+  src: opengraphImage,
   sizes: defaultImageSizes,
   quality: 1,
 } as const
@@ -72,7 +79,9 @@ export function BackgroundProvider({
       <AnimatePresence>
         <motion.div
           className="fixed inset-0 -z-10 overflow-hidden pointer-events-none isolate"
-          key={imageProps.src}
+          key={
+            'data-key' in imageProps ? imageProps['data-key'] : imageProps.src
+          }
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
