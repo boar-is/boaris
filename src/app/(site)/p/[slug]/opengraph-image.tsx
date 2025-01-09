@@ -1,4 +1,3 @@
-import { getImageProps } from 'next/image'
 import { notFound } from 'next/navigation'
 import { ImageResponse } from 'next/og'
 import { resolveUrl } from '~/lib/routing/resolvers'
@@ -28,22 +27,13 @@ export default async function PostImage({
     (res) => res.arrayBuffer(),
   )
 
-  const { props: imageProps } = getImageProps({
-    src: post.posterUrl,
-    alt: 'N/A',
-    width: size.width,
-    height: size.height,
-    quality: 35,
-  })
-
   return new ImageResponse(
     <div
       tw="relative flex flex-col justify-center items-center gap-16 w-full h-full bg-black"
       style={{ fontFamily: 'Inter', fontWeight: 'normal', color: '#eceeed' }}
     >
       <img
-        {...imageProps}
-        src={resolveUrl(imageProps.src)}
+        src={resolveUrl(post.posterUrl)}
         alt="N/A"
         tw="absolute w-full h-full opacity-50"
         style={{
