@@ -29,34 +29,65 @@ export default async function PostImage({
 
   return new ImageResponse(
     <div
-      tw="relative flex flex-col justify-center items-center gap-16 w-full h-full bg-black"
-      style={{ fontFamily: 'Inter', fontWeight: 'normal', color: '#eceeed' }}
+      style={{
+        position: 'relative',
+        display: 'flex',
+        flexFlow: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontFamily: 'Inter',
+        width: '100%',
+        height: '100%',
+        background: '#000',
+        color: '#fff',
+        textShadow: '0 2px 6px #000',
+      }}
     >
       <img
         src={resolveUrl(post.posterUrl)}
         alt="N/A"
-        tw="absolute w-full h-full opacity-50"
         style={{
-          filter: 'blur(8px)',
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          opacity: 0.8,
+          filter: 'blur(20px)',
         }}
       />
       <h1
-        tw="text-6xl max-w-3xl tracking-tight text-center font-bold"
         style={{
+          fontSize: '3.75rem',
+          lineHeight: '3.75rem',
+          maxWidth: '48rem',
+          letterSpacing: '-0.025em',
+          textAlign: 'center',
+          fontWeight: 'bold',
           color: 'transparent',
           backgroundClip: 'text',
           backgroundImage: 'linear-gradient(to bottom, #eceeed, #adb5b2)',
+          boxShadow: '0 2px 6px #000',
         }}
       >
         {post.title}
       </h1>
-      <div tw="flex items-center text-5xl tracking-tighter">
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          fontSize: '3rem',
+          lineHeight: '3rem',
+          fontWeight: '700',
+        }}
+      >
         <img
           src={iconSrc as unknown as string}
           width={72}
           height={72}
           alt="N/A"
-          tw="rounded-2xl mr-4"
+          style={{
+            borderRadius: '1rem',
+            marginRight: '1rem',
+          }}
         />
         <span style={{ opacity: 0.8 }}>Boaris</span>
       </div>
