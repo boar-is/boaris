@@ -1,11 +1,7 @@
 import { type OffsetChange, shiftedOffsetChanges } from '~/lib/cm/offset-change'
 import { textFromTemplate } from '~/lib/cm/text'
 import { pp1 } from '~/model/_no-db-helpers'
-import {
-  type Asset,
-  AssetContentImageStatic,
-  AssetContentText,
-} from '~/model/asset'
+import type { Asset } from '~/model/asset'
 
 const ch1 = (
   from: number,
