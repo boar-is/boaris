@@ -1,45 +1,48 @@
-import { identity } from 'effect'
+import { Equal, Option, identity } from 'effect'
 import { describe, expect, it } from 'vitest'
 import { findClosestIndex } from './find-closest-index'
 
 describe.concurrent('match inputs to outputs', () => {
   it.concurrent.each([
-    [[], 33, undefined],
+    [[], 33, Option.none()],
     [
       [10, 20, 30, 40, 50],
       5,
-      undefined, // the target is smaller than everything
+      Option.none(), // the target is smaller than everything
     ],
     [
       [10, 20, 30, 40, 50],
       10,
-      0, // index of 10
+      Option.some(0), // index of 10
     ],
     [
       [10, 20, 30, 40, 50],
       33,
-      2, // index of 30
+      Option.some(2), // index of 30
     ],
     [
       [10, 20, 30, 40, 50],
       29,
-      1, // index of 20
+      Option.some(1), // index of 20
     ],
     [
       [10, 20, 30, 40, 50],
       99,
-      4, // index of 50
+      Option.some(4), // index of 50
     ],
   ])(
     '%o + %d -> %d',
     (
       sortedArr: Array<number>,
       targetValue: number,
-      expectedIndex: number | undefined,
+      expectedIndex: Option.Option<number>,
     ) => {
-      expect(findClosestIndex(sortedArr, targetValue, identity)).toBe(
-        expectedIndex,
-      )
+      expect(
+        Equal.equals(
+          findClosestIndex(sortedArr, targetValue, identity),
+          expectedIndex,
+        ),
+      ).toBe(true)
     },
   )
 
@@ -66,6 +69,12 @@ describe.concurrent('match inputs to outputs', () => {
         value: 'hello',
       },
     ]
-    expect(findClosestIndex(arr, 0.3, (it) => it.offset)).toBe(1)
+
+    expect(
+      Equal.equals(
+        findClosestIndex(arr, 0.3, (it) => it.offset),
+        Option.some(1),
+      ),
+    ).toBe(true)
   })
 })
