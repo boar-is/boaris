@@ -33,7 +33,7 @@ export default function SiteError({
       </p>
       <footer className="flex flex-wrap gap-4 *:~px-4/8">
         <Link
-          href="https://google.com"
+          href={process.env['CONTACT_ME_FORM_URL']!}
           target="_blank"
           className={buttonStyles({ intent: 'secondary' })}
         >

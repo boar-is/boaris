@@ -19,7 +19,6 @@ type Scenario = {
     {
       doc: Text
       selection: EditorSelection | undefined
-      scrollIntoView: boolean
     }
   >
 }
@@ -48,32 +47,26 @@ const scenario1: Scenario = {
     undefined: {
       doc: Text.of(['0123456789']),
       selection: undefined,
-      scrollIntoView: true,
     },
     0: {
       doc: Text.of(['a0123456789']),
       selection: EditorSelection.single(0),
-      scrollIntoView: true,
     },
     1: {
       doc: Text.of(['a0123456789']),
       selection: EditorSelection.single(5),
-      scrollIntoView: true,
     },
     2: {
       doc: Text.of(['a01456789']),
       selection: EditorSelection.single(2),
-      scrollIntoView: true,
     },
     3: {
       doc: Text.of(['a014!789']),
       selection: EditorSelection.single(1),
-      scrollIntoView: true,
     },
     4: {
       doc: Text.of(['a014!789']),
       selection: EditorSelection.single(8),
-      scrollIntoView: true,
     },
   },
 }
@@ -130,6 +123,7 @@ it.each<
       ).toBeTruthy()
     }
 
-    expect(transaction.scrollIntoView).toEqual(headState.scrollIntoView)
+    // custom scrolling behavior is implemented
+    expect(transaction.scrollIntoView).toBe(false)
   },
 )

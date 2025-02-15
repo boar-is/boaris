@@ -29,7 +29,6 @@ export const seekChanges = ({
         insert: initialValue,
       },
       selection: undefined,
-      scrollIntoView: true,
     }
   }
 

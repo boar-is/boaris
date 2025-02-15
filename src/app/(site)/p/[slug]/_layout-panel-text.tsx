@@ -5,7 +5,14 @@ import ReactCodeMirror, {
 } from '@uiw/react-codemirror'
 import { Option } from 'effect'
 import { useAtom, useAtomValue, useStore } from 'jotai'
-import { type PropsWithChildren, memo, useEffect, useMemo, useRef } from 'react'
+import {
+  type PropsWithChildren,
+  type RefObject,
+  memo,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react'
 import { useAssetScrollLockedAtom } from '~/app/(site)/p/[slug]/_layout'
 import { Button } from '~/lib/buttons/button'
 import { codemirrorTheme } from '~/lib/cm/codemirror-theme'
@@ -35,7 +42,10 @@ function ScrollLockButton() {
   )
 }
 
-function ScrollLocker({ children }: PropsWithChildren) {
+function ScrollLocker({
+  children,
+  ref,
+}: PropsWithChildren & { ref?: RefObject<HTMLDivElement | null> | undefined }) {
   const locked = useAtomValue(useAssetScrollLockedAtom())
 
   return (
@@ -44,6 +54,7 @@ function ScrollLocker({ children }: PropsWithChildren) {
         'flex-1 [scrollbar-width:thin]',
         locked ? 'overflow-hidden' : 'overflow-auto',
       )}
+      ref={ref}
     >
       {children}
     </div>
@@ -55,6 +66,7 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
   content: { initialValue, advances },
 }: { name: string; content: AssetContentText }) {
   const cmRef = useRef<ReactCodeMirrorRef>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   const extensions = useMemo(() => matchCodemirrorExtensions(name), [name])
 
@@ -99,7 +111,7 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
           view.dispatch(spec)
           store.set(anchorIndex$, head)
 
-          scrollToSelection(view)
+          scrollToSelection(view, scrollRef.current!)
         } catch (error) {}
       }),
     [store, anchorIndex$, headIndex$, initialValue, advances, reverses],
@@ -133,7 +145,7 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
       <PostLayoutPanelHeader name={name}>
         <ScrollLockButton />
       </PostLayoutPanelHeader>
-      <ScrollLocker>
+      <ScrollLocker ref={scrollRef}>
         <ReactCodeMirror
           value={value}
           extensions={extensions}
