@@ -10,6 +10,7 @@ import { AriaRouterProvider } from '~/lib/routing/aria-router-provider'
 import { ToastProvider } from '~/lib/toast/toast-provider'
 import './globals.css'
 import type { Metadata, Viewport } from 'next'
+import { AnalyticsProvider } from '~/lib/analytics/analytics-provider'
 import { BackgroundProvider } from '~/lib/surfaces/background'
 import { workspace } from '~/model/data/workspace'
 
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <FocusVisibleProvider />
         <LocalizedStringProvider locale="en-US" />
         <ToastProvider />
+        <AnalyticsProvider />
         <I18nProvider>
           <AriaRouterProvider>
             <JotaiProvider>
