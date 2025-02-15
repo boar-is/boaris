@@ -3,6 +3,8 @@ import { ImageResponse } from 'next/og'
 import { resolveUrl } from '~/lib/routing/resolvers'
 import { postRepository } from '~/model/data/post'
 
+export const runtime = 'edge'
+
 export const size = {
   width: 1200,
   height: 630,
@@ -62,8 +64,8 @@ export default async function PostImage({
           fontWeight: 'bold',
           color: 'transparent',
           backgroundClip: 'text',
-          backgroundImage: 'linear-gradient(to bottom, #eceeed, #adb5b2)',
-          boxShadow: '0 2px 6px #000',
+          backgroundImage: 'linear-gradient(to bottom, #fff, #adb5b2)',
+          boxShadow: '0 4px 10px #eee',
         }}
       >
         {post.title}
@@ -78,7 +80,7 @@ export default async function PostImage({
         }}
       >
         <img
-          src={resolveUrl(iconSrc as unknown as string)}
+          src={iconSrc as unknown as string}
           width={72}
           height={72}
           alt="N/A"
@@ -93,17 +95,6 @@ export default async function PostImage({
     {
       ...size,
       fonts: [
-        {
-          name: 'Inter',
-          data: await fetch(
-            new URL(
-              '~/lib/media/fonts/files/Inter-Regular.ttf',
-              import.meta.url,
-            ),
-          ).then((res) => res.arrayBuffer()),
-          weight: 400,
-          style: 'normal',
-        },
         {
           name: 'Inter',
           data: await fetch(
