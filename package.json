@@ -57,6 +57,7 @@
     "@uiw/codemirror-themes": "4.23.8",
     "@uiw/react-codemirror": "4.23.8",
     "@vercel/analytics": "1.5.0",
+    "@vercel/speed-insights": "1.2.0",
     "@vitejs/plugin-react": "4.3.4",
     "clsx": "2.1.1",
     "effect": "3.13.1",

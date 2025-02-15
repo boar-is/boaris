@@ -11,6 +11,7 @@ import { ToastProvider } from '~/lib/toast/toast-provider'
 import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import { AnalyticsProvider } from '~/lib/analytics/analytics-provider'
+import { SpeedInsightsProvider } from '~/lib/analytics/speed-insights-provider'
 import { BackgroundProvider } from '~/lib/surfaces/background'
 import { workspace } from '~/model/data/workspace'
 
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <LocalizedStringProvider locale="en-US" />
         <ToastProvider />
         <AnalyticsProvider />
+        <SpeedInsightsProvider />
         <I18nProvider>
           <AriaRouterProvider>
             <JotaiProvider>
