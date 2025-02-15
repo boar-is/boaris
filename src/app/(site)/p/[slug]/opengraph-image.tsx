@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { ImageResponse } from 'next/og'
+import { resolveUrl } from '~/lib/routing/resolvers'
 import { postRepository } from '~/model/data/post'
 
 export const size = {
@@ -40,6 +41,17 @@ export default async function PostImage({
         textShadow: '0 2px 6px #000',
       }}
     >
+      <img
+        src={resolveUrl(post.posterUrl)}
+        alt="N/A"
+        style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          opacity: 0.8,
+          filter: 'blur(20px)',
+        }}
+      />
       <h1
         style={{
           fontSize: '3.75rem',
@@ -66,7 +78,7 @@ export default async function PostImage({
         }}
       >
         <img
-          src={iconSrc as unknown as string}
+          src={resolveUrl(iconSrc as unknown as string)}
           width={72}
           height={72}
           alt="N/A"
