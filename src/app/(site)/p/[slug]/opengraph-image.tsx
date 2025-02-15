@@ -23,10 +23,6 @@ export default async function PostImage({
     return notFound()
   }
 
-  const iconSrc = await fetch(new URL('~/app/icon.png', import.meta.url)).then(
-    (res) => res.arrayBuffer(),
-  )
-
   return new ImageResponse(
     <div
       style={{
@@ -79,16 +75,6 @@ export default async function PostImage({
           fontWeight: '700',
         }}
       >
-        <img
-          src={iconSrc as unknown as string}
-          width={72}
-          height={72}
-          alt="N/A"
-          style={{
-            borderRadius: '1rem',
-            marginRight: '1rem',
-          }}
-        />
         <span style={{ opacity: 0.8 }}>Boaris</span>
       </div>
     </div>,
