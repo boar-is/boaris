@@ -61,7 +61,7 @@ export function SubscriptionModal({ className, ...props }: ModalOverlayProps) {
                 <Label className="sr-only">Email</Label>
                 <Input
                   placeholder="wow-person@domain.com"
-                  className="rounded-xl border border-accent-8 focus:border-accent-11 text-accent-11 bg-accent-3 ~px-3/4 ~py-1/2 ~text-sm/xl h-full placeholder-accent-7 transition-colors w-full"
+                  className="rounded-xl border border-accent-8 focus:border-accent-11 text-accent-11 bg-accent-3 ~px-3/4 ~py-1/2 ~text-base/xl h-full placeholder-accent-7 transition-colors w-full"
                 />
               </TextField>
               <PendingFormDisabledButtonProvider>

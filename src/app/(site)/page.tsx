@@ -56,7 +56,7 @@ export default async function SitePage() {
                 src: post.posterUrl,
                 sizes: defaultImageSizes,
                 alt: `${post.title}'s poster`,
-                quality: 80,
+                quality: 100,
               } satisfies ImageProps
 
               return (
