@@ -1,8 +1,7 @@
 export const fixScrollUpdateSafariIos = () => {
   const matches =
     navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
-    navigator.userAgent.match(/AppleWebKit/) &&
-    window.innerWidth < 768
+    navigator.userAgent.match(/AppleWebKit/)
 
   if (!matches) {
     return
