@@ -23,7 +23,7 @@ export const buttonStyles = tv({
       xs: 'min-h-8 px-3 py-1 text-xs',
       sm: 'min-h-9 px-4 py-1.5 text-sm',
       md: 'min-h-10 px-4 py-2 text-base',
-      lg: 'min-h-10 px-6 py-3 text-xl',
+      lg: '~min-h-6/10 ~px-3/6 ~py-2/3 ~text-lg/xl',
     },
   },
   compoundVariants: [

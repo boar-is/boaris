@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
-import { Button } from '~/lib/buttons/button'
+import { Button, type ButtonProps } from '~/lib/buttons/button'
 
 const SubscriptionModal = dynamic(
   () =>
@@ -12,14 +12,18 @@ const SubscriptionModal = dynamic(
   },
 )
 
-export function CtaModal() {
+export function CtaModal({
+  className,
+  size,
+}: { className?: string | undefined; size?: ButtonProps['size'] | undefined }) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <>
       <Button
         intent="primary"
-        className="~text-sm/base rounded-xl h-full"
+        className={className ?? ''}
+        size={size}
         onPress={() => setIsOpen(true)}
       >
         Subscribe

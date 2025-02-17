@@ -75,7 +75,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
               </li>
             ))}
             <li className="ml-2">
-              <CtaModal />
+              <CtaModal className="~text-sm/base rounded-xl h-full" />
             </li>
           </ul>
         </nav>

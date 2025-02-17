@@ -21,13 +21,13 @@ export function SubscriptionModal({ className, ...props }: ModalOverlayProps) {
       isDismissable
       className={cr(className, (className) =>
         cx(
-          'isolate z-20 entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-black/35 backdrop-blur',
+          'isolate z-20 entering:fade-in-0 exiting:fade-out-0 fixed inset-0 grid h-[var(--visual-viewport-height)] entering:animate-in exiting:animate-out place-content-center bg-black/35 backdrop-blur-lg',
           className,
         ),
       )}
       {...props}
     >
-      <Modal className="~px-2/4 exiting:fade-out-0 entering:fade-in-0 exiting:zoom-out-95 entering:zoom-in-95 ~max-w-lg/xl entering:animate-in exiting:animate-out">
+      <Modal className="~px-2/4 exiting:fade-out-0 entering:fade-in-0 exiting:zoom-out-95 entering:zoom-in-95 ~max-w-lg/3xl entering:animate-in exiting:animate-out">
         <Dialog
           className={cx(
             shadowInsetStyles,
@@ -50,7 +50,7 @@ export function SubscriptionModal({ className, ...props }: ModalOverlayProps) {
             refinements.
           </p>
           <SubscriptionSectionFormProvider>
-            <Form className="max-w-lg flex ~gap-2/4 items-stretch">
+            <Form className="w-full flex ~gap-2/4 items-stretch">
               <TextField
                 name="email"
                 type="email"
