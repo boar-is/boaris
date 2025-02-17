@@ -19,7 +19,7 @@ export default async function SitePage() {
 
   return (
     <div className="~space-y-12/20">
-      <article className="container text-center ~py-12/24 flex flex-col items-center">
+      <article className="container text-center ~py-12/24 flex flex-col items-center drop-shadow-lg">
         <p className="text-accent-11 font-semibold tracking-wide ~text-lg/2xl">
           Hi! I'm Boaris
         </p>
