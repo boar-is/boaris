@@ -23,7 +23,7 @@ export const PostLayoutPanelImageDynamic = memo(
         <PostLayoutPanelHeader name={name} />
         <video
           {...videoProps}
-          className={cx(className, '-z-[2] object-cover blur-2xl')}
+          className={cx(className, '-z-[2] object-cover blur-2xl transform-gpu')}
         />
         <section className="flex-1 relative items-center">
           <video

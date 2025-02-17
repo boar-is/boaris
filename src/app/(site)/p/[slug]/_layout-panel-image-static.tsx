@@ -27,7 +27,7 @@ export const PostLayoutPanelImageStatic = memo(
         <PostLayoutPanelHeader name={name} />
         <Image
           {...imageProps}
-          className="object-cover blur-2xl"
+          className="object-cover blur-2xl transform-gpu"
           alt="Image's backdrop blur"
         />
         <section className="flex-1 relative">
