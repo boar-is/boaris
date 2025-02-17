@@ -80,7 +80,7 @@ export function PostLayout({
             key={asset._id}
             className={cx(
               shadowInsetStyles,
-              '~rounded-xl/2xl after:~rounded-xl/2xl bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md overflow-hidden',
+              '~rounded-xl/2xl after:~rounded-xl/2xl bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md overflow-hidden transform-gpu',
             )}
             style={{ gridArea: asset._id }}
             initial={{ opacity: 0, filter: 'blur(16px)' }}
