@@ -12,7 +12,7 @@ import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 import { workspace } from '~/model/data/workspace'
 import { CtaModal } from './_cta-modal'
 
-const itemCx = cx('flex justify-center items-center rounded-full h-full')
+const itemCx = cx('flex justify-center items-center rounded-xl h-full')
 
 export default async function SiteLayout({ children }: PropsWithChildren) {
   const { name } = workspace
@@ -31,7 +31,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
         <nav
           className={cx(
             shadowInsetStyles,
-            'bg-clip-padding border border-white/10 rounded-full after:rounded-full p-2.5 drop-shadow-lg',
+            'bg-clip-padding border border-white/10 rounded-2xl after:rounded-2xl ~p-1.5/2.5 drop-shadow-lg',
             'bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-blur-md backdrop-saturate-150',
           )}
         >

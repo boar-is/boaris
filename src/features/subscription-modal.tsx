@@ -31,7 +31,7 @@ export function SubscriptionModal({ className, ...props }: ModalOverlayProps) {
         <Dialog
           className={cx(
             shadowInsetStyles,
-            'flex flex-col items-stretch ~gap-4/6 ~rounded-3xl/4xl after:~rounded-3xl/4xl font-medium border border-white/15 bg-gray-2/95 bg-clip-padding ~p-4/10 leading-relaxed ~text-sm/lg',
+            'flex flex-col items-stretch ~gap-4/6 ~rounded-3xl/4xl after:~rounded-3xl/4xl font-medium border border-white/15 bg-gray-2/95 bg-clip-padding ~p-4/8 leading-relaxed ~text-sm/lg',
           )}
         >
           <header className="flex justify-between items-center">
@@ -50,7 +50,7 @@ export function SubscriptionModal({ className, ...props }: ModalOverlayProps) {
             refinements.
           </p>
           <SubscriptionSectionFormProvider>
-            <Form className="max-w-lg flex gap-2 items-stretch">
+            <Form className="max-w-lg flex ~gap-2/4 items-stretch">
               <TextField
                 name="email"
                 type="email"

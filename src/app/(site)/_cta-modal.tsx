@@ -19,7 +19,7 @@ export function CtaModal() {
     <>
       <Button
         intent="primary"
-        className="~text-sm/base rounded-full h-full"
+        className="~text-sm/base rounded-xl h-full"
         onPress={() => setIsOpen(true)}
       >
         Subscribe

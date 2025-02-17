@@ -23,7 +23,7 @@ export function PostSubscriptionSection() {
         journey. Subscribe to stay updated on new posts and format refinements.
       </p>
       <SubscriptionSectionFormProvider>
-        <Form className="max-w-lg flex gap-2 items-stretch">
+        <Form className="max-w-lg flex ~gap-2/4 items-stretch">
           <TextField name="email" type="email" isRequired className="basis-3/5">
             <Label className="sr-only">Email</Label>
             <Input
