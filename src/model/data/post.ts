@@ -17,11 +17,11 @@ export const postRepository: ReadonlyArray<typeof Post.Encoded> = [
       // @ts-expect-error
       output: [0, 1599, 7024, 7763, 8372, 9767, 10437, s1].map(pp1),
     },
-    date: DateTime.make({ year: 2025, month: 1, day: 7 }).pipe(
+    date: DateTime.make({ year: 2025, month: 2, day: 21 }).pipe(
       Option.getOrThrow,
       DateTime.toEpochMillis,
     ),
-    updateDate: DateTime.make({ year: 2025, month: 1, day: 7 }).pipe(
+    updateDate: DateTime.make({ year: 2025, month: 2, day: 21 }).pipe(
       Option.getOrThrow,
       DateTime.toEpochMillis,
     ),
