@@ -70,17 +70,17 @@ export default async function SitePage() {
                       posterImageProps={posterImageProps}
                       className={cx(
                         shadowInsetStyles,
-                        '~rounded-2xl/5xl after:~rounded-2xl/5xl flex flex-col lg:flex-row ~gap-6/10 ~p-4/5 justify-between bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
+                        '~rounded-2xl/4xl after:~rounded-2xl/4xl flex flex-col lg:flex-row ~gap-4/8 ~p-4/5 justify-between bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
                       )}
                     >
                       <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
                         <Image
                           {...posterImageProps}
                           fill
-                          className="object-cover ~rounded-xl/4xl shadow-inner border border-white/10 bg-clip-border"
+                          className="object-cover ~rounded-xl/3xl shadow-inner border border-white/10 bg-clip-border"
                         />
                       </aside>
-                      <section className="flex-1 ~space-y-4/6 ~py-0/4">
+                      <section className="flex-1 ~space-y-3/6 ~py-0/4">
                         <header>
                           <hgroup className="space-y-1">
                             <small className="text-accent-11 font-semibold tracking-wide ~text-sm/lg">
