@@ -7,6 +7,7 @@ import {
   useInView,
 } from 'motion/react'
 import { type ReactNode, useRef } from 'react'
+import { cx } from '~/lib/react/cx'
 import { motion } from './motion'
 
 type MarginType = UseInViewOptions['margin']
@@ -60,7 +61,7 @@ export function BlurFade({
           duration,
           ease: 'easeOut',
         }}
-        className={className}
+        className={cx('transform-gpu', className)}
       >
         {children}
       </motion.div>
