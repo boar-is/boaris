@@ -3,14 +3,7 @@
 import type { PrimitiveAtom } from 'jotai'
 import { useSetAtom } from 'jotai/index'
 import { transform } from 'motion'
-import {
-  type ReactNode,
-  type RefObject,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react'
-import { fixScrollUpdateSafariIos } from '~/lib/dom/fix-scroll-update-safari-ios'
+import { type ReactNode, type RefObject, useMemo, useRef } from 'react'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { useScrollProgressEffect } from '~/lib/motion/use-scroll-progress-effect'
 import { createStrictContext } from '~/lib/react/create-strict-context'
@@ -56,7 +49,7 @@ export function PostContent({
     },
   })
   // TODO still need this?
-  useEffect(() => fixScrollUpdateSafariIos(), [])
+  // useEffect(() => fixScrollUpdateSafariIos(), [])
 
   const contextValue = useMemo(
     (): PostContentContextValue => ({ progress$, scrollableRef, contentRef }),
