@@ -54,7 +54,7 @@ export function PostLayout({
 
   const areasAssets$ = useConstAtom((get) =>
     pipe(get(areas$), (areas) =>
-      areas ? assets.filter((it) => areas.includes(it._id)) : [],
+      areas ? assets.filter((it) => areas.includes(`"${it._id}"`)) : [],
     ),
   )
 

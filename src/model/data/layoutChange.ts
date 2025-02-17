@@ -36,7 +36,8 @@ export const layoutChangeRepository: ReadonlyArray<
   lc1(9232, ''),
   lc1(9350, '"icons-too-much"'),
   lc1(9767, '"icon-180"'),
-  lc1(9873, '"real-favicon-generator-download"'),
+  lc1(9873, '"real-favicon-generator"'),
+  lc1(9910, '"real-favicon-generator-download"'),
   lc1(9957, '"icons-app-folder"'),
   lc1(10437, ''),
 ]
