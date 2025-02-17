@@ -15,7 +15,9 @@ import { StaticEditorContent } from '~/lib/pm/static-editor-content'
 import { cx } from '~/lib/react/cx'
 import { Captions } from '~/model/captions'
 
-const captionsCx = cx('mx-auto typography w-full drop-shadow-md')
+const captionsCx = cx(
+  'mx-auto typography w-full drop-shadow-md [text-rendering:optimizeSpeed]',
+)
 
 export default function PostCaptions({
   captionsEncoded,
