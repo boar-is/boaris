@@ -10,7 +10,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { fixScrollUpdateSafariIos } from '~/lib/dom/fix-scroll-update-safari-ios'
+import { disableScrollingOptimization } from '~/lib/dom/disable-scrolling-optimization'
 import { useConstAtom } from '~/lib/jotai/use-const-atom'
 import { useScrollProgressEffect } from '~/lib/motion/use-scroll-progress-effect'
 import { createStrictContext } from '~/lib/react/create-strict-context'
@@ -56,7 +56,7 @@ export function PostContent({
     },
   })
 
-  useEffect(() => fixScrollUpdateSafariIos(), [])
+  useEffect(() => disableScrollingOptimization(), [])
 
   const contextValue = useMemo(
     (): PostContentContextValue => ({ progress$, scrollableRef, contentRef }),
