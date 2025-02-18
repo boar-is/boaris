@@ -2,6 +2,7 @@ import { Option, Schema } from 'effect'
 import { CtaModal } from '~/app/(site)/_cta-modal'
 import { buttonStyles } from '~/lib/buttons/button-styles'
 import { readableDate } from '~/lib/date/readable-date'
+import { ArrowDownDrawnIcon } from '~/lib/media/icons/arrow-down-drawn'
 import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { BlurFade } from '~/lib/motion/blur-fade'
@@ -18,7 +19,7 @@ export default async function SitePage() {
   const posts = Schema.decodeSync(Schema.Array(Post))(postRepository)
 
   return (
-    <div className="~space-y-12/20">
+    <div className="~space-y-8/16">
       <article className="container text-center ~py-8/16 flex flex-col items-center drop-shadow-lg">
         <p className="text-accent-11 font-semibold tracking-wide ~text-lg/2xl">
           Hi! I'm Boaris
@@ -45,6 +46,9 @@ export default async function SitePage() {
           <CtaModal size="lg" />
         </footer>
       </article>
+      <section>
+        <ArrowDownDrawnIcon className="~w-10/20 mx-auto" />
+      </section>
       <article className="container">
         <header>
           <h2 className="sr-only">Recent Posts</h2>
