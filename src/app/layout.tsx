@@ -49,8 +49,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <FocusVisibleProvider />
         <LocalizedStringProvider locale="en-US" />
         <ToastProvider />
-        <AnalyticsProvider />
-        <SpeedInsightsProvider />
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <AnalyticsProvider />
+            <SpeedInsightsProvider />
+          </>
+        )}
         <I18nProvider>
           <AriaRouterProvider>
             <JotaiProvider>

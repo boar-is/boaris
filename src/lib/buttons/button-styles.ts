@@ -4,10 +4,10 @@ import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 
 export const buttonStyles = tv({
   base: [
-    'relative isolate after:content-none transition-colors',
+    'relative isolate after:content-none transition',
     'inline-flex items-center justify-center',
     'border border-transparent font-medium no-underline rounded-lg after:rounded-lg',
-    'hover:opacity-95 pressed:opacity-90 disabled:opacity-75 focus-visible:outline-accent-8/90 cursor-default',
+    'hover:opacity-95 pressed:opacity-90 disabled:opacity-35 focus-visible:outline-accent-8/90 cursor-default',
   ],
   variants: {
     intent: {
@@ -23,7 +23,7 @@ export const buttonStyles = tv({
       xs: 'min-h-8 px-3 py-1 text-xs',
       sm: 'min-h-9 px-4 py-1.5 text-sm',
       md: 'min-h-10 px-4 py-2 text-base',
-      lg: '~min-h-6/10 ~px-3/6 ~py-2/3 ~text-lg/xl',
+      lg: '~min-h-6/10 ~px-3/6 ~py-2/3 ~text-lg/xl rounded-xl after:rounded-xl',
     },
   },
   compoundVariants: [

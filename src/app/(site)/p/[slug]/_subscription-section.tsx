@@ -1,10 +1,9 @@
+import { SubscriptionFormProvider } from '~/features/subscription-form-provider'
 import { Button } from '~/lib/buttons/button'
 import { Form } from '~/lib/forms/form'
-import { PendingFormDisabledButtonProvider } from '~/lib/forms/pending-form-disabled-button-provider'
 import { Input, Label, TextField } from '~/lib/forms/text-field'
 import { cx } from '~/lib/react/cx'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
-import { SubscriptionSectionFormProvider } from './_subscription-section-form-modal'
 
 export function PostSubscriptionSection() {
   return (
@@ -22,7 +21,7 @@ export function PostSubscriptionSection() {
         format is just the beginning, and I’d love for you to join me on this
         journey. Subscribe to stay updated on new posts and format refinements.
       </p>
-      <SubscriptionSectionFormProvider>
+      <SubscriptionFormProvider>
         <Form className="max-w-lg flex ~gap-2/4 items-stretch">
           <TextField name="email" type="email" isRequired className="basis-3/5">
             <Label className="sr-only">Email</Label>
@@ -31,17 +30,15 @@ export function PostSubscriptionSection() {
               className="rounded-xl border border-accent-8 focus:border-accent-11 text-accent-11 bg-accent-3 ~px-3/4 ~py-1/2 ~text-base/xl h-full placeholder-accent-7 transition-colors w-full"
             />
           </TextField>
-          <PendingFormDisabledButtonProvider>
-            <Button
-              type="submit"
-              intent="primary"
-              className="rounded-xl basis-2/5"
-            >
-              Subscribe
-            </Button>
-          </PendingFormDisabledButtonProvider>
+          <Button
+            type="submit"
+            intent="primary"
+            className="rounded-xl basis-2/5"
+          >
+            Subscribe
+          </Button>
         </Form>
-      </SubscriptionSectionFormProvider>
+      </SubscriptionFormProvider>
       <p>Let’s make learning better — together.</p>
     </article>
   )

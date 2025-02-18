@@ -1,8 +1,7 @@
-import { SubscriptionSectionFormProvider } from '~/app/(site)/p/[slug]/_subscription-section-form-modal'
+import { SubscriptionFormProvider } from '~/features/subscription-form-provider'
 import { Button } from '~/lib/buttons/button'
 import { Heading } from '~/lib/content/heading'
 import { Form } from '~/lib/forms/form'
-import { PendingFormDisabledButtonProvider } from '~/lib/forms/pending-form-disabled-button-provider'
 import { Input, Label, TextField } from '~/lib/forms/text-field'
 import { CloseIcon } from '~/lib/media/icons/close'
 import { Dialog } from '~/lib/overlays/dialog'
@@ -49,7 +48,7 @@ export function SubscriptionModal({ className, ...props }: ModalOverlayProps) {
             on this journey. Subscribe to stay updated on new posts and format
             refinements.
           </p>
-          <SubscriptionSectionFormProvider>
+          <SubscriptionFormProvider>
             <Form className="w-full flex ~gap-2/4 items-stretch">
               <TextField
                 name="email"
@@ -64,17 +63,15 @@ export function SubscriptionModal({ className, ...props }: ModalOverlayProps) {
                   className="rounded-xl border border-accent-8 focus:border-accent-11 text-accent-11 bg-accent-3 ~px-3/4 ~py-1/2 ~text-base/xl h-full placeholder-accent-7 transition-colors w-full"
                 />
               </TextField>
-              <PendingFormDisabledButtonProvider>
-                <Button
-                  type="submit"
-                  intent="primary"
-                  className="rounded-xl basis-2/5"
-                >
-                  Subscribe
-                </Button>
-              </PendingFormDisabledButtonProvider>
+              <Button
+                type="submit"
+                intent="primary"
+                className="rounded-xl basis-2/5"
+              >
+                Subscribe
+              </Button>
             </Form>
-          </SubscriptionSectionFormProvider>
+          </SubscriptionFormProvider>
           <p>Let’s make learning better — together.</p>
         </Dialog>
       </Modal>

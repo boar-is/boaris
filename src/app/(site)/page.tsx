@@ -35,7 +35,7 @@ export default async function SitePage() {
           text and video. It slows down scrolling, making it easier to explore
           code examples and follow the explanation step by step.
         </p>
-        <footer className="flex flex-wrap ~gap-4/8 *:~px-6/12 ~mt-6/12">
+        <footer className="flex flex-wrap ~gap-4/6 *:~px-6/12 ~mt-6/10">
           <Link
             href={process.env['CONTACT_ME_FORM_URL']!}
             target="_blank"
