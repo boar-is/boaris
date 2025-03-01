@@ -3,7 +3,7 @@ const createPositionToProgress = (docSize: number) => (pos: number) => {
   return Math.round((pos / docSize) * factor) / factor
 }
 
-export const s1 = 10844
+export const s1 = 10098
 export const pp1 = createPositionToProgress(s1)
 
 export const simulateReq = <T>(thunk: () => T, ms = 100) =>
