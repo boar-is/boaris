@@ -3,7 +3,7 @@ import { type RefObject, useRef } from 'react'
 
 export const useContainerHeightSync = ({
   contentRef,
-  factor = 1 / 10,
+  factor = 1 / 5,
 }: {
   contentRef: RefObject<HTMLElement | null>
   factor?: number | undefined
