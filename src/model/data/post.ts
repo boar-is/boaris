@@ -13,9 +13,9 @@ export const postRepository: ReadonlyArray<typeof Post.Encoded> = [
     tags: ['Next.js'],
     interpolation: {
       // @ts-expect-error
-      input: [0, 300, 7024, 7400, 8372, 9100, 10700, s1].map(pp1),
+      input: [0, s1].map(pp1),
       // @ts-expect-error
-      output: [0, 1599, 7024, 7763, 8372, 9767, 10437, s1].map(pp1),
+      output: [0, s1].map(pp1),
     },
     date: DateTime.make({ year: 2025, month: 2, day: 21 }).pipe(
       Option.getOrThrow,

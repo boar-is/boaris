@@ -11,6 +11,39 @@ const ch1 = (
 
 export const assetRepository: ReadonlyArray<typeof Asset.Encoded> = [
   {
+    _id: 'app-icons',
+    postSlug: 'nextjs-metadata',
+    name: 'app-icons.png',
+    content: {
+      _tag: 'AssetContentImageStatic',
+      href: '/assets/nextjs-metadata/app-icons.png',
+      caption: undefined,
+      alt: 'A file tree with selected icons',
+    },
+  },
+  {
+    _id: 'basic-fields',
+    postSlug: 'nextjs-metadata',
+    name: 'basic-fields.png',
+    content: {
+      _tag: 'AssetContentImageStatic',
+      href: '/assets/nextjs-metadata/basic-fields.png',
+      caption: 'Next.js Docs',
+      alt: 'A screenshot from Next.js Docs about Basic Fields',
+    },
+  },
+  {
+    _id: 'deduplication',
+    postSlug: 'nextjs-metadata',
+    name: 'deduplication.png',
+    content: {
+      _tag: 'AssetContentImageStatic',
+      href: '/assets/nextjs-metadata/deduplication.png',
+      caption: 'Next.js Docs',
+      alt: 'A screenshot from Next.js Docs about deduplication',
+    },
+  },
+  {
     _id: 'icon-180',
     postSlug: 'nextjs-metadata',
     name: 'icon-180.png',
@@ -19,17 +52,6 @@ export const assetRepository: ReadonlyArray<typeof Asset.Encoded> = [
       href: '/assets/nextjs-metadata/icon-180.png',
       caption: undefined,
       alt: 'An icon in a 180x180 frame',
-    },
-  },
-  {
-    _id: 'icons-app-folder',
-    postSlug: 'nextjs-metadata',
-    name: 'icons-app-folder.png',
-    content: {
-      _tag: 'AssetContentImageStatic',
-      href: '/assets/nextjs-metadata/icons-app-folder.png',
-      caption: undefined,
-      alt: 'A file tree with selected icons',
     },
   },
   {
@@ -44,38 +66,47 @@ export const assetRepository: ReadonlyArray<typeof Asset.Encoded> = [
     },
   },
   {
+    _id: 'inter-features',
+    postSlug: 'nextjs-metadata',
+    name: 'inter-features.png',
+    content: {
+      _tag: 'AssetContentImageStatic',
+      href: '/assets/nextjs-metadata/inter-features.png',
+      caption: undefined,
+      alt: 'A screenshot from Inter website about its features',
+    },
+  },
+  {
     _id: 'metadata-fields',
     postSlug: 'nextjs-metadata',
     name: 'metadata-fields.png',
     content: {
       _tag: 'AssetContentImageStatic',
       href: '/assets/nextjs-metadata/metadata-fields.png',
-      caption: undefined,
-      alt: 'An intellisense of the Metadata fields',
+      caption: 'Next.js Docs',
+      alt: 'A screenshot from Next.js Docs about metadata fields',
     },
   },
   {
-    _id: 'nextjs-docs-deduplication',
+    _id: 'no-public-caching',
     postSlug: 'nextjs-metadata',
-    name: 'nextjs-docs-deduplication.png',
+    name: 'no-public-caching.png',
     content: {
       _tag: 'AssetContentImageStatic',
-      href: '/assets/nextjs-metadata/nextjs-docs-deduplication.png',
-      caption:
-        'An excerpt from “Benefits of Server Rendering” part of Next.js docs.',
-      alt: 'An excerpt from Next.js docs about deduplication.',
+      href: '/assets/nextjs-metadata/no-public-caching.png',
+      caption: 'Next.js Docs',
+      alt: 'A screenshot from Next.js Docs about no public caching',
     },
   },
   {
-    _id: 'nextjs-docs-metadata-base',
+    _id: 'opengraph-images',
     postSlug: 'nextjs-metadata',
-    name: 'nextjs-docs-metadata-base.png',
+    name: 'opengraph-images.png',
     content: {
       _tag: 'AssetContentImageStatic',
-      href: '/assets/nextjs-metadata/nextjs-docs-metadata-base.png',
-      caption:
-        'An excerpt from “metadataBase’ default value” part of Next.js docs.',
-      alt: 'An excerpt from Next.js docs about metadataBase default value.',
+      href: '/assets/nextjs-metadata/opengraph-images.png',
+      caption: 'Next.js Docs',
+      alt: 'A file tree with selected OpenGraph images',
     },
   },
   {
@@ -101,6 +132,17 @@ export const assetRepository: ReadonlyArray<typeof Asset.Encoded> = [
     },
   },
   {
+    _id: 'real-favicon-generator-upload',
+    postSlug: 'nextjs-metadata',
+    name: 'real-favicon-generator-upload.png',
+    content: {
+      _tag: 'AssetContentImageStatic',
+      href: '/assets/nextjs-metadata/real-favicon-generator-upload.png',
+      caption: 'Upload the app files',
+      alt: 'A screenshot of the upload page of RealFaviconGenerator',
+    },
+  },
+  {
     _id: 'rich-results',
     postSlug: 'nextjs-metadata',
     name: 'rich-results.png',
@@ -109,6 +151,28 @@ export const assetRepository: ReadonlyArray<typeof Asset.Encoded> = [
       href: '/assets/nextjs-metadata/rich-results.png',
       caption: 'Google Rich Results Carousel',
       alt: 'Google Rich Results Carousel.',
+    },
+  },
+  {
+    _id: 'static-rendering',
+    postSlug: 'nextjs-metadata',
+    name: 'static-rendering.png',
+    content: {
+      _tag: 'AssetContentImageStatic',
+      href: '/assets/nextjs-metadata/static-rendering.png',
+      caption: 'Next.js Docs',
+      alt: 'A screenshot from Next.js Docs about static rendering',
+    },
+  },
+  {
+    _id: 'url-default',
+    postSlug: 'nextjs-metadata',
+    name: 'url-default.png',
+    content: {
+      _tag: 'AssetContentImageStatic',
+      href: '/assets/nextjs-metadata/url-default.png',
+      caption: 'Next.js Docs',
+      alt: 'A screenshot from Next.js Docs about default URL resolution',
     },
   },
   {
