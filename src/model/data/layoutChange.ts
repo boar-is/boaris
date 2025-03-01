@@ -26,7 +26,7 @@ export const layoutChangeRepository: ReadonlyArray<
   lc1(3905, '"deduplication"'),
   lc1(4108, '"app/blog/[slug]/page.tsx"'),
   lc1(4360, '"no-public-caching"'),
-  lc1(4575, '"static-rendering"'),
+  lc1(4525, '"static-rendering"'),
   lc1(4767, '"opengraph-images"'),
   lc1(5009, '"app/blog/[slug]/opengraph-image.tsx"'),
   lc1(5435, '"inter-features"'),

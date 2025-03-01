@@ -312,7 +312,93 @@ export default async function Page({
 }
 
 `),
-      advances: [],
+      advances: [
+        ...ch1(1135, 1135, [[1076, [[1716], [[[81, 227]], null]]]]),
+        ...ch1(1209, 1209, [[1276, [[1716], [[[428, 345]], null]]]]),
+        ...ch1(1259, 1259, [[3197, [[1716], [[[618, 430]], null]]]]),
+        ...ch1(1303, 1303, [[5867, [[1716], [[[1456, 620]], null]]]]),
+        ...ch1(1381, 1381, [[2293, [[1716], [[[1714, 1460]], null]]]]),
+        ...ch1(1524, 1524, [[2612, [[1716], [[[653, 631]], null]]]]),
+        ...ch1(2180, 2180, [
+          [
+            5374,
+            [
+              [
+                229,
+                [
+                  1229,
+                  'export async function generateMetadata({',
+                  '  params,',
+                  '}: {',
+                  '  params: Promise<{ slug: string }>',
+                  '}): Promise<Metadata> {',
+                  '  const { slug } = await params',
+                  '',
+                  '  const post = await fetchPostMetadataBySlug(slug)',
+                  '',
+                  '  if (!post) {',
+                  '    return {',
+                  "      title: 'Post Not Found',",
+                  '    }',
+                  '  }',
+                  '',
+                  '  return {',
+                  '    title: post.title,',
+                  '    description: post.description,',
+                  "    generator: 'Next.js',",
+                  "    applicationName: 'Next.js',",
+                  "    keywords: ['Next.js', 'React', 'JavaScript'],",
+                  "    authors: [{ name: 'Seb' }, { name: 'Josh', url: 'https://nextjs.org' }],",
+                  "    creator: 'Jiachi Liu',",
+                  "    publisher: 'Sebastian Markbåge',",
+                  '    openGraph: {',
+                  '      images: [',
+                  '        {',
+                  '          url: post.thumbnailUrl,',
+                  "          type: 'image/png',",
+                  '          width: 1200,',
+                  '          height: 630,',
+                  '        },',
+                  '      ],',
+                  '    },',
+                  '  }',
+                  '}',
+                ],
+                258,
+              ],
+              [[[1002, null]], null],
+            ],
+          ],
+        ]),
+        ...ch1(2864, 2864, [
+          [
+            3022,
+            [
+              [568, [249], 443],
+              [[[568, null]], null],
+            ],
+          ],
+        ]),
+        ...ch1(3664, 3664, [
+          [
+            1877,
+            [
+              [445, [49, '    return notFound()'], 517],
+              [[[466, null]], null],
+            ],
+          ],
+        ]),
+        ...ch1(3793, 3793, [[2646, [[983], [[[428, 378]], null]]]]),
+        ...ch1(4100, 4100, [
+          [
+            2585,
+            [
+              [378, [50, '  const post = await fetchPostBySlug(slug)'], 555],
+              [[[420, null]], null],
+            ],
+          ],
+        ]),
+      ],
     },
   },
   {
@@ -330,7 +416,33 @@ export default async function Page({
 <meta name="twitter:title" content="Next.js">
 <meta property="twitter:description" content="The React Framework for the Web" />
 `),
-      advances: [],
+      advances: [
+        ...ch1(2070, 2070, [
+          [
+            971,
+            [
+              [
+                [
+                  345,
+                  '<title>Next.js</title>',
+                  '<meta name="description" content="The React Framework for the Web" />',
+                  '',
+                  '<meta property="og:title" content="Next.js">',
+                  '<meta property="og:description" content="The React Framework for the Web" />',
+                  '<meta property="og:image" content="https://nextjs.org/og.png" />',
+                  '',
+                  '<meta name="twitter:title" content="Next.js">',
+                  '<meta property="twitter:description" content="The React Framework for the Web" />',
+                  '<meta property="twitter:image" content="https://nextjs.org/og.png" />',
+                  '',
+                ],
+              ],
+              [[[480, null]], null],
+            ],
+          ],
+          [6592, [[480], [[[276, 251]], null]]],
+        ]),
+      ],
     },
   },
   {
@@ -380,6 +492,10 @@ export default async function Page({ params }) {
     default: 'Boaris',
   },
   description: 'Some description',
+}
+
+export default async function RootLayout() {
+  // ...
 }
 `),
       advances: [],
@@ -436,7 +552,13 @@ export default async function OpenGraphImage({
   )
 }
 `),
-      advances: [],
+      advances: [
+        ...ch1(5073, 5073, [[2105, [[810], [[[168, 115]], null]]]]),
+        ...ch1(5111, 5111, [[7574, [[810], [[[388, 313]], null]]]]),
+        ...ch1(5163, 5163, [[10113, [[810], [[[430, 390]], null]]]]),
+        ...ch1(5203, 5203, [[14158, [[810], [[[500, 432]], null]]]]),
+        ...ch1(5291, 5291, [[1350, [[810], [[[787, 537]], null]]]]),
+      ],
     },
   },
   {
@@ -596,7 +718,48 @@ export const resolveUrl = (url = '/') =>
   ]
 }
 `),
-      advances: [],
+      advances: [
+        ...ch1(8108, 8108, [
+          [
+            2539,
+            [
+              [334, [46, '      url: resolveUrl(`/blog/${slug}`),'], 47],
+              [[[373, null]], null],
+            ],
+          ],
+          [
+            10611,
+            [
+              [[0, '', ''], 420],
+              [[[1, null]], null],
+            ],
+          ],
+          [
+            11987,
+            [
+              [1, [0, '', ''], 420],
+              [[[2, null]], null],
+            ],
+          ],
+          [
+            15359,
+            [
+              [
+                [0, "import { resolveUrl } from '~/lib/routing/resolvers'", ''],
+                422,
+              ],
+              [[[53, null]], null],
+            ],
+          ],
+          [
+            18395,
+            [
+              [52, [1], 422],
+              [[[52, null]], null],
+            ],
+          ],
+        ]),
+      ],
     },
   },
   {
@@ -621,7 +784,11 @@ export default function robots(): MetadataRoute.Robots {
   }
 }
 `),
-      advances: [],
+      advances: [
+        ...ch1(9562, 9562, [[2238, [[324], [[[231, 210]], null]]]]),
+        ...ch1(9585, 9585, [[6712, [[324], [[[261, 232]], null]]]]),
+        ...ch1(9611, 9611, [[9569, [[324], [[[317, 278]], null]]]]),
+      ],
     },
   },
 ]
