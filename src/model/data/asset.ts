@@ -190,7 +190,7 @@ export const metadata: Metadata = {
  
 export default function Page() {}        
 `),
-      advances: [],
+      advances: [...ch1(1, 1, [[1575, [[159], [[[52, 60]], null]]]])],
     },
   },
   {
@@ -220,7 +220,7 @@ export default function manifest(): MetadataRoute.Manifest {
   }
 }   
 `),
-      advances: [],
+      advances: [...ch1(1, 1, [[2668, [[452], [[[374, 327]], null]]]])],
     },
   },
   {
@@ -379,6 +379,7 @@ export default async function Page({
             ],
           ],
         ]),
+        ...ch1(3498, 3498, [[1286, [[1011], [[[498, 430]], null]]]]),
         ...ch1(3664, 3664, [
           [
             1877,
@@ -558,6 +559,7 @@ export default async function OpenGraphImage({
         ...ch1(5163, 5163, [[10113, [[810], [[[430, 390]], null]]]]),
         ...ch1(5203, 5203, [[14158, [[810], [[[500, 432]], null]]]]),
         ...ch1(5291, 5291, [[1350, [[810], [[[787, 537]], null]]]]),
+        ...ch1(5886, 5886, [[1875, [[810], [[[500, 460]], null]]]]),
       ],
     },
   },
@@ -759,6 +761,7 @@ export const resolveUrl = (url = '/') =>
             ],
           ],
         ]),
+        ...ch1(8117, 8117, [[1169, [[474], [[[467, 343]], null]]]]),
       ],
     },
   },
