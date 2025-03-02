@@ -117,7 +117,7 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
     [store, anchorIndex$, headIndex$, initialValue, advances, reverses],
   )
 
-  const value = useMemo(() => {
+  const { newDoc, newSelection } = useMemo(() => {
     const state = EditorState.create({ doc: initialValue, extensions })
     const head = store.get(headIndex$)
     const spec = seekChanges({
@@ -129,7 +129,7 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
       head,
     })
     store.set(anchorIndex$, head)
-    return state.update(spec).newDoc.toString()
+    return state.update(spec)
   }, [
     store,
     anchorIndex$,
@@ -147,7 +147,8 @@ export const PostLayoutPanelText = memo(function PostLayoutPanelText({
       </PostLayoutPanelHeader>
       <ScrollLocker ref={scrollRef}>
         <ReactCodeMirror
-          value={value}
+          value={newDoc.toString()}
+          selection={newSelection}
           extensions={extensions}
           editable={false}
           theme={codemirrorTheme}
