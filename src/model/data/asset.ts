@@ -723,45 +723,39 @@ export const resolveUrl = (url = '/') =>
       advances: [
         ...ch1(8108, 8108, [
           [
-            2539,
-            [
-              [334, [46, '      url: resolveUrl(`/blog/${slug}`),'], 47],
-              [[[373, null]], null],
-            ],
-          ],
-          [
-            10611,
-            [
-              [[0, '', ''], 420],
-              [[[1, null]], null],
-            ],
-          ],
-          [
-            11987,
-            [
-              [1, [0, '', ''], 420],
-              [[[2, null]], null],
-            ],
-          ],
-          [
-            15359,
+            1469,
             [
               [
-                [0, "import { resolveUrl } from '~/lib/routing/resolvers'", ''],
-                422,
+                [
+                  427,
+                  "import { resolveUrl } from '~/lib/metadata/resolvers'",
+                  '',
+                  'export default async function sitemap(): Promise<MetadataRoute.Sitemap> {',
+                  '  const posts = await fetchAllPostSlugsWithDates()',
+                  '',
+                  '  return [',
+                  '    {',
+                  "      url: resolveUrl('/'),",
+                  '    },',
+                  '    {',
+                  "      url: resolveUrl('/about'),",
+                  '    },',
+                  '    {',
+                  "      url: resolveUrl('/blog'),",
+                  '    },',
+                  '    ...posts.map(({ slug, updatedAt }) => ({',
+                  '      url: resolveUrl(`/blog/${slug}`),',
+                  '      lastModified: updatedAt,',
+                  '    })),',
+                  '  ]',
+                  '}',
+                  '',
+                ],
               ],
-              [[[53, null]], null],
-            ],
-          ],
-          [
-            18395,
-            [
-              [52, [1], 422],
-              [[[52, null]], null],
+              [[[455, null]], null],
             ],
           ],
         ]),
-        ...ch1(8117, 8117, [[1169, [[474], [[[467, 343]], null]]]]),
       ],
     },
   },
