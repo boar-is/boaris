@@ -17,15 +17,14 @@ export const postRepository: ReadonlyArray<typeof Post.Encoded> = [
       // @ts-expect-error
       output: [0, s1].map(pp1),
     },
-    date: DateTime.make({ year: 2025, month: 2, day: 21 }).pipe(
+    date: DateTime.make({ year: 2025, month: 3, day: 1 }).pipe(
       Option.getOrThrow,
       DateTime.toEpochMillis,
     ),
-    updateDate: DateTime.make({ year: 2025, month: 2, day: 21 }).pipe(
+    updateDate: DateTime.make({ year: 2025, month: 3, day: 1 }).pipe(
       Option.getOrThrow,
       DateTime.toEpochMillis,
     ),
-    // TODO set
-    twitterUrl: 'https://x.com',
+    twitterUrl: 'https://x.com/MrBoaris/status/1896118623460307437',
   },
 ]

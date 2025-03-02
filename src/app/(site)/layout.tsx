@@ -54,6 +54,17 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                 {name}
               </Link>
             </li>
+            <li className="hidden lg:flex items-center">
+              <div
+                className={cx(
+                  shadowInsetStyles,
+                  'flex ~gap-1/1.5 text-sm items-center bg-accent-8/25 border border-accent-8 text-accent-11 font-semibold rounded-full after:rounded-full px-3 py-1',
+                )}
+              >
+                <div className="bg-accent-11 size-2 rounded-full animate-pulse" />
+                Open to Work
+              </div>
+            </li>
             {socialLinks.map((socialLink, index) => (
               <li
                 key={socialLink.href}
