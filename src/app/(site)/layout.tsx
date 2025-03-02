@@ -61,7 +61,7 @@ export default async function SiteLayout({ children }: PropsWithChildren) {
                   'flex ~gap-1/1.5 text-sm items-center bg-accent-8/25 border border-accent-8 text-accent-11 font-semibold rounded-full after:rounded-full px-3 py-1',
                 )}
               >
-                <div className="bg-accent-11 size-2 rounded-full animate-pulse" />
+                <div className="bg-accent-11 size-2 rounded-full" />
                 Open to Work
               </div>
             </li>
