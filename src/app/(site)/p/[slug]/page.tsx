@@ -55,25 +55,25 @@ export default async function PostPage({
     return notFound()
   }
 
-  const { default: Content } = await import(`~/content/${slug}.mdx`)
+  const { default: Content } = await import(`~/content/${slug}/index.mdx`)
 
-  const { title, lead, date, tags, posterUrl, twitterUrl } =
+  const { title, lead, date, tags, thumbnailUrl, twitterUrl } =
     Schema.decodeSync(Post)(postEncoded)
 
-  const posterImageProps = {
-    src: posterUrl,
+  const thumbnailImageProps = {
+    src: thumbnailUrl,
     sizes: defaultImageSizes,
-    alt: `${title}'s poster`,
+    alt: `${title}'s thumbnail`,
     quality: 100,
   } satisfies ImageProps
 
   return (
     <article className={cx(mono.variable, 'flex flex-col ~gap-10/16')}>
-      <BackgroundEffect {...posterImageProps} />
+      <BackgroundEffect {...thumbnailImageProps} />
       <header className="container flex flex-col justify-between lg:flex-row ~gap-6/10 ~p-4/5 drop-shadow-md">
         <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
           <Image
-            {...posterImageProps}
+            {...thumbnailImageProps}
             fill
             className="object-cover ~rounded-2xl/4xl shadow-inner"
             priority

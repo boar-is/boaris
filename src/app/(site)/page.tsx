@@ -51,10 +51,10 @@ export default async function SitePage() {
         {posts.length ? (
           <section className="flex flex-col gap-4">
             {posts.map((post, index) => {
-              const posterImageProps = {
-                src: post.posterUrl,
+              const thumbnailImageProps = {
+                src: post.thumbnailUrl,
                 sizes: defaultImageSizes,
-                alt: `${post.title}'s poster`,
+                alt: `${post.title}'s thumbnail`,
                 quality: 80,
               } satisfies ImageProps
 
@@ -66,7 +66,7 @@ export default async function SitePage() {
                 >
                   <BlurFade key={post.slug} delay={index * 0.05} inView>
                     <BlogPostArticle
-                      posterImageProps={posterImageProps}
+                      thumbnailImageProps={thumbnailImageProps}
                       className={cx(
                         shadowInsetStyles,
                         '~rounded-2xl/4xl after:~rounded-2xl/4xl flex flex-col lg:flex-row ~gap-4/8 ~p-4/5 justify-between bg-clip-padding border border-white/10 bg-gradient-to-br from-gray-2/75 to-gray-1/75 backdrop-saturate-150 backdrop-blur-lg drop-shadow-md',
@@ -74,7 +74,7 @@ export default async function SitePage() {
                     >
                       <aside className="relative basis-[320px] w-full order-1 lg:order-none lg:aspect-auto lg:basis-2/5 lg:max-w-md">
                         <Image
-                          {...posterImageProps}
+                          {...thumbnailImageProps}
                           fill
                           className="object-cover ~rounded-xl/3xl shadow-inner border border-white/10 bg-clip-border"
                         />

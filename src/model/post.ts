@@ -5,7 +5,7 @@ export class Post extends Schema.Class<Post>('Post')({
   title: Schema.NonEmptyTrimmedString,
   lead: Schema.NonEmptyTrimmedString,
   description: Schema.OptionFromUndefinedOr(Schema.NonEmptyTrimmedString),
-  posterUrl: Schema.NonEmptyTrimmedString,
+  thumbnailUrl: Schema.NonEmptyTrimmedString,
   tags: Schema.Array(Schema.NonEmptyTrimmedString),
   date: Schema.DateTimeUtcFromNumber,
   updateDate: Schema.DateTimeUtcFromNumber,

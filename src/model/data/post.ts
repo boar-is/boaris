@@ -8,7 +8,7 @@ export const postRepository: ReadonlyArray<typeof Post.Encoded> = [
     lead: 'The Next.js Metadata API gives us tools but no map. This is the map: a simple, practical guide to set it up, forget it, and move on. Stop wasting time on metadata and focus on what really matters — building your project.',
     description:
       'The Next.js Metadata API gives us tools but no map. This is the map: set it up, forget it, and get back to building what matters.',
-    posterUrl: '/assets/nextjs-metadata/poster.png',
+    thumbnailUrl: '/thumbnails/nextjs-metadata.png',
     tags: ['Next.js'],
     date: DateTime.make({ year: 2025, month: 3, day: 3 }).pipe(
       Option.getOrThrow,

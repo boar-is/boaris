@@ -8,15 +8,15 @@ import {
 } from '~/lib/surfaces/background'
 
 export function BlogPostArticle({
-  posterImageProps,
+  thumbnailImageProps,
   ...props
 }: ComponentPropsWithoutRef<'article'> & {
-  posterImageProps: BackgroundImageProps
+  thumbnailImageProps: BackgroundImageProps
 }) {
   const { setBackground } = useBackgroundContext()
 
   const { hoverProps } = useHover({
-    onHoverStart: () => setBackground(posterImageProps),
+    onHoverStart: () => setBackground(thumbnailImageProps),
     onHoverEnd: () => setBackground(null),
   })
 

@@ -40,7 +40,7 @@ export default async function PostImage({
       }}
     >
       <img
-        src={resolveUrl(post.posterUrl)}
+        src={resolveUrl(post.thumbnailUrl)}
         alt="N/A"
         style={{
           position: 'absolute',
