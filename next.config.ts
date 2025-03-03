@@ -1,4 +1,5 @@
 import withBundleAnalyzer from '@next/bundle-analyzer'
+import createMDX from '@next/mdx'
 import optimizeLocales from '@react-aria/optimize-locales-plugin'
 import type { NextConfig } from 'next'
 import { resolveUrl } from '~/lib/routing/resolvers'
@@ -8,6 +9,7 @@ const isProduction = globalThis.process.env['NODE_ENV'] === 'production'
 const isAnalyze = globalThis.process.env['ANALYZE'] === 'true'
 
 const baseNextConfig: NextConfig = {
+  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   productionBrowserSourceMaps: isAnalyze,
   experimental: {
     optimizePackageImports: [
@@ -92,9 +94,11 @@ const baseNextConfig: NextConfig = {
   },
 }
 
+const withMdx = createMDX({})
+
 const nextConfig = withBundleAnalyzer({
   enabled: isAnalyze,
   openAnalyzer: true,
-})(baseNextConfig)
+})(withMdx(baseNextConfig))
 
 export default nextConfig
