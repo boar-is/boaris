@@ -1,44 +1,35 @@
 import { Array, Option, Schema } from 'effect'
 import type { Metadata } from 'next'
-import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
-import { ButtonJumpToTop } from '~/app/(site)/p/[slug]/_button-jump-to-top'
 import { readableDate } from '~/lib/date/readable-date'
 import { mono } from '~/lib/media/fonts/mono'
 import { Image, type ImageProps, defaultImageSizes } from '~/lib/media/image'
 import { matchTagIcon } from '~/lib/media/match-tag-icon'
 import { BlurFade } from '~/lib/motion/blur-fade'
 import { cx } from '~/lib/react/cx'
-import type { WithStaticParams } from '~/lib/react/with-static-params'
 import { resolveUrl } from '~/lib/routing/resolvers'
 import { BackgroundEffect } from '~/lib/surfaces/background'
 import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
-import { simulateReq } from '~/model/_no-db-helpers'
-import { assetRepository } from '~/model/data/asset'
-import { captionsRepository } from '~/model/data/captions'
-import { layoutChangeRepository } from '~/model/data/layoutChange'
 import { postRepository } from '~/model/data/post'
 import { Post } from '~/model/post'
-import PostCaptions from './_captions'
+import { ButtonJumpToTop } from './_button-jump-to-top'
 import { PostDisclaimerSection } from './_disclaimer-section'
-import { PostContent } from './_page-content'
 import { PostSubscriptionSection } from './_subscription-section'
 
-const PostLayout = dynamic(() => import('./_layout').then((m) => m.PostLayout))
+export const dynamicParams = false
 
-export async function generateStaticParams() {
-  return postRepository.map(({ slug }) => ({ slug }))
+export function generateStaticParams() {
+  return postRepository.map(({ slug }) => ({
+    slug,
+  }))
 }
 
 export async function generateMetadata({
   params,
-}: WithStaticParams<typeof generateStaticParams>): Promise<Metadata> {
+}: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
 
-  const postEncoded = await simulateReq(() =>
-    postRepository.find((it) => it.slug === slug),
-  )
+  const postEncoded = postRepository.find((it) => it.slug === slug)
 
   if (!postEncoded) {
     return notFound()
@@ -55,35 +46,25 @@ export async function generateMetadata({
 
 export default async function PostPage({
   params,
-}: WithStaticParams<typeof generateStaticParams>) {
+}: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
 
-  const postEncoded = await simulateReq(() =>
-    postRepository.find((it) => it.slug === slug),
-  )
+  const postEncoded = postRepository.find((post) => post.slug === slug)
 
   if (!postEncoded) {
     return notFound()
   }
 
-  const captionsEncoded = captionsRepository.find((it) => it.postSlug === slug)!
+  const { default: Content } = await import(`~/content/${slug}.mdx`)
 
-  const assetsEncoded = simulateReq(() =>
-    assetRepository.filter((it) => it.postSlug === slug),
-  )
-
-  const layoutChangesEncoded = simulateReq(() =>
-    layoutChangeRepository.filter((it) => it.postSlug === slug),
-  )
-
-  const { title, lead, date, tags, posterUrl, interpolation, twitterUrl } =
+  const { title, lead, date, tags, posterUrl, twitterUrl } =
     Schema.decodeSync(Post)(postEncoded)
 
   const posterImageProps = {
     src: posterUrl,
     sizes: defaultImageSizes,
     alt: `${title}'s poster`,
-    quality: 80,
+    quality: 100,
   } satisfies ImageProps
 
   return (
@@ -157,18 +138,9 @@ export default async function PostPage({
           <PostSubscriptionSection />
         </div>
       </BlurFade>
-      <PostContent
-        interpolation={interpolation}
-        captionsSlot={<PostCaptions captionsEncoded={captionsEncoded} />}
-        layoutSlot={
-          <Suspense fallback={null}>
-            <PostLayout
-              assetsEncoded={assetsEncoded}
-              layoutChangesEncoded={layoutChangesEncoded}
-            />
-          </Suspense>
-        }
-      />
+      <section className="mx-auto typography w-full drop-shadow-md">
+        <Content />
+      </section>
       <BlurFade inView>
         <div className="container">
           <PostSubscriptionSection />

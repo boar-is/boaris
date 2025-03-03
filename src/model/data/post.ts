@@ -11,17 +11,11 @@ export const postRepository: ReadonlyArray<typeof Post.Encoded> = [
       'The Next.js Metadata API gives us tools but no map. This is the map: set it up, forget it, and get back to building what matters.',
     posterUrl: '/assets/nextjs-metadata/poster.png',
     tags: ['Next.js'],
-    interpolation: {
-      // @ts-expect-error
-      input: [0, s1].map(pp1),
-      // @ts-expect-error
-      output: [0, s1].map(pp1),
-    },
-    date: DateTime.make({ year: 2025, month: 3, day: 1 }).pipe(
+    date: DateTime.make({ year: 2025, month: 3, day: 3 }).pipe(
       Option.getOrThrow,
       DateTime.toEpochMillis,
     ),
-    updateDate: DateTime.make({ year: 2025, month: 3, day: 1 }).pipe(
+    updateDate: DateTime.make({ year: 2025, month: 3, day: 3 }).pipe(
       Option.getOrThrow,
       DateTime.toEpochMillis,
     ),
