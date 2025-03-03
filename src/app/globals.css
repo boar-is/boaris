@@ -30,7 +30,7 @@
 
 @layer components {
   .typography {
-    @apply max-w-[65ch] text-balance ~text-base/xl text-gray-12/90 drop-shadow;
+    @apply max-w-[60ch] text-balance ~text-base/xl text-gray-12/90 drop-shadow;
   }
 
   .typography > *:first-child {
@@ -76,7 +76,7 @@
   .typography :where(ol, ul) {
     @apply ~my-2/4 ~pl-4/7;
 
-    p {
+    li {
       @apply ~my-2/4;
     }
   }

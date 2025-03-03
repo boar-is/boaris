@@ -1,29 +1,29 @@
 import { Image } from '~/lib/media/image'
 
-Most of us developers **hate** dealing with SEO.
-It’s frustrating, it’s not part of business logic, and it’s definitely *not* fun.
-But it needs to be done.
+Most of us developers **hate** dealing with SEO.<br/>
+It’s frustrating, it’s not part of business logic, and it’s definitely *not* fun.<br/>
+But it needs to be done.<br/>
 And we just want to get it done quickly.
 
-Next.js provides us with a flexible [Metadata API](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
-But the docs don’t show what works for *most* projects.
-They also skip some important under-the-hood logic.
+Next.js provides us with a flexible [Metadata API](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).<br/>
+But the docs don’t show what works for *most* projects.<br/>
+They also skip some important under-the-hood logic.<br/>
 So we’re left figuring things out through trial and error.
 
-So we search for guides. But they don’t help.
-They explain SEO 101. But we already know that.
-They use [`example.com`](http://example.com) or `SITE_URL`. But URLs can be derived automatically.
-They tell us to add a ton of icons and a PWA manifest.
+So we search for guides. But they don’t help.<br/>
+They explain SEO 101. But we already know that.<br/>
+They use [`example.com`](http://example.com) or `SITE_URL`. But URLs can be derived automatically.<br/>
+They tell us to add a ton of icons and a PWA manifest.<br/>
 But our guts say that’s overkill…
 
-That’s *why* I wrote this guide.
-To help you put everything together.
+That’s *why* I wrote this guide.<br/>
+To help you put everything together.<br/>
 So you can focus on building what *actually* matters.
 
-No need for libraries like [next-seo](https://github.com/garmeeh/next-seo) or [next-sitemap](https://github.com/iamvishnusankar/next-sitemap).
+No need for libraries like [next-seo](https://github.com/garmeeh/next-seo) or [next-sitemap](https://github.com/iamvishnusankar/next-sitemap).<br/>
 Next.js Metadata API is enough for most cases.
 
-And even though this is an “enough-is-enough” setup,
+And even though this is an “enough-is-enough” setup,<br/>
 it’s a solid foundation that can be extended when needed.
 
 ## Metadata
@@ -128,16 +128,16 @@ Here’s how we might set up metadata for a blog post:
 Now that we have this example, let’s break it down piece by piece.
 
 ### Duplication
-The first thing you’ll notice is duplication here and there.
-This is the first confusion you face when working with the Metadata API.
-The docs aren’t clear on whether you should duplicate `title` and `description` for OpenGraph.
+The first thing you’ll notice is duplication here and there.<br/>
+This is the first confusion you face when working with the Metadata API.<br/>
+The docs aren’t clear on whether you should duplicate `title` and `description` for OpenGraph.<br/>
 And based on the DRY principle — should we create a helper like `constructMetadata`?
 
 import metadataFieldsSrc from './assets/metadata-fields.png'
 
 <Image src={metadataFieldsSrc} alt="Next.js Docs" />
 
-The truth is — we shouldn’t!
+The truth is — we shouldn’t!<br/>
 Actually, the correct output is *this* one:
 
 ```html
@@ -151,11 +151,11 @@ Actually, the correct output is *this* one:
 <meta property="twitter:description" content="The React Framework for the Web" />
 ```
 
-Next.js falls back to the top-level `title` and `description` if they’re missing.
-Only set `openGraph` and `twitter` if you need unique values.
+Next.js falls back to the top-level `title` and `description` if they’re missing.<br/>
+Only set `openGraph` and `twitter` if you need unique values.<br/>
 And in most cases, you don’t.
 
-The same applies to `images`.
+The same applies to `images`.<br/>
 You only need to set it for `openGraph` — `twitter` will be generated automatically.
 
 So here’s the revised version with no duplication:
@@ -198,19 +198,20 @@ export async function generateMetadata({
 }
 ```
 
-OpenGraph and Twitter metadata are still generated as expected.
-Duplication is one of the biggest misconceptions about the Metadata API.
+OpenGraph and Twitter metadata are still generated as expected.<br/>
+Duplication is one of the biggest misconceptions about the Metadata API.<br/>
 And most guides out there only reinforce it.
 
 ### Basic Fields
-Next.js docs introduce you to “[Basic Fields](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#basic-fields)”.
+
+Next.js docs introduce you to “[Basic Fields](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#basic-fields)”.<br/>
 But do you *really* need them? And what about “Advanced Fields”?
 
 import basicFieldsSrc from './assets/basic-fields.png'
 
 <Image src={basicFieldsSrc} alt="Next.js Docs" />
 
-The truth is, search engines [don’t care about most of them](https://developers.google.com/search/docs/crawling-indexing/special-tags).
+The truth is, search engines [don’t care about most of them](https://developers.google.com/search/docs/crawling-indexing/special-tags).<br/>
 And when you *actually* need the “advanced” fields, you’ll [know for sure](https://support.google.com/webmasters/answer/9008080?hl=en).
 
 If you *really* want to provide these fields, consider JSON-LD:
@@ -239,7 +240,7 @@ export default async function Page({ params }) {
 }
 ```
 
-It helps search engines generate rich results.
+It helps search engines generate rich results.<br/>
 Most projects don’t need it, and if yours does, the official docs [explain it well](https://nextjs.org/docs/app/building-your-application/optimizing/metadata#json-ld).
 
 So just keep `title` and `description`, drop everything else, and let’s move on.
@@ -261,11 +262,11 @@ return {
 ```
 
 ### Templates
-But what if we don’t want to provide `title` and `description` for every page?
+But what if we don’t want to provide `title` and `description` for every page?<br/>
 How do we set default values?
 
-Now that we’ve removed duplication, [templates](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#template-object) are useful again!
-Often, duplication stops us from using them properly because of how merging works.
+Now that we’ve removed duplication, [templates](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#template-object) are useful again!<br/>
+Often, duplication stops us from using them properly because of how merging works.<br/>
 Now, we can set proper default in `RootLayout` — and override them when needed:
 ```tsx
 export const metadata: Metadata = {
@@ -276,13 +277,13 @@ export const metadata: Metadata = {
   description: 'Some description',
 }
 ```
-Don’t forget — merging is *shallow*.
-And that’s actually a good thing.
-You can always merge deeply with `structuredClone`.
+Don’t forget — merging is *shallow*.<br/>
+And that’s actually a good thing.<br/>
+You can always merge deeply with `structuredClone`.<br/>
 But if merging were deep by default, you *couldn’t* make it shallow when needed.
 
 ### Not Found
-Now, let’s talk about the `Post Not Found` state.
+Now, let’s talk about the `Post Not Found` state.<br/>
 Actually, this state *isn’t* possible in our case:
 ```tsx
 if (!post) {
@@ -292,7 +293,7 @@ if (!post) {
 }
 ```
 
-We’re *already* handling it by calling `notFound` inside the `Page` itself.
+We’re *already* handling it by calling `notFound` inside the `Page` itself.<br/>
 But we still need to help TypeScript infer the type as non-null — so let’s return it there as well.
 ```tsx
 if (!post) {
@@ -300,17 +301,17 @@ if (!post) {
 }
 ```
 ### Request Memoization
-You might have noticed that `generateMetadata` and `Page` fetch data using different functions.
+You might have noticed that `generateMetadata` and `Page` fetch data using different functions.<br/>
 And that’s a problem.
 
-Next.js **memoizes requests with the same URL** across functions like `generateMetadata` and `Page`.
+Next.js **memoizes requests with the same URL** across functions like `generateMetadata` and `Page`.<br/>
 So you should use a single `fetch` function for the whole page — even if some fields aren’t needed for metadata.
 
 import deduplicationSrc from './assets/deduplication.png'
 
 <Image src={deduplicationSrc} alt="Next.js Docs" />
 
-And now, we’re almost there — except for one thing: images.
+And now, we’re almost there — except for one thing: images.<br/>
 It’s much better to generate them.
 
 ```tsx
@@ -334,31 +335,31 @@ export async function generateMetadata({
 }
 ```
 
-Not just because this metadata can be precomputed at build time.
+Not just because this metadata can be precomputed at build time.<br/>
 But that’s a whole other topic.
 
 ## Images
 
-The problem with providing a URL in metadata?
-Images *aren’t* cached on the client side.
-You need to rely on the origin to serve them properly.
+The problem with providing a URL in metadata?<br/>
+Images *aren’t* cached on the client side.<br/>
+You need to rely on the origin to serve them properly.<br/>
 And if they’re inside the `public` folder, [they’re not cached at all](https://nextjs.org/docs/app/building-your-application/optimizing/static-assets#caching):
 
 import noPublicCachingSrc from './assets/no-public-caching.png'
 
 <Image src={noPublicCachingSrc} alt="Next.js Docs" />
 
-To save bandwidth, images need to be cached *properly*.
+To save bandwidth, images need to be cached *properly*.<br/>
 Next.js solves this with [Static Rendering](https://nextjs.org/docs/app/building-your-application/rendering/server-components#static-rendering-default):
 
 import staticRenderingSrc from './assets/static-rendering.png'
 
 <Image src={staticRenderingSrc} alt="Next.js Docs" />
 
-It optimizes images at build time by adding a hash, making them **immutable**.
+It optimizes images at build time by adding a hash, making them **immutable**.<br/>
 It also generates metadata like image `type`, `width`, and `height` for you.
 
-All you have to do is put `opengraph-image` near `page.tsx`.
+All you have to do is put `opengraph-image` near `page.tsx`.<br/>
 No need for a separate `twitter-image`.
 
 
@@ -366,8 +367,8 @@ import opengraphImagesSrc from './assets/opengraph-images.png'
 
 <Image src={opengraphImagesSrc} alt="Next.js Docs" />
 
-We can use `.png` for images we know beforehand — like for the home page.
-But dynamic blog post images?
+We can use `.png` for images we know beforehand — like for the home page.<br/>
+But dynamic blog post images?<br/>
 Those should be *generated*…
 
 ### [Image Generation](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/opengraph-image#generate-images-using-code-js-ts-tsx)
@@ -429,32 +430,32 @@ export default async function OpenGraphImage({
 
 Nothing complicated so far. But this isn’t enough.
 
-First, [Font Optimization](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) **doesn’t work** with `ImageResponse`.
+First, [Font Optimization](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) **doesn’t work** with `ImageResponse`.<br/>
 So we have to install fonts *locally*.
 
-And honestly, I highly recommend doing this anyway.
-Take [Inter](https://rsms.me/inter/), for example.
+And honestly, I highly recommend doing this anyway.<br/>
+Take [Inter](https://rsms.me/inter/), for example.<br/>
 The locally installed version has a ton of [features](https://rsms.me/inter/#features) that Google Fonts *strips out:*
 
 import interFeaturesSrc from './assets/inter-features.png'
 
 <Image src={interFeaturesSrc} alt="Next.js Docs" />
 
-And let’s be real — you’ll have even more options beyond Inter.
+And let’s be real — you’ll have even more options beyond Inter.<br/>
 It’s everywhere now. 😅
 
-Anyway, [download the font](https://rsms.me/inter/download/), unzip it into your project, and connect it like in the example.
+Anyway, [download the font](https://rsms.me/inter/download/), unzip it into your project, and connect it like in the example.<br/>
 Just note that [WOFF2 isn’t supported](https://github.com/vercel/satori/discussions/157), so use **WOFF** or **TTF** instead.
 
 Also, if you have static text, you can use [google-font-to-svg-path](https://danmarshall.github.io/google-font-to-svg-path/) as a one-time solution. 
 
-When it comes to styling, you have two options: **inline styles** or **Tailwind**.
-And I *don’t* recommend the latter.
-`ImageResponse` **won’t respect your Tailwind config**.
+When it comes to styling, you have two options: **inline styles** or **Tailwind**.<br/>
+And I *don’t* recommend the latter.<br/>
+`ImageResponse` **won’t respect your Tailwind config**.<br/>
 So forget about your carefully set `text-primary` tokens.
 
-Also, many Tailwind classes *aren’t supported*, so you’ll end up mixing them with inline styles anyway.
-And honestly? There’s nothing wrong with inline styles for this.
+Also, many Tailwind classes *aren’t supported*, so you’ll end up mixing them with inline styles anyway.<br/>
+And honestly? There’s nothing wrong with inline styles for this.<br/>
 They’re simple, and they just work.
 
 To keep things concise, here’s the exact code I use on [my website](https://www.boar.is/):
@@ -561,7 +562,7 @@ Feel free to take inspiration, and let's move on.
 
 ## Icons
 
-Besides images, you’ll need a favicon and a few larger icons for bookmarks.
+Besides images, you’ll need a favicon and a few larger icons for bookmarks.<br/>
 The first question is: *how many*?
 
 You’ve probably seen guides telling you to crop 20-30 images, convert them into multiple formats, and add a ton of meta tags:
@@ -571,11 +572,11 @@ import iconsTooMuchSrc from './assets/icons-too-much.png'
 
 <Image src={iconsTooMuchSrc} alt="Too much icons" />
 
-Don’t worry — that’s *outdated* advice.
+Don’t worry — that’s *outdated* advice.<br/>
 Unless you care about rare edge cases, [keep it simple](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs).
 
-What about PWA manifests?
-Let’s be honest — how many users even know about that, **let alone use it**?
+What about PWA manifests?<br/>
+Let’s be honest — how many users even know about that, **let alone use it**?<br/>
 Unless you’re building a full-fledged PWA, it’s just not worth the effort.
 
 For most use cases, here’s all you need:
@@ -598,12 +599,12 @@ import appIconsSrc from './assets/app-icons.png'
 
 <Image src={appIconsSrc} alt="App icons" />
 
-For most projects, this setup *is* enough.
+For most projects, this setup *is* enough.<br/>
 Adding 20-30 icons is like supporting IE11 — you should know exactly *why* you’re doing it.
 
 ## Sitemap
 
-The [Next.js Sitemap API](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap#generating-a-sitemap-using-code-js-ts) is straightforward.
+The [Next.js Sitemap API](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap#generating-a-sitemap-using-code-js-ts) is straightforward.<br/>
 You fetch your data and use basic JavaScript loops to generate the sitemap:
 
 ```tsx
@@ -628,17 +629,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }
 ```
 
-But there’s one catch.
+But there’s one catch.<br/>
 You *can’t* use relative URLs like you can in metadata .
 
-Next.js doesn’t provide any API for resolving relative URLs in sitemaps.
+Next.js doesn’t provide any API for resolving relative URLs in sitemaps.<br/>
 *Fortunately*, we can simulate this behavior by looking at the [default logic for resolving URLs](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase) in metadata:
 
 import urlDefaultSrc from './assets/url-default.png'
 
 <Image src={urlDefaultSrc} alt="Next.js Docs" />
 
-After some digging, I found [functions in the source code](https://github.com/vercel/next.js/blob/canary/packages/next/src/lib/metadata/resolvers/resolve-url.ts) that can be combined into a utility for resolving both relative and absolute URLs.
+After some digging, I found [functions in the source code](https://github.com/vercel/next.js/blob/canary/packages/next/src/lib/metadata/resolvers/resolve-url.ts) that can be combined into a utility for resolving both relative and absolute URLs.<br/>
 It’s not identical to how metadata handles URLs, but it’s close enough:
 
 ```tsx
@@ -685,13 +686,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }
 ```
 
-This utility isn’t just useful for sitemaps.
-It’s also useful for things like resolving the `basePath` for [Auth.js](https://authjs.dev/) endpoints.
+This utility isn’t just useful for sitemaps.<br/>
+It’s also useful for things like resolving the `basePath` for [Auth.js](https://authjs.dev/) endpoints.<br/>
 Thank me later!
 
 ### A Note on Ignored Fields
 
-In the example above, we included `lastModified` to help crawlers detect post freshness.
+In the example above, we included `lastModified` to help crawlers detect post freshness.<br/>
 But we skipped fields like `priority` and `changeFrequency` because [Google ignores them](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#additional-notes-about-xml-sitemaps).
 
 Here’s why:
@@ -701,11 +702,11 @@ Here’s why:
 
 ### Do I Need a Sitemap Index?
 
-Another question: do you need a sitemap index?
-[Google limits sitemaps to 50,000 URLs each](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#general-guidelines).
+Another question: do you need a sitemap index?<br/>
+[Google limits sitemaps to 50,000 URLs each](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#general-guidelines).<br/>
 A sitemap index lets you split large sites into multiple sitemaps.
 
-*Unless* you’re expecting over 50,000 URLs, this is overkill.
+*Unless* you’re expecting over 50,000 URLs, this is overkill.<br/>
 It’s a complex feature and often a premature optimization, much like JSON-LD for metadata.
 
 If you *do* need it, here’s how:
@@ -742,17 +743,17 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-And that’s it.
+And that’s it.<br/>
 No tricks, no complications.
 
 ## Wrapping Up
 
-That's it! Now you have a solid foundation for most projects.
-Hopefully, I’ve dispelled some myths about things that *don’t* matter anymore.
+That's it! Now you have a solid foundation for most projects.<br/>
+Hopefully, I’ve dispelled some myths about things that *don’t* matter anymore.<br/>
 Most of them are just edge cases.
 
-Sure, you might need JSON-LD or better Twitter Cards at some point.
-But that’s easy to figure out.
+Sure, you might need JSON-LD or better Twitter Cards at some point.<br/>
+But that’s easy to figure out.<br/>
 And it will fit right into this setup.
 
 SEO *might not* be fun, but it *doesn’t* have to be a headache.
