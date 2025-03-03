@@ -30,7 +30,7 @@
 
 @layer components {
   .typography {
-    @apply max-w-[60ch] text-balance ~text-base/xl text-gray-12/90 drop-shadow;
+    @apply max-w-[60ch] text-pretty ~text-base/xl text-gray-12/90 drop-shadow;
   }
 
   .typography > *:first-child {
@@ -54,7 +54,7 @@
   }
 
   .typography .shiki {
-    @apply ~text-xs/sm ~p-2/4 ~rounded-xl/2xl bg-clip-padding border border-white/10 !bg-transparent bg-gradient-to-br from-gray-2/75 to-gray-1/75 drop-shadow-md overflow-x-auto overflow-y-hidden [scrollbar-width:thin];
+    @apply ~text-xs/sm ~p-2/4 ~rounded-xl/2xl bg-clip-padding border border-white/10 !bg-transparent bg-gradient-to-br from-gray-2/75 to-gray-1/75 drop-shadow-md overflow-x-auto overflow-y-hidden [scrollbar-width:thin] transform-gpu;
   }
 
   .typography code:not(.shiki code) {
