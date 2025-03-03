@@ -28,7 +28,7 @@ export function PostSubscriptionSection({
     <article
       className={cx(
         shadowInsetStyles,
-        'mx-auto space-y-4 font-medium ~text-base/xl max-w-[80ch] bg-gray-4/30 bg-clip-padding border border-gray-9/50 ~rounded-2xl/4xl after:~rounded-2xl/4xl ~p-5/8 leading-relaxed drop-shadow-lg',
+        'mx-auto space-y-4 font-medium ~text-base/xl max-w-[55ch] bg-gray-4/30 bg-clip-padding border border-gray-9/50 ~rounded-2xl/4xl after:~rounded-2xl/4xl ~p-5/8 leading-relaxed drop-shadow-lg',
       )}
     >
       <p>
