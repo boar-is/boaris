@@ -30,11 +30,6 @@ export default async function SitePage() {
             effective
           </em>
         </h1>
-        <p className="text-gray-12/75 ~text-lg/2xl font-medium text-balance !leading-relaxed max-w-prose">
-          This blog introduces an experimental format that blends the best of
-          text and video. It slows down scrolling, making it easier to explore
-          code examples and follow the explanation step by step.
-        </p>
         <footer className="flex flex-wrap ~gap-4/6 *:~px-6/12 ~mt-6/10">
           <Link
             href={process.env['CONTACT_ME_FORM_URL']!}

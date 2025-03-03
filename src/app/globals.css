@@ -28,54 +28,24 @@
   @apply w-full mx-auto ~px-2/8 lg:max-w-7xl;
 }
 
-.tiptap {
-  @apply rounded-xl;
-}
-
-.tiptap .is-editor-empty:first-child::before {
-  @apply text-gray-10 content-[attr(data-placeholder)] float-left h-0 pointer-events-none;
-}
-
-.cm-editor {
-  @apply h-full;
-}
-
-.cm-scroller {
-  @apply font-mono !~text-xs/sm !overflow-visible !w-full;
-}
-
-.cm-line {
-  @apply !~pl-2/4;
-}
-
-.cm-scroller:has(.cm-selectionBackground) .cm-activeLine {
-  @apply !bg-transparent !border-none;
-}
-
-.cm-activeLine,
-.cm-selectionBackground,
-.cm-selectionMatch {
-  @apply !bg-accent-11/20;
-}
-
 @layer components {
   .typography {
     @apply max-w-[40ch] text-balance ~text-base/2xl text-gray-11 tracking-tight drop-shadow;
   }
 
-  .typography .tiptap > *:first-child {
+  .typography > *:first-child {
     margin-top: 0;
   }
 
-  .typography .tiptap > *:last-child {
+  .typography > *:last-child {
     margin-bottom: 0;
   }
 
-  .typography :where([data-slot~="heading"]) {
+  .typography :where(h2) {
     @apply ~mt-10/16 ~mb-5/8 ~text-3xl/5xl font-extrabold;
   }
 
-  .typography :where([data-slot~="subheading"]) {
+  .typography :where(h3) {
     @apply ~mt-8/12 ~mb-4/6 ~text-2xl/4xl font-bold;
   }
 
@@ -127,8 +97,7 @@
     @apply marker:text-accent-10;
   }
 
-  .typography
-    :where([data-slot~="heading"] + *, [data-slot~="subheading"] + *) {
+  .typography :where(h2 + *, h3 + *) {
     @apply mt-0;
   }
 
