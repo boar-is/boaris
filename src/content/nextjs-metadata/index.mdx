@@ -133,6 +133,10 @@ This is the first confusion you face when working with the Metadata API.
 The docs aren’t clear on whether you should duplicate `title` and `description` for OpenGraph.
 And based on the DRY principle — should we create a helper like `constructMetadata`?
 
+import metadataFieldsSrc from './assets/metadata-fields.png'
+
+<Image src={metadataFieldsSrc} alt="Next.js Docs" />
+
 The truth is — we shouldn’t!
 Actually, the correct output is *this* one:
 
@@ -201,6 +205,10 @@ And most guides out there only reinforce it.
 ### Basic Fields
 Next.js docs introduce you to “[Basic Fields](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#basic-fields)”.
 But do you *really* need them? And what about “Advanced Fields”?
+
+import basicFieldsSrc from './assets/basic-fields.png'
+
+<Image src={basicFieldsSrc} alt="Next.js Docs" />
 
 The truth is, search engines [don’t care about most of them](https://developers.google.com/search/docs/crawling-indexing/special-tags).
 And when you *actually* need the “advanced” fields, you’ll [know for sure](https://support.google.com/webmasters/answer/9008080?hl=en).
@@ -297,8 +305,6 @@ And that’s a problem.
 
 Next.js **memoizes requests with the same URL** across functions like `generateMetadata` and `Page`.
 So you should use a single `fetch` function for the whole page — even if some fields aren’t needed for metadata.
-
-
 
 import deduplicationSrc from './assets/deduplication.png'
 
@@ -573,6 +579,10 @@ Let’s be honest — how many users even know about that, **let alone use it**?
 Unless you’re building a full-fledged PWA, it’s just not worth the effort.
 
 For most use cases, here’s all you need:
+
+import icon180Src from './assets/icon-180.png'
+
+<Image src={icon180Src} alt="Next.js Docs" />
 
 1. Prepare a large `180x180` icon. Use this as your base.
 2. Visit [RealFaviconGenerator](https://realfavicongenerator.net/).
