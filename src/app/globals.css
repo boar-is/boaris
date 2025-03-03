@@ -54,7 +54,7 @@
   }
 
   .typography .shiki {
-    @apply text-sm ~p-2/4 ~rounded-xl/2xl bg-clip-padding border border-white/10 !bg-transparent bg-gradient-to-br from-gray-2/75 to-gray-1/75 drop-shadow-md overflow-auto [scrollbar-width:thin];
+    @apply ~text-xs/sm ~p-2/4 ~rounded-xl/2xl bg-clip-padding border border-white/10 !bg-transparent bg-gradient-to-br from-gray-2/75 to-gray-1/75 drop-shadow-md overflow-auto [scrollbar-width:thin];
   }
 
   .typography code:not(.shiki code) {

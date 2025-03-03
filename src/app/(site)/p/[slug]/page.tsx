@@ -138,7 +138,7 @@ export default async function PostPage({
           <PostSubscriptionSection />
         </div>
       </BlurFade>
-      <section className="mx-auto typography w-full drop-shadow-md">
+      <section className="mx-auto typography w-full drop-shadow-md px-4">
         <Content />
       </section>
       <BlurFade inView>
