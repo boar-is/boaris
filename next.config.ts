@@ -1,6 +1,7 @@
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import createMDX from '@next/mdx'
 import optimizeLocales from '@react-aria/optimize-locales-plugin'
+import rehypeShiki from '@shikijs/rehype'
 import type { NextConfig } from 'next'
 import { resolveUrl } from '~/lib/routing/resolvers'
 
@@ -94,7 +95,11 @@ const baseNextConfig: NextConfig = {
   },
 }
 
-const withMdx = createMDX({})
+const withMdx = createMDX({
+  options: {
+    rehypePlugins: [[rehypeShiki, { theme: 'github-dark' }]],
+  },
+})
 
 const nextConfig = withBundleAnalyzer({
   enabled: isAnalyze,
