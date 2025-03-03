@@ -97,7 +97,7 @@ const baseNextConfig: NextConfig = {
 
 const withMdx = createMDX({
   options: {
-    rehypePlugins: [[rehypeShiki, { theme: 'github-dark-default' }]],
+    rehypePlugins: [[rehypeShiki, { theme: 'github-dark-dimmed' }]],
   },
 })
 
