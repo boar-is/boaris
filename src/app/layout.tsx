@@ -2,7 +2,6 @@ import type { PropsWithChildren } from 'react'
 import { I18nProvider } from '~/lib/i18n/i18n-provider'
 import { LocalizedStringProvider } from '~/lib/i18n/localized-string-provider'
 import { FocusVisibleProvider } from '~/lib/interactions/focus-visible-provider'
-import { JotaiProvider } from '~/lib/jotai/jotai-provider'
 import { sans } from '~/lib/media/fonts/sans'
 import { MotionProvider } from '~/lib/motion/motion-provider'
 import { cx } from '~/lib/react/cx'
@@ -57,11 +56,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
         )}
         <I18nProvider>
           <AriaRouterProvider>
-            <JotaiProvider>
-              <MotionProvider>
-                <BackgroundProvider>{children}</BackgroundProvider>
-              </MotionProvider>
-            </JotaiProvider>
+            <MotionProvider>
+              <BackgroundProvider>{children}</BackgroundProvider>
+            </MotionProvider>
           </AriaRouterProvider>
         </I18nProvider>
       </body>
