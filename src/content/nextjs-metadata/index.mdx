@@ -1,4 +1,4 @@
-import { Image } from '~/lib/media/image'
+import { PostImage } from '~/lib/media/post-image'
 
 Most of us developers **hate** dealing with SEO.<br/>
 It’s frustrating, it’s not part of business logic, and it’s definitely *not* fun.<br/>
@@ -135,7 +135,7 @@ And based on the DRY principle — should we create a helper like `constructMeta
 
 import metadataFieldsSrc from './assets/metadata-fields.png'
 
-<Image src={metadataFieldsSrc} alt="Next.js Docs" />
+<PostImage src={metadataFieldsSrc} alt="Next.js Docs" />
 
 The truth is — we shouldn’t!<br/>
 Actually, the correct output is *this* one:
@@ -209,7 +209,7 @@ But do you *really* need them? And what about “Advanced Fields”?
 
 import basicFieldsSrc from './assets/basic-fields.png'
 
-<Image src={basicFieldsSrc} alt="Next.js Docs" />
+<PostImage src={basicFieldsSrc} alt="Next.js Docs" />
 
 The truth is, search engines [don’t care about most of them](https://developers.google.com/search/docs/crawling-indexing/special-tags).<br/>
 And when you *actually* need the “advanced” fields, you’ll [know for sure](https://support.google.com/webmasters/answer/9008080?hl=en).
@@ -309,7 +309,7 @@ So you should use a single `fetch` function for the whole page — even if some 
 
 import deduplicationSrc from './assets/deduplication.png'
 
-<Image src={deduplicationSrc} alt="Next.js Docs" />
+<PostImage src={deduplicationSrc} alt="Next.js Docs" />
 
 And now, we’re almost there — except for one thing: images.<br/>
 It’s much better to generate them.
@@ -347,14 +347,14 @@ And if they’re inside the `public` folder, [they’re not cached at all](https
 
 import noPublicCachingSrc from './assets/no-public-caching.png'
 
-<Image src={noPublicCachingSrc} alt="Next.js Docs" />
+<PostImage src={noPublicCachingSrc} alt="Next.js Docs" />
 
 To save bandwidth, images need to be cached *properly*.<br/>
 Next.js solves this with [Static Rendering](https://nextjs.org/docs/app/building-your-application/rendering/server-components#static-rendering-default):
 
 import staticRenderingSrc from './assets/static-rendering.png'
 
-<Image src={staticRenderingSrc} alt="Next.js Docs" />
+<PostImage src={staticRenderingSrc} alt="Next.js Docs" />
 
 It optimizes images at build time by adding a hash, making them **immutable**.<br/>
 It also generates metadata like image `type`, `width`, and `height` for you.
@@ -365,7 +365,7 @@ No need for a separate `twitter-image`.
 
 import opengraphImagesSrc from './assets/opengraph-images.png'
 
-<Image src={opengraphImagesSrc} alt="Next.js Docs" />
+<PostImage src={opengraphImagesSrc} alt="Next.js Docs" />
 
 We can use `.png` for images we know beforehand — like for the home page.<br/>
 But dynamic blog post images?<br/>
@@ -439,7 +439,7 @@ The locally installed version has a ton of [features](https://rsms.me/inter/#fea
 
 import interFeaturesSrc from './assets/inter-features.png'
 
-<Image src={interFeaturesSrc} alt="Next.js Docs" />
+<PostImage src={interFeaturesSrc} alt="Next.js Docs" />
 
 And let’s be real — you’ll have even more options beyond Inter.<br/>
 It’s everywhere now. 😅
@@ -570,7 +570,7 @@ You’ve probably seen guides telling you to crop 20-30 images, convert them int
 
 import iconsTooMuchSrc from './assets/icons-too-much.png'
 
-<Image src={iconsTooMuchSrc} alt="Too much icons" />
+<PostImage src={iconsTooMuchSrc} alt="Too much icons" />
 
 Don’t worry — that’s *outdated* advice.<br/>
 Unless you care about rare edge cases, [keep it simple](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs).
@@ -583,7 +583,7 @@ For most use cases, here’s all you need:
 
 import icon180Src from './assets/icon-180.png'
 
-<Image src={icon180Src} alt="Next.js Docs" />
+<PostImage src={icon180Src} alt="Next.js Docs" />
 
 1. Prepare a large `180x180` icon. Use this as your base.
 2. Visit [RealFaviconGenerator](https://realfavicongenerator.net/).
@@ -597,7 +597,7 @@ From the downloaded `favicon-for-app.zip`:
 
 import appIconsSrc from './assets/app-icons.png'
 
-<Image src={appIconsSrc} alt="App icons" />
+<PostImage src={appIconsSrc} alt="App icons" />
 
 For most projects, this setup *is* enough.<br/>
 Adding 20-30 icons is like supporting IE11 — you should know exactly *why* you’re doing it.
@@ -637,7 +637,7 @@ Next.js doesn’t provide any API for resolving relative URLs in sitemaps.<br/>
 
 import urlDefaultSrc from './assets/url-default.png'
 
-<Image src={urlDefaultSrc} alt="Next.js Docs" />
+<PostImage src={urlDefaultSrc} alt="Next.js Docs" />
 
 After some digging, I found [functions in the source code](https://github.com/vercel/next.js/blob/canary/packages/next/src/lib/metadata/resolvers/resolve-url.ts) that can be combined into a utility for resolving both relative and absolute URLs.<br/>
 It’s not identical to how metadata handles URLs, but it’s close enough:
