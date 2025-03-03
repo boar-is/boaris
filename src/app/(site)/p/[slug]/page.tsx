@@ -13,7 +13,6 @@ import { shadowInsetStyles } from '~/lib/surfaces/shadow-inset-styles'
 import { postRepository } from '~/model/data/post'
 import { Post } from '~/model/post'
 import { ButtonJumpToTop } from './_button-jump-to-top'
-import { PostDisclaimerSection } from './_disclaimer-section'
 import { PostSubscriptionSection } from './_subscription-section'
 
 export const dynamicParams = false
@@ -126,16 +125,11 @@ export default async function PostPage({
       </header>
       <BlurFade inView>
         <div className="container">
-          <PostDisclaimerSection
+          <PostSubscriptionSection
             slug={slug}
             intent="Check out this interactive blog post from @MrBoaris 🤯:"
-            twitterUrl={twitterUrl}
+            twitterUrl={Option.getOrUndefined(twitterUrl)}
           />
-        </div>
-      </BlurFade>
-      <BlurFade inView>
-        <div className="container">
-          <PostSubscriptionSection />
         </div>
       </BlurFade>
       <section className="mx-auto typography w-full drop-shadow-md px-4">
@@ -143,15 +137,10 @@ export default async function PostPage({
       </section>
       <BlurFade inView>
         <div className="container">
-          <PostSubscriptionSection />
-        </div>
-      </BlurFade>
-      <BlurFade inView>
-        <div className="container">
-          <PostDisclaimerSection
+          <PostSubscriptionSection
             slug={slug}
             intent="Check out this interactive blog post from @MrBoaris 🤯:"
-            twitterUrl={twitterUrl}
+            twitterUrl={Option.getOrUndefined(twitterUrl)}
           />
         </div>
       </BlurFade>
