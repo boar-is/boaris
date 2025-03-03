@@ -1,3 +1,5 @@
+import { Image } from '~/lib/media/image'
+
 Most of us developers **hate** dealing with SEO.
 It’s frustrating, it’s not part of business logic, and it’s definitely *not* fun.
 But it needs to be done.
@@ -296,7 +298,11 @@ And that’s a problem.
 Next.js **memoizes requests with the same URL** across functions like `generateMetadata` and `Page`.
 So you should use a single `fetch` function for the whole page — even if some fields aren’t needed for metadata.
 
-![Next.js Docs](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zeli0yk1z453vk2j81de.png)
+
+
+import deduplicationSrc from './assets/deduplication.png'
+
+<Image src={deduplicationSrc} alt="Next.js Docs" />
 
 And now, we’re almost there — except for one thing: images.
 It’s much better to generate them.
@@ -332,14 +338,16 @@ Images *aren’t* cached on the client side.
 You need to rely on the origin to serve them properly.
 And if they’re inside the `public` folder, [they’re not cached at all](https://nextjs.org/docs/app/building-your-application/optimizing/static-assets#caching):
 
+import noPublicCachingSrc from './assets/no-public-caching.png'
 
-![Next.js Docs](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/98xkgrecf0ytdczr18am.png)
+<Image src={noPublicCachingSrc} alt="Next.js Docs" />
 
 To save bandwidth, images need to be cached *properly*.
 Next.js solves this with [Static Rendering](https://nextjs.org/docs/app/building-your-application/rendering/server-components#static-rendering-default):
 
+import staticRenderingSrc from './assets/static-rendering.png'
 
-![Next.js Docs](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xkkdp9l6ydrnvu8eis6c.png)
+<Image src={staticRenderingSrc} alt="Next.js Docs" />
 
 It optimizes images at build time by adding a hash, making them **immutable**.
 It also generates metadata like image `type`, `width`, and `height` for you.
@@ -348,7 +356,9 @@ All you have to do is put `opengraph-image` near `page.tsx`.
 No need for a separate `twitter-image`.
 
 
-![OpenGraph Images](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8canu5uukb2hvkqouz3m.png)
+import opengraphImagesSrc from './assets/opengraph-images.png'
+
+<Image src={opengraphImagesSrc} alt="Next.js Docs" />
 
 We can use `.png` for images we know beforehand — like for the home page.
 But dynamic blog post images?
@@ -420,8 +430,9 @@ And honestly, I highly recommend doing this anyway.
 Take [Inter](https://rsms.me/inter/), for example.
 The locally installed version has a ton of [features](https://rsms.me/inter/#features) that Google Fonts *strips out:*
 
+import interFeaturesSrc from './assets/inter-features.png'
 
-![Inter Font Features](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9jiyx2ca6nd4ci80w4un.png)
+<Image src={interFeaturesSrc} alt="Next.js Docs" />
 
 And let’s be real — you’ll have even more options beyond Inter.
 It’s everywhere now. 😅
@@ -550,7 +561,9 @@ The first question is: *how many*?
 You’ve probably seen guides telling you to crop 20-30 images, convert them into multiple formats, and add a ton of meta tags:
 
 
-![Too much icons](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wgylc7u6mj4hd686wbny.png)
+import iconsTooMuchSrc from './assets/icons-too-much.png'
+
+<Image src={iconsTooMuchSrc} alt="Too much icons" />
 
 Don’t worry — that’s *outdated* advice.
 Unless you care about rare edge cases, [keep it simple](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs).
@@ -571,8 +584,9 @@ From the downloaded `favicon-for-app.zip`:
 1. Extract `apple-icon.png`, `favicon.ico`, and `icon.png` into your `app` folder.
 2. Skip `icon.svg`. It’s just a base64 version of your PNG and can be 10x larger. Use it only if you have a true vector version of your icon.
 
+import appIconsSrc from './assets/app-icons.png'
 
-![App icons](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/k12vlco6xel7q6r81n23.png)
+<Image src={appIconsSrc} alt="App icons" />
 
 For most projects, this setup *is* enough.
 Adding 20-30 icons is like supporting IE11 — you should know exactly *why* you’re doing it.
@@ -610,8 +624,9 @@ You *can’t* use relative URLs like you can in metadata .
 Next.js doesn’t provide any API for resolving relative URLs in sitemaps.
 *Fortunately*, we can simulate this behavior by looking at the [default logic for resolving URLs](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase) in metadata:
 
+import urlDefaultSrc from './assets/url-default.png'
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8bzmis56tuhgmwf9i77p.png)
+<Image src={urlDefaultSrc} alt="Next.js Docs" />
 
 After some digging, I found [functions in the source code](https://github.com/vercel/next.js/blob/canary/packages/next/src/lib/metadata/resolvers/resolve-url.ts) that can be combined into a utility for resolving both relative and absolute URLs.
 It’s not identical to how metadata handles URLs, but it’s close enough:
